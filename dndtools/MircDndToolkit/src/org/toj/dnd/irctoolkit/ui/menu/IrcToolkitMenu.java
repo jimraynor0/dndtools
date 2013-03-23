@@ -1,0 +1,232 @@
+package org.toj.dnd.irctoolkit.ui.menu;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+
+import javax.swing.JFileChooser;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
+import javax.swing.filechooser.FileFilter;
+
+import org.apache.log4j.Logger;
+import org.jibble.pircbot.IrcException;
+import org.jibble.pircbot.NickAlreadyInUseException;
+import org.toj.dnd.irctoolkit.configs.GlobalConfigs;
+import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
+import org.toj.dnd.irctoolkit.engine.command.map.GenerateRandomMapCommand;
+import org.toj.dnd.irctoolkit.engine.command.map.LoadMapFromFileCommand;
+import org.toj.dnd.irctoolkit.engine.command.map.MapUndoCommand;
+import org.toj.dnd.irctoolkit.engine.command.map.SaveMapToFileCommand;
+import org.toj.dnd.irctoolkit.io.pircbot.IrcClient;
+import org.toj.dnd.irctoolkit.ui.MainFrame;
+
+public class IrcToolkitMenu extends JMenuBar {
+
+    private static final long serialVersionUID = -1414715154183290437L;
+    private Logger log = Logger.getLogger(this.getClass());
+
+    private MainFrame frame;
+    private NewMapDialog newMapDialog;
+    private JFileChooser fileChooser;
+
+    private String getMapDir() {
+        File mapDir = new File("maps");
+        if (!mapDir.isDirectory()) {
+            mapDir.mkdirs();
+        }
+        return mapDir.getAbsolutePath();
+    }
+
+    public IrcToolkitMenu(MainFrame mainFrame) {
+        this.frame = mainFrame;
+        this.newMapDialog = new NewMapDialog(frame);
+        // RestrainedFileSystemView fsv = new RestrainedFileSystemView(new
+        // File(this.getMapDir()));
+        // this.fileChooser = new JFileChooser(fsv.getHomeDirectory(), fsv);
+        this.fileChooser = new JFileChooser(getMapDir());
+        this.fileChooser.setFileFilter(new FileFilter() {
+
+            @Override
+            public boolean accept(File f) {
+                return f.getName().toLowerCase().endsWith(".map");
+            }
+
+            @Override
+            public String getDescription() {
+                return "DM Toolkit Map(*.map)";
+            }
+        });
+
+        JMenu fileMenu = new JMenu("File");
+
+        JMenuItem newMap = new JMenuItem("New Map", KeyEvent.VK_N);
+        newMap.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
+                ActionEvent.ALT_MASK));
+        newMap.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newMapDialog.launch();
+            }
+        });
+        fileMenu.add(newMap);
+
+        JMenuItem loadFromFile = new JMenuItem("Load from File", KeyEvent.VK_F);
+        loadFromFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,
+                ActionEvent.CTRL_MASK));
+        loadFromFile.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int result = fileChooser.showDialog(frame, "Load Map");
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    ToolkitEngine.getEngine().queueCommand(
+                            new LoadMapFromFileCommand(file));
+                }
+            }
+        });
+        fileMenu.add(loadFromFile);
+
+        JMenuItem SaveToFile = new JMenuItem("Save To File", KeyEvent.VK_S);
+        SaveToFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+                ActionEvent.CTRL_MASK));
+        SaveToFile.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int result = fileChooser.showSaveDialog(frame);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    if (!file.getName().endsWith(".map")) {
+                        file = new File(file.getParent(), file.getName()
+                                + ".map");
+                    }
+                    ToolkitEngine.getEngine().queueCommand(
+                            new SaveMapToFileCommand(file));
+                }
+            }
+        });
+        fileMenu.add(SaveToFile);
+        //
+        // JMenuItem loadFromClipboard = new JMenuItem("Load from Clipboard",
+        // KeyEvent.VK_C);
+        // loadFromClipboard.addActionListener(new ActionListener() {
+        //
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // ToolkitEngine.getEngine().queueCommand(new
+        // LoadFromClipboardCommand());
+        // }
+        // });
+        // fileMenu.add(loadFromClipboard);
+
+        fileMenu.addSeparator();
+
+        JMenuItem undo = new JMenuItem("Undo", KeyEvent.VK_U);
+        undo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
+                ActionEvent.CTRL_MASK));
+        undo.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ToolkitEngine.getEngine().queueCommand(new MapUndoCommand());
+            }
+        });
+        fileMenu.add(undo);
+
+        this.add(fileMenu);
+
+        JMenu mapGenMenu = new JMenu("Map Generator");
+
+        JMenuItem generateMap = new JMenuItem("Generate Random Map",
+                KeyEvent.VK_R);
+        generateMap.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
+                ActionEvent.ALT_MASK));
+        generateMap.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ToolkitEngine.getEngine().queueCommand(
+                        new GenerateRandomMapCommand());
+            }
+        });
+        mapGenMenu.add(generateMap);
+        this.add(mapGenMenu);
+
+        JMenu ircMenu = new JMenu("IRC");
+
+        JMenuItem connectToIrc = new JMenuItem("Connect", KeyEvent.VK_C);
+        connectToIrc.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String result = JOptionPane
+                            .showInputDialog(
+                                    "请输入主机地址(格式为\"主机名:端口号\"，例如\"irc.ourirc.com:8080\")",
+                                    IrcClient.getInstance().getServer() + ":"
+                                            + IrcClient.getInstance().getPort());
+                    if (result != null && !result.isEmpty()) {
+                        String[] params = result.split("\\:");
+                        if (params.length == 1) {
+                            GlobalConfigs.getConfigs()
+                                    .set(GlobalConfigs.CONF_IRC_SERV_HOST,
+                                            params[0]);
+                        } else {
+                            GlobalConfigs.getConfigs()
+                                    .set(GlobalConfigs.CONF_IRC_SERV_HOST,
+                                            params[0]);
+                            GlobalConfigs.getConfigs()
+                                    .set(GlobalConfigs.CONF_IRC_SERV_PORT,
+                                            params[1]);
+                        }
+                        if (IrcClient.getInstance().isConnected()) {
+                            IrcClient.getInstance().disconnect();
+                        }
+                        IrcClient.getInstance().connect();
+                    }
+                } catch (NickAlreadyInUseException e1) {
+                    ToolkitEngine.getEngine().fireErrorMsgWindow(
+                            "DM Toolkit的昵称\""
+                                    + IrcClient.getInstance().getNick()
+                                    + "\"已经被占用了。");
+                } catch (IOException e1) {
+                    ToolkitEngine.getEngine()
+                            .fireErrorMsgWindow("无法连接到IRC服务器。");
+                } catch (IrcException e1) {
+                    ToolkitEngine.getEngine()
+                            .fireErrorMsgWindow("无法连接到IRC服务器。");
+                }
+            }
+        });
+        ircMenu.add(connectToIrc);
+
+        JMenuItem changeNick = new JMenuItem("Change Nickname", KeyEvent.VK_N);
+        changeNick.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nick = IrcClient.getInstance().getNickname();
+                String result = JOptionPane.showInputDialog("请输入新的昵称", nick);
+                if (result != null && !result.isEmpty()) {
+                    log.debug("changing nick from " + nick + " to " + result);
+                    IrcClient.getInstance().setNickname(result);
+                    GlobalConfigs configs = GlobalConfigs.getConfigs();
+                    configs.set(GlobalConfigs.CONF_IRC_NICKNAME_ALT,
+                            configs.get(GlobalConfigs.CONF_IRC_NICKNAME));
+                    configs.set(GlobalConfigs.CONF_IRC_NICKNAME, result);
+                }
+            }
+        });
+        ircMenu.add(changeNick);
+
+        this.add(ircMenu);
+    }
+}

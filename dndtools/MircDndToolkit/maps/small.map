@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapGrid>
+  <width>5</width>
+  <height>5</height>
+  <mapObjects>
+    <mapObject>
+      <posX>3</posX>
+      <posY>3</posY>
+      <modelId>1333111358323.1</modelId>
+    </mapObject>
+    <mapObject>
+      <posX>1</posX>
+      <posY>1</posY>
+      <modelId>1333111375483.1</modelId>
+    </mapObject>
+    <mapObject>
+      <posX>1</posX>
+      <posY>2</posY>
+      <modelId>1333111375483.1</modelId>
+    </mapObject>
+    <mapObject>
+      <posX>2</posX>
+      <posY>1</posY>
+      <modelId>1333111375483.1</modelId>
+    </mapObject>
+    <mapObject>
+      <posX>2</posX>
+      <posY>2</posY>
+      <modelId>1333111375483.1</modelId>
+    </mapObject>
+  </mapObjects>
+  <modelList>
+    <mapModel>
+      <id>1333111358323.1</id>
+      <foreground>BLACK</foreground>
+      <ch>■</ch>
+      <desc></desc>
+      <blocksLineOfSight>true</blocksLineOfSight>
+      <blocksLineOfEffect>true</blocksLineOfEffect>
+    </mapModel>
+    <mapModel>
+      <id>1333111375483.1</id>
+      <background>YELLOW</background>
+      <ch></ch>
+      <desc></desc>
+      <blocksLineOfSight>false</blocksLineOfSight>
+      <blocksLineOfEffect>false</blocksLineOfEffect>
+    </mapModel>
+  </modelList>
+  <filterList/>
+</mapGrid>

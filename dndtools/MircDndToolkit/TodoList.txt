@@ -1,0 +1,34 @@
+add param editor to map gen
+add traps to map gen
+add monsters to map gen
+add corridors to map gen
+
+ability to save current model list into properties file
+
+read charsheet.
+
+fix initial map
+
+autosave for map
+autoload last map on init
+
+dm credential
+encounter level set-up!
+auto init for npc
+auto init for entire encounter
+
+correspond npc on map with npc in topic.
+
+add level and xp to next level to pc
+add command to look at each attr of pc
+
+support irc stylish prefix
+
+add houserule
+
+distribute command param handling to each of the commands
+
+map zoom-in zoom-out
+enter/exit map(auto loading)
+
+locale?

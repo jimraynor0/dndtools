@@ -1,0 +1,34 @@
+<race>
+	<!-- 种族名 -->
+	<name>Dragonborn</name>
+	<!-- 体型 -->
+	<size>Medium</size>
+	<!-- 速度，单位可以写sq.或者squares，中间的空格不能省 -->
+	<speed>6 squares</speed>
+	<!-- Normal, Low-light, 可能还有Dark，照书抄可也 -->
+	<vision>Normal</vision>
+	<!-- 种族特性，一般就似乎skill bonuses栏下面的那几条 -->
+	<traits>
+		<!-- 每一个种族特性写在一个<trait></trait>里 -->
+		<trait>
+			<!-- 特性名，就是冒号前面的部分 -->
+			<name>Dragonborn Fury</name>
+			<!-- 特性描述，就是冒号后面的部分。多于一行的话分割方法参见warlock.xml -->
+			<desc>When you’re bloodied, you gain a +1 racial bonus to attack rolls.</desc>
+		</trait>
+		<trait>
+			<name>Dragonborn Heritage</name>
+			<desc>Your healing surge value is equal to one-quarter of your maximum hit points + your Constitution modifier.</desc>
+		</trait>
+		<trait>
+			<name>Dragon Breath</name>
+			<desc>You can use dragon breath as an encounter power.</desc>
+			<!-- 如果一个特性赠送power，这样写 -->
+			<grantsPower>
+				<name>Dragon Breath</name>
+				<cooldown>encounter</cooldown>
+				<maxCharges>1</maxCharges>
+			</grantsPower>
+		</trait>
+	</traits>
+</race>

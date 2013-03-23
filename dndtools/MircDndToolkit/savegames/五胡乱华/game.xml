@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<game>
+  <name>五胡乱华</name>
+  <chan>#trpg-jlu</chan>
+  <pcs>
+    <pc>
+      <name>robin</name>
+      <wound>0</wound>
+      <thp>0</thp>
+      <init>29.0</init>
+      <xp>5650</xp>
+      <hp>41</hp>
+      <maxHp>43</maxHp>
+      <surge>6</surge>
+      <maxSurge>6</maxSurge>
+      <ap>1</ap>
+      <initMod>0</initMod>
+      <encounterPowers>
+        <power>
+          <name>Crucial Advice</name>
+          <description>immi. reaction, target: an ally in ranged 5, trigger: an ally within range that you can see or hear makes a skill check using a skill in which you've trained. effect: grant the ally the ability to reroll the skill check with a power bonus equals to your wis mod(2)</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Thundertusk Boar Strike</name>
+          <description>standard, melee/ranged weapon, str/dex vs ref(+11), two atks. hit: 1[w]+str/dex(1d12+9), with each hit, you push the target 1 sq. if both atk hits the same target, you push the target 1 + wis mod(3) sq.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Evasive Strike</name>
+          <description>standard, melee/ranged weapon, str/dex vs ref(+11), special: you can shift 1 + wis mod(3) sq. either before or after the atk, hit: 2[w]+str/dex(2d12+9)</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Second Wind</name>
+          <description>standard, heals self surge value, all def+2 eont.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </encounterPowers>
+      <dailyPowers>
+        <power>
+          <name>Bracers of Archery</name>
+          <description>minor, effect: ignore cover on your next atk this turn when using a bow or crossbow.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Split the Tree</name>
+          <description>standard, ranged weapon, target: 2 creatures within 3 sq. of each other, dex vs ac(+11), 2 atks, hit: 2[w]+dex mod(2d12+9)</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Poisoned Greatbow</name>
+          <description>free, use this power when you hit with the weapon. effect: the target takes ongoing 5 poison dmg and is weakened(save ends both).</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Ectoplasmic Leather Armor</name>
+          <description>immi interrupt, trigger: an enemy hits you. effect: you are insubstantial until the end of your next turn.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Extruciating Shot</name>
+          <description>standard, ranged weapon, dex vs ac(+11), hit: 3[w]+dex(3d12+9), and the target is weakened, save ends. miss: half dmg and the target is not weakened.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </dailyPowers>
+    </pc>
+    <pc>
+      <name>fish</name>
+      <wound>0</wound>
+      <thp>0</thp>
+      <init>10.0</init>
+      <xp>5650</xp>
+      <hp>45</hp>
+      <maxHp>45</maxHp>
+      <surge>7</surge>
+      <maxSurge>7</maxSurge>
+      <ap>1</ap>
+      <initMod>0</initMod>
+      <encounterPowers>
+        <power>
+          <name>Flowform Leather Armor</name>
+          <description>no action, trigger: you're subjected to an effect that a save can end. Effect: you make a sv against the target.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Topple Over</name>
+          <description>standard, melee weapon, dex vs ac(+13+3), brutal scoundrel: gain ab equal to str mod(+3), hit: 1[w]+dex(1d4+10 SA 2d8+3), and the target is knocked prone</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Torturous Strike</name>
+          <description>standard, melee weapon, dex vs ac(+13), hit: 2[w]+dex(2d4+10+3 SA 2d8+3), brutal scoundrel: gain bonus dmg equal to str mod(+3).</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Second Wind</name>
+          <description>standard, heals self surge value, all def+2 eont.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </encounterPowers>
+      <dailyPowers>
+        <power>
+          <name>Blinding Barrage</name>
+          <description>standard, each target you can see in close blast 3, dex vs ac(+13), hit: dex mod dmg(5 SA 2d8+3) and the target is blinded until eont. miss: dex mod dmg(5 SA 2d8+3)</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Walking Wounded</name>
+          <description>standard, melee/ranged weapon, dex vs fort(+13), hit: 2[w]+dex(2d4+10 SA 2d8+3), and the target is knocked prone. until eoe, if the target movs more than half its speed in a single action, it falls prone at the end of the movement. miss: half dmg and the target is knocked prone.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Cloak of Resistance</name>
+          <description>minor, effect: gain resist 5 to all dmg until the start of your next turn.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </dailyPowers>
+    </pc>
+    <pc>
+      <name>JimRaynor</name>
+      <wound>0</wound>
+      <thp>0</thp>
+      <init>20.0</init>
+      <xp>5650</xp>
+      <hp>46</hp>
+      <maxHp>46</maxHp>
+      <surge>8</surge>
+      <maxSurge>9</maxSurge>
+      <ap>1</ap>
+      <initMod>0</initMod>
+      <encounterPowers>
+        <power>
+          <name>Inspiring Word</name>
+          <description>minor, self or 1 ally in close burst 5, effect: the target can spend a healing surge and regain 1d6 additional hp.</description>
+          <charges>2</charges>
+          <maxCharges>2</maxCharges>
+        </power>
+        <power>
+          <name>Aid the Injured</name>
+          <description>standard, melee 1, target you or one ally, effect: the target can spend a healing surge.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Hammer and Anvil</name>
+          <description>standard, melee weapon, str vs ref(+12), hit: [w]+str(1d8+6), one ally adjacent to the target can make an mba against it as a free action, with a bonus to dmg equal to your cha mod(+2)</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Second Wind</name>
+          <description>standard, heals self surge value, all def+2 eont.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Vengeful Longsword</name>
+          <description>free, use when an attack hits a bloodied ally within 10 sq. of you, effect: gain +2 power bonus to atk and +1d10 on dmg with this weapon until end of your next turn.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Inspiring War Cry</name>
+          <description>standard, melee weapon, str vs ac(+12), hit: 2[w]+str(2d8+6), effect: one ally who can hear you and within 5 sq. of you can make a sv</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </encounterPowers>
+      <dailyPowers>
+        <power>
+          <name>Inspiring Fortitude</name>
+          <description>standard, close burst 5, effect: use your second wind and all allies within range gain thp 10+con(2)</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Bastion of Defense</name>
+          <description>standard, melee weapon, str vs ac(+12), hit: 3[w]+str(3d8+6), each ally within 5 sq. gain +1 power bonus to all def until eoe. effect: each ally within 5 sq. of you gain thp equal to 5 + cha mod(+7)</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Stand the Fallen</name>
+          <description>standard, melee weapon, str vs ac(+12), hit: 3[w]+str(3d8+6), effect: each ally within 10 sq. of you can spend a healing surge and regain additional hp equal to your cha mod(+2)</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </dailyPowers>
+    </pc>
+    <pc>
+      <name>key</name>
+      <wound>0</wound>
+      <thp>0</thp>
+      <init>26.0</init>
+      <xp>5650</xp>
+      <hp>46</hp>
+      <maxHp>46</maxHp>
+      <surge>9</surge>
+      <maxSurge>9</maxSurge>
+      <ap>1</ap>
+      <initMod>0</initMod>
+      <encounterPowers>
+        <power>
+          <name>Iron Mind</name>
+          <description>immediate interrupt, trigger: you are hit by an atk, effect: you gain +2 bonus to all defense until the end of your next turn.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Open the Gate of Battle</name>
+          <description>standard, melee touch, dex vs ref(+10), hit: 2d10+dex mod(2d10+7 fob 7, +1d6 against enemy at full hp), and an additional 1d10 if it was at full hp when you hit it with this power. OR move, you move your speed+2, during the move you do not provoke oa from the first enemy you move away from</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Eternal Mountain</name>
+          <description>standard, close burst 1, dex vs fort, hit: 2d8+dex(2d8+7 fob 7, +1d6 against enemy at full hp), and you knock the target prone. OR move, you gain resistance equal to your Str mod until the end of your turn. in addition, you shift 2 sq.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Second Wind</name>
+          <description>standard, heals self surge value, all def+2 eont.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </encounterPowers>
+      <dailyPowers>
+        <power>
+          <name>Inspiring Fortitude</name>
+          <description>standard, close burst 5, effect: use your second wind and all allies within range gain thp 10+con(2)</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Supreme Avalanche Combination</name>
+          <description>standard, melee touch, dex vs fort(+10), hit: 3d10+dex(3d10+7 fob 7, +1d6 against enemy at full hp), miss: half dmg. effect: until the eoe, you gain +2 power bonus to dmg against the targeet, and you slide it 1 sq. whenever you hit it with an atk. if that atk includes forced movement, you can increase the distance of that movement by 1 sq instead of sliding the target 1 sq.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Cloak of Resistance</name>
+          <description>minor, effect: gain resist 5 to all dmg until the start of your next turn.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Spinning Leopard Maneuver</name>
+          <description>standard, melee 1, dex vs ref(+10), effect: before the atk, shift your speed. target: each enemy within range during the shift. hit: 2d6+dex dmg(2d6+7 fob 7, +1d6 against enemy at full hp). miss: half dmg.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </dailyPowers>
+    </pc>
+  </pcs>
+  <aliases>
+    <alias abbr="robin-忘却" text="robin"/>
+    <alias abbr="Jim|挂" text="JimRaynor"/>
+  </aliases>
+</game>

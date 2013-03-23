@@ -1,0 +1,324 @@
+<rulebook>
+    <rule name="BLINDED">
+        You grant combat advantage./
+        You can’t see any target (your targets have total concealment)./
+        You take a –10 penalty to Perception checks./
+        You can’t flank an enemy.
+	</rule>
+    <rule name="DAZED">
+        You grant combat advantage./
+        You can take either a standard action, a move action, or a minor action on your turn (you can also take free actions).
+        You can’t take immediate actions or opportunity actions./
+        You can’t flank an enemy.
+	</rule>
+    <rule name="DEAFENED">
+        You can’t hear anything./
+        You take a –10 penalty to Perception checks.
+	</rule>
+    <rule name="DOMINATED">
+        You’re dazed./
+        The dominating creature chooses your action. The only powers it can make you use are at-will powers.
+	</rule>
+    <rule name="DYING">
+        You’re unconscious./
+        You’re at 0 or negative hit points./
+        You make a death saving throw every round.
+	</rule>
+    <rule name="HELPLESS">
+        You grant combat advantage./
+        You can be the target of a coup de grace./
+        Note: Usually you’re helpless because you’re unconscious.
+	</rule>
+    <rule name="IMMOBILIZED">
+        You can’t move from your space, although you can teleport and can be forced to move by a pull, a push, or a slide.
+	</rule>
+    <rule name="MARKED">
+        You take a –2 penalty to attack rolls for any attack that doesn’t target the creature that marked you.
+	</rule>
+    <rule name="PETRIFIED">
+        You have been turned to stone./
+        You can’t take actions./
+        You gain resist 20 to all damage./
+        You are unaware of your surroundings./
+        You don’t age.
+	</rule>
+    <rule name="PRONE">
+        You grant combat advantage to enemies making melee attacks against you./
+        You can’t move from your space, although you can teleport, crawl, or be forced to move by a pull, a push, or a slide./
+        You get a +2 bonus to all defenses against ranged attacks from nonadjacent enemies./
+        You’re lying on the ground. (If you’re flying, you safely descend a distance equal to your fly speed. If you don’t reach the ground, you fall.)/
+        You take a –2 penalty to attack rolls./
+        You can drop prone as a minor action.
+	</rule>
+    <rule name="RESTRAINED">
+        You grant combat advantage./
+        You’re immobilized./
+        You can’t be forced to move by a pull, a push, or a slide./
+        You take a –2 penalty to attack rolls.
+	</rule>
+    <rule name="SLOWED">
+        Your speed becomes 2. This speed applies to all your movement modes, but it does not apply to teleportation or to a pull, a push, or a slide./
+        You can’t increase your speed above 2, and your speed doesn’t increase if it was lower than 2./
+        If you’re slowed while moving, stop if you have already moved 2 or more squares.
+	</rule>
+    <rule name="STUNNED">
+        You grant combat advantage./
+        You can’t take actions./
+        You can’t flank an enemy.
+	</rule>
+    <rule name="SURPRISED">
+        You grant combat advantage./
+        You can’t take actions./
+        You can’t flank an enemy.
+	</rule>
+    <rule name="UNCONSCIOUS">
+        You’re helpless.
+        You take a –5 penalty to all defenses./
+        You can’t take actions./
+        You fall prone, if possible./
+        You can’t flank an enemy.
+	</rule>
+    <rule name="WEAKENED">
+        Your attacks deal half damage. Ongoing damage you deal is not affected.
+	</rule>
+    <rule name="Insubstantial">
+        Some creatures, such as wailing ghosts, are insubstantial, and some powers can make you insubstantial./
+        When you are insubstantial, you take half damage from any attack that deals damage to you. Ongoing damage is also halved.
+    </rule>
+    <rule name="ONGOING DAMAGE">
+        Start of Your Turn: You take the specified damage at the start of your turn. Example: If you’re taking ongoing 5 fire damage, you take 5 points of fire damage at the start of your turn./
+        Saving Throw: Each round at the end of your turn, make a saving throw against ongoing damage. If you succeed, you stop taking the ongoing damage./
+        Different Types of Ongoing Damage: If effects deal ongoing damage of different types, you take damage from each effect every round. You make a separate saving throw against each damage type./
+        The Same Type of Ongoing Damage: If effects deal ongoing damage of the same type, or if the damage has no type, only the higher number applies. Example: You’re taking ongoing 5 damage (no type) when a power causes you to take ongoing 10 damage. You’re now taking ongoing 10 damage, not 15.
+    </rule>
+    <rule name="Combat Advantage">
+		+2 Bonus to Attack Rolls: You gain a +2 bonus to your attack roll when you have combat advantage against the target of your attack./
+		Able to See Target: You must be able to see a target to gain combat advantage against it./
+		The following situations give an attacker combat advantage against a defender:/
+		When a defender is .../
+		Balancing/
+		Blinded/
+		Climbing/
+		Dazed/
+		Flanked by the attacker/
+		Helpless/
+		Prone (melee attacks only)/
+		Restrained/
+		Running/
+		Squeezing/
+		Stunned/
+		Surprised/
+		Unable to see the attacker/
+		Unconscious
+    </rule>
+    <rule name="INVISIBLE">
+		You can’t be seen by normal forms of vision./
+		You have combat advantage against any enemy that can’t see you./
+		You don’t provoke opportunity attacks from enemies that can’t see you.
+    </rule>
+    <rule name="MOVING THROUGH OCCUPIED SQUARES">
+		Ally: You can move through a square occupied by an ally./
+		Enemy: You normally can’t move through an enemy’s space unless that enemy is helpless or two size categories larger or smaller than you./
+		Moving into a nonhelpless enemy’s space provokes an opportunity attack from that enemy, because you left a square adjacent to the enemy. (Some powers let you move through an enemy’s square without provoking an opportunity attack.)/
+		Ending Movement: You can end your movement in an ally’s square only if the ally is prone. You can end your movement in an enemy’s square only if the enemy is helpless./
+		However, Tiny creatures can end their movement in a larger creature’s square. If you don’t have enough movement remaining to reach a square you are allowed to be in, your move ends in the last square you could occupy./
+		Standing Up: If you’re prone and in the same square as another creature, see “Stand Up” for how to stand up.
+    </rule>
+    <rule name="DIFFICULT TERRAIN">
+		Costs 1 Extra Square: Each square of difficult terrain you enter costs 1 extra square of movement./
+		Large, Huge, and Gargantuan Creatures: If such a creature enters two or more squares with different types of terrain, count that square of movement according to the most difficult terrain. Count only squares it is entering for the first time, not squares it already occupies./
+		Ending Movement: If you don’t have enough movement remaining to enter a square of difficult terrain, you can’t enter it./
+		Flying: Creatures are not hampered by difficult terrain when flying./
+		Terrain Walk: Some creatures have a special ability to ignore difficult terrain in specific kinds of environments. For example, dryads have forest walk, which allows them to ignore difficult terrain in forests.
+    </rule>
+    <rule name="DOUBLE MOVE">
+        Same Move Action: To double move, you have to take the same move action twice in a row on the same turn./
+        One Speed: When you double move, add the speeds of the two move actions together and then move./
+        Occupied Squares: When you double move, your first move action can end in an ally’s space, because you’re not stopping. Your second move action can’t end in an ally’s space, as normal./
+        Difficult Terrain: When you double move, you can sometimes move over more squares of difficult terrain than normal, because you add the speeds of the two move actions together and then move. For example, if your speed is 5, you can enter only 2 squares of difficult terrain when you walk. If you double move by walking twice in a row, you can enter 5 squares of difficult terrain, not 4.
+    </rule>
+    <rule name="FALLING">
+        Falling Damage: You take 1d10 damage for each 10 feet you fall. Fast Alternative: If you fall more than 50 feet, take 25 damage per 50 feet, plus 1d10 per 10 extra feet./
+        Prone: You fall prone when you land, unless you take no damage from the fall./
+        Jumping Down: If you are trained in Acrobatics, you can make a check to reduce the amount of damage you take from a fall./
+        Catching Yourself: If a power or a Grab forces you over a precipice or into a pit, you can immediately make a saving throw to avoid going over the edge. This saving throw works just like a normal saving throw, except you make it as soon as you reach the edge, not at the end of your turn./
+        Lower than 10: Failure. You fall over the edge. 10 or higher: Success. You fall prone at the edge, in the last square you occupied before you would have fallen. The forced movement ends./
+        Large, Huge, and Gargantuan Creatures: If only part of a creature’s space is over a pit or a precipice, the creature doesn’t fall.
+    </rule>
+    <rule name="FLANKING">
+        Combat Advantage: You have combat advantage against an enemy you flank./
+        Opposite Sides: To flank an enemy, you and an ally must be adjacent to the enemy and on opposite sides or corners of the enemy’s space. When in doubt about whether two characters flank an enemy, trace an imaginary line between the centers of the characters’ squares. If the line passes through opposite sides or corners of the enemy’s space, the enemy is flanked./
+        Must Be Able to Attack: You and your ally must be able to attack the enemy, whether you’re armed or unarmed. If there’s no line of effect between your enemy and either you or your ally, you don’t flank. If you’re affected by an effect that prevents you from taking opportunity actions, you don’t flank./
+        Large, Huge, and Gargantuan Creatures: If a flanking creature’s space takes up more than 1 square, the creature gains combat advantage if any square it occupies counts for flanking.
+    </rule>
+    <rule name="Pull">
+        When you pull a creature, each square you move it must bring it nearer to you./
+        See also FORCED MOVEMENT for other restrains.
+    </rule>
+    <rule name="Push">
+        When you push a creature, each square you move it must place it farther away from you./
+        See also FORCED MOVEMENT for other restrains.
+    </rule>
+    <rule name="Slide">
+        When you slide a creature, there’s no restriction on the direction you can move it./
+        See also FORCED MOVEMENT for other restrains.
+    </rule>
+    <rule name="FORCED MOVEMENT">
+        Line of Effect: You must have line of effect to any square you pull, push, or slide a creature into./
+        Distance in Squares: The power you’re using specifies how many squares you can move a target. You can choose to move the target fewer squares or not to move it at all. You can’t move the target vertically./
+        Specific Destination: Some powers don’t specify a distance in squares but instead specify a destination, such as “adjacent” (a square adjacent to you)./
+        No Opportunity Actions: Forced movement does not provoke opportunity attacks or other opportunity actions./
+        Ignore Difficult Terrain: Forced movement isn’t hindered by difficult terrain./
+        Not a Move: Forced movement doesn’t count against a target’s ability to move on its turn. A target’s speed is irrelevant to the distance you move it./
+        Clear Path: Forced movement can’t move a target into a space it couldn’t enter by walking. The target can’t be forced into an obstacle or made to squeeze into a space./
+        Catching Yourself: If you’re forced over a precipice or a pit, you can try to catch yourself before you fall. See “Falling”./
+        Swapping Places: Some powers let you swap places with a target. You slide the target so that its space overlaps your space, and then you shift so your space includes at least one square that the target just left.
+    </rule>
+    <rule name="TELEPORTATION">
+        Line of Sight: You have to be able to see your destination./
+        No Line of Effect: You can teleport to a place you can see even if you don’t have line of effect to it./
+        No Opportunity Attacks: Your movement doesn’t provoke opportunity attacks./
+        Destination: Your destination must be a space you can occupy without squeezing./
+        Instantaneous: When you teleport, you disappear from the space you occupy and immediately appear in a new space you choose. Creatures, objects, and terrain between you and your destination don’t hinder your movement in any way./
+        Immobilized: Being immobilized doesn’t prevent you from teleporting. If you were immobilized because of a physical effect, such as a creature grabbing you, you can teleport away and are no longer immobilized or restrained, if applicable. If you were immobilized because of an effect on your mind or body, teleporting does not end that effect; you’re still immobilized when you reach your destination.
+    </rule>
+    <rule name="Phasing">
+		Some creatures, such as shadow snakes, have a special ability called phasing, and some powers allow you to phase./
+		When you are phasing, you ignore difficult terrain, and you can move through obstacles and other creatures but must end your movement in an unoccupied space.
+    </rule>
+    <rule name="Action Points">
+        EARNING ACTION POINTS/
+        You start with 1 action point. (Monsters usually have no action points.)/
+        You gain 1 action point when you reach a milestone./
+        After you take an extended rest, you lose any unspent action points, but you start fresh with 1 action point./
+        /
+        SPEND AN ACTION POINT: FREE ACTION/
+        During Your Turn: You can spend an action point only during your turn, but never during a surprise round./
+        Gain an Extra Action: You gain an extra action this turn. You decide if the action is a standard action, a move action, or a minor action./
+        Once per Encounter: After you spend an action point, you must take a short rest before you can spend another. (Some monsters can spend more than 1 action point per encounter.)
+    </rule>
+    <rule name="AID ANOTHER">
+        AID ANOTHER: STANDARD ACTION/
+        Attack Roll: Choose a target within your melee reach and make a melee basic attack vs. AC 10. If you succeed, deal no damage, but choose one ally. That ally gets a +2 bonus to his or her next attack roll against the target or to all defenses against the target’s next attack. This bonus ends if not used by the end of your next turn./
+        Skill or Ability Check: You can instead aid a skill check or an ability check made by an adjacent ally. Make a DC 10 skill check or ability check. If you succeed, you give a +2 bonus to your ally’s next check using the same skill or ability. This bonus ends if not used by the end of the ally’s next turn.
+    </rule>
+    <rule name="Basic Attack">
+        A basic attack is an at-will attack power that everyone possesses, regardless of class. The power comes in two forms: melee and ranged. You calculate the attack bonuses of a basic attack like those of any other attack power./
+        When a power allows you to make a basic attack, you can make either a melee basic attack or a ranged basic attack. If a power specifically calls for a melee basic attack or a ranged basic attack, you must use that type./
+        You use a melee basic attack to make an opportunity attack, and some powers or effects (especially warlord powers) give you the ability to make a basic attack when it isn’t your turn.
+    </rule>
+    <rule name="Bull Rush">
+        Target: You can bull rush a target adjacent to you that is smaller than you, the same size category as you, or one category larger than you./
+        Strength Attack: Make a Strength attack vs. Fortitude defense. Do not add any modifiers for the weapon you use. Hit: Push the target 1 square, and shift into the vacated space./
+        Impossible Push: If there’s no square you can push the target into, your bull rush has no effect.
+    </rule>
+    <rule name="Charge">
+        CHARGE: STANDARD ACTION/
+        Move and Attack: Move your speed as part of the charge and make a melee basic attack or a bull rush at the end of your move./
+        +1 Bonus to the Attack Roll: You gain a +1 bonus to the attack roll of your basic attack or bull rush./
+        Movement Requirements: You must move at least 2 squares from your starting position, and you must move directly to the nearest square from which you can attack the enemy. You can’t charge if the nearest square is occupied. Moving over difficult terrain costs extra squares of movement as normal./
+        Provoke Opportunity Attacks: If you leave a square adjacent to an enemy, that enemy can make an opportunity attack against you./
+        No Further Actions: After you resolve a charge attack, you can’t take any further actions this turn, unless you spend an action point to take an extra action.
+    </rule>
+    <rule name="Coup de Grace">
+        COUP DE GRACE: STANDARD ACTION/
+        Helpless Target: You can deliver a coup de grace against a helpless enemy adjacent to you. Use any attack power you could normally use against the enemy, including a basic attack. Hit: You score a critical hit./
+        Slaying the Target Outright: If you deal damage greater than or equal to the target’s bloodied value, the target dies.
+    </rule>
+    <rule name="Crawl">
+        CRAWL: MOVE ACTION/
+        Prone: You must be prone to crawl./
+        Movement: Move up to half your speed./
+        Provoke Opportunity Attacks: If you leave a square adjacent to an enemy, that enemy can make an opportunity attack against you.
+    </rule>
+    <rule name="Delay">
+        DELAY: NO ACTION/
+        Delay Entire Turn: You must delay your entire turn, so you can’t delay if you’ve already taken an action on your turn. You also can’t delay if you’re dazed or if you’re unable to take actions./
+        Coming Back into the Initiative Order: After any other combatant has completed a turn, you can step back into the initiative order. Perform your actions as desired and adjust your initiative to your new position in the order./
+        Losing a Delayed Turn: If you don’t take your delayed turn before your initiative comes up, you lose the delayed turn and your initiative remains where it was./
+        Start of Your Turn: At the moment you delay, carry out the start of your turn normally./
+        End of Your Turn: You don’t have a normal end of your turn. Instead, the things you do at the end of your turn happen at two separate times./
+        End Beneficial Effects when You Delay: At the moment you delay, end effects that last until the end of your turn and that are beneficial to you or your allies. For example, if on your previous turn you stunned an enemy until the end of your next turn, the stunned condition ends. You can’t prolong a beneficial effect by delaying./
+        End Sustained Effects when You Delay: You can’t sustain a power if you delay. At the moment you delay your action, the “check actions spent” part of the end of your turn occurs. Because you haven’t spent an action to sustain any active powers, sustainable effects end./
+        End Harmful Effects after You Act: After you return to the initiative order and take your actions, end effects that last until the end of your turn and that are harmful to you. For example, if an enemy weakened you until the end of your next turn, the weakened condition ends. You can’t avoid a harmful effect by delaying./
+        Make Saving Throws after You Act: After you return to the initiative order and take your actions, you make saving throws against effects on you.
+    </rule>
+    <rule name="Escape">
+        ESCAPE: MOVE ACTION/
+        Acrobatics or Athletics: Make an Acrobatics check vs. Reflex or an Athletics check vs. Fortitude against the creature or effect that immobilized you./
+        Check: Resolve your check. Success: You end the grab and can shift as part of this move action. Failure: You’re still grabbed.
+    </rule>
+    <rule name="Grab">
+        GRAB: STANDARD ACTION/
+        Target: You can attempt to grab a creature that is smaller than you, the same size category as you, or one category larger than you. The creature must be within your melee reach (don’t count extra reach from a weapon)./
+        Strength Attack: Make a Strength attack vs. Reflex. Do not add any weapon modifiers. You must have at least one hand free to make a grab attempt. Hit: The enemy is immobilized until it escapes or you end the grab. Your enemy can attempt to escape on its turn./
+        Sustaining a Grab: You sustain a grab as a minor action. You can end a grab as a free action./
+        Effects that End a Grab: If you are affected by a condition that prevents you from taking opportunity actions (such as dazed, stunned, surprised, or unconscious), you immediately let go of a grabbed enemy. If you move away from the creature you’re grabbing, you let go and the grab ends. If a pull, a push, or a slide moves you or the creature you’re grabbing out of your reach, the grab ends./
+        /
+        MOVE A GRABBED TARGET: STANDARD ACTION/
+        Strength Attack: Make a Strength attack vs. Fortitude. Do not add any weapon modifiers. Hit: Move up to half your speed and pull the grabbed target with you./
+        Opportunity Attacks: If you pull the target, you and the target do not provoke opportunity attacks from each other, and the target doesn’t provoke opportunity attacks from adjacent enemies. However, if you leave a square adjacent to an enemy, that enemy can make an opportunity attack against you.
+    </rule>
+    <rule name="Opportunity Attack">
+        OPPORTUNITY ATTACK: OPPORTUNITY ACTION/
+        Melee Basic Attack: An opportunity attack is a melee basic attack./
+        Moving Provokes: If an enemy leaves a square adjacent to you, you can make an opportunity attack against that enemy. However, you can’t make one if the enemy shifts or teleports or is forced to move away by a pull, a push, or a slide./
+        Ranged and Area Powers Provoke: If an enemy adjacent to you uses a ranged power or an area power, you can make an opportunity attack against that enemy./
+        One per Combatant’s Turn: You can take only one opportunity action during another combatant’s turn, but you can take any number during a round./
+        Able to Attack: You can’t make an opportunity attack unless you are able to make a melee basic attack and you can see your enemy./
+        Interrupts Target’s Action: An opportunity action takes place before the target finishes its action. After the opportunity attack, the creature resumes its action. If the target is reduced to 0 hit points or fewer by the opportunity attack, it can’t finish its action because it’s dead or dying./
+        Threatening Reach: Some creatures have an ability called threatening reach. This lets them make opportunity attacks against nonadjacent enemies. If an enemy leaves a square that’s within the creature’s reach, or if an enemy anywhere within the creature’s reach makes a ranged attack or an area attack, the creature can make an opportunity attack against that enemy.
+    </rule>
+    <rule name="Ready an Action">
+        READY AN ACTION: STANDARD ACTION/
+        Choose Action to Ready: Choose the specific action you are readying (what attack you plan to use, for example) as well as your intended target. You can ready a standard action, a move action, or a minor action. Whichever action you choose, the act of readying it is a standard action./
+        Choose Trigger: Choose the action that will trigger your readied action. When that action occurs, you can use your readied action. If the trigger doesn’t occur or you choose to ignore it, you can’t use your readied action, and you take your next turn as normal./
+        Immediate Reaction: A readied action is an immediate reaction. It takes place after your enemy completes the action that triggers it./
+        Interrupting an Enemy: If you want to use a readied action to attack before an enemy attacks, you should ready your action in response to the enemy’s movement. That way your attack will be triggered by a portion of the enemy’s move, and you will interrupt it and attack first. If you ready an action to be triggered by an enemy attack, your readied action will occur as a reaction to that attack, so you’ll attack after the enemy./
+        Note that an enemy might use a power that lets it move and then attack. If you readied an action to attack in response to that enemy’s movement, your readied action interrupts the movement, and you can attack before the enemy does./
+        Reset Initiative: After you resolve your readied action, move your place in the initiative order to directly before the creature or the event that triggered your readied action.
+    </rule>
+    <rule name="Run">
+        RUN: MOVE ACTION/
+        Speed + 2: Move up to your speed + 2. For example, if your speed is normally 6, you can move up to 8 squares when you run./
+        –5 Penalty to Attack Rolls: You have a –5 penalty to attack rolls until the start of your next turn./
+        Grant Combat Advantage: As soon as you begin running, you grant combat advantage to all enemies until the start of your next turn./
+        Provoke Opportunity Attacks: If you leave a square adjacent to an enemy, that enemy can make an opportunity attack against you.
+    </rule>
+    <rule name="Second Wind">
+        SECOND WIND: STANDARD ACTION/
+        Spend a Healing Surge: Spend a healing surge to regain hit points./
+        +2 Bonus to All Defenses: You gain a +2 bonus to all defenses until the start of your next turn./
+        Once per Encounter: You can use your second wind once per encounter and can use it again after you take a short rest or an extended rest. Some powers (either yours or another character’s) allow you to spend healing surges without using your second wind.
+    </rule>
+    <rule name="Shift">
+        SHIFT: MOVE ACTIOSHIFT: MOVE ACTION/
+        Movement: Move 1 square./
+        No Opportunity Attacks: If you shift out of a square adjacent to an enemy, you don’t provoke an opportunity attack./
+        Difficult Terrain: Because each square of difficult terrain costs 1 extra square to enter, you can’t normally shift into a square of difficult terrain, unless you’re able to shift multiple squares or you’re able to ignore the effects of difficult terrain./
+        Special Movement Modes: You can’t shift when using a form of movement that requires a skill check. For example, if you’re climbing or swimming, you can’t shift if you would need to make an Athletics check to use that kind of movement. You might find it useful to first shift away from an adjacent enemy, then walk or run.
+    </rule>
+    <rule name="Squeeze">
+        SQUEEZE: MOVE ACTION/
+        Smaller Space: A Large, Huge, or Gargantuan creature reduces its space by 1. For example, a Large creature that squeezes has a space of 1 (1 square) instead of 2 (4 squares). A Huge creature’s space changes from 3 (9 squares) to 2 (4 squares). When a Medium or smaller creature squeezes, the DM decides how narrow a space the creature can occupy. If an effect prevents a creature from leaving a square in order to squeeze, the creature cannot squeeze./
+        Half Speed: As part of the same move action, move up to half your speed./
+        –5 Penalty to Attack Rolls: You have a –5 penalty to attack rolls until you return to your normal space./
+        Grant Combat Advantage: You grant combat advantage to all enemies until you return to your normal space./
+        Provoke Opportunity Attacks: If squeezing causes any part of your space to leave a square adjacent to an enemy, that enemy can make an opportunity attack against you./
+        Ending a Squeeze: You can end a squeeze as a free action. You return to your normal space. You have to occupy a space that includes the space you occupied when you stopped squeezing.
+    </rule>
+    <rule name="Stand Up">
+        STAND UP: MOVE ACTION/
+        Unoccupied Space: If your space is not occupied by another creature, you stand up where you are./
+        Occupied Space: If your space is occupied by another creature, you can shift 1 square, as part of this move action, to stand up in an adjacent unoccupied space. If your space and all adjacent squares are occupied by other creatures, you can’t stand up.
+    </rule>
+    <rule name="Total Defense">
+        TOTAL DEFENSE: STANDARD ACTION/
+        +2 Bonus to All Defenses: You gain a +2 bonus to all defenses until the start of your next turn.
+    </rule>
+    <rule name="Walk">
+        WALK: MOVE ACTION/
+        Movement: Move a number of squares up to your speed./
+        Provoke Opportunity Attacks: If you leave a square adjacent to an enemy, that enemy can make an opportunity attack against you.
+    </rule>
+</rulebook>

@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<game>
+  <name>hema</name>
+  <chan>#trpg-jlu</chan>
+  <pcs>
+    <pc>
+      <name>Bharash</name>
+      <wound>0</wound>
+      <thp>0</thp>
+      <init>9.0</init>
+      <xp>1404</xp>
+      <hp>21</hp>
+      <maxHp>35</maxHp>
+      <surge>5</surge>
+      <maxSurge>11</maxSurge>
+      <ap>1</ap>
+      <encounterPowers>
+        <power>
+          <name>Dragon Breath</name>
+          <description>minor, close blast 3, str+2(+7) vs ref, hit: 1d6+con(2) lightning</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Second Wind</name>
+          <description>standard, heals self surge value, all def+2 eont.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Steel Serpent Strike</name>
+          <description>standard, melee weapon, str(+8) vs ac, hit: 2[w]+str(2d10+4), and the target is slowed and cannot shift eont</description>
+          <charges>0</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </encounterPowers>
+      <dailyPowers>
+        <power>
+          <name>Inspiring Fortitude</name>
+          <description>standard, close burst 5, use your second wind and all allies within range gain thp 10+con(2)</description>
+          <charges>0</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Villain's Menance</name>
+          <description>standard, melee weapon, str(+8) vs ac, hit: 2[w]+str(2d10+4), and you gain +2 ab and +4 dmg to the target eoe. miss: you gain +1 ab and +2 dmg to the target eoe. all bonuses are power bonuses.</description>
+          <charges>0</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </dailyPowers>
+    </pc>
+    <pc>
+      <name>Bairmot</name>
+      <wound>0</wound>
+      <thp>0</thp>
+      <init>6.0</init>
+      <states>
+        <state>boh|eoe|4|24.0</state>
+        <state>bloodied|eoe|0|0.0</state>
+      </states>
+      <xp>1623</xp>
+      <hp>12</hp>
+      <maxHp>33</maxHp>
+      <surge>5</surge>
+      <maxSurge>10</maxSurge>
+      <ap>0</ap>
+      <encounterPowers>
+        <power>
+          <name>Healing Word</name>
+          <description>heals surge+1d6+4, range 5</description>
+          <charges>0</charges>
+          <maxCharges>2</maxCharges>
+        </power>
+        <power>
+          <name>Divine Glow</name>
+          <description>wis vs ref, close blast 3, atk+7, dmg 1d8+7 radiant, all ally caught gain +2 power bonus to ab eont.</description>
+          <charges>0</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Divine Fortune</name>
+          <description>Free: gain +1 bonus to your next atk or sv before eont. count towards channel divinity.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+          <shareUseWith>Healer's Mercy</shareUseWith>
+        </power>
+        <power>
+          <name>Second Wind</name>
+          <description>Minor: heals self surge value(8), all def+2 eont.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Healer's Mercy</name>
+          <description>Standard: Each bloodied ally in close burst 5 can spend a healing surge(heals surge+4), you are weakened eont.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+          <shareUseWith>Divine Fortune</shareUseWith>
+        </power>
+      </encounterPowers>
+      <dailyPowers>
+        <power>
+          <name>Beacon of Hope</name>
+          <description>wis vs will, close burst 3. Hit: weakened. Effect: you and each ally in the burst regain 5 hp, and regain +5 hp each time you heal them with healing power.</description>
+          <charges>0</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Shield of Faith</name>
+          <description>Minor: close burst 5, you and each ally gain +2 power bonus to AC until end of the encounter.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </dailyPowers>
+    </pc>
+    <pc>
+      <name>Garen</name>
+      <wound>0</wound>
+      <thp>0</thp>
+      <init>14.0</init>
+      <states>
+        <state>immobilized|sv|2|6.0</state>
+        <state>bloodied|eoe|0|0.0</state>
+      </states>
+      <xp>1623</xp>
+      <hp>7</hp>
+      <maxHp>35</maxHp>
+      <surge>3</surge>
+      <maxSurge>11</maxSurge>
+      <ap>1</ap>
+      <encounterPowers>
+        <power>
+          <name>Burning Spray</name>
+          <description>standard, close blast 3, targets every creature, cha vs ref, hit: 1d8+3 fire dmg.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Majestic Word</name>
+          <description>minor, one ally in close burst 5. target can spend a surge and regain your cha(3) additional hp. you also slide the target 1 sq.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Psionic Point</name>
+          <description>used to empower psionic powers</description>
+          <charges>2</charges>
+          <maxCharges>2</maxCharges>
+        </power>
+        <power>
+          <name>Second Wind</name>
+          <description>standard, heals self surge value, all def+2 eont.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Ardent Surge</name>
+          <description>minor, one ally in close burst 5. target can spend a surge and regain 1d6 additional hp.</description>
+          <charges>0</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </encounterPowers>
+      <dailyPowers>
+        <power>
+          <name>Song of Courage</name>
+          <description>minor, zone, close burst 5, sustain minor. any ally within the zone gain +1 power bonus to atk. the zone moves with you.</description>
+          <charges>0</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Implanted Suggestion</name>
+          <description>standard, melee weapon, target one creature. Hit: 2[W]+cha dmg amd target is dazed(sv); Miss: half damage; Effect: target is under suggestion(sv): whenever it makes an attack an adjacent ally can make mba against it after its atk is resolved.</description>
+          <charges>0</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Harsh Songblade</name>
+          <description>free, trigger: hit an enemy with bard thunder power, effect: each enemy within 2 sq. of the target is dazed eont.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </dailyPowers>
+    </pc>
+    <pc>
+      <name>TriXes</name>
+      <wound>0</wound>
+      <thp>0</thp>
+      <init>24.0</init>
+      <xp>1404</xp>
+      <hp>21</hp>
+      <maxHp>28</maxHp>
+      <surge>4</surge>
+      <maxSurge>8</maxSurge>
+      <ap>1</ap>
+      <encounterPowers>
+        <power>
+          <name>Cloak of Shade</name>
+          <description>minor, until eont, you gain concealment against all creature and inv to all creatures that's more than 5 sq. away from you</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Cloud of Darkness</name>
+          <description>minor, close burst 1, create a cloud of darkness eont, squares within it are totally obscured and creatures entirely within it are blinded until exit. you are immune to these effects.</description>
+          <charges>0</charges>
+          <maxCharges>1</maxCharges>
+          <shareUseWith>Darkfire</shareUseWith>
+        </power>
+        <power>
+          <name>Shade Form</name>
+          <description>minor, assume a shadowy form until you make an attack roll or eont, while in this form, you are insubstantial and you gain vulnerable 5 radiant, and you can use stealth if you have cover or concealment, or cover from your allies. sustain minor.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Darkfire</name>
+          <description>minor, ranged 10, cha+4(+8) vs ref, hit: eont, target grants ca and cannot benefit from inv or concealment.</description>
+          <charges>0</charges>
+          <maxCharges>1</maxCharges>
+          <shareUseWith>Cloud of Darkness</shareUseWith>
+        </power>
+        <power>
+          <name>Gloom Thief</name>
+          <description>standard: melee weapon, dex(+10) vs ac, hit: 2[w]+dex(2d10+5), and until eont you are inv while within 2 sq. of the target.</description>
+          <charges>0</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Second Wind</name>
+          <description>Minor: heals self surge value(8), all def+2 eont.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </encounterPowers>
+      <dailyPowers>
+        <power>
+          <name>Targeted for Death</name>
+          <description>standard, ranged 5, dex(+6) vs will, hit: 3d8+dex(5) code dmg, miss: half dmg, effect: until eoe, whenever you use shroud against the target, add 2 shrouds instead of 1.</description>
+          <charges>0</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </dailyPowers>
+    </pc>
+    <pc>
+      <name>Hunk</name>
+      <wound>0</wound>
+      <thp>0</thp>
+      <init>10.0</init>
+      <xp>1404</xp>
+      <hp>17</hp>
+      <maxHp>31</maxHp>
+      <surge>5</surge>
+      <maxSurge>9</maxSurge>
+      <ap>2</ap>
+      <encounterPowers>
+        <power>
+          <name>Awaken the Slumbering Hunt</name>
+          <description>standard, melee touch, dex vs fort, hit: 2d8+dex(+3), if the target is bloodied, it takes extra str(+2) dmg from this and next atk you made against it before eont.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Second Wind</name>
+          <description>standard, heals self surge value, all def+2 eont.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </encounterPowers>
+      <dailyPowers>
+        <power>
+          <name>Supreme Flurry</name>
+          <description>free, after resolving a fob, you shift half of your speed and use fob again.</description>
+          <charges>0</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Spinning Leopard Maneuver</name>
+          <description>standard, melee 1, dex vs ref, shift your speed and make an atk against every enemy within reach during the shift. hit: 2d6+dex(3), miss half.</description>
+          <charges>0</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </dailyPowers>
+    </pc>
+    <pc>
+      <name>blueling</name>
+      <wound>0</wound>
+      <thp>0</thp>
+      <init>4.0</init>
+      <xp>1404</xp>
+      <hp>18</hp>
+      <maxHp>28</maxHp>
+      <surge>6</surge>
+      <maxSurge>8</maxSurge>
+      <ap>2</ap>
+      <encounterPowers>
+        <power>
+          <name>Rebuke Undead</name>
+          <description>standard, channel divinity, each ud in close blast 5, wis vs will, hit: 1d10+wis(4) radiant dmg, are pushed 2 squares and are dazed eont. miss: half dmg.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+          <shareUseWith>Armor of Wrath</shareUseWith>
+        </power>
+        <power>
+          <name>Memory of a Thousand Lifetimes</name>
+          <description>no action, after making an attack roll, saving throw, skill check or ability check, you can add 1d6 to that result.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Thunder of Judgement</name>
+          <description>standard, ranged 10, targets 1~3 creature, hit: 1d6+wis(+4) thunder dmg , or 2d6+wis(4) if you only targets 1 creature. the targets are dazed eont, and are push con(2) squares.</description>
+          <charges>0</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Divine Call</name>
+          <description>minor, ranged 10, targets 1~2 ally. pull each of them 3 squares.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Armor of Wrath</name>
+          <description>immi. reaction, channel divinity, trigger: an enemy within 5 sq. hits you, effect: target takes con(2) radiant dmg and is pushed 2 sq.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+          <shareUseWith>Rebuke Undead</shareUseWith>
+        </power>
+        <power>
+          <name>Second Wind</name>
+          <description>standard, heals self surge value, all def+2 eont.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </encounterPowers>
+      <dailyPowers>
+        <power>
+          <name>Summon Angel of Fire</name>
+          <description>minor, ranged 5, summoning. angel has speed 6 and fly 6(hovor). attack: standard, each creaturen in close burst 1, wis vs ref, 1d8+wis(4) fire dmg. oa: melee 1, wis vs ref, 1d8+wis(4) fire dmg.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Staff of Storms</name>
+          <description>from item, free, trigger: you hit an enemy with power of lightning or thunder keyword, effect: after the power, each creature in a blast 3 takes 1d8 lightning and thunder dmg.</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </dailyPowers>
+    </pc>
+  </pcs>
+</game>

@@ -1,0 +1,67 @@
+<project name="dmtoolbox" basedir="." default="clean-build">
+
+	<property name="src.dir" value="src" />
+	<property name="lib.dir" value="lib" />
+	<property name="resources.dir" value="resources" />
+	<property name="doc.dir" value="doc" />
+
+	<property name="build.dir" value="build" />
+	<property name="classes.dir" value="${build.dir}/classes" />
+
+	<property name="dist.dir" value="${build.dir}/${ant.project.name}" />
+	<property name="dist.lib.dir" value="${dist.dir}/lib" />
+	<property name="dist.palbot.dir" value="${dist.dir}/palbot" />
+	<property name="dist.doc.dir" value="${dist.dir}/doc" />
+	<property name="dist.res.dir" value="${dist.dir}/resources" />
+
+	<property name="main-class" value="org.toj.dnd.irctoolkit.engine.ToolkitLauncher" />
+
+	<path id="classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+	</path>
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="compile">
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" />
+		<copy todir="${classes.dir}">
+			<fileset dir="${resources.dir}" excludes="**/*.java" />
+		</copy>
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.dir}" excludes="**/*.java" />
+		</copy>
+	</target>
+
+	<target name="jar" depends="compile">
+		<mkdir dir="${dist.lib.dir}" />
+		<jar destfile="${dist.lib.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="${main-class}" />
+			</manifest>
+		</jar>
+		<delete dir="${classes.dir}" />
+		<copy todir="${dist.lib.dir}">
+			<fileset dir="${lib.dir}" includes="**/*.jar" />
+		</copy>
+		<!--
+		deprecated
+		<copy todir="${dist.palbot.dir}">
+			<fileset dir="${palbot.dir}" includes="**/*" />
+		</copy>
+		-->
+		<copy todir="${dist.res.dir}">
+			<fileset dir="${resources.dir}" includes="**/*" />
+		</copy>
+		<copy todir="${dist.doc.dir}">
+			<fileset dir="${doc.dir}" includes="**/*" />
+		</copy>
+		<copy todir="${dist.dir}">
+			<fileset dir="." includes="*.bat" />
+		</copy>
+	</target>
+
+	<target name="clean-build" depends="clean,jar" />
+</project>

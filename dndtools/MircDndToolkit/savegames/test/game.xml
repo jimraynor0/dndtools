@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<game>
+  <name>test</name>
+  <chan>#trpg22</chan>
+  <pcs>
+    <pc>
+      <name>Monk</name>
+      <wound>0</wound>
+      <thp>0</thp>
+      <init>8.0</init>
+      <xp>2250</xp>
+      <hp>20</hp>
+      <maxHp>35</maxHp>
+      <surge>8</surge>
+      <maxSurge>8</maxSurge>
+      <ap>1</ap>
+      <initMod>5</initMod>
+      <encounterPowers>
+        <power>
+          <name>Open the Gate of Battle</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Harmonious Discipline</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Eternal Mountain</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Second Wind</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </encounterPowers>
+      <dailyPowers>
+        <power>
+          <name>Masterful Spiral</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Cloak of Resistance</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </dailyPowers>
+    </pc>
+    <pc>
+      <name>Cleric</name>
+      <wound>0</wound>
+      <thp>0</thp>
+      <init>21.0</init>
+      <states>
+        <state>bloodied|eoe|0|0.0</state>
+      </states>
+      <xp>2250</xp>
+      <hp>16</hp>
+      <maxHp>35</maxHp>
+      <surge>7</surge>
+      <maxSurge>8</maxSurge>
+      <ap>1</ap>
+      <pp>0</pp>
+      <maxPp>4</maxPp>
+      <initMod>1</initMod>
+      <encounterPowers>
+        <power>
+          <name>Command</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Divine Fortune</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+          <group>Channel Divinity</group>
+        </power>
+        <power>
+          <name>Cause Fear</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Turn Undead</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+          <group>Channel Divinity</group>
+        </power>
+        <power>
+          <name>Second Wind</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </encounterPowers>
+      <dailyPowers>
+        <power>
+          <name>Dwarven Chainmail</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Beacon of Hope</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Cloak of Resistance</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Astral Symbol of Hope</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+        <power>
+          <name>Shield of Faith</name>
+          <description>no desc</description>
+          <charges>1</charges>
+          <maxCharges>1</maxCharges>
+        </power>
+      </dailyPowers>
+    </pc>
+  </pcs>
+  <aliases>
+    <alias abbr="Cle" text="cle"/>
+    <alias abbr="JimRaynor" text="Cle"/>
+  </aliases>
+  <battle>
+    <round>1</round>
+    <current>6</current>
+    <combatants>
+      <combatant>
+        <isPC>true</isPC>
+        <name>Cleric</name>
+      </combatant>
+      <combatant>
+        <name>h1</name>
+        <wound>0</wound>
+        <thp>0</thp>
+        <init>17.0</init>
+      </combatant>
+      <combatant>
+        <name>b1</name>
+        <wound>0</wound>
+        <thp>0</thp>
+        <init>13.0</init>
+      </combatant>
+      <combatant>
+        <name>b2</name>
+        <wound>0</wound>
+        <thp>0</thp>
+        <init>13.0</init>
+      </combatant>
+      <combatant>
+        <name>s1</name>
+        <wound>13</wound>
+        <thp>0</thp>
+        <init>10.0</init>
+      </combatant>
+      <combatant>
+        <name>s2</name>
+        <wound>23</wound>
+        <thp>0</thp>
+        <init>10.0</init>
+      </combatant>
+      <combatant>
+        <isPC>true</isPC>
+        <name>Monk</name>
+      </combatant>
+    </combatants>
+  </battle>
+</game>
