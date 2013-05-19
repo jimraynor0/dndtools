@@ -82,4 +82,15 @@ public abstract class GameCommand extends Command {
     public boolean requireGameContext() {
         return true;
     }
+
+    protected String composite(String[] parts) {
+        StringBuilder sb = new StringBuilder();
+        for (String str : parts) {
+            if (!str.equals(parts[0])) {
+                sb.append(" ");
+            }
+            sb.append(str);
+        }
+        return sb.toString();
+    }
 }

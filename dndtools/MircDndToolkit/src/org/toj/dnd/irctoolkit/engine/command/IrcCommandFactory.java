@@ -13,6 +13,7 @@ import org.toj.dnd.irctoolkit.engine.command.game.AddPowerCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.AddStateCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.CharStateCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.CreateOrLoadCommand;
+import org.toj.dnd.irctoolkit.engine.command.game.D6sDiceRollCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.DamageCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.EndBattleCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.EndCommand;
@@ -112,6 +113,8 @@ public class IrcCommandFactory {
 
     private static final String REFRESH = "refresh";
     private static final String SHOW_TOPIC = "showtopic";
+
+    private static final String D6S = "d6s";
 
     public static Command buildCommand(String cmdStr, InetAddress addr, int port) {
         boolean forceUpdateTopic = false;
@@ -466,6 +469,10 @@ public class IrcCommandFactory {
 
             return new RemoveStateCommand(rest, getTheRestOfTheParams(parts));
         }
+        if (parts[0].equalsIgnoreCase(D6S)) {
+            return new D6sDiceRollCommand(Integer.valueOf(parts[1]), Arrays.copyOfRange(parts, 2, parts.length));
+        }
+
         return null;
     }
 
