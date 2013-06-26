@@ -2,6 +2,8 @@ package org.toj.dnd.irctoolkit.engine.command;
 
 import java.net.InetAddress;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
@@ -57,6 +59,8 @@ import org.toj.dnd.irctoolkit.util.StringNumberUtil;
 public class IrcCommandFactory {
 
     private static Logger log = Logger.getLogger(IrcCommandFactory.class);
+
+    private static Set<IrcCommandParser> parsers = new HashSet<IrcCommandParser>();
 
     private static final String START_GAME = "startgame";
     private static final String UNDO = "undo";
