@@ -1,16 +1,37 @@
 package org.toj.dnd.irctoolkit.engine.command.game;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.toj.dnd.irctoolkit.engine.command.GameCommand;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommandFactory;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommandParser;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 
 public class CreateOrLoadCommand extends GameCommand {
-    private Logger log = Logger.getLogger(this.getClass());
+    private static final String RULE = "rule";
+
+    private static IrcCommandParser parser = new IrcCommandParser() {
+		@Override
+		public boolean canParse(String[] args) {
+			return args[0].equalsIgnoreCase(RULE);
+		}
+
+		@Override
+		public GameCommand parse(String[] args) {
+            return new RuleQueryCommand(Arrays.copyOfRange(args, 1, args.length));
+		}
+	};
+
+	static {
+		IrcCommandFactory.register(parser);
+	}
+
+	private Logger log = Logger.getLogger(this.getClass());
     private String name;
 
     public CreateOrLoadCommand(String name) {

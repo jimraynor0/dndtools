@@ -1,71 +1,32 @@
 package org.toj.dnd.irctoolkit.engine.command;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
 import org.toj.dnd.irctoolkit.engine.command.game.ActAsCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.ActionPointsCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.AddCharCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.AddPcCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.AddPowerCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.AddStateCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.CharStateCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.CreateOrLoadCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.D6sDiceRollCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.DamageCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.EndBattleCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.EndCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.GameUndoCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.GotoCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.HealCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.InitCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.LogCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.ModifyXpCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.MoveCharAfterCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.MoveCharBeforeCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.PowerGroupCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.PreCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.PsionicPointCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.ReadPowerCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.RefreshTopicCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.RegainPowerCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.RemoveCharCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.RemovePcCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.RemovePowerCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.RemoveStateCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.RenameCharCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.RestCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.RuleQueryCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.SaveStateCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.SetCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.ShowTopicCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.StartBattleCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.StartRoundCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.SurgeCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.TempHitPointsCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.UsePowerCommand;
-import org.toj.dnd.irctoolkit.engine.command.map.MoveMapObjectCommand;
-import org.toj.dnd.irctoolkit.engine.command.map.PrintMapCommand;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.io.pircbot.IrcClient;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
-import org.toj.dnd.irctoolkit.util.AxisUtil;
-import org.toj.dnd.irctoolkit.util.StringNumberUtil;
 
 public class IrcCommandFactory {
 
     private static Logger log = Logger.getLogger(IrcCommandFactory.class);
 
-    private static Set<IrcCommandParser> parsers = new HashSet<IrcCommandParser>();
+	private static List<Class> beanClasses = new ArrayList<Class>();
+
+	static {
+		beanClasses.add(ActAsCommand.class);
+	}
 
     private static final String START_GAME = "startgame";
     private static final String UNDO = "undo";
 
-    private static final String ACT_AS = "actas";
 
     private static final String CHARSTAT = "charstat";
     private static final String RULE = "rule";
@@ -115,7 +76,6 @@ public class IrcCommandFactory {
 
     private static final String LOG = "log";
 
-    private static final String REFRESH = "refresh";
     private static final String SHOW_TOPIC = "showtopic";
 
     private static final String D6S = "d6s";
@@ -240,19 +200,19 @@ public class IrcCommandFactory {
     }
 
     private static GameCommand buildCmdByType(String[] parts) {
-        if (parts[0].equalsIgnoreCase(RULE)) {
-            return new RuleQueryCommand(getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(REFRESH)) {
-            return new RefreshTopicCommand();
-        }
-        if (parts[0].equalsIgnoreCase(SHOW_TOPIC)) {
-            return new ShowTopicCommand();
-        }
-        if (parts[0].equalsIgnoreCase(ACT_AS)) {
-            return new ActAsCommand(parts[1]);
-        }
-        if (parts[0].equalsIgnoreCase(START_GAME)) {
+		for (Class c : beanClasses) {
+			IrcCommand anno = (IrcCommand) c.getAnnotation(IrcCommand.class);
+			if (anno != null && getInterpreter(anno).matches(parts)) {
+				try {
+					GameCommand bean = (GameCommand) c.getConstructor(parts.getClass()).newInstance(parts);
+				} catch (Exception e) {
+					log.error(e, e);
+				}
+			}
+		}
+
+		
+/*        if (parts[0].equalsIgnoreCase(START_GAME)) {
             return new CreateOrLoadCommand(parts[1]);
         }
         if (parts[0].equalsIgnoreCase(CHARSTAT)) {
@@ -476,11 +436,24 @@ public class IrcCommandFactory {
         if (parts[0].equalsIgnoreCase(D6S)) {
             return new D6sDiceRollCommand(Integer.valueOf(parts[1]), Arrays.copyOfRange(parts, 2, parts.length));
         }
-
+*/
         return null;
     }
 
+    private static Map<IrcCommand, IrcCommandPatternInterpreter> interpreters = new HashMap<IrcCommand, IrcCommandPatternInterpreter>();
+
+    private static IrcCommandPatternInterpreter getInterpreter(IrcCommand anno) {
+    	if (!interpreters.containsKey(anno)) {
+    		interpreters.put(anno, new IrcCommandPatternInterpreter(anno));
+    	}
+		return interpreters.get(anno);
+	}
+
     private static String[] getTheRestOfTheParams(String[] parts) {
         return Arrays.copyOfRange(parts, 1, parts.length);
+    }
+
+    public static void main(String[] args) {
+    	System.out.println(IrcCommandFactory.buildCmdByType(new String[] {"actas", "someguy"}));
     }
 }
