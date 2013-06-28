@@ -10,7 +10,7 @@ public class D6sRoll {
     private int baseSucc = 0;
     private int rolledSucc = 0;
     private List<Integer> diceRollResults;
-    
+
     public D6sRoll(int number, boolean autoSuccAfter15) {
         this.diceNumber = number;
         this.autoSuccAfter15 = autoSuccAfter15;

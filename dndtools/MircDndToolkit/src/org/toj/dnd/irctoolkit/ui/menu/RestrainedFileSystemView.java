@@ -10,7 +10,7 @@ public class RestrainedFileSystemView extends FileSystemView {
     private final File[] rootDirectories;
 
     RestrainedFileSystemView(File rootDirectory) {
-        this.rootDirectories = new File[] {rootDirectory};
+        this.rootDirectories = new File[] { rootDirectory };
     }
 
     RestrainedFileSystemView(File[] rootDirectories) {

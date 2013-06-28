@@ -77,10 +77,15 @@ public class NewMapDialog extends JDialog {
                 try {
                     int width = Integer.parseInt(tWidth.getText());
                     int height = Integer.parseInt(tHeight.getText());
-                    if (width > AxisUtil.supportsAxisLength() || height > AxisUtil.supportsAxisLength()) {
-                        ToolkitEngine.getEngine().fireErrorMsgWindow("抱歉哟亲，目前只能支持边长不超过" + AxisUtil.supportsAxisLength() + "的地图哟");
+                    if (width > AxisUtil.supportsAxisLength()
+                            || height > AxisUtil.supportsAxisLength()) {
+                        ToolkitEngine.getEngine().fireErrorMsgWindow(
+                                "抱歉哟亲，目前只能支持边长不超过"
+                                        + AxisUtil.supportsAxisLength()
+                                        + "的地图哟");
                     }
-                    ToolkitEngine.getEngine().queueCommand(new NewMapCommand(width, height));
+                    ToolkitEngine.getEngine().queueCommand(
+                            new NewMapCommand(width, height));
                     setVisible(false);
                 } catch (NumberFormatException e1) {
                     ToolkitEngine.getEngine().fireErrorMsgWindow("长和宽都要是正整数哟亲");
@@ -100,7 +105,8 @@ public class NewMapDialog extends JDialog {
 
     public void launch() {
         Rectangle parentBound = this.getOwner().getBounds();
-        setBounds(new Rectangle(parentBound.x + 100, parentBound.y + 100, 160, 120));
+        setBounds(new Rectangle(parentBound.x + 100, parentBound.y + 100, 160,
+                120));
         this.setVisible(true);
     }
 }

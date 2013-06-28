@@ -40,7 +40,8 @@ public class NpcTemplate extends Combatant {
         this.encounterPowers = new HashMap<String, Power>();
         this.rechargablePowers = new HashMap<String, RechargablePower>();
         if (e.element("encounterPowers") != null) {
-            Iterator<Element> i = e.element("encounterPowers").elementIterator();
+            Iterator<Element> i = e.element("encounterPowers")
+                    .elementIterator();
             while (i.hasNext()) {
                 Power power = new Power(i.next());
                 this.encounterPowers.put(power.getName(), power);
@@ -48,60 +49,62 @@ public class NpcTemplate extends Combatant {
         }
 
         if (e.element("rechargablePowers") != null) {
-            Iterator<Element> i = e.element("rechargablePowers").elementIterator();
+            Iterator<Element> i = e.element("rechargablePowers")
+                    .elementIterator();
             while (i.hasNext()) {
                 RechargablePower power = new RechargablePower(i.next());
                 this.rechargablePowers.put(power.getName(), power);
             }
         }
     }
-//
-//    public Element toXmlElement() {
-//        Element e = super.toXmlElement();
-//        e.setName("npc");
-//        e.add(XmlUtil.textElement("isAlly", String.valueOf(isAlly)));
-//        e.add(XmlUtil.textElement("hp", String.valueOf(hp)));
-//        e.add(XmlUtil.textElement("maxHp", String.valueOf(maxHp)));
-//        e.add(XmlUtil.textElement("surge", String.valueOf(surge)));
-//        e.add(XmlUtil.textElement("maxSurge", String.valueOf(maxSurge)));
-//        e.add(XmlUtil.textElement("ap", String.valueOf(ap)));
-//        e.add(XmlUtil.textElement("initMod", String.valueOf(initMod)));
-//
-//        if (!encounterPowers.isEmpty()) {
-//            Element eps = e.addElement("encounterPowers");
-//            for (Power power : encounterPowers.values()) {
-//                eps.add(power.toXmlElement());
-//            }
-//        }
-//
-//        if (!rechargablePowers.isEmpty()) {
-//            Element dps = e.addElement("rechargablePowers");
-//            for (Power power : rechargablePowers.values()) {
-//                dps.add(power.toXmlElement());
-//            }
-//        }
-//        return e;
-//    }
 
-//    public void setMaxHp(int maxHp) {
-//        this.maxHp = maxHp;
-//    }
-//
-//    public void setMaxSurge(int maxSurge) {
-//        this.maxSurge = maxSurge;
-//    }
-//
-//    public void setAp(int ap) {
-//        this.ap = ap;
-//    }
-//
-//    public void setInitMod(int initMod) {
-//        this.initMod = initMod;
-//    }
-//
-//    public void setAlly(boolean isAlly) {
-//        this.isAlly = isAlly;
-//    }
+    //
+    // public Element toXmlElement() {
+    // Element e = super.toXmlElement();
+    // e.setName("npc");
+    // e.add(XmlUtil.textElement("isAlly", String.valueOf(isAlly)));
+    // e.add(XmlUtil.textElement("hp", String.valueOf(hp)));
+    // e.add(XmlUtil.textElement("maxHp", String.valueOf(maxHp)));
+    // e.add(XmlUtil.textElement("surge", String.valueOf(surge)));
+    // e.add(XmlUtil.textElement("maxSurge", String.valueOf(maxSurge)));
+    // e.add(XmlUtil.textElement("ap", String.valueOf(ap)));
+    // e.add(XmlUtil.textElement("initMod", String.valueOf(initMod)));
+    //
+    // if (!encounterPowers.isEmpty()) {
+    // Element eps = e.addElement("encounterPowers");
+    // for (Power power : encounterPowers.values()) {
+    // eps.add(power.toXmlElement());
+    // }
+    // }
+    //
+    // if (!rechargablePowers.isEmpty()) {
+    // Element dps = e.addElement("rechargablePowers");
+    // for (Power power : rechargablePowers.values()) {
+    // dps.add(power.toXmlElement());
+    // }
+    // }
+    // return e;
+    // }
+
+    // public void setMaxHp(int maxHp) {
+    // this.maxHp = maxHp;
+    // }
+    //
+    // public void setMaxSurge(int maxSurge) {
+    // this.maxSurge = maxSurge;
+    // }
+    //
+    // public void setAp(int ap) {
+    // this.ap = ap;
+    // }
+    //
+    // public void setInitMod(int initMod) {
+    // this.initMod = initMod;
+    // }
+    //
+    // public void setAlly(boolean isAlly) {
+    // this.isAlly = isAlly;
+    // }
 
     public String readPower(String name) {
         Power power = findPower(name);
@@ -114,12 +117,14 @@ public class NpcTemplate extends Combatant {
 
     public Power findPower(String name) {
         for (String key : encounterPowers.keySet()) {
-            if (key.equalsIgnoreCase(name) || AbbreviationUtil.isAbbre(name, key)) {
+            if (key.equalsIgnoreCase(name)
+                    || AbbreviationUtil.isAbbre(name, key)) {
                 return encounterPowers.get(key);
             }
         }
         for (String key : rechargablePowers.keySet()) {
-            if (key.equalsIgnoreCase(name) || AbbreviationUtil.isAbbre(name, key)) {
+            if (key.equalsIgnoreCase(name)
+                    || AbbreviationUtil.isAbbre(name, key)) {
                 return rechargablePowers.get(key);
             }
         }
@@ -134,27 +139,22 @@ public class NpcTemplate extends Combatant {
         return isAlly;
     }
 
-    
     public int getMaxHp() {
         return maxHp;
     }
 
-    
     public int getMaxSurge() {
         return maxSurge;
     }
 
-    
     public int getAp() {
         return ap;
     }
 
-    
     public Map<String, RechargablePower> getRechargablePowers() {
         return rechargablePowers;
     }
 
-    
     public Map<String, Power> getEncounterPowers() {
         return encounterPowers;
     }

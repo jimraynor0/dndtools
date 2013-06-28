@@ -26,7 +26,7 @@ import org.toj.dnd.irctoolkit.ui.map.filterpane.params.FilterParamComponent;
 public class MapFilterEditor extends JDialog {
 
     private static final String[] FILTER_TYPES = new String[] {
-//            MapFilter.TYPE_AXIS_LABEL_FILTER,
+            // MapFilter.TYPE_AXIS_LABEL_FILTER,
             MapFilter.TYPE_INVISIBILITY_FILTER,
             MapFilter.TYPE_LINE_OF_SIGHT_FILTER, MapFilter.TYPE_CROP_FILTER };
 

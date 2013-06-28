@@ -55,7 +55,8 @@ public abstract class MapFilter {
                 if (paramStr == null) {
                     paramStr = "";
                 }
-                return new InvisibilityFilter(Arrays.asList(paramStr.split(",")));
+                return new InvisibilityFilter(
+                        Arrays.asList(paramStr.split(",")));
             }
             if (TYPE_LINE_OF_SIGHT_FILTER.equals(type)) {
                 String[] params = paramStr.split("\\,");
@@ -66,17 +67,20 @@ public abstract class MapFilter {
                         Point point = AxisUtil.parse2DAxis(p);
                         vp = new ViewPoint(point.getX(), point.getY());
                     } else if (p.matches("x.y.\\|\\d")) {
-                        vp = new ViewPoint(AxisUtil.toNumber(p.substring(0, 2)),
-                                           AxisUtil.toNumber(p.substring(2, 4)),
-                                           Integer.parseInt(p.substring(5)));
+                        vp = new ViewPoint(
+                                AxisUtil.toNumber(p.substring(0, 2)),
+                                AxisUtil.toNumber(p.substring(2, 4)),
+                                Integer.parseInt(p.substring(5)));
                     } else if (p.contains("|")) {
-                        vp = new ViewPoint(p.split("\\|")[0], Integer.parseInt(p.split("\\|")[1]));
+                        vp = new ViewPoint(p.split("\\|")[0],
+                                Integer.parseInt(p.split("\\|")[1]));
                     } else {
                         vp = new ViewPoint(p.split("\\|")[0], 100);
                     }
                     vps.add(vp);
                 }
-                return new LineOfSightFilter(vps, LineOfSightFilter.MASK_TYPE_LINE_OF_SIGHT);
+                return new LineOfSightFilter(vps,
+                        LineOfSightFilter.MASK_TYPE_LINE_OF_SIGHT);
             }
             if (TYPE_CROP_FILTER.equals(type)) {
                 String[] params = paramStr.split(",");
@@ -88,7 +92,8 @@ public abstract class MapFilter {
                         bounds[i] = AxisUtil.toNumber(params[i]);
                     }
                 }
-                return new CropFilter(bounds[0], bounds[1], bounds[2], bounds[3]);
+                return new CropFilter(bounds[0], bounds[1], bounds[2],
+                        bounds[3]);
             }
             return null;
         }

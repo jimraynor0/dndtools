@@ -18,15 +18,14 @@ public class IrcCommandFactory {
 
     private static Logger log = Logger.getLogger(IrcCommandFactory.class);
 
-	private static List<Class> beanClasses = new ArrayList<Class>();
+    private static List<Class> cmdClasses = new ArrayList<Class>();
 
-	static {
-		beanClasses.add(ActAsCommand.class);
-	}
+    static {
+        cmdClasses.add(ActAsCommand.class);
+    }
 
     private static final String START_GAME = "startgame";
     private static final String UNDO = "undo";
-
 
     private static final String CHARSTAT = "charstat";
     private static final String RULE = "rule";
@@ -102,7 +101,8 @@ public class IrcCommandFactory {
         }
         log.debug("cmdStr trimmed: " + cmdStr);
 
-        GameCommand cmd = buildCmdByType(Arrays.copyOfRange(parts, 0, parts.length - 2));
+        GameCommand cmd = buildCmdByType(Arrays.copyOfRange(parts, 0,
+                parts.length - 2));
         if (cmd == null) {
             return null;
         } else {
@@ -125,12 +125,10 @@ public class IrcCommandFactory {
             }
 
             if (cmd.requireGameContext() && Command.context.getGame() == null) {
-                IrcClient.getInstance().send(new OutgoingMsg(parts[parts.length - 2],
-                                                             parts[parts.length - 1],
-                                                             "Game not initiated!",
-                                                             OutgoingMsg.WRITE_TO_MSG,
-                                                             null,
-                                                             0));
+                IrcClient.getInstance().send(
+                        new OutgoingMsg(parts[parts.length - 2],
+                                parts[parts.length - 1], "Game not initiated!",
+                                OutgoingMsg.WRITE_TO_MSG, null, 0));
                 return null;
             }
 
@@ -161,19 +159,23 @@ public class IrcCommandFactory {
         }
 
         String caller = cmdStr.substring(0, cmdStr.indexOf(actualCmdPrefix));
-        cmdStr = cmdStr.substring(cmdStr.lastIndexOf(actualCmdPrefix) + actualCmdPrefix.length());
+        cmdStr = cmdStr.substring(cmdStr.lastIndexOf(actualCmdPrefix)
+                + actualCmdPrefix.length());
 
         String value = cmdStr.substring(cmdStr.lastIndexOf('=') + 1);
         cmdStr = cmdStr.substring(0, cmdStr.lastIndexOf('='));
 
-        String[] cmd = cmdStr.substring(0, cmdStr.lastIndexOf(actualCmdSuffix)).split("\\ ");
+        String[] cmd = cmdStr.substring(0, cmdStr.lastIndexOf(actualCmdSuffix))
+                .split("\\ ");
         if (cmd.length < 1) {
             return "";
         }
-        if (cmd[0].equalsIgnoreCase(DMG) || cmd[0].equalsIgnoreCase(MINUS) || cmd[0].equalsIgnoreCase(DAMAGE)
-            || cmd[0].equalsIgnoreCase(DAM)) {
+        if (cmd[0].equalsIgnoreCase(DMG) || cmd[0].equalsIgnoreCase(MINUS)
+                || cmd[0].equalsIgnoreCase(DAMAGE)
+                || cmd[0].equalsIgnoreCase(DAM)) {
             cmd[0] = MINUS + value;
-        } else if (cmd[0].equalsIgnoreCase(PLUS) || cmd[0].equalsIgnoreCase(HEAL)) {
+        } else if (cmd[0].equalsIgnoreCase(PLUS)
+                || cmd[0].equalsIgnoreCase(HEAL)) {
             cmd[0] = PLUS + value;
         } else if (cmd[0].equalsIgnoreCase(THP)) {
             cmd[0] = THP + value;
@@ -200,260 +202,179 @@ public class IrcCommandFactory {
     }
 
     private static GameCommand buildCmdByType(String[] parts) {
-		for (Class c : beanClasses) {
-			IrcCommand anno = (IrcCommand) c.getAnnotation(IrcCommand.class);
-			if (anno != null && getInterpreter(anno).matches(parts)) {
-				try {
-					GameCommand bean = (GameCommand) c.getConstructor(parts.getClass()).newInstance(parts);
-				} catch (Exception e) {
-					log.error(e, e);
-				}
-			}
-		}
-
-		
-/*        if (parts[0].equalsIgnoreCase(START_GAME)) {
-            return new CreateOrLoadCommand(parts[1]);
-        }
-        if (parts[0].equalsIgnoreCase(CHARSTAT)) {
-            if (parts.length > 1) {
-                return new CharStateCommand(getTheRestOfTheParams(parts));
-            } else {
-                return new CharStateCommand();
-            }
-        }
-        if (parts[0].equalsIgnoreCase(ENDBATTLE)) {
-            return new EndBattleCommand();
-        }
-        if (parts[0].equalsIgnoreCase(STARTBATTLE)) {
-            return new StartBattleCommand(getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(START)) {
-            return new StartRoundCommand(1);
-        }
-        if (parts[0].equalsIgnoreCase(SURPRISE)) {
-            return new StartRoundCommand(0);
-        }
-        if (parts[0].equalsIgnoreCase(END)) {
-            return new EndCommand();
-        }
-        if (parts[0].equalsIgnoreCase(PRE)) {
-            return new PreCommand();
-        }
-        if (parts[0].equalsIgnoreCase(UNDO)) {
-            return new GameUndoCommand();
-        }
-        if (parts[0].equalsIgnoreCase(MAP)) {
-            return new PrintMapCommand();
-        }
-        if (parts[0].equalsIgnoreCase(MOVE)) {
-            if (parts.length > 2) {
-                if (AxisUtil.is2DAxis(parts[2])) {
-                    return new MoveMapObjectCommand(parts[1], parts[2].substring(0, 2), parts[2].substring(2));
-                } else {
-                    return new MoveMapObjectCommand(parts[2], parts[1].substring(0, 2), parts[1].substring(2));
-                }
-            } else {
-                return new MoveMapObjectCommand(parts[1].split(",")[0], parts[1].split(",")[1]);
-            }
-        }
-        if (parts[0].equalsIgnoreCase(GO)) {
-            if (parts.length > 2) {
-                return new GotoCommand(parts[1], Integer.valueOf(parts[2]));
-            } else {
-                return new GotoCommand(parts[1]);
-            }
-        }
-        if (parts[0].equalsIgnoreCase(INIT)) {
-            if (parts.length == 1) {
-                return new InitCommand(); // "init"
-            } else if (parts.length == 2 && StringNumberUtil.isDouble(parts[1])) {
-                return new InitCommand(Double.parseDouble(parts[1])); // "init double"
-            } else {
-                if (StringNumberUtil.isDouble(parts[1])) {
-                    return new InitCommand(Double.parseDouble(parts[1]), Arrays.copyOfRange(parts, 2, parts.length)); // "init double name1 name2..."
-                } else if (StringNumberUtil.isDouble(parts[parts.length - 1])) {
-                    return new InitCommand(Double.parseDouble(parts[parts.length - 1]), Arrays.copyOfRange(parts,
-                                                                                                           1,
-                                                                                                           parts.length - 1)); // "init name1 name2... double"
-                } else {
-                    return new InitCommand(getTheRestOfTheParams(parts)); // "init name1 name2..."
-                }
-            }
-        }
-        if (parts[0].equalsIgnoreCase(SV) || parts[0].equalsIgnoreCase(SAVE)) {
-            if (parts.length == 3) {
-                return new SaveStateCommand(Integer.parseInt(parts[1]), parts[2]);
-            } else {
-                return new SaveStateCommand(Integer.parseInt(parts[1]), parts[2], parts[3]);
-            }
-        }
-        if (parts[0].equalsIgnoreCase(BEFORE)) {
-            if (parts.length == 2) {
-                return new MoveCharBeforeCommand(parts[1]);
-            } else {
-                return new MoveCharBeforeCommand(parts[1], parts[2]);
-            }
-        }
-        if (parts[0].equalsIgnoreCase(AFTER)) {
-            if (parts.length == 2) {
-                return new MoveCharAfterCommand(parts[1]);
-            } else {
-                return new MoveCharAfterCommand(parts[1], parts[2]);
-            }
-        }
-        if (parts[0].equalsIgnoreCase(RENAME)) {
-            return new RenameCharCommand(parts[1], parts[2]);
-        }
-        if (parts[0].equalsIgnoreCase(AP)) {
-            if (parts.length == 1) {
-                return new ActionPointsCommand();
-            }
-            if (parts.length == 2) {
+        for (Class<? extends GameCommand> c : cmdClasses) {
+            IrcCommand anno = (IrcCommand) c.getAnnotation(IrcCommand.class);
+            if (anno != null && getInterpreter(anno).matches(parts)) {
                 try {
-                    return new ActionPointsCommand(Integer.parseInt(parts[1]));
-                } catch (NumberFormatException e) {
-                    return new ActionPointsCommand(parts[1]);
+                    return (GameCommand) c.getConstructor(parts.getClass())
+                            .newInstance(new Object[] { parts });
+                } catch (Exception e) {
+                    log.error(e, e);
                 }
-            }
-            if (parts.length == 3) {
-                try {
-                    return new ActionPointsCommand(parts[1], Integer.parseInt(parts[2]));
-                } catch (NumberFormatException e) {
-                    return new ActionPointsCommand(Integer.parseInt(parts[1]), parts[2]);
-                }
-            }
-        }
-        if (parts[0].equalsIgnoreCase(SURGE)) {
-            if (parts.length == 1) {
-                return new SurgeCommand();
-            }
-            if (parts.length == 2) {
-                try {
-                    return new SurgeCommand(Integer.parseInt(parts[1]));
-                } catch (NumberFormatException e) {
-                    return new SurgeCommand(parts[1]);
-                }
-            }
-            if (parts.length == 3) {
-                try {
-                    return new SurgeCommand(parts[1], Integer.parseInt(parts[2]));
-                } catch (NumberFormatException e) {
-                    return new SurgeCommand(Integer.parseInt(parts[1]), parts[2]);
-                }
-            }
-        }
-        if (parts[0].equalsIgnoreCase(PP)) {
-            return new PsionicPointCommand(getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(LOG)) {
-            return new LogCommand(getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(ADD_PC)) {
-            return new AddPcCommand(getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(REMOVE_PC)) {
-            return new RemovePcCommand(getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(ADD_POWER)) {
-            return new AddPowerCommand(getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(REMOVE_POWER)) {
-            return new RemovePowerCommand(getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(READ_POWER)) {
-            return new ReadPowerCommand(getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(GAINXP)) {
-            return new ModifyXpCommand(Integer.valueOf(parts[1]), Arrays.copyOfRange(parts, 2, parts.length));
-        }
-        if (parts[0].equalsIgnoreCase(LOSEXP)) {
-            return new ModifyXpCommand(0 - Integer.valueOf(parts[1]), Arrays.copyOfRange(parts, 2, parts.length));
-        }
-        if (parts[0].equalsIgnoreCase(SET)) {
-            if (parts.length > 3) {
-                try {
-                    return new SetCommand(parts[1], Integer.parseInt(parts[2]), parts[3]);
-                } catch (NumberFormatException e) {
-                    return new SetCommand(parts[1], parts[2], Integer.parseInt(parts[3]));
-                }
-            } else {
-                return new SetCommand(parts[1], Integer.parseInt(parts[2]));
-            }
-        }
-        if (parts[0].equalsIgnoreCase(SHORT_REST)) {
-            return new RestCommand(SHORT_REST, getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(EXTENDED_REST) || parts[0].equalsIgnoreCase(LONG_REST)) {
-            return new RestCommand(EXTENDED_REST, getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(MILESTONE)) {
-            return new RestCommand(MILESTONE, getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(POWER)) {
-            return new UsePowerCommand(getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(REGAIN_POWER)) {
-            return new RegainPowerCommand(getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(POWER_GROUP)) {
-            return new PowerGroupCommand(getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(MILESTONE)) {
-            return new RestCommand(MILESTONE, getTheRestOfTheParams(parts));
-        }
-
-        if (parts[0].startsWith(THP)) {
-            if (parts.length == 1) {
-                return new TempHitPointsCommand(Integer.parseInt(parts[0].substring(THP.length())));
-            } else {
-                return new TempHitPointsCommand(Integer.parseInt(parts[0].substring(THP.length())), getTheRestOfTheParams(parts));
             }
         }
 
-        if (parts[0].startsWith(PLUS)) {
-            String rest = parts[0].substring(1);
-            if (rest.isEmpty()) {
-                return new AddCharCommand(getTheRestOfTheParams(parts));
-            }
-            if (rest.matches("[0-9]+")) {
-                return new HealCommand(Integer.parseInt(rest), getTheRestOfTheParams(parts));
-            }
-
-            return new AddStateCommand(rest, getTheRestOfTheParams(parts));
-        }
-        if (parts[0].startsWith(MINUS)) {
-            String rest = parts[0].substring(1);
-            if (rest.isEmpty()) {
-                return new RemoveCharCommand(getTheRestOfTheParams(parts));
-            }
-            if (rest.matches("[0-9]+")) {
-                return new DamageCommand(Integer.parseInt(rest), getTheRestOfTheParams(parts));
-            }
-
-            return new RemoveStateCommand(rest, getTheRestOfTheParams(parts));
-        }
-        if (parts[0].equalsIgnoreCase(D6S)) {
-            return new D6sDiceRollCommand(Integer.valueOf(parts[1]), Arrays.copyOfRange(parts, 2, parts.length));
-        }
-*/
+        /*
+         * if (parts[0].equalsIgnoreCase(START_GAME)) { return new
+         * CreateOrLoadCommand(parts[1]); } if
+         * (parts[0].equalsIgnoreCase(CHARSTAT)) { if (parts.length > 1) {
+         * return new CharStateCommand(getTheRestOfTheParams(parts)); } else {
+         * return new CharStateCommand(); } } if
+         * (parts[0].equalsIgnoreCase(ENDBATTLE)) { return new
+         * EndBattleCommand(); } if (parts[0].equalsIgnoreCase(STARTBATTLE)) {
+         * return new StartBattleCommand(getTheRestOfTheParams(parts)); } if
+         * (parts[0].equalsIgnoreCase(START)) { return new StartRoundCommand(1);
+         * } if (parts[0].equalsIgnoreCase(SURPRISE)) { return new
+         * StartRoundCommand(0); } if (parts[0].equalsIgnoreCase(END)) { return
+         * new EndCommand(); } if (parts[0].equalsIgnoreCase(PRE)) { return new
+         * PreCommand(); } if (parts[0].equalsIgnoreCase(UNDO)) { return new
+         * GameUndoCommand(); } if (parts[0].equalsIgnoreCase(MAP)) { return new
+         * PrintMapCommand(); } if (parts[0].equalsIgnoreCase(MOVE)) { if
+         * (parts.length > 2) { if (AxisUtil.is2DAxis(parts[2])) { return new
+         * MoveMapObjectCommand(parts[1], parts[2].substring(0, 2),
+         * parts[2].substring(2)); } else { return new
+         * MoveMapObjectCommand(parts[2], parts[1].substring(0, 2),
+         * parts[1].substring(2)); } } else { return new
+         * MoveMapObjectCommand(parts[1].split(",")[0], parts[1].split(",")[1]);
+         * } } if (parts[0].equalsIgnoreCase(GO)) { if (parts.length > 2) {
+         * return new GotoCommand(parts[1], Integer.valueOf(parts[2])); } else {
+         * return new GotoCommand(parts[1]); } } if
+         * (parts[0].equalsIgnoreCase(INIT)) { if (parts.length == 1) { return
+         * new InitCommand(); // "init" } else if (parts.length == 2 &&
+         * StringNumberUtil.isDouble(parts[1])) { return new
+         * InitCommand(Double.parseDouble(parts[1])); // "init double" } else {
+         * if (StringNumberUtil.isDouble(parts[1])) { return new
+         * InitCommand(Double.parseDouble(parts[1]), Arrays.copyOfRange(parts,
+         * 2, parts.length)); // "init double name1 name2..." } else if
+         * (StringNumberUtil.isDouble(parts[parts.length - 1])) { return new
+         * InitCommand(Double.parseDouble(parts[parts.length - 1]),
+         * Arrays.copyOfRange(parts, 1, parts.length - 1)); //
+         * "init name1 name2... double" } else { return new
+         * InitCommand(getTheRestOfTheParams(parts)); // "init name1 name2..." }
+         * } } if (parts[0].equalsIgnoreCase(SV) ||
+         * parts[0].equalsIgnoreCase(SAVE)) { if (parts.length == 3) { return
+         * new SaveStateCommand(Integer.parseInt(parts[1]), parts[2]); } else {
+         * return new SaveStateCommand(Integer.parseInt(parts[1]), parts[2],
+         * parts[3]); } } if (parts[0].equalsIgnoreCase(BEFORE)) { if
+         * (parts.length == 2) { return new MoveCharBeforeCommand(parts[1]); }
+         * else { return new MoveCharBeforeCommand(parts[1], parts[2]); } } if
+         * (parts[0].equalsIgnoreCase(AFTER)) { if (parts.length == 2) { return
+         * new MoveCharAfterCommand(parts[1]); } else { return new
+         * MoveCharAfterCommand(parts[1], parts[2]); } } if
+         * (parts[0].equalsIgnoreCase(RENAME)) { return new
+         * RenameCharCommand(parts[1], parts[2]); } if
+         * (parts[0].equalsIgnoreCase(AP)) { if (parts.length == 1) { return new
+         * ActionPointsCommand(); } if (parts.length == 2) { try { return new
+         * ActionPointsCommand(Integer.parseInt(parts[1])); } catch
+         * (NumberFormatException e) { return new ActionPointsCommand(parts[1]);
+         * } } if (parts.length == 3) { try { return new
+         * ActionPointsCommand(parts[1], Integer.parseInt(parts[2])); } catch
+         * (NumberFormatException e) { return new
+         * ActionPointsCommand(Integer.parseInt(parts[1]), parts[2]); } } } if
+         * (parts[0].equalsIgnoreCase(SURGE)) { if (parts.length == 1) { return
+         * new SurgeCommand(); } if (parts.length == 2) { try { return new
+         * SurgeCommand(Integer.parseInt(parts[1])); } catch
+         * (NumberFormatException e) { return new SurgeCommand(parts[1]); } } if
+         * (parts.length == 3) { try { return new SurgeCommand(parts[1],
+         * Integer.parseInt(parts[2])); } catch (NumberFormatException e) {
+         * return new SurgeCommand(Integer.parseInt(parts[1]), parts[2]); } } }
+         * if (parts[0].equalsIgnoreCase(PP)) { return new
+         * PsionicPointCommand(getTheRestOfTheParams(parts)); } if
+         * (parts[0].equalsIgnoreCase(LOG)) { return new
+         * LogCommand(getTheRestOfTheParams(parts)); } if
+         * (parts[0].equalsIgnoreCase(ADD_PC)) { return new
+         * AddPcCommand(getTheRestOfTheParams(parts)); } if
+         * (parts[0].equalsIgnoreCase(REMOVE_PC)) { return new
+         * RemovePcCommand(getTheRestOfTheParams(parts)); } if
+         * (parts[0].equalsIgnoreCase(ADD_POWER)) { return new
+         * AddPowerCommand(getTheRestOfTheParams(parts)); } if
+         * (parts[0].equalsIgnoreCase(REMOVE_POWER)) { return new
+         * RemovePowerCommand(getTheRestOfTheParams(parts)); } if
+         * (parts[0].equalsIgnoreCase(READ_POWER)) { return new
+         * ReadPowerCommand(getTheRestOfTheParams(parts)); } if
+         * (parts[0].equalsIgnoreCase(GAINXP)) { return new
+         * ModifyXpCommand(Integer.valueOf(parts[1]), Arrays.copyOfRange(parts,
+         * 2, parts.length)); } if (parts[0].equalsIgnoreCase(LOSEXP)) { return
+         * new ModifyXpCommand(0 - Integer.valueOf(parts[1]),
+         * Arrays.copyOfRange(parts, 2, parts.length)); } if
+         * (parts[0].equalsIgnoreCase(SET)) { if (parts.length > 3) { try {
+         * return new SetCommand(parts[1], Integer.parseInt(parts[2]),
+         * parts[3]); } catch (NumberFormatException e) { return new
+         * SetCommand(parts[1], parts[2], Integer.parseInt(parts[3])); } } else
+         * { return new SetCommand(parts[1], Integer.parseInt(parts[2])); } } if
+         * (parts[0].equalsIgnoreCase(SHORT_REST)) { return new
+         * RestCommand(SHORT_REST, getTheRestOfTheParams(parts)); } if
+         * (parts[0].equalsIgnoreCase(EXTENDED_REST) ||
+         * parts[0].equalsIgnoreCase(LONG_REST)) { return new
+         * RestCommand(EXTENDED_REST, getTheRestOfTheParams(parts)); } if
+         * (parts[0].equalsIgnoreCase(MILESTONE)) { return new
+         * RestCommand(MILESTONE, getTheRestOfTheParams(parts)); } if
+         * (parts[0].equalsIgnoreCase(POWER)) { return new
+         * UsePowerCommand(getTheRestOfTheParams(parts)); } if
+         * (parts[0].equalsIgnoreCase(REGAIN_POWER)) { return new
+         * RegainPowerCommand(getTheRestOfTheParams(parts)); } if
+         * (parts[0].equalsIgnoreCase(POWER_GROUP)) { return new
+         * PowerGroupCommand(getTheRestOfTheParams(parts)); } if
+         * (parts[0].equalsIgnoreCase(MILESTONE)) { return new
+         * RestCommand(MILESTONE, getTheRestOfTheParams(parts)); }
+         * 
+         * if (parts[0].startsWith(THP)) { if (parts.length == 1) { return new
+         * TempHitPointsCommand
+         * (Integer.parseInt(parts[0].substring(THP.length()))); } else { return
+         * new
+         * TempHitPointsCommand(Integer.parseInt(parts[0].substring(THP.length
+         * ())), getTheRestOfTheParams(parts)); } }
+         * 
+         * if (parts[0].startsWith(PLUS)) { String rest = parts[0].substring(1);
+         * if (rest.isEmpty()) { return new
+         * AddCharCommand(getTheRestOfTheParams(parts)); } if
+         * (rest.matches("[0-9]+")) { return new
+         * HealCommand(Integer.parseInt(rest), getTheRestOfTheParams(parts)); }
+         * 
+         * return new AddStateCommand(rest, getTheRestOfTheParams(parts)); } if
+         * (parts[0].startsWith(MINUS)) { String rest = parts[0].substring(1);
+         * if (rest.isEmpty()) { return new
+         * RemoveCharCommand(getTheRestOfTheParams(parts)); } if
+         * (rest.matches("[0-9]+")) { return new
+         * DamageCommand(Integer.parseInt(rest), getTheRestOfTheParams(parts));
+         * }
+         * 
+         * return new RemoveStateCommand(rest, getTheRestOfTheParams(parts)); }
+         * if (parts[0].equalsIgnoreCase(D6S)) { return new
+         * D6sDiceRollCommand(Integer.valueOf(parts[1]),
+         * Arrays.copyOfRange(parts, 2, parts.length)); }
+         */
         return null;
     }
 
     private static Map<IrcCommand, IrcCommandPatternInterpreter> interpreters = new HashMap<IrcCommand, IrcCommandPatternInterpreter>();
 
     private static IrcCommandPatternInterpreter getInterpreter(IrcCommand anno) {
-    	if (!interpreters.containsKey(anno)) {
-    		interpreters.put(anno, new IrcCommandPatternInterpreter(anno));
-    	}
-		return interpreters.get(anno);
-	}
+        if (!interpreters.containsKey(anno)) {
+            interpreters.put(anno, new IrcCommandPatternInterpreter(anno));
+        }
+        return interpreters.get(anno);
+    }
 
     private static String[] getTheRestOfTheParams(String[] parts) {
         return Arrays.copyOfRange(parts, 1, parts.length);
     }
 
     public static void main(String[] args) {
-    	System.out.println(IrcCommandFactory.buildCmdByType(new String[] {"actas", "someguy"}));
+        GameCommand cmd = IrcCommandFactory.buildCmdByType(new String[] {
+                "actas", "someguy" });
+        System.out.println(cmd);
+        GameCommand cmd1 = IrcCommandFactory.buildCmdByType(new String[] {
+                "actas1", "someguy" });
+        System.out.println(cmd1);
+        GameCommand cmd2 = IrcCommandFactory.buildCmdByType(new String[] {
+                "acta", "someguy" });
+        System.out.println(cmd2);
+        GameCommand cmd3 = IrcCommandFactory.buildCmdByType(new String[] {
+                "actas" });
+        System.out.println(cmd3);
+        GameCommand cmd4 = IrcCommandFactory.buildCmdByType(new String[] {
+                "actas", "someguy", "someotherguy" });
+        System.out.println(cmd4);
     }
 }

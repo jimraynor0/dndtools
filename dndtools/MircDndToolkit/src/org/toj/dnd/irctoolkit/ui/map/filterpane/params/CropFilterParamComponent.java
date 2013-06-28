@@ -23,7 +23,8 @@ public class CropFilterParamComponent extends FilterParamComponent {
 
     public CropFilterParamComponent(String param) {
         table = new JTable();
-        table.setModel(new MapGridWrapper(ToolkitEngine.getEngine().getContext().getCurrentMap().getUnAxisfiedFilteredMap()));
+        table.setModel(new MapGridWrapper(ToolkitEngine.getEngine()
+                .getContext().getCurrentMap().getUnAxisfiedFilteredMap()));
         table.setRowHeight(CELL_WIDTH_AND_HEIGHT);
         table.setRowSelectionAllowed(false);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -64,9 +65,12 @@ public class CropFilterParamComponent extends FilterParamComponent {
     private void initColumnModel() {
         for (int i = 0; i < table.getModel().getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setResizable(false);
-            table.getColumnModel().getColumn(i).setPreferredWidth(CELL_WIDTH_AND_HEIGHT);
-            table.getColumnModel().getColumn(i).setMinWidth(CELL_WIDTH_AND_HEIGHT);
-            table.getColumnModel().getColumn(i).setMaxWidth(CELL_WIDTH_AND_HEIGHT);
+            table.getColumnModel().getColumn(i)
+                    .setPreferredWidth(CELL_WIDTH_AND_HEIGHT);
+            table.getColumnModel().getColumn(i)
+                    .setMinWidth(CELL_WIDTH_AND_HEIGHT);
+            table.getColumnModel().getColumn(i)
+                    .setMaxWidth(CELL_WIDTH_AND_HEIGHT);
         }
     }
 
@@ -92,7 +96,8 @@ public class CropFilterParamComponent extends FilterParamComponent {
 
     @Override
     public Component getTitle() {
-        JLabel jLabel = new JLabel("Drag to select the area you want to show to the PCs:");
+        JLabel jLabel = new JLabel(
+                "Drag to select the area you want to show to the PCs:");
         jLabel.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel.setPreferredSize(new Dimension(400, 30));
         return jLabel;

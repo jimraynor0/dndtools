@@ -24,7 +24,8 @@ public class GenerateRandomMapCommand extends MapCommand {
 
     @Override
     public void doExecute() throws ToolkitCommandException {
-        MapGrid map = new DoorFirstDungeonGenerator().generateDungeon().asMapGrid();
+        MapGrid map = new DoorFirstDungeonGenerator().generateDungeon()
+                .asMapGrid();
         if (map != null) {
             context.setCurrentMap(map);
         }

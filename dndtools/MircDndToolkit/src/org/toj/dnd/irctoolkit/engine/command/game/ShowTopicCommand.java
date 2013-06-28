@@ -3,30 +3,20 @@ package org.toj.dnd.irctoolkit.engine.command.game;
 import java.util.List;
 
 import org.toj.dnd.irctoolkit.engine.command.GameCommand;
-import org.toj.dnd.irctoolkit.engine.command.IrcCommandFactory;
-import org.toj.dnd.irctoolkit.engine.command.IrcCommandParser;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 
+@IrcCommand(patterns = { "showtopic" }, argsMin = 1, argsMax = 1)
 public class ShowTopicCommand extends GameCommand {
-    private static final String SHOW_TOPIC = "showtopic";
 
-    private static IrcCommandParser parser = new IrcCommandParser() {
-		@Override
-		public boolean canParse(String[] args) {
-			return args[0].equalsIgnoreCase(SHOW_TOPIC);
-		}
+    public ShowTopicCommand() {
+        super();
+    }
 
-		@Override
-		public GameCommand parse(String[] args) {
-            return new ShowTopicCommand();
-		}
-	};
-
-	static {
-		IrcCommandFactory.register(parser);
-	}
-
+    public ShowTopicCommand(String[] args) {
+        this();
+    }
 
     @Override
     public List<OutgoingMsg> execute() throws ToolkitCommandException {

@@ -9,7 +9,8 @@ public class AxisLabelFilter extends MapFilter {
 
     private static final long serialVersionUID = 5226719747025737291L;
 
-    public static final MapGridCell AXIS_LABEL = new MapGridCell(Color.BLACK, Color.WHITE, "¨K");
+    public static final MapGridCell AXIS_LABEL = new MapGridCell(Color.BLACK,
+            Color.WHITE, "¨K");
 
     private transient MapGridCell[][] originalMap;
 
@@ -42,12 +43,14 @@ public class AxisLabelFilter extends MapFilter {
         Color foreColor = Color.MAROON;
         for (int i = 0; i <= xMax - xMin; i++) {
             foreColor = foreColor == Color.MAROON ? Color.NAVY : Color.MAROON;
-            maskedGrid[i + 1][0] = new MapGridCell(foreColor, Color.WHITE, AxisUtil.toString("x", xMin + i));
+            maskedGrid[i + 1][0] = new MapGridCell(foreColor, Color.WHITE,
+                    AxisUtil.toString("x", xMin + i));
         }
         foreColor = Color.MAROON;
         for (int i = 0; i <= yMax - yMin; i++) {
             foreColor = foreColor == Color.MAROON ? Color.NAVY : Color.MAROON;
-            maskedGrid[0][i + 1] = new MapGridCell(foreColor, Color.WHITE, AxisUtil.toString("y", yMin + i));
+            maskedGrid[0][i + 1] = new MapGridCell(foreColor, Color.WHITE,
+                    AxisUtil.toString("y", yMin + i));
         }
         copyOriginalMap(maskedGrid);
 
@@ -56,7 +59,8 @@ public class AxisLabelFilter extends MapFilter {
 
     private void copyOriginalMap(MapGridCell[][] maskedGrid) {
         for (int i = 0; i < originalMap.length; i++) {
-            System.arraycopy(originalMap[i], 0, maskedGrid[i + 1], 1, originalMap[0].length);
+            System.arraycopy(originalMap[i], 0, maskedGrid[i + 1], 1,
+                    originalMap[0].length);
         }
     }
 

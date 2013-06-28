@@ -62,8 +62,8 @@ public class MainFrame extends JFrame {
             Object key = keys.nextElement();
             Object value = UIManager.get(key);
             if (value instanceof javax.swing.plaf.FontUIResource) {
-                UIManager.put(key, new javax.swing.plaf.FontUIResource("Dialog",
-                        Font.PLAIN, 10));
+                UIManager.put(key, new javax.swing.plaf.FontUIResource(
+                        "Dialog", Font.PLAIN, 10));
                 // log.debug("" + key + UIManager.get(key));
             }
         }

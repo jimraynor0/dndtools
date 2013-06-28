@@ -36,7 +36,8 @@ public class MapGenConfigs {
         try {
             return Integer.parseInt(props.getProperty(key));
         } catch (NumberFormatException e) {
-            ToolkitEngine.getEngine().fireErrorMsgWindow("配置文件格式错误: " + CONFIG_FILE + " - " + key + "的值应为正整数。");
+            ToolkitEngine.getEngine().fireErrorMsgWindow(
+                    "配置文件格式错误: " + CONFIG_FILE + " - " + key + "的值应为正整数。");
         }
         return 0;
     }

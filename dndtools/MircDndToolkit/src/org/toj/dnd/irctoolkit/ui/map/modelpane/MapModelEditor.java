@@ -92,26 +92,28 @@ public class MapModelEditor extends JDialog {
 
             @Override
             public Component getListCellRendererComponent(JList list,
-                                                          Object value,
-                                                          int index,
-                                                          boolean isSelected,
-                                                          boolean cellHasFocus) {
+                    Object value, int index, boolean isSelected,
+                    boolean cellHasFocus) {
                 // super.getListCellRendererComponent(list, value, index,
                 // isSelected, cellHasFocus);
                 Color color = (Color) value;
 
-                JLabel label = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                JLabel label = (JLabel) defaultRenderer
+                        .getListCellRendererComponent(list, value, index,
+                                isSelected, cellHasFocus);
                 label.setText(color.getName());
                 label.setHorizontalAlignment(SwingConstants.CENTER);
                 label.setVerticalAlignment(SwingConstants.CENTER);
                 label.setOpaque(true);
                 label.setBackground(color.getColor());
-                label.setForeground(isDark(color.getColor()) ? java.awt.Color.white : java.awt.Color.black);
+                label.setForeground(isDark(color.getColor()) ? java.awt.Color.white
+                        : java.awt.Color.black);
                 Dimension size = getPreferredSize();
                 size.height = 20;
                 label.setPreferredSize(size);
                 if (isSelected) {
-                    label.setBorder(BorderFactory.createLineBorder(java.awt.Color.black));
+                    label.setBorder(BorderFactory
+                            .createLineBorder(java.awt.Color.black));
                 }
                 return label;
             }
@@ -209,7 +211,8 @@ public class MapModelEditor extends JDialog {
         model.setBlocksLineOfSight(checkLoS.isSelected());
         model.setBlocksLineOfEffect(checkLoE.isSelected());
 
-        ToolkitEngine.getEngine().queueCommand(new AddOrUpdateModelCommand(model, index));
+        ToolkitEngine.getEngine().queueCommand(
+                new AddOrUpdateModelCommand(model, index));
     }
 
     private boolean isDBC(String ch) {

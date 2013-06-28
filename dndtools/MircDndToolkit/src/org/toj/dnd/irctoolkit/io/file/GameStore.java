@@ -138,7 +138,8 @@ public class GameStore {
         try {
             log.createNewFile();
             FileOutputStream fos = new FileOutputStream(log);
-            OutputStreamWriter writer = new OutputStreamWriter(fos, ENCODING_UTF_8);
+            OutputStreamWriter writer = new OutputStreamWriter(fos,
+                    ENCODING_UTF_8);
             for (String line : lines) {
                 writer.write(line);
                 writer.write("\r\n");

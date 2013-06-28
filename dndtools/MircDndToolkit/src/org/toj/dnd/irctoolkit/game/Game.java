@@ -57,11 +57,13 @@ public class Game {
             Iterator<Element> i = e.element("aliases").elementIterator();
             while (i.hasNext()) {
                 Element alias = i.next();
-                this.aliases.put(alias.attributeValue("abbr"), alias.attributeValue("text"));
+                this.aliases.put(alias.attributeValue("abbr"),
+                        alias.attributeValue("text"));
             }
         }
 
-        this.battle = e.element("battle") == null ? null : new Battle(e.element("battle"), this.pcs);
+        this.battle = e.element("battle") == null ? null : new Battle(
+                e.element("battle"), this.pcs);
     }
 
     public Element toXmlElement() {

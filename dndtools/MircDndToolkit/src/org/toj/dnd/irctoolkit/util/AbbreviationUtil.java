@@ -21,7 +21,8 @@ public class AbbreviationUtil {
         if (isChinese(abbre)) {
             return text.toLowerCase().startsWith(abbre.toLowerCase());
         } else {
-            return abbre.length() >= 3 && text.toLowerCase().startsWith(abbre.toLowerCase());
+            return abbre.length() >= 3
+                    && text.toLowerCase().startsWith(abbre.toLowerCase());
         }
     }
 

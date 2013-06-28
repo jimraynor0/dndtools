@@ -41,7 +41,8 @@ public class CropFilter extends MapFilter {
 
     private void copyMap(int xBase, int yBase) {
         for (int i = xMin; i <= xMax; i++) {
-            System.arraycopy(originalMap[i], yMin, maskedGrid[xBase], yBase, yMax - yMin + 1);
+            System.arraycopy(originalMap[i], yMin, maskedGrid[xBase], yBase,
+                    yMax - yMin + 1);
             xBase++;
         }
     }
@@ -73,8 +74,8 @@ public class CropFilter extends MapFilter {
 
     @Override
     public String getParams() {
-        return new StringBuilder().append(xMin).append(",").append(xMax).append(",").append(yMin).append(",").append(yMax)
-                .toString();
+        return new StringBuilder().append(xMin).append(",").append(xMax)
+                .append(",").append(yMin).append(",").append(yMax).toString();
     }
 
     public int getxMin() {

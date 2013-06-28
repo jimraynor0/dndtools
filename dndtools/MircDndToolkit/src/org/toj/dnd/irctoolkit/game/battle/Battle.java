@@ -38,9 +38,13 @@ public class Battle implements Cloneable {
         this.round = Integer.valueOf(e.elementTextTrim("round"));
         if (e.element("encounterSettings") != null) {
             try {
-                this.encounter = GameStore.loadEncounter(e.elementTextTrim("encounterSettings"));
+                this.encounter = GameStore.loadEncounter(e
+                        .elementTextTrim("encounterSettings"));
             } catch (IOException e1) {
-                ToolkitEngine.getEngine().fireErrorMsgWindow("读取遭遇信息失败。请确认遭遇" + e.elementTextTrim("encounterSettings") + "是否存在。");
+                ToolkitEngine.getEngine().fireErrorMsgWindow(
+                        "读取遭遇信息失败。请确认遭遇"
+                                + e.elementTextTrim("encounterSettings")
+                                + "是否存在。");
             }
         }
 
@@ -48,9 +52,11 @@ public class Battle implements Cloneable {
             Iterator<Element> i = e.element("combatants").elementIterator();
             while (i.hasNext()) {
                 Element combatant = i.next();
-                if (combatant.element("isPC") != null && combatant.elementTextTrim("isPC").equals("true")) {
+                if (combatant.element("isPC") != null
+                        && combatant.elementTextTrim("isPC").equals("true")) {
                     combatants.add(pcs.get(combatant.elementTextTrim("name")));
-                } else if (combatant.element("isNPC") != null && combatant.elementTextTrim("isNPC").equals("true")) {
+                } else if (combatant.element("isNPC") != null
+                        && combatant.elementTextTrim("isNPC").equals("true")) {
                     NPC npc = new NPC(combatant, encounter);
                     this.npcs.put(npc.getName(), npc);
                     combatants.add(npc);
@@ -60,7 +66,8 @@ public class Battle implements Cloneable {
             }
 
             if (e.element("current") != null) {
-                this.current = combatants.get(Integer.parseInt(e.elementTextTrim("current")));
+                this.current = combatants.get(Integer.parseInt(e
+                        .elementTextTrim("current")));
             }
         }
     }
@@ -77,7 +84,8 @@ public class Battle implements Cloneable {
         Element e = DocumentHelper.createElement("battle");
         e.add(XmlUtil.textElement("round", String.valueOf(round)));
         if (current != null) {
-            e.add(XmlUtil.textElement("current", String.valueOf(combatants.indexOf(current))));
+            e.add(XmlUtil.textElement("current",
+                    String.valueOf(combatants.indexOf(current))));
         }
         if (this.combatants != null && !this.combatants.isEmpty()) {
             Element combatants = e.addElement("combatants");
@@ -209,7 +217,8 @@ public class Battle implements Cloneable {
         if (index == 0) {
             ch.setInit(combatants.get(index).getInit() + 1);
         } else {
-            ch.setInit((combatants.get(index).getInit() + combatants.get(index - 1).getInit()) / 2);
+            ch.setInit((combatants.get(index).getInit() + combatants.get(
+                    index - 1).getInit()) / 2);
         }
         restoreOrder();
     }
@@ -228,7 +237,8 @@ public class Battle implements Cloneable {
         if (combatants.getLast().equals(combatants.get(index))) {
             ch.setInit(combatants.get(index).getInit() - 1);
         } else {
-            ch.setInit((combatants.get(index).getInit() + combatants.get(index + 1).getInit()) / 2);
+            ch.setInit((combatants.get(index).getInit() + combatants.get(
+                    index + 1).getInit()) / 2);
         }
         restoreOrder();
     }
@@ -397,7 +407,8 @@ public class Battle implements Cloneable {
     private List<String> checkStatesOnCondition(boolean isTurnStart) {
         List<String> result = new LinkedList<String>();
         for (Combatant ch : combatants) {
-            List<String> stateMsgsFromChar = ch.checkStateBehavior(this.round, this.current, isTurnStart);
+            List<String> stateMsgsFromChar = ch.checkStateBehavior(this.round,
+                    this.current, isTurnStart);
             if (stateMsgsFromChar != null && !stateMsgsFromChar.isEmpty()) {
                 result.addAll(stateMsgsFromChar);
             }
@@ -430,7 +441,8 @@ public class Battle implements Cloneable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((combatants == null) ? 0 : combatants.hashCode());
+        result = prime * result
+                + ((combatants == null) ? 0 : combatants.hashCode());
         result = prime * result + ((current == null) ? 0 : current.hashCode());
         result = prime * result + round;
         return result;
@@ -468,7 +480,6 @@ public class Battle implements Cloneable {
         return round;
     }
 
-    
     public Map<String, NPC> getNpcs() {
         return npcs;
     }
