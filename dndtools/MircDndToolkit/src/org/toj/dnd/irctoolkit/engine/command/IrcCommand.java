@@ -12,7 +12,6 @@ public @interface IrcCommand {
     CommandSegment[] args();
 
     enum CommandSegment {
-        COMMAND (false, "command"), 
         NULLABLE_STRING (true, "string"), 
         STRING (false, "string"), 
         NULLABLE_INT (true, "int"),

@@ -38,13 +38,4 @@ public abstract class Command {
     public void setProcessResponse(boolean processResponse) {
         this.processResponse = processResponse;
     }
-
-    public boolean isInteger(String i) {
-        try {
-            Integer.parseInt(i);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 }

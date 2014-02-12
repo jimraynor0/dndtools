@@ -287,7 +287,7 @@ public class IrcCommandFactory {
             if (anno != null && getInterpreter(anno).matches(parts)) {
                 try {
                     return (GameCommand) c.getConstructor(parts.getClass())
-                            .newInstance(new Object[] { parts });
+                            .newInstance(new Object[] {getInterpreter(anno).sortArgs(getTheRestOfTheParams(parts))});
                 } catch (Exception e) {
                     log.error(e, e);
                 }
