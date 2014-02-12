@@ -8,9 +8,41 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IrcCommand {
-    int argsMin();
+    String command();
+    CommandSegment[] args();
 
-    int argsMax() default Integer.MAX_VALUE;
+    enum CommandSegment {
+        COMMAND (false, "command"), 
+        NULLABLE_STRING (true, "string"), 
+        STRING (false, "string"), 
+        NULLABLE_INT (true, "int"),
+        INT (false, "int"),
+        NULLABLE_LIST (true, "list"),
+        LIST (false, "list");
 
-    String[] patterns();
+        private boolean nullable;
+        private String type;
+        private String value;
+
+        CommandSegment(boolean nullable, String type) {
+            this.nullable = nullable;
+            this.type = type;
+        }
+
+        public boolean isNullable() {
+            return nullable;
+        }
+
+        public String type() {
+            return type;
+        }
+        
+        public String value() {
+            return value;
+        }
+        
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
 }
