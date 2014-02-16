@@ -1,34 +1,29 @@
 package org.toj.dnd.irctoolkit.engine.command.game;
 
-import java.util.Arrays;
-
 import org.toj.dnd.irctoolkit.dice.Dice;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.PC;
 import org.toj.dnd.irctoolkit.game.encounter.NPC;
-import org.toj.dnd.irctoolkit.util.StringNumberUtil;
 
-@IrcCommand(patterns = { "init" }, argsMin = 1)
+@IrcCommand(command = "init", args = { CommandSegment.NULLABLE_INT, CommandSegment.NULLABLE_LIST } )
 public class InitCommand extends UndoableTopicCommand {
 
     private String[] charName;
     private double init = Double.NEGATIVE_INFINITY;
 
-    public InitCommand(String[] args) {
-        if (args.length == 2 && StringNumberUtil.isDouble(args[1])) {// "init double"
-            this.init = Double.parseDouble(args[1]);
+    public InitCommand(Object[] args) {
+        if (args[0] != null) {
+            init = (Double) args[0];
+        }
+
+        if (args.length == 1) {
+            charName = new String[] {caller};
         } else {
-            if (StringNumberUtil.isDouble(args[1])) {// "init double name1 name2..."
-                this.init = Double.parseDouble(args[1]);
-                this.charName = Arrays.copyOfRange(args, 2, args.length);
-            } else if (StringNumberUtil.isDouble(args[args.length - 1])) {
-                this.init = Double.parseDouble(args[args.length - 1]);
-                this.charName = Arrays.copyOfRange(args, 1, args.length - 1);
-            } else {
-                this.charName = Arrays.copyOfRange(args, 1, args.length);
-            }
+            charName = new String[args.length - 1];
+            System.arraycopy(args, 1, charName, 0, charName.length);
         }
     }
 

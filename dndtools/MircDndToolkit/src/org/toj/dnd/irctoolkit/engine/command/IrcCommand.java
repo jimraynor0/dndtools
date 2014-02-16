@@ -16,6 +16,8 @@ public @interface IrcCommand {
         STRING (false, "string"), 
         NULLABLE_INT (true, "int"),
         INT (false, "int"),
+        NULLABLE_DOUBLE (true, "double"),
+        DOUBLE (false, "double"),
         NULLABLE_LIST (true, "list"),
         LIST (false, "list");
 

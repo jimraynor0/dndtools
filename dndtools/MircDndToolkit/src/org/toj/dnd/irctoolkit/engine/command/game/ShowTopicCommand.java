@@ -7,14 +7,14 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 
-@IrcCommand(patterns = { "showtopic" }, argsMin = 1, argsMax = 1)
+@IrcCommand(command = "showtopic", args = {  } )
 public class ShowTopicCommand extends GameCommand {
 
     public ShowTopicCommand() {
         super();
     }
 
-    public ShowTopicCommand(String[] args) {
+    public ShowTopicCommand(Object[] args) {
         this();
     }
 

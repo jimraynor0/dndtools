@@ -159,6 +159,8 @@ public class IrcCommandFactory {
 
     private static final String D6S = "d6s";
 
+    private static final String[] SPECIAL_COMMANDS = {"+", "-", "thp", "dmg", "heal"};
+
     public static Command buildCommand(String cmdStr, InetAddress addr, int port) {
         boolean forceUpdateTopic = false;
 
@@ -180,6 +182,7 @@ public class IrcCommandFactory {
             return null;
         }
         log.debug("cmdStr trimmed: " + cmdStr);
+        parts = separateSpecialCommand(parts);
 
         GameCommand cmd = buildCmdByType(Arrays.copyOfRange(parts, 0,
                 parts.length - 2));
@@ -214,6 +217,20 @@ public class IrcCommandFactory {
 
             return cmd;
         }
+    }
+
+    private static String[] separateSpecialCommand(String[] parts) {
+        for (String spCmd: SPECIAL_COMMANDS) {
+            if (parts[0].startsWith(spCmd)) {
+                String[] formalized = new String[parts.length + 1];
+                System.arraycopy(parts, 0, formalized, 1, parts.length);
+                formalized[0] = spCmd;
+                formalized[1] = formalized[1].replaceFirst(spCmd, "");
+                log.debug("parts formalized: " + Arrays.toString(formalized));
+                return formalized;
+            }
+        }
+        return parts;
     }
 
     private static String translateDiceBotResult(String cmdStr) {
@@ -286,7 +303,7 @@ public class IrcCommandFactory {
             IrcCommand anno = (IrcCommand) c.getAnnotation(IrcCommand.class);
             if (anno != null && getInterpreter(anno).matches(parts)) {
                 try {
-                    return (GameCommand) c.getConstructor(parts.getClass())
+                    return (GameCommand) c.getConstructor(Object[].class)
                             .newInstance(new Object[] {getInterpreter(anno).sortArgs(getTheRestOfTheParams(parts))});
                 } catch (Exception e) {
                     log.error(e, e);

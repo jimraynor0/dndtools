@@ -10,16 +10,17 @@ import org.apache.commons.lang.StringUtils;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.engine.command.map.LoadMapFromFileCommand;
 import org.toj.dnd.irctoolkit.game.encounter.Encounter;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
 
-@IrcCommand(patterns = { "startbattle" }, argsMin = 2)
+@IrcCommand(command="startbattle", args = {CommandSegment.LIST})
 public class StartBattleCommand extends UndoableTopicCommand {
 
     private String encounterName;
 
-    public StartBattleCommand(String[] args) {
+    public StartBattleCommand(Object[] args) {
         this.encounterName = StringUtils.join(Arrays.copyOfRange(args, 1, args.length), " ");
     }
 

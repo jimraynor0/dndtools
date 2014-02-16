@@ -1,21 +1,22 @@
 package org.toj.dnd.irctoolkit.engine.command.game;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.toj.dnd.irctoolkit.engine.command.GameCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 import org.toj.dnd.irctoolkit.rules.RuleBook;
 
-@IrcCommand(patterns = { "rule" }, argsMin = 2, argsMax = Integer.MAX_VALUE)
+@IrcCommand(command="rule", args = {CommandSegment.LIST})
 public class RuleQueryCommand extends GameCommand {
 
     private String[] elements;
 
-    public RuleQueryCommand(String[] elements) {
-        this.elements = Arrays.copyOfRange(elements, 1, elements.length);
+    public RuleQueryCommand(Object[] args) {
+        elements = new String[args.length];
+        System.arraycopy(args, 0, elements, 0, args.length);
     }
 
     @Override

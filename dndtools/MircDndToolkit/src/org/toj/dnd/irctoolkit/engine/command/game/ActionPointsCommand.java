@@ -10,46 +10,9 @@ public class ActionPointsCommand extends UndoableTopicCommand {
     private String charName;
     private int usage = 1;
 
-    public ActionPointsCommand(String[] args) {
-        this();
-        if (args.length == 2) {
-            if (isInteger(args[1])) {
-                usage = Integer.parseInt(args[1]);
-            } else {
-                charName = args[1];
-            }
-        }
-        if (args.length == 3) {
-            if (isInteger(args[1])) {
-                usage = Integer.parseInt(args[1]);
-                charName = args[2];
-            } else {
-                charName = args[1];
-                usage = Integer.parseInt(args[2]);
-            }
-        }
-    }
-
-    public ActionPointsCommand() {
-        super();
-    }
-
-    public ActionPointsCommand(int usage) {
-        this.usage = usage;
-    }
-
-    public ActionPointsCommand(String charName) {
-        this.charName = charName;
-    }
-
-    public ActionPointsCommand(String charName, int usage) {
-        this.charName = charName;
-        this.usage = usage;
-    }
-
-    public ActionPointsCommand(int usage, String charName) {
-        this.charName = charName;
-        this.usage = usage;
+    public ActionPointsCommand(Object[] args) {
+        this.usage = args[0] == null ? 1 : (Integer) args[0];
+        this.charName = (String) args[1];
     }
 
     @Override

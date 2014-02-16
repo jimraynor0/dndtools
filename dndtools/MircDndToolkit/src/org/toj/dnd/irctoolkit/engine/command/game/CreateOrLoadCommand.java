@@ -6,18 +6,19 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.toj.dnd.irctoolkit.engine.command.GameCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 
-@IrcCommand(patterns = { "startgame" }, argsMin = 2, argsMax = 2)
+@IrcCommand(command = "startgame", args = { CommandSegment.STRING } )
 public class CreateOrLoadCommand extends GameCommand {
 
     private Logger log = Logger.getLogger(this.getClass());
     private String name;
 
-    public CreateOrLoadCommand(String[] args) {
-        this(args[1]);
+    public CreateOrLoadCommand(Object[] args) {
+        this((String) args[0]);
     }
 
     public CreateOrLoadCommand(String name) {
