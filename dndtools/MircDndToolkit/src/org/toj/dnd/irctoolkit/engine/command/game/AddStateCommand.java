@@ -1,12 +1,26 @@
 package org.toj.dnd.irctoolkit.engine.command.game;
 
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
+@IrcCommand(command = "+", args = { CommandSegment.STRING, CommandSegment.LIST } )
 public class AddStateCommand extends UndoableTopicCommand {
 
     private String stateStr;
     private String[] chars;
+
+    public AddStateCommand(Object[] args) {
+        this.stateStr = (String) args[0];
+        if (args.length == 1) {
+            chars = new String[0];
+        } else {
+            chars = new String[args.length - 1];
+            System.arraycopy(args, 1, chars, 0, chars.length);
+        }
+    }
+
 
     public AddStateCommand(String stateStr, String[] chars) {
         super();

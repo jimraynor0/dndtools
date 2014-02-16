@@ -92,6 +92,7 @@ public class PC extends Combatant {
 
     public void heal(int heal) {
         boolean bloodied = isBloodied();
+        // commented out for 3r
         if (hp < 0) {
             hp = 0;
         }

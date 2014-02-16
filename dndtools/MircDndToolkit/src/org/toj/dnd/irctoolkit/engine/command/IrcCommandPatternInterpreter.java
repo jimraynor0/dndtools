@@ -22,7 +22,7 @@ public class IrcCommandPatternInterpreter {
     public IrcCommandPatternInterpreter(IrcCommand anno) {
         this.command = anno.command();
         this.args = Arrays.asList(anno.args());
-        
+
         for (CommandSegment cs : args) {
             if ("int".equals(cs.type())) {
                 intArgsMax++;
@@ -44,25 +44,50 @@ public class IrcCommandPatternInterpreter {
             }
             if ("list".equals(cs.type())) {
                 hasList = true;
+                if (!cs.isNullable()) {
+                    strArgsMin++;
+                }
             }
         }
 
     }
 
     public boolean matches(String[] parts) {
-        return command.equalsIgnoreCase(parts[0]);
-        /*
-         * if (!command.equals(parts[0])) { return false; } int intArgsMin = 0;
-         * int intArgsMax = 0; int strArgsMin = 0; int strArgsMax = 0; for
-         * (CommandSegment cs : args) { if ("int".equals(cs.type())) { if
-         * (!cs.isNullable()) { intArgsMin++; } intArgsMax++; } if
-         * ("string".equals(cs.type())) { if (!cs.isNullable()) { strArgsMin++;
-         * } strArgsMax++; } if ("list".equals(cs.type())) { if
-         * (!cs.isNullable()) { strArgsMin++; } strArgsMax = Integer.MAX_VALUE;
-         * } } return findIntArgs(parts).size() >= intArgsMin &&
-         * findIntArgs(parts).size() <= intArgsMax && findStrArgs(parts).size()
-         * >= strArgsMin && findStrArgs(parts).size() >= strArgsMax;
-         */}
+        if (!command.equalsIgnoreCase(parts[0])) {
+            return false;
+        }
+
+        List<String> args = new LinkedList<String>();
+        args.addAll(Arrays.asList(parts));
+        args.remove(0);
+
+        int intCount = 0;
+        int doubleCount = 0;
+        int strCount = 0;
+
+        for (String p : args) {
+            if (StringNumberUtil.isDouble(p)) {
+                doubleCount++;
+                continue;
+            }
+            if (StringNumberUtil.isInteger(p)) {
+                intCount++;
+                continue;
+            }
+            strCount++;
+        }
+
+        if (intCount < intArgsMin || intCount > intArgsMax) {
+            return false;
+        }
+        if (doubleCount < doubleArgsMin || doubleCount > doubleArgsMax) {
+            return false;
+        }
+        if (strCount < strArgsMin || (!hasList && strCount > intArgsMax)) {
+            return false;
+        }
+        return true;
+    }
 
     public Object[] sortArgs(String[] originalArgs) {
         List<Object> result = new LinkedList<Object>();
