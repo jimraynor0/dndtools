@@ -1,20 +1,19 @@
 package org.toj.dnd.irctoolkit.engine.command.game;
 
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
+@IrcCommand(command = "goto", args = { CommandSegment.NULLABLE_INT, CommandSegment.STRING })
 public class GotoCommand extends UndoableTopicCommand {
 
     private String charName;
     private int round = Integer.MIN_VALUE;
 
-    public GotoCommand(String charName, int round) {
-        this.charName = charName;
-        this.round = round;
-    }
-
-    public GotoCommand(String charName) {
-        this.charName = charName;
+    public GotoCommand(Object[] args) {
+        this.round = args[0] == null ? Integer.MIN_VALUE : (Integer) args[0];
+        this.charName = (String) args[1];
     }
 
     @Override

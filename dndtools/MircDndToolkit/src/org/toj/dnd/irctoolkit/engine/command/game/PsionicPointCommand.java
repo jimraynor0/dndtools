@@ -1,29 +1,20 @@
 package org.toj.dnd.irctoolkit.engine.command.game;
 
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
+@IrcCommand(command = "pp", args = { CommandSegment.NULLABLE_INT, CommandSegment.NULLABLE_STRING })
 public class PsionicPointCommand extends UndoableTopicCommand {
     private String charName;
     private int usage = 1;
 
-    public PsionicPointCommand(String[] args) {
-        if (args.length == 1) {
-            try {
-                usage = Integer.parseInt(args[0]);
-            } catch (NumberFormatException e) {
-                charName = args[0];
-            }
+    public PsionicPointCommand(Object[] args) {
+        if (args[0] != null) {
+            usage = (Integer) args[0];
         }
-        if (args.length == 2) {
-            try {
-                usage = Integer.parseInt(args[0]);
-                charName = args[1];
-            } catch (NumberFormatException e) {
-                usage = Integer.parseInt(args[1]);
-                charName = args[0];
-            }
-        }
+        charName = (String) args[1];
     }
 
     @Override

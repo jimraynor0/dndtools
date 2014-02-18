@@ -1,14 +1,18 @@
 package org.toj.dnd.irctoolkit.engine.command.game;
 
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
+@IrcCommand(command="removepower", args = {CommandSegment.LIST})
 public class RemovePowerCommand extends UndoableTopicCommand {
 
     private String[] args;
 
-    public RemovePowerCommand(String[] args) {
-        this.args = args;
+    public RemovePowerCommand(Object[] args) {
+        this.args = new String[args.length];
+        System.arraycopy(args, 0, this.args, 0, args.length);
     }
 
     @Override

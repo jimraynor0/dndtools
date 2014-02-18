@@ -1,16 +1,24 @@
 package org.toj.dnd.irctoolkit.engine.command.game;
 
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
+@IrcCommand(command = "-", args = { CommandSegment.INT, CommandSegment.NULLABLE_LIST })
 public class DamageCommand extends UndoableTopicCommand {
 
     private int value;
     private String[] chars;
 
-    public DamageCommand(int value, String[] chars) {
-        this.value = value;
-        this.chars = chars;
+    public DamageCommand(Object[] args) {
+        value = (Integer) args[0];
+        if (args.length == 1) {
+            chars = new String[0];
+        } else {
+            chars = new String[args.length - 1];
+            System.arraycopy(args, 1, chars, 0, chars.length);
+        }
     }
 
     @Override

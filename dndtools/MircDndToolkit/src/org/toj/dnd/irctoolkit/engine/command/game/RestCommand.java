@@ -4,6 +4,7 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.PC;
 
+// temporarily skipped
 public class RestCommand extends UndoableTopicCommand {
     private String[] chars;
     private String type;

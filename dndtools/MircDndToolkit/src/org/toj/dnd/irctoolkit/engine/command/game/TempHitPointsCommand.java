@@ -1,20 +1,22 @@
 package org.toj.dnd.irctoolkit.engine.command.game;
 
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
+@IrcCommand(command = "thp", args = { CommandSegment.INT, CommandSegment.NULLABLE_LIST })
 public class TempHitPointsCommand extends UndoableTopicCommand {
 
     private String[] chars;
     private int value;
 
-    public TempHitPointsCommand(int value, String[] chars) {
-        this.chars = chars;
-        this.value = value;
-    }
-
-    public TempHitPointsCommand(int value) {
-        this.value = value;
+    public TempHitPointsCommand(Object[] args) {
+        value = (Integer) args[0];
+        if (args.length > 1) {
+            chars = new String[args.length - 1];
+            System.arraycopy(args, 1, chars, 0, chars.length);
+        }
     }
 
     @Override

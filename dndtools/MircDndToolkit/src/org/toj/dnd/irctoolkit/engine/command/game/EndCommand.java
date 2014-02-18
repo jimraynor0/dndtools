@@ -2,9 +2,11 @@ package org.toj.dnd.irctoolkit.engine.command.game;
 
 import java.util.List;
 
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
+@IrcCommand(command = "end", args = {})
 public class EndCommand extends UndoableTopicCommand {
 
     protected boolean updateTopic = true;

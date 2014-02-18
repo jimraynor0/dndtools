@@ -1,30 +1,22 @@
 package org.toj.dnd.irctoolkit.engine.command.game;
 
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.PC;
 
+@IrcCommand(command = "set", args = { CommandSegment.INT, CommandSegment.NULLABLE_STRING, CommandSegment.STRING })
 public class SetCommand extends UndoableTopicCommand {
 
     private String name;
     private String attr;
     private int value;
 
-    public SetCommand(String attr, int value) {
-        this.attr = attr;
-        this.value = value;
-    }
-
-    public SetCommand(String attr, int value, String name) {
-        this.attr = attr;
-        this.value = value;
-        this.name = name;
-    }
-
-    public SetCommand(String attr, String name, int value) {
-        this.attr = attr;
-        this.value = value;
-        this.name = name;
+    public SetCommand(Object[] args) {
+        this.value = (Integer) args[0];
+        this.name = (String) args[1];
+        this.attr = (String) args[2];
     }
 
     @Override

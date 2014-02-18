@@ -4,19 +4,22 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.PC;
 import org.toj.dnd.irctoolkit.game.Power;
 
+@IrcCommand(command="powergroup", args = {CommandSegment.LIST})
 public class PowerGroupCommand extends UndoableTopicCommand {
 
     private PC pc;
     private String group;
     private List<String> powers;
 
-    public PowerGroupCommand(String[] args) {
-        String first = args[0];
+    public PowerGroupCommand(Object[] args) {
+        String first = (String) args[0];
         String cmd;
         if (getGame().findCharByNameOrAbbre(first) != null) {
             pc = getGame().findCharByNameOrAbbre(first);

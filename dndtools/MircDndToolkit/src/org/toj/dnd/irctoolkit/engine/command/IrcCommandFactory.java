@@ -92,7 +92,6 @@ public class IrcCommandFactory {
         cmdClasses.add(RemovePowerCommand.class);
         cmdClasses.add(RemoveStateCommand.class);
         cmdClasses.add(RenameCharCommand.class);
-        cmdClasses.add(RestCommand.class);
         cmdClasses.add(RuleQueryCommand.class);
         cmdClasses.add(SaveStateCommand.class);
         cmdClasses.add(SetCommand.class);

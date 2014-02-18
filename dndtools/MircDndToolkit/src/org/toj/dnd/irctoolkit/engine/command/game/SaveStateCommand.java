@@ -3,6 +3,7 @@ package org.toj.dnd.irctoolkit.engine.command.game;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
+// temporarily skipped
 public class SaveStateCommand extends UndoableTopicCommand {
 
     private String charName;

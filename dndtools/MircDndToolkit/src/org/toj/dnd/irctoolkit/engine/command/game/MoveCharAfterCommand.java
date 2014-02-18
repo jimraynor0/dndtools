@@ -2,21 +2,20 @@ package org.toj.dnd.irctoolkit.engine.command.game;
 
 import java.util.List;
 
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
+@IrcCommand(command="after", args = {CommandSegment.NULLABLE_STRING, CommandSegment.STRING})
 public class MoveCharAfterCommand extends UndoableTopicCommand {
 
     private String toBeMoved;
     private String dest;
 
-    public MoveCharAfterCommand(String toBeMoved, String dest) {
-        this.toBeMoved = toBeMoved;
-        this.dest = dest;
-    }
-
-    public MoveCharAfterCommand(String dest) {
-        this.dest = dest;
+    public MoveCharAfterCommand(Object[] args) {
+        this.toBeMoved = (String) args[0];
+        this.dest = (String) args[1];
     }
 
     @Override

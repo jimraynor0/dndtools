@@ -4,10 +4,12 @@ import java.util.EmptyStackException;
 import java.util.List;
 
 import org.toj.dnd.irctoolkit.engine.command.GameCommand;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 
+@IrcCommand(command = "undo", args = {})
 public class GameUndoCommand extends GameCommand {
 
     @Override
