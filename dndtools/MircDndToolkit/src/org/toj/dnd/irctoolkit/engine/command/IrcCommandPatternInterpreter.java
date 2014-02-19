@@ -36,7 +36,7 @@ public class IrcCommandPatternInterpreter {
                     doubleArgsMin++;
                 }
             }
-            if ("str".equals(cs.type())) {
+            if ("string".equals(cs.type())) {
                 strArgsMax++;
                 if (!cs.isNullable()) {
                     strArgsMin++;
@@ -83,7 +83,7 @@ public class IrcCommandPatternInterpreter {
         if (doubleCount < doubleArgsMin || doubleCount > doubleArgsMax) {
             return false;
         }
-        if (strCount < strArgsMin || (!hasList && strCount > intArgsMax)) {
+        if (strCount < strArgsMin || (!hasList && strCount > strArgsMax)) {
             return false;
         }
         return true;
