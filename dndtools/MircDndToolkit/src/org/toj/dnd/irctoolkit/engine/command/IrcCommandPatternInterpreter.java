@@ -66,12 +66,12 @@ public class IrcCommandPatternInterpreter {
         int strCount = 0;
 
         for (String p : args) {
-            if (StringNumberUtil.isDouble(p)) {
-                doubleCount++;
-                continue;
-            }
             if (StringNumberUtil.isInteger(p)) {
                 intCount++;
+                continue;
+            }
+            if (StringNumberUtil.isDouble(p)) {
+                doubleCount++;
                 continue;
             }
             strCount++;
