@@ -26,5 +26,9 @@ public class RemovePcCommand extends UndoableTopicCommand {
                 getGame().removePc(charName);
             }
         }
+        sendTopic(getGame().generateTopic());
+        if (topicRefreshNeeded) {
+            refreshTopic();
+        }
     }
 }

@@ -24,5 +24,9 @@ public class AddPcCommand extends UndoableTopicCommand {
                 getGame().addPc(charName);
             }
         }
+        sendTopic(getGame().generateTopic());
+        if (topicRefreshNeeded) {
+            refreshTopic();
+        }
     }
 }
