@@ -40,7 +40,6 @@ import org.toj.dnd.irctoolkit.engine.command.game.RemovePcCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RemovePowerCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RemoveStateCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RenameCharCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.RestCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RuleQueryCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.SaveStateCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.SetCommand;
@@ -50,6 +49,8 @@ import org.toj.dnd.irctoolkit.engine.command.game.StartRoundCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.SurgeCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.TempHitPointsCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.UsePowerCommand;
+import org.toj.dnd.irctoolkit.engine.command.map.MoveMapObjectCommand;
+import org.toj.dnd.irctoolkit.engine.command.map.PrintMapCommand;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.io.pircbot.IrcClient;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
@@ -58,7 +59,8 @@ public class IrcCommandFactory {
 
     private static Logger log = Logger.getLogger(IrcCommandFactory.class);
 
-    private static List<Class<? extends GameCommand>> cmdClasses = new ArrayList<Class<? extends GameCommand>>();
+    private static List<Class<? extends GameCommand>> cmdClasses =
+        new ArrayList<Class<? extends GameCommand>>();
 
     static {
         cmdClasses.add(ActAsCommand.class);
@@ -100,7 +102,10 @@ public class IrcCommandFactory {
         cmdClasses.add(StartRoundCommand.class);
         cmdClasses.add(SurgeCommand.class);
         cmdClasses.add(TempHitPointsCommand.class);
-        cmdClasses.add(UsePowerCommand.class);      
+        cmdClasses.add(UsePowerCommand.class);
+
+        cmdClasses.add(PrintMapCommand.class);
+        cmdClasses.add(MoveMapObjectCommand.class);
     }
 
     private static final String START_GAME = "startgame";
@@ -158,9 +163,11 @@ public class IrcCommandFactory {
 
     private static final String D6S = "d6s";
 
-    private static final String[] SPECIAL_COMMANDS = {"+", "-", "thp", "dmg", "heal"};
+    private static final String[] SPECIAL_COMMANDS = { "+", "-", "thp", "dmg",
+        "heal" };
 
-    public static Command buildCommand(String cmdStr, InetAddress addr, int port) {
+    public static Command
+        buildCommand(String cmdStr, InetAddress addr, int port) {
         boolean forceUpdateTopic = false;
 
         if (cmdStr.endsWith(" DiceBot") || cmdStr.endsWith(" Oicebot")) {
@@ -183,8 +190,8 @@ public class IrcCommandFactory {
         log.debug("cmdStr trimmed: " + cmdStr);
         parts = separateSpecialCommand(parts);
 
-        GameCommand cmd = buildCmdByType(Arrays.copyOfRange(parts, 0,
-                parts.length - 2));
+        GameCommand cmd =
+            buildCmdByType(Arrays.copyOfRange(parts, 0, parts.length - 2));
         if (cmd == null) {
             return null;
         } else {
@@ -208,9 +215,9 @@ public class IrcCommandFactory {
 
             if (cmd.requireGameContext() && Command.context.getGame() == null) {
                 IrcClient.getInstance().send(
-                        new OutgoingMsg(parts[parts.length - 2],
-                                parts[parts.length - 1], "Game not initiated!",
-                                OutgoingMsg.WRITE_TO_MSG, null, 0));
+                    new OutgoingMsg(parts[parts.length - 2],
+                        parts[parts.length - 1], "Game not initiated!",
+                        OutgoingMsg.WRITE_TO_MSG, null, 0));
                 return null;
             }
 
@@ -219,7 +226,7 @@ public class IrcCommandFactory {
     }
 
     private static String[] separateSpecialCommand(String[] parts) {
-        for (String spCmd: SPECIAL_COMMANDS) {
+        for (String spCmd : SPECIAL_COMMANDS) {
             if (parts[0].startsWith(spCmd)) {
                 String[] formalized = new String[parts.length + 1];
                 System.arraycopy(parts, 0, formalized, 1, parts.length);
@@ -255,23 +262,24 @@ public class IrcCommandFactory {
         }
 
         String caller = cmdStr.substring(0, cmdStr.indexOf(actualCmdPrefix));
-        cmdStr = cmdStr.substring(cmdStr.lastIndexOf(actualCmdPrefix)
+        cmdStr =
+            cmdStr.substring(cmdStr.lastIndexOf(actualCmdPrefix)
                 + actualCmdPrefix.length());
 
         String value = cmdStr.substring(cmdStr.lastIndexOf('=') + 1);
         cmdStr = cmdStr.substring(0, cmdStr.lastIndexOf('='));
 
-        String[] cmd = cmdStr.substring(0, cmdStr.lastIndexOf(actualCmdSuffix))
-                .split("\\ ");
+        String[] cmd =
+            cmdStr.substring(0, cmdStr.lastIndexOf(actualCmdSuffix)).split(
+                "\\ ");
         if (cmd.length < 1) {
             return "";
         }
         if (cmd[0].equalsIgnoreCase(DMG) || cmd[0].equalsIgnoreCase(MINUS)
-                || cmd[0].equalsIgnoreCase(DAMAGE)
-                || cmd[0].equalsIgnoreCase(DAM)) {
+            || cmd[0].equalsIgnoreCase(DAMAGE) || cmd[0].equalsIgnoreCase(DAM)) {
             cmd[0] = MINUS + value;
         } else if (cmd[0].equalsIgnoreCase(PLUS)
-                || cmd[0].equalsIgnoreCase(HEAL)) {
+            || cmd[0].equalsIgnoreCase(HEAL)) {
             cmd[0] = PLUS + value;
         } else if (cmd[0].equalsIgnoreCase(THP)) {
             cmd[0] = THP + value;
@@ -303,7 +311,9 @@ public class IrcCommandFactory {
             if (anno != null && getInterpreter(anno).matches(parts)) {
                 try {
                     return (GameCommand) c.getConstructor(Object[].class)
-                            .newInstance(new Object[] {getInterpreter(anno).sortArgs(getTheRestOfTheParams(parts))});
+                        .newInstance(
+                            new Object[] { getInterpreter(anno).sortArgs(
+                                getTheRestOfTheParams(parts)) });
                 } catch (Exception e) {
                     log.error(e, e);
                 }
@@ -443,7 +453,8 @@ public class IrcCommandFactory {
         return null;
     }
 
-    private static Map<IrcCommand, IrcCommandPatternInterpreter> interpreters = new HashMap<IrcCommand, IrcCommandPatternInterpreter>();
+    private static Map<IrcCommand, IrcCommandPatternInterpreter> interpreters =
+        new HashMap<IrcCommand, IrcCommandPatternInterpreter>();
 
     private static IrcCommandPatternInterpreter getInterpreter(IrcCommand anno) {
         if (!interpreters.containsKey(anno)) {
@@ -457,20 +468,24 @@ public class IrcCommandFactory {
     }
 
     public static void main(String[] args) {
-        GameCommand cmd = IrcCommandFactory.buildCmdByType(new String[] {
-                "actas", "someguy" });
+        GameCommand cmd =
+            IrcCommandFactory
+                .buildCmdByType(new String[] { "actas", "someguy" });
         System.out.println(cmd);
-        GameCommand cmd1 = IrcCommandFactory.buildCmdByType(new String[] {
-                "actas1", "someguy" });
+        GameCommand cmd1 =
+            IrcCommandFactory
+                .buildCmdByType(new String[] { "actas1", "someguy" });
         System.out.println(cmd1);
-        GameCommand cmd2 = IrcCommandFactory.buildCmdByType(new String[] {
-                "acta", "someguy" });
+        GameCommand cmd2 =
+            IrcCommandFactory
+                .buildCmdByType(new String[] { "acta", "someguy" });
         System.out.println(cmd2);
-        GameCommand cmd3 = IrcCommandFactory.buildCmdByType(new String[] {
-                "actas" });
+        GameCommand cmd3 =
+            IrcCommandFactory.buildCmdByType(new String[] { "actas" });
         System.out.println(cmd3);
-        GameCommand cmd4 = IrcCommandFactory.buildCmdByType(new String[] {
-                "actas", "someguy", "someotherguy" });
+        GameCommand cmd4 =
+            IrcCommandFactory.buildCmdByType(new String[] { "actas", "someguy",
+                "someotherguy" });
         System.out.println(cmd4);
     }
 }
