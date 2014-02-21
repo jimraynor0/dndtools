@@ -71,6 +71,7 @@ public abstract class GameCommand extends Command {
     }
 
     protected void refreshTopic() {
+        sendTopic(getGame().generateTopic());
         msgs.add(new OutgoingMsg(getGame().getOutputChannel(), caller, null,
                 OutgoingMsg.REFRESH_TOPIC_NOTICE, incomingAddr, incomingPort));
     }
