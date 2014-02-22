@@ -25,6 +25,7 @@ import org.toj.dnd.irctoolkit.engine.command.game.GameUndoCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.GotoCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.HealCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.InitCommand;
+import org.toj.dnd.irctoolkit.engine.command.game.ListAliasCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.LogCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ModifyXpCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.MoveCharAfterCommand;
@@ -35,6 +36,7 @@ import org.toj.dnd.irctoolkit.engine.command.game.PsionicPointCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ReadPowerCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RefreshTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RegainPowerCommand;
+import org.toj.dnd.irctoolkit.engine.command.game.RemoveAliasCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RemoveCharCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RemovePcCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RemovePowerCommand;
@@ -79,6 +81,7 @@ public class IrcCommandFactory {
         cmdClasses.add(GotoCommand.class);
         cmdClasses.add(HealCommand.class);
         cmdClasses.add(InitCommand.class);
+        cmdClasses.add(ListAliasCommand.class);
         cmdClasses.add(LogCommand.class);
         cmdClasses.add(ModifyXpCommand.class);
         cmdClasses.add(MoveCharAfterCommand.class);
@@ -89,6 +92,7 @@ public class IrcCommandFactory {
         cmdClasses.add(ReadPowerCommand.class);
         cmdClasses.add(RefreshTopicCommand.class);
         cmdClasses.add(RegainPowerCommand.class);
+        cmdClasses.add(RemoveAliasCommand.class);
         cmdClasses.add(RemoveCharCommand.class);
         cmdClasses.add(RemovePcCommand.class);
         cmdClasses.add(RemovePowerCommand.class);
@@ -231,7 +235,7 @@ public class IrcCommandFactory {
                 String[] formalized = new String[parts.length + 1];
                 System.arraycopy(parts, 0, formalized, 1, parts.length);
                 formalized[0] = spCmd;
-                formalized[1] = formalized[1].replaceFirst(spCmd, "");
+                formalized[1] = formalized[1].substring(spCmd.length());
                 log.debug("parts formalized: " + Arrays.toString(formalized));
                 return formalized;
             }
@@ -297,7 +301,7 @@ public class IrcCommandFactory {
                 log.debug("alias mapped: " + caller + " -> " + actor);
             }
         }
-        sb.append(chanName).append(' ').append(caller);
+        sb.append(chanName.trim()).append(' ').append(caller.trim());
         return sb.toString();
     }
 

@@ -11,6 +11,10 @@ public class EndCommand extends UndoableTopicCommand {
 
     protected boolean updateTopic = true;
 
+    public EndCommand(Object[] args) {
+        super();
+    }
+
     @Override
     public boolean topicRefreshNeeded() {
         return true;

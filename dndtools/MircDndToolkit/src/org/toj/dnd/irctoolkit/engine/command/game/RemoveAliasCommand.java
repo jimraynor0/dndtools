@@ -10,7 +10,7 @@ public class RemoveAliasCommand extends UndoableTopicCommand {
     private String alias;
 
     public RemoveAliasCommand(Object[] args) {
-        this((String) args[1]);
+        this((String) args[0]);
     }
 
     public RemoveAliasCommand(String alias) {

@@ -8,7 +8,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.PC;
 import org.toj.dnd.irctoolkit.game.encounter.NPC;
 
-@IrcCommand(command = "init", args = { CommandSegment.NULLABLE_INT, CommandSegment.NULLABLE_LIST } )
+@IrcCommand(command = "init", args = { CommandSegment.NULLABLE_DOUBLE, CommandSegment.NULLABLE_LIST } )
 public class InitCommand extends UndoableTopicCommand {
 
     private String[] charName;

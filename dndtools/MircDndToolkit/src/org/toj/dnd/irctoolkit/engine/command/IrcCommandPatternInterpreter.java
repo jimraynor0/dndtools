@@ -77,10 +77,12 @@ public class IrcCommandPatternInterpreter {
             strCount++;
         }
 
-        if (intCount < intArgsMin || intCount > intArgsMax) {
+        doubleCount += intCount;
+
+        if (intCount < intArgsMin || intCount > intArgsMax + doubleArgsMax) {
             return false;
         }
-        if (doubleCount < doubleArgsMin || doubleCount > doubleArgsMax) {
+        if (doubleCount < doubleArgsMin || doubleCount > intArgsMax + doubleArgsMax) {
             return false;
         }
         if (strCount < strArgsMin || (!hasList && strCount > strArgsMax)) {
@@ -98,16 +100,6 @@ public class IrcCommandPatternInterpreter {
         List<String> argsList = new LinkedList<String>();
         argsList.addAll(Arrays.asList(originalArgs));
 
-        if (doubleArgsMax > 0) {
-            List<Double> doubleArgs = findDoubleArgs(argsList);
-            if (doubleArgs.size() < intArgsMax) {
-                for (int i = 0; i < intArgsMax - doubleArgs.size(); i++) {
-                    result.add(null);
-                }
-            }
-            result.addAll(doubleArgs);
-        }
-
         if (intArgsMax > 0) {
             List<Integer> intArgs = findIntArgs(argsList);
             if (intArgs.size() < intArgsMax) {
@@ -116,6 +108,16 @@ public class IrcCommandPatternInterpreter {
                 }
             }
             result.addAll(intArgs);
+        }
+
+        if (doubleArgsMax > 0) {
+            List<Double> doubleArgs = findDoubleArgs(argsList);
+            if (doubleArgs.size() < doubleArgsMax) {
+                for (int i = 0; i < doubleArgsMax - doubleArgs.size(); i++) {
+                    result.add(null);
+                }
+            }
+            result.addAll(doubleArgs);
         }
 
         if (!hasList && argsList.size() < strArgsMax) {

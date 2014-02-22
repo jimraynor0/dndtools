@@ -5,12 +5,16 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "start", args = { CommandSegment.INT })
+@IrcCommand(command = "start", args = { CommandSegment.NULLABLE_INT })
 public class StartRoundCommand extends UndoableTopicCommand {
     private int startAt;
 
     public StartRoundCommand(Object[] args) {
-        this.startAt = (Integer) args[0];
+        if (args[0] == null){
+            this.startAt = 1;
+        } else {
+            this.startAt = (Integer) args[0];
+        }
     }
 
     @Override

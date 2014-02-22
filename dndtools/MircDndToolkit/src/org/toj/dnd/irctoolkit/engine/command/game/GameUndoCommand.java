@@ -12,6 +12,10 @@ import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 @IrcCommand(command = "undo", args = {})
 public class GameUndoCommand extends GameCommand {
 
+    public GameUndoCommand(Object[] args) {
+        super();
+    }
+
     @Override
     public List<OutgoingMsg> execute() throws ToolkitCommandException {
         try {

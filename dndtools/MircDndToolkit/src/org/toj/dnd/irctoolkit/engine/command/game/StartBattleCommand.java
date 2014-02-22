@@ -15,39 +15,46 @@ import org.toj.dnd.irctoolkit.engine.command.map.LoadMapFromFileCommand;
 import org.toj.dnd.irctoolkit.game.encounter.Encounter;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
 
-@IrcCommand(command="startbattle", args = {CommandSegment.LIST})
+@IrcCommand(command="startbattle", args = {CommandSegment.NULLABLE_LIST})
 public class StartBattleCommand extends UndoableTopicCommand {
 
     private String encounterName;
 
     public StartBattleCommand(Object[] args) {
-        this.encounterName = StringUtils.join(Arrays.copyOfRange(args, 1, args.length), " ");
+        if (args != null && args.length > 0) {
+            this.encounterName = StringUtils.join(Arrays.copyOfRange(args, 1, args.length), " ");
+        }
     }
 
     @Override
     public void doProcess() {
-        Encounter encounter;
-        try {
-            encounter = GameStore.loadEncounter(encounterName);
-        } catch (IOException e) {
-            sendMsg("Failed to load encounter " + encounterName);
-            return;
-        }
-        if (encounterName != null && encounter == null) {
-            sendMsg("Encounter " + encounterName + " is not found.");
-            return;
-        }
-        if (encounter == null) {
-            getGame().startBattle();
-        } else {
-            if (encounter.mapName != null) {
-                ToolkitEngine.getEngine()
-                        .queueCommand(
-                                new LoadMapFromFileCommand(new File(
-                                        encounter.mapName)));
+        if (encounterName != null) {
+            Encounter encounter;
+            try {
+                encounter = GameStore.loadEncounter(encounterName);
+            } catch (IOException e) {
+                sendMsg("Failed to load encounter " + encounterName);
+                return;
             }
-            getGame().startEncounter(encounter);
+            if (encounterName != null && encounter == null) {
+                sendMsg("Encounter " + encounterName + " is not found.");
+                return;
+            }
+            if (encounter == null) {
+                getGame().startBattle();
+            } else {
+                if (encounter.mapName != null) {
+                    ToolkitEngine.getEngine()
+                            .queueCommand(
+                                    new LoadMapFromFileCommand(new File(
+                                            encounter.mapName)));
+                }
+                getGame().startEncounter(encounter);
+            }
+        } else {
+            getGame().startBattle();
         }
+
         List<String> needsInitRolled = new ArrayList<String>(getGame().getPcs()
                 .size() + getGame().getNpcs().size());
         for (String pcName : getGame().getPcs().keySet()) {
@@ -61,9 +68,12 @@ public class StartBattleCommand extends UndoableTopicCommand {
             }
         }
         if (!needsInitRolled.isEmpty()) {
+            Object[] args = new Object[needsInitRolled.size() + 1];
+            args[0] = null;
+            System.arraycopy(needsInitRolled.toArray(), 0, args, 1, needsInitRolled.size());
             ToolkitEngine.getEngine().queueCommand(
-                    new InitCommand(needsInitRolled
-                            .toArray(new String[needsInitRolled.size()])));
+                    new InitCommand(args));
+            ToolkitEngine.getEngine().queueCommand(new RefreshTopicCommand());
         }
     }
 }

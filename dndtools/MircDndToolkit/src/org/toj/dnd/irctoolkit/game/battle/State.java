@@ -4,10 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.toj.dnd.irctoolkit.game.battle.behavior.DotBehavior;
+import org.toj.dnd.irctoolkit.game.battle.behavior.EndsInAFewTurnsBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.EndsOnNextTurnEndBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.EndsOnNextTurnStartBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.EndsOnSaveBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.StateBehavior;
+import org.toj.dnd.irctoolkit.util.StringNumberUtil;
 
 // TODO multiple instance of same state on same char
 public class State implements Cloneable {
@@ -70,6 +72,7 @@ public class State implements Cloneable {
             this.endCondition = endCondition == null ? END_COND_EONT
                     : endCondition;
         }
+        buildEndConditionBehavior();
     }
 
     private State(String name, String endCondition, int round, double init) {
@@ -90,6 +93,9 @@ public class State implements Cloneable {
     }
 
     private void buildEndConditionBehavior() {
+        if (StringNumberUtil.isInteger(endCondition)) {
+            getBehaviorList().add(new EndsInAFewTurnsBehavior(this));
+        }
         if (END_COND_EONT.equals(endCondition)) {
             getBehaviorList().add(new EndsOnNextTurnEndBehavior(this));
         }
@@ -160,6 +166,10 @@ public class State implements Cloneable {
 
     public double getAppliedOnInit() {
         return appliedOnInit;
+    }
+
+    public void setEndCondition(String endCondition) {
+        this.endCondition = endCondition;
     }
 
     public State clone() {

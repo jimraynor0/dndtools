@@ -10,6 +10,10 @@ import org.toj.dnd.irctoolkit.util.MapGridIrcFormatter;
 @IrcCommand(command="map", args = {})
 public class PrintMapCommand extends GameCommand {
 
+    public PrintMapCommand(Object[] args) {
+        super();
+    }
+
     @Override
     public List<OutgoingMsg> execute() {
         for (String line : MapGridIrcFormatter.formatToList(context

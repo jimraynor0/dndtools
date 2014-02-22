@@ -101,6 +101,10 @@ public class Combatant implements Cloneable {
         State match = null;
         int matchFields = 0;
         for (State target : states) {
+            if (matchFields < 1 && target.getName().equals(state.getName())) {
+                match = target;
+                matchFields = 1;
+            }
             if (matchFields < 2 && target.getName().equals(state.getName())
                     && target.getEndCondition().equals(state.getEndCondition())) {
                 match = target;

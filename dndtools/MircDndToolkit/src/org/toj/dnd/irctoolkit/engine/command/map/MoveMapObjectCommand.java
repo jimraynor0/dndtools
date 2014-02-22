@@ -24,7 +24,7 @@ public class MoveMapObjectCommand extends MapCommand {
             objs = new MapObject[] { o };
         }
         dests = new Point[] { new Point(AxisUtil.toNumber((String) args[1]),
-            AxisUtil.toNumber((String) args[1])) };
+            AxisUtil.toNumber((String) args[2])) };
     }
 
     public MoveMapObjectCommand(String model, String x, String y) {

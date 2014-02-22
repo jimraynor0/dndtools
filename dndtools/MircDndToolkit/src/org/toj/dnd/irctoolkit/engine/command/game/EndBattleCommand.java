@@ -5,6 +5,10 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 
 @IrcCommand(command = "endbattle", args = {})
 public class EndBattleCommand extends UndoableTopicCommand {
+    
+    public EndBattleCommand(Object[] args) {
+        super();
+    }
 
     @Override
     public void doProcess() {
