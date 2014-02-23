@@ -253,6 +253,17 @@ public class Game {
         }
     }
 
+    public void addThp(String charName, int thp) {
+        if (inBattle()) {
+            battle.addThp(charName, thp);
+        } else {
+            PC pc = this.findCharByNameOrAbbre(charName);
+            if (pc != null) {
+                pc.setThp(thp);
+            }
+        }
+    }
+
     public void renameChar(String charName, String newName) {
         if (inBattle()) {
             battle.renameChar(charName, newName);

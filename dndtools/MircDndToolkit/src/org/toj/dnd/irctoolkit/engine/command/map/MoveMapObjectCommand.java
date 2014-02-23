@@ -16,12 +16,8 @@ public class MoveMapObjectCommand extends MapCommand {
 
     public MoveMapObjectCommand(Object[] args) {
         String model = (String) args[0];
-        if (model == null) {
-            model = caller;
-        }
-        MapObject o = context.getCurrentMap().findObjByIconOrDesc(model);
-        if (o != null) {
-            objs = new MapObject[] { o };
+        if (model != null) {
+            MapObject o = context.getCurrentMap().findObjByIconOrDesc(model);
         }
         dests = new Point[] { new Point(AxisUtil.toNumber((String) args[1]),
             AxisUtil.toNumber((String) args[2])) };

@@ -5,7 +5,8 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "thp", args = { CommandSegment.INT, CommandSegment.NULLABLE_LIST })
+@IrcCommand(command = "thp", args = { CommandSegment.INT,
+    CommandSegment.NULLABLE_LIST })
 public class TempHitPointsCommand extends UndoableTopicCommand {
 
     private String[] chars;
@@ -21,13 +22,11 @@ public class TempHitPointsCommand extends UndoableTopicCommand {
 
     @Override
     public void doProcess() throws ToolkitCommandException {
-        if (getGame().inBattle()) {
-            if (chars == null) {
-                getGame().getBattle().addThp(caller, value);
-            } else {
-                for (String ch : chars) {
-                    getGame().getBattle().addThp(ch, value);
-                }
+        if (chars == null) {
+            getGame().addThp(caller, value);
+        } else {
+            for (String ch : chars) {
+                getGame().addThp(ch, value);
             }
         }
         sendTopic(getGame().generateTopic());

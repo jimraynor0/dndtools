@@ -25,13 +25,16 @@ public class State implements Cloneable {
         if (stateParams.length == 1) {
             state = new State(stateParams[0].trim(), null, round, init);
         } else if (stateParams.length == 2) {
-            state = new State(stateParams[0].trim(), stateParams[1].trim(),
-                    round, init);
+            state =
+                new State(stateParams[0].trim(), stateParams[1].trim(), round,
+                    init);
         } else if (stateParams.length == 3) {
-            state = new State(stateParams[0].trim(), stateParams[1].trim(),
-                    round, Double.parseDouble(stateParams[2]));
+            state =
+                new State(stateParams[0].trim(), stateParams[1].trim(), round,
+                    Double.parseDouble(stateParams[2]));
         } else {
-            state = new State(stateParams[0].trim(), stateParams[1].trim(),
+            state =
+                new State(stateParams[0].trim(), stateParams[1].trim(),
                     Integer.parseInt(stateParams[2]),
                     Double.parseDouble(stateParams[3]));
         }
@@ -46,7 +49,8 @@ public class State implements Cloneable {
         } else if (stateParams.length == 2) {
             state = new State(stateParams[0].trim(), stateParams[1].trim());
         } else {
-            state = new State(stateParams[0].trim(), stateParams[1].trim(),
+            state =
+                new State(stateParams[0].trim(), stateParams[1].trim(),
                     Integer.parseInt(stateParams[2]),
                     Double.parseDouble(stateParams[3]));
         }
@@ -62,17 +66,19 @@ public class State implements Cloneable {
 
     private State(String name, String endCondition) {
         this.name = name;
-
-        if (isDot(name)) {
-            this.endCondition = endCondition == null ? END_COND_SAVE
-                    : endCondition;
-            String dmg = name.substring(TYPE_DOT.length());
-            getBehaviorList().add(new DotBehavior(Integer.parseInt(dmg), this));
-        } else {
-            this.endCondition = endCondition == null ? END_COND_EONT
-                    : endCondition;
+        // 4th be with you
+        // if (isDot(name)) {
+        // this.endCondition = endCondition == null ? END_COND_SAVE
+        // : endCondition;
+        // String dmg = name.substring(TYPE_DOT.length());
+        // getBehaviorList().add(new DotBehavior(Integer.parseInt(dmg), this));
+        // } else {
+        // this.endCondition = endCondition == null ? END_COND_EONT
+        // : endCondition;
+        // }
+        if (endCondition != null) {
+            buildEndConditionBehavior();
         }
-        buildEndConditionBehavior();
     }
 
     private State(String name, String endCondition, int round, double init) {
@@ -81,13 +87,13 @@ public class State implements Cloneable {
         this.appliedOnRound = round;
 
         if (isDot(name)) {
-            this.endCondition = endCondition == null ? END_COND_SAVE
-                    : endCondition;
+            this.endCondition =
+                endCondition == null ? END_COND_SAVE : endCondition;
             String dmg = name.substring(TYPE_DOT.length());
             getBehaviorList().add(new DotBehavior(Integer.parseInt(dmg), this));
         } else {
-            this.endCondition = endCondition == null ? END_COND_EONT
-                    : endCondition;
+            this.endCondition =
+                endCondition == null ? END_COND_EONT : endCondition;
         }
         buildEndConditionBehavior();
     }
@@ -130,8 +136,8 @@ public class State implements Cloneable {
         StringBuilder sb = new StringBuilder();
         sb.append(name);
         if (endCondition != null && !endCondition.isEmpty()
-                && !(isDot(name) && endCondition.equals(END_COND_SAVE))
-                && !(!isDot(name) && endCondition.equals(END_COND_EONT))) {
+            && !(isDot(name) && endCondition.equals(END_COND_SAVE))
+            && !(!isDot(name) && endCondition.equals(END_COND_EONT))) {
             sb.append("|").append(endCondition);
         }
         return sb.toString();
@@ -140,18 +146,19 @@ public class State implements Cloneable {
     public String toStatString() {
         StringBuilder sb = new StringBuilder();
         sb.append(name).append("|").append(endCondition).append("|")
-                .append(appliedOnRound).append("|").append(this.appliedOnInit);
+            .append(appliedOnRound).append("|").append(this.appliedOnInit);
         return sb.toString();
     }
 
     public List<String> triggerBehavior(int round, Combatant current,
-            Combatant owner, boolean isTurnStart) {
+        Combatant owner, boolean isTurnStart) {
         if (this.behaviors == null) {
             return null;
         }
         List<String> result = new LinkedList<String>();
         for (StateBehavior b : this.behaviors) {
-            String msg = isTurnStart ? b.onTurnStart(round, current, owner) : b
+            String msg =
+                isTurnStart ? b.onTurnStart(round, current, owner) : b
                     .onTurnEnd(round, current, owner);
             if (msg != null) {
                 result.add(msg);
@@ -191,7 +198,8 @@ public class State implements Cloneable {
         temp = Double.doubleToLongBits(appliedOnInit);
         result = prime * result + (int) (temp ^ (temp >>> 32));
         result = prime * result + appliedOnRound;
-        result = prime * result
+        result =
+            prime * result
                 + ((endCondition == null) ? 0 : endCondition.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
@@ -207,7 +215,7 @@ public class State implements Cloneable {
             return false;
         State other = (State) obj;
         if (Double.doubleToLongBits(appliedOnInit) != Double
-                .doubleToLongBits(other.appliedOnInit))
+            .doubleToLongBits(other.appliedOnInit))
             return false;
         if (appliedOnRound != other.appliedOnRound)
             return false;
