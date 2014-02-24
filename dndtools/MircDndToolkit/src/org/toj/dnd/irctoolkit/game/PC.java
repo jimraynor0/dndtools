@@ -28,11 +28,13 @@ public class PC extends Combatant {
     private Map<String, Power> encounterPowers;
     private Map<String, Power> dailyPowers;
     private boolean isPsionic = false;
+    private Map<String, Item> items;
 
     public PC(String name) {
         super(name);
         this.encounterPowers = new HashMap<String, Power>();
         this.dailyPowers = new HashMap<String, Power>();
+        this.items = new HashMap<String, Item>();
     }
 
     @SuppressWarnings("unchecked")
@@ -70,6 +72,15 @@ public class PC extends Combatant {
             while (i.hasNext()) {
                 Power power = new Power(i.next());
                 this.dailyPowers.put(power.getName(), power);
+            }
+        }
+
+        this.items = new HashMap<String, Item>();
+        if (e.element("consumables") != null) {
+            Iterator<Element> i = e.element("consumables").elementIterator();
+            while (i.hasNext()) {
+                Item c = new Item(i.next());
+                this.items.put(c.getName(), c);
             }
         }
     }
@@ -279,6 +290,13 @@ public class PC extends Combatant {
                 dps.add(power.toXmlElement());
             }
         }
+
+        if (!items.isEmpty()) {
+            Element dps = e.addElement("items");
+            for (Item item : items.values()) {
+                dps.add(item.toXmlElement());
+            }
+        }
         return e;
     }
 
@@ -419,5 +437,13 @@ public class PC extends Combatant {
 
     public void setPsionic(boolean isPsionic) {
         this.isPsionic = isPsionic;
+    }
+
+    public Map<String, Item> getItems() {
+        return items;
+    }
+
+    public void setItems(Map<String, Item> consumables) {
+        this.items = consumables;
     }
 }

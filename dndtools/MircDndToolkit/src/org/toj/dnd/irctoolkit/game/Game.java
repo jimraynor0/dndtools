@@ -17,6 +17,7 @@ import org.toj.dnd.irctoolkit.util.XmlUtil;
 
 public class Game {
 
+    private String ruleSet;
     private String dm;
     private String name;
     private String outputChan;
@@ -379,5 +380,13 @@ public class Game {
 
     public boolean isDm(String caller) {
         return dm == null || dm.isEmpty() || dm.equals(caller);
+    }
+
+    public String getRuleSet() {
+        return ruleSet;
+    }
+
+    public void setRuleSet(String ruleSet) {
+        this.ruleSet = ruleSet;
     }
 }
