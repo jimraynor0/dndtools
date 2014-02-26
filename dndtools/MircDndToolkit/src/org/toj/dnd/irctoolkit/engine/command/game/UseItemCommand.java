@@ -30,6 +30,9 @@ public class UseItemCommand extends UndoableTopicCommand {
             Item current = pc.getItems().get(item);
             if (current != null && current.getCharges() >= amount) {
                 current.consume(amount);
+                if (current.getCharges() == 0) {
+                    pc.getItems().remove(item);
+                }
             } else {
                 sendMsg("对不起，您的余额不足。");
             }

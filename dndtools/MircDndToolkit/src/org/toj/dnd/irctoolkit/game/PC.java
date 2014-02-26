@@ -76,8 +76,8 @@ public class PC extends Combatant {
         }
 
         this.items = new HashMap<String, Item>();
-        if (e.element("consumables") != null) {
-            Iterator<Element> i = e.element("consumables").elementIterator();
+        if (e.element("items") != null) {
+            Iterator<Element> i = e.element("items").elementIterator();
             while (i.hasNext()) {
                 Item c = new Item(i.next());
                 this.items.put(c.getName(), c);
