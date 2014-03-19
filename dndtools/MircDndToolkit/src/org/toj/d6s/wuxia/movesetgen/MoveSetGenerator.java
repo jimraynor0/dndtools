@@ -5,9 +5,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.toj.d6s.wuxia.movesetgen.Move.Protect;
 
@@ -31,7 +33,9 @@ public class MoveSetGenerator {
     }
 
     private String generateSignature() {
+        int weakPointCount = 0;
         for (Move move: moves) {
+            weakPointCount += move.getWeakPoint();
             increase(move.getTarget(), atkPref, 1);
             for (Protect p : move.getProtects()) {
                 increase(p.getPart(), defPref, p.getBonus());
@@ -44,7 +48,7 @@ public class MoveSetGenerator {
         Collections.sort(keys, new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
-                return atkPref.get(o2) - atkPref.get(o1);
+                return (atkPref.get(o2) * 31 - Arrays.asList(PARTS).indexOf(o1)) - (atkPref.get(o1) * 31 - Arrays.asList(PARTS).indexOf(o1));
             }
         });
         for (String key : keys) {
@@ -56,7 +60,7 @@ public class MoveSetGenerator {
         Collections.sort(keys, new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
-                return defPref.get(o2) - defPref.get(o1);
+                return (defPref.get(o2) * 31 - Arrays.asList(PARTS).indexOf(o1)) - (defPref.get(o1) * 31 - Arrays.asList(PARTS).indexOf(o1));
             }
         });
         for (String key : keys) {
@@ -74,6 +78,7 @@ public class MoveSetGenerator {
         for (String key : keys) {
             sb.append(key).append("=").append(defTypePref.get(key)).append("£¨");
         }
+        sb.append("\r\n").append("∑¿”˘¬©∂¥±»¿˝: ").append(weakPointCount).append("/").append(moves.size() * PARTS.length);
         return sb.toString();
     }
 
@@ -100,6 +105,26 @@ public class MoveSetGenerator {
 
             move.setProtects(generateProtects());
             moves.add(move);
+        }
+        calculateWeakPoints();
+    }
+
+    private void calculateWeakPoints() {
+        List<Move> cyclingMoveList = new ArrayList<Move>(moves.size() + 3);
+        cyclingMoveList.addAll(moves);
+        cyclingMoveList.addAll(moves.subList(0, 3));
+        for (int i = 0; i < moves.size(); i++) {
+            Set<String> nextMoveCovers = new HashSet<String>();
+            for (Protect p : cyclingMoveList.get(i + 1).getProtects()) {
+                nextMoveCovers.add(p.getPart());
+            }
+            for (Protect p : cyclingMoveList.get(i + 2).getProtects()) {
+                nextMoveCovers.add(p.getPart());
+            }
+            for (Protect p : cyclingMoveList.get(i + 3).getProtects()) {
+                nextMoveCovers.add(p.getPart());
+            }
+            moves.get(i).setWeakPoint(PARTS.length - nextMoveCovers.size());
         }
     }
 
@@ -160,9 +185,9 @@ public class MoveSetGenerator {
             for (String part : PARTS) {
                 Protect p = findProtect(part, move.getProtects());
                 if (p != null) {
-                    sb.append(String.format("°°%-2s %s%+d°°", p.getPart(), p.getType(), p.getBonus()));
+                    sb.append(String.format("| %-2s %s%+d ", p.getPart(), p.getType(), p.getBonus()));
                 } else {
-                    sb.append(String.format("        "));
+                    sb.append(String.format("|        "));
                 }
             }
             sb.append("\r\n");
@@ -210,26 +235,26 @@ public class MoveSetGenerator {
     }
 
     public static void main(String[] args) {
-        List<String> targetPool = Arrays.asList("Õ∑", "Õ∑", "–ÿ", "–ÿ", "–ÿ", "–ÿ", "∏π", "∏π", "◊Û±€", "◊Û±€", "”“±€", "”“±€", "◊ÛÕ»", "”“Õ»");
+        List<String> targetPool = Arrays.asList("Õ∑", "Õ∑", "–ÿ", "∏π", "∏π", "∏π", "±≥", "±≥", "◊Û±€", "”“±€", "◊ÛÕ»", "◊ÛÕ»", "”“Õ»", "”“Õ»");
 //        List<String> targetPool = Arrays.asList("Õ∑", "Õ∑", "Õ∑", "–ÿ", "–ÿ", "–ÿ", "∏π", "∏π", "∏π", "◊Û±€", "”“±€", "◊ÛÕ»", "”“Õ»");
 
         Map<String, Integer> protectPool = new HashMap<String, Integer>();
-        protectPool.put("Õ∑", 14);
-        protectPool.put("–ÿ", 14);
-        protectPool.put("∏π", 14);
+        protectPool.put("Õ∑", 12);
+        protectPool.put("–ÿ", 12);
+        protectPool.put("∏π", 12);
         protectPool.put("±≥", 5);
-        protectPool.put("◊Û±€", 12);
-        protectPool.put("”“±€", 12);
-        protectPool.put("◊ÛÕ»", 12);
-        protectPool.put("”“Õ»", 12);
+        protectPool.put("◊Û±€", 14);
+        protectPool.put("”“±€", 14);
+        protectPool.put("◊ÛÕ»", 14);
+        protectPool.put("”“Õ»", 14);
 
         List<Protect> protectArray = new ArrayList<Protect>(8);
         protectArray.add(new Protect("∏Òµ≤", 4));
         protectArray.add(new Protect("…¡±‹", 4));
         protectArray.add(new Protect("…¡±‹", 4));
-        protectArray.add(new Protect("∏Òµ≤", 2));
         protectArray.add(new Protect("…¡±‹", 2));
-        protectArray.add(new Protect("…¡±‹", 2));
+//        protectArray.add(new Protect("…¡±‹", 2));
+//        protectArray.add(new Protect("…¡±‹", 2));
 
         MoveSetGenerator gen = new MoveSetGenerator(targetPool, protectPool, protectArray);
         gen.generate();

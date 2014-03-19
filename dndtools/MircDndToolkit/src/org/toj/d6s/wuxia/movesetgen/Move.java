@@ -6,6 +6,7 @@ public class Move {
     private String name;
     private String target;
     private List<Protect> protects;
+    private int weakPoint;
 
     public String getName() {
         return name;
@@ -29,6 +30,14 @@ public class Move {
 
     public void setProtects(List<Protect> protects) {
         this.protects = protects;
+    }
+
+    public int getWeakPoint() {
+        return weakPoint;
+    }
+
+    public void setWeakPoint(int weakPoint) {
+        this.weakPoint = weakPoint;
     }
 
     static public class Protect {
