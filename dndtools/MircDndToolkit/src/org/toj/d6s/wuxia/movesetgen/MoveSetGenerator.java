@@ -12,6 +12,7 @@ import java.util.Map;
 import org.toj.d6s.wuxia.movesetgen.Move.Protect;
 
 public class MoveSetGenerator {
+    public static final String[] PARTS = {"Õ∑", "–ÿ", "∏π", "±≥", "◊Û±€", "”“±€", "◊ÛÕ»", "”“Õ»"};
     private List<Move> moves = new LinkedList<Move>();
 
     private List<String> targetPool;
@@ -160,6 +161,43 @@ public class MoveSetGenerator {
     private String findTarget() {
         int random = (int) (Math.random() * targetPool.size());
         return targetPool.remove(random);
+    }
+
+    public String toBbcodeTableString() {
+        StringBuilder sb = new StringBuilder("[table]\r\n");
+        for (Move move : moves) {
+            sb.append("[tr]");
+            appendCell(sb, move.getName());
+            appendCell(sb, move.getTarget());
+            for (String part : PARTS) {
+                Protect p = findProtect(part, move.getProtects());
+                if (p != null) {
+                    appendCell(sb,
+                        p.getPart() + " " + p.getType() + "+" + p.getBonus());
+                } else {
+                    appendCell(sb, "-");
+                }
+            }
+            sb.append(move.getName()).append("\t").append(move.getTarget())
+                .append("\t").append(move.getProtects()).append("\r\n");
+            sb.append("[/tr]\r\n");
+        }
+        return sb.append("[/table]").toString();
+    }
+
+    private Protect findProtect(String part, List<Protect> protects) {
+        for (Protect p: protects) {
+            if (part.equals(p.getPart())) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    private void appendCell(StringBuilder sb, String str) {
+        sb.append("[td]");
+        sb.append(str);
+        sb.append("[/td]");
     }
 
     public static void main(String[] args) {
