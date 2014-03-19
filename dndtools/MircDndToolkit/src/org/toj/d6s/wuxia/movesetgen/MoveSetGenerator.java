@@ -30,16 +30,6 @@ public class MoveSetGenerator {
         this.protectArray = protectArray;
     }
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (Move move : moves) {
-            sb.append(move.getName()).append("\t").append(move.getTarget()).append("\t").append(move.getProtects()).append("\r\n");
-        }
-        sb.append("\r\n");
-        sb.append("招式签名: \r\n").append(generateSignature());
-        return sb.toString();
-    }
-
     private String generateSignature() {
         for (Move move: moves) {
             increase(move.getTarget(), atkPref, 1);
@@ -48,7 +38,7 @@ public class MoveSetGenerator {
                 increase(p.getType(), defTypePref, p.getBonus());
             }
         }
-        StringBuilder sb = new StringBuilder("攻击位置倾向: ");
+        StringBuilder sb = new StringBuilder("攻击位置比例: ");
         List<String> keys = new ArrayList<String>(8);
         keys.addAll(atkPref.keySet());
         Collections.sort(keys, new Comparator<String>() {
@@ -58,9 +48,9 @@ public class MoveSetGenerator {
             }
         });
         for (String key : keys) {
-            sb.append(key).append("=").append(atkPref.get(key)).append(", ");
+            sb.append(key).append("=").append(atkPref.get(key)).append("，");
         }
-        sb.append("\r\n").append("防御位置倾向: ");
+        sb.append("\r\n").append("防御加值比例: ");
         keys.clear();
         keys.addAll(defPref.keySet());
         Collections.sort(keys, new Comparator<String>() {
@@ -70,9 +60,9 @@ public class MoveSetGenerator {
             }
         });
         for (String key : keys) {
-            sb.append(key).append("=").append(defPref.get(key)).append(", ");
+            sb.append(key).append("=").append(defPref.get(key)).append("，");
         }
-        sb.append("\r\n").append("防御类型倾向: ");
+        sb.append("\r\n").append("防御类型比例: ");
         keys.clear();
         keys.addAll(defTypePref.keySet());
         Collections.sort(keys, new Comparator<String>() {
@@ -82,7 +72,7 @@ public class MoveSetGenerator {
             }
         });
         for (String key : keys) {
-            sb.append(key).append("=").append(defTypePref.get(key)).append(", ");
+            sb.append(key).append("=").append(defTypePref.get(key)).append("，");
         }
         return sb.toString();
     }
@@ -161,6 +151,25 @@ public class MoveSetGenerator {
     private String findTarget() {
         int random = (int) (Math.random() * targetPool.size());
         return targetPool.remove(random);
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Move move : moves) {
+            sb.append(String.format("%-16s%-6s", move.getName(), move.getTarget()));
+            for (String part : PARTS) {
+                Protect p = findProtect(part, move.getProtects());
+                if (p != null) {
+                    sb.append(String.format("　%-2s %s%+d　", p.getPart(), p.getType(), p.getBonus()));
+                } else {
+                    sb.append(String.format("        "));
+                }
+            }
+            sb.append("\r\n");
+        }
+        sb.append("\r\n");
+        sb.append("套路签名: \r\n").append(generateSignature());
+        return sb.toString().replaceAll(" ", "　");
     }
 
     public String toBbcodeTableString() {

@@ -28,8 +28,8 @@
     <mapModel>
         <id>pc.2</id>
         <foreground>BLACK</foreground>
-        <ch>旺</ch>
-        <desc>旺达</desc>
+        <ch>万</ch>
+        <desc>万德</desc>
         <blocksLineOfSight>false</blocksLineOfSight>
         <blocksLineOfEffect>false</blocksLineOfEffect>
     </mapModel>
