@@ -20,6 +20,7 @@ public class MoveSetGenerator {
 
     private Map<String, Integer> atkPref = new HashMap<String, Integer>();
     private Map<String, Integer> defPref = new HashMap<String, Integer>();
+    private Map<String, Integer> defTypePref = new HashMap<String, Integer>();
 
     public MoveSetGenerator(List<String> targetPool, Map<String, Integer> protectPool, List<Protect> protectArray) {
         this.targetPool = new LinkedList<String>();
@@ -43,9 +44,10 @@ public class MoveSetGenerator {
             increase(move.getTarget(), atkPref, 1);
             for (Protect p : move.getProtects()) {
                 increase(p.getPart(), defPref, p.getBonus());
+                increase(p.getType(), defTypePref, p.getBonus());
             }
         }
-        StringBuilder sb = new StringBuilder("¹¥»÷ÇãÏò: ");
+        StringBuilder sb = new StringBuilder("¹¥»÷Î»ÖÃÇãÏò: ");
         List<String> keys = new ArrayList<String>(8);
         keys.addAll(atkPref.keySet());
         Collections.sort(keys, new Comparator<String>() {
@@ -55,9 +57,9 @@ public class MoveSetGenerator {
             }
         });
         for (String key : keys) {
-            sb.append(key).append("-").append(atkPref.get(key)).append(", ");
+            sb.append(key).append("=").append(atkPref.get(key)).append(", ");
         }
-        sb.append("\r\n").append("·ÀÓùÇãÏò: ");
+        sb.append("\r\n").append("·ÀÓùÎ»ÖÃÇãÏò: ");
         keys.clear();
         keys.addAll(defPref.keySet());
         Collections.sort(keys, new Comparator<String>() {
@@ -67,9 +69,20 @@ public class MoveSetGenerator {
             }
         });
         for (String key : keys) {
-            sb.append(key).append("-").append(defPref.get(key)).append(", ");
+            sb.append(key).append("=").append(defPref.get(key)).append(", ");
         }
-        sb.append("\r\n");
+        sb.append("\r\n").append("·ÀÓùÀàĞÍÇãÏò: ");
+        keys.clear();
+        keys.addAll(defTypePref.keySet());
+        Collections.sort(keys, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return defTypePref.get(o2) - defTypePref.get(o1);
+            }
+        });
+        for (String key : keys) {
+            sb.append(key).append("=").append(defTypePref.get(key)).append(", ");
+        }
         return sb.toString();
     }
 
