@@ -1,5 +1,6 @@
 package org.toj.d6s.wuxia.movesetgen;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -78,7 +79,9 @@ public class MoveSetGenerator {
         for (String key : keys) {
             sb.append(key).append("=").append(defTypePref.get(key)).append("£¬");
         }
-        sb.append("\r\n").append("·ÀÓùÂ©¶´±ÈÀı: ").append(weakPointCount).append("/").append(moves.size() * PARTS.length);
+        NumberFormat numFormat = NumberFormat.getPercentInstance();
+        numFormat.setMaximumFractionDigits(2);
+        sb.append("\r\n").append("·ÀÓùÂ©¶´±ÈÀı: ").append(weakPointCount).append("/").append(moves.size() * PARTS.length).append(" = ").append(numFormat.format(((double) weakPointCount) / (moves.size() * PARTS.length)));
         return sb.toString();
     }
 
