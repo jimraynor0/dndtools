@@ -20,13 +20,13 @@ public class MoveSetGenerator {
 
     private List<String> targetPool;
     private Map<String, Integer> protectPool;
-    private List<Protect> protectArray;
+    private List<List<Protect>> protectArray;
 
     private Map<String, Integer> atkPref = new HashMap<String, Integer>();
     private Map<String, Integer> defPref = new HashMap<String, Integer>();
     private Map<String, Integer> defTypePref = new HashMap<String, Integer>();
 
-    public MoveSetGenerator(List<String> targetPool, Map<String, Integer> protectPool, List<Protect> protectArray) {
+    public MoveSetGenerator(List<String> targetPool, Map<String, Integer> protectPool, List<List<Protect>> protectArray) {
         this.targetPool = new LinkedList<String>();
         this.targetPool.addAll(targetPool);
         this.protectPool = protectPool;
@@ -94,7 +94,7 @@ public class MoveSetGenerator {
     }
 
     public void generate() {
-        if (protectArray.size() * targetPool.size() > countProtectPool()) {
+        if (protectArray.size() < targetPool.size()) {
             throw new RuntimeException("«◊£¨ƒ„µƒ∑¿”˘≤øŒª≥ÿ√ª∏¯πª∞°°≠°≠");
         }
 
@@ -131,29 +131,18 @@ public class MoveSetGenerator {
         }
     }
 
-    private int countProtectPool() {
-        int count = 0;
-        for (String key : protectPool.keySet()) {
-            count += protectPool.get(key);
-        }
-        return count;
-    }
-
     private List<Protect> generateProtects() {
-        List<Protect> protects = new LinkedList<Protect>();
+        List<Protect> protects = protectArray.remove(0);
         List<String> parts = generatePartPoolForMove();
 
-        for (Protect t : protectArray) {
-            Protect p = new Protect(t);
-            p.setPart(getPart(parts));
-            protects.add(p);
+        for (Protect t : protects) {
+            t.setPart(getPart(parts));
         }
 
         return protects;
     }
 
     private List<String> generatePartPoolForMove() {
-        System.out.println("parts left: " + protectPool);
         List<String> parts = new ArrayList<String>();
         for (String part : protectPool.keySet()) {
             for (int i = 0; i < protectPool.get(part); i++) {
@@ -164,9 +153,11 @@ public class MoveSetGenerator {
     }
 
     private String getPart(List<String> parts) {
+
         int random = (int) (Math.random() * parts.size());
         String part = parts.get(random);
         parts.removeAll(Arrays.asList(part));
+        
         int count = protectPool.get(part);
         if (count == 1) { // last one
             protectPool.remove(part);
@@ -238,26 +229,35 @@ public class MoveSetGenerator {
     }
 
     public static void main(String[] args) {
-        List<String> targetPool = Arrays.asList("Õ∑", "Õ∑", "–ÿ", "∏π", "∏π", "∏π", "±≥", "±≥", "◊Û±€", "”“±€", "◊ÛÕ»", "◊ÛÕ»", "”“Õ»", "”“Õ»");
-//        List<String> targetPool = Arrays.asList("Õ∑", "Õ∑", "Õ∑", "–ÿ", "–ÿ", "–ÿ", "∏π", "∏π", "∏π", "◊Û±€", "”“±€", "◊ÛÕ»", "”“Õ»");
+        List<String> targetPool = Arrays.asList("Õ∑", "Õ∑", "–ÿ", "–ÿ", "–ÿ", "–ÿ", "∏π", "∏π", "◊Û±€", "”“±€", "◊ÛÕ»", "”“Õ»");
 
         Map<String, Integer> protectPool = new HashMap<String, Integer>();
-        protectPool.put("Õ∑", 12);
-        protectPool.put("–ÿ", 12);
-        protectPool.put("∏π", 12);
+        protectPool.put("Õ∑", 15);
+        protectPool.put("–ÿ", 15);
+        protectPool.put("∏π", 15);
         protectPool.put("±≥", 5);
-        protectPool.put("◊Û±€", 14);
-        protectPool.put("”“±€", 14);
-        protectPool.put("◊ÛÕ»", 14);
-        protectPool.put("”“Õ»", 14);
+        protectPool.put("◊Û±€", 12);
+        protectPool.put("”“±€", 12);
+        protectPool.put("◊ÛÕ»", 12);
+        protectPool.put("”“Õ»", 12);
 
-        List<Protect> protectArray = new ArrayList<Protect>(8);
-        protectArray.add(new Protect("∏Òµ≤", 4));
-        protectArray.add(new Protect("…¡±‹", 4));
-        protectArray.add(new Protect("…¡±‹", 4));
-        protectArray.add(new Protect("…¡±‹", 2));
-//        protectArray.add(new Protect("…¡±‹", 2));
-//        protectArray.add(new Protect("…¡±‹", 2));
+        List<List<Protect>> protectArray = new ArrayList<List<Protect>>(targetPool.size());
+        for (int i = 0; i < 7; i++) {
+            List<Protect> protects = new ArrayList<Protect>(8);
+            protects.add(new Protect("…¡±‹", 3));
+            protects.add(new Protect("∏Òµ≤", 3));
+            protects.add(new Protect("∏Òµ≤", 1));
+            protects.add(new Protect("∏Òµ≤", 1));
+            protectArray.add(protects);
+        }
+        for (int i = 0; i < 7; i++) {
+            List<Protect> protects = new ArrayList<Protect>(8);
+            protects.add(new Protect("∏Òµ≤", 3));
+            protects.add(new Protect("∏Òµ≤", 3));
+            protects.add(new Protect("…¡±‹", 1));
+            protectArray.add(protects);
+        }
+        Collections.shuffle(protectArray);
 
         MoveSetGenerator gen = new MoveSetGenerator(targetPool, protectPool, protectArray);
         gen.generate();

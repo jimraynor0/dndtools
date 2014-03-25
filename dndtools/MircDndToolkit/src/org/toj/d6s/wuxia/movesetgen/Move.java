@@ -86,7 +86,7 @@ public class Move {
         }
 
         public String toString() {
-            return new StringBuilder(part).append(" ").append(type).append(bonus >= 0 ? "+" : "").append(bonus).toString();
+            return new StringBuilder(part == null ? "" : part).append(" ").append(type).append(bonus >= 0 ? "+" : "").append(bonus).toString();
         }
     }
 }

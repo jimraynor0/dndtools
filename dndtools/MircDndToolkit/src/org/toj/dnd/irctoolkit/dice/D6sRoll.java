@@ -57,18 +57,24 @@ public class D6sRoll {
     }
     
     public static void main(String[] args) {
-        D6sRoll jimSword = new D6sRoll(12, true);
-        D6sRoll jimDodge = new D6sRoll(7, true);
-        D6sRoll wqSword = new D6sRoll(12, true);
-        D6sRoll wqDodge = new D6sRoll(10, true);
+        D6sRoll jimSword = new D6sRoll(14, true);
+        D6sRoll jimDodge = new D6sRoll(5, true);
+        D6sRoll jimParry = new D6sRoll(16, true);
+        D6sRoll wqSword = new D6sRoll(13, true);
+        D6sRoll wqDodge = new D6sRoll(8, true);
+        D6sRoll wqParry = new D6sRoll(13, true);
         
         jimSword.roll();
-        System.out.println("Jim投掷剑法: " + (jimSword.getBaseSucc() + jimSword.getRolledSucc()));
+        System.out.println("Jim投掷攻击: " + (jimSword.getBaseSucc() + jimSword.getRolledSucc()));
         jimDodge.roll();
-        System.out.println("Jim投掷身法: " + (jimDodge.getBaseSucc() + jimDodge.getRolledSucc()));
+        System.out.println("Jim投掷闪避: " + (jimDodge.getBaseSucc() + jimDodge.getRolledSucc()));
+        jimParry.roll();
+        System.out.println("Jim投掷格挡: " + (jimParry.getBaseSucc() + jimParry.getRolledSucc()));
         wqSword.roll();
-        System.out.println("忘却投掷剑法: " + (wqSword.getBaseSucc() + wqSword.getRolledSucc()));
+        System.out.println("Jes投掷攻击: " + (wqSword.getBaseSucc() + wqSword.getRolledSucc()));
         wqDodge.roll();
-        System.out.println("忘却投掷身法: " + (wqDodge.getBaseSucc() + wqDodge.getRolledSucc()));
+        System.out.println("Jes投掷闪避: " + (wqDodge.getBaseSucc() + wqDodge.getRolledSucc()));
+        wqParry.roll();
+        System.out.println("Jes投掷格挡: " + (wqParry.getBaseSucc() + wqParry.getRolledSucc()));
     }
 }
