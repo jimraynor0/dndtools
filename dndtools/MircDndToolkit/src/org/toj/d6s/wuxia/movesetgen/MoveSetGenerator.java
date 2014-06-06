@@ -229,7 +229,8 @@ public class MoveSetGenerator {
     }
 
     public static void main(String[] args) {
-        List<String> targetPool = Arrays.asList("Õ∑", "Õ∑", "–ÿ", "–ÿ", "–ÿ", "–ÿ", "∏π", "∏π", "◊Û±€", "”“±€", "◊ÛÕ»", "”“Õ»");
+//      List<String> targetPool = Arrays.asList("Õ∑", "Õ∑", "–ÿ", "–ÿ", "–ÿ", "–ÿ", "∏π", "∏π", "◊Û±€", "”“±€", "◊ÛÕ»", "”“Õ»");
+        List<String> targetPool = Arrays.asList("Õ∑", "Õ∑", "Õ∑", "–ÿ", "∏π", "◊Û±€", "”“±€", "◊ÛÕ»", "”“Õ»", "◊Û±€", "”“±€", "◊ÛÕ»", "”“Õ»");
 
         Map<String, Integer> protectPool = new HashMap<String, Integer>();
         protectPool.put("Õ∑", 15);
@@ -246,14 +247,14 @@ public class MoveSetGenerator {
             List<Protect> protects = new ArrayList<Protect>(8);
             protects.add(new Protect("…¡±‹", 3));
             protects.add(new Protect("∏Òµ≤", 3));
-            protects.add(new Protect("∏Òµ≤", 1));
-            protects.add(new Protect("∏Òµ≤", 1));
+            protects.add(new Protect("…¡±‹", 1));
+            protects.add(new Protect("…¡±‹", 1));
             protectArray.add(protects);
         }
         for (int i = 0; i < 7; i++) {
             List<Protect> protects = new ArrayList<Protect>(8);
             protects.add(new Protect("∏Òµ≤", 3));
-            protects.add(new Protect("∏Òµ≤", 3));
+            protects.add(new Protect("…¡±‹", 3));
             protects.add(new Protect("…¡±‹", 1));
             protectArray.add(protects);
         }

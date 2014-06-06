@@ -1,0 +1,115 @@
+<meta http-equiv="Content-Type" content="text/html;charset=GBK">
+<script type="text/javascript">
+	function calc() {
+		var freedom = document.getElementsByName("freedom")[0].value;
+		var moveInputs = document.getElementsByName("move");
+		var moves = [];
+		for (var i = 0; i < moveInputs.length; i++) {
+			if (moveInputs[i].value == "") {
+				continue;
+			}
+			
+		    moves[i] = moveInputs[i].value;
+		}
+
+		var validMoveCount = moves.length;
+		for (var i = 0; i < freedom; i++) {
+			moves[validMoveCount + i] = moves[i];
+		}
+
+		var moveDefectIndex = [];
+		for (var i = 0; i < validMoveCount; i++) {
+			var tones = [0, 0, 0, 0];
+			for (var j = 0; j < freedom; j++) {
+				compareFrequency(tones, getTonesInMove(moves[i + j + 1]));
+			}
+			
+			processTonesForMove(tones, i, moveDefectIndex);
+		}
+
+		var styleDefectIndex = 0;
+		for (var i = 0; i < validMoveCount; i++)
+		{
+			styleDefectIndex += moveDefectIndex[i];
+		}
+		styleDefectIndex = styleDefectIndex / validMoveCount;
+		document.getElementById('style-defect-index').innerHTML = styleDefectIndex;
+		var price = 4 * (1 + styleDefectIndex) * (1 + styleDefectIndex);
+		document.getElementById('style-price').innerHTML = price;
+	}
+
+	function processTonesForMove(tones, iMove, moveDefectIndex) {
+		var result = '' + tones[0] + tones[1] + tones[2] + tones[3];
+		var defectIndex = 10;
+		for (var i = 0; i < tones.length; i++)
+		{
+			if (tones[i] < defectIndex)
+			{
+				defectIndex = tones[i]; 
+			}
+		}
+		document.getElementById('defense-rate-' + iMove).innerHTML = result + ' - ' + defectIndex;
+		moveDefectIndex[iMove] = defectIndex;
+	}
+	
+	function getTonesInMove(move) {
+		var splits = move.split("");
+		var tonesInMove = [0, 0, 0, 0];
+		for (var i = 0; i < splits.length; i++) {
+			tonesInMove[splits[i] - 1]++;
+		}
+		return tonesInMove;
+	}
+
+	function compareFrequency(tones, tonesInMove) {
+		for (var i = 0; i < tones.length; i++) {
+			if (tones[i] < tonesInMove[i]) {
+				tones[i] = tonesInMove[i];
+			}
+		}
+	}
+
+	function addMoveInput() {
+		var moveInputs = document.getElementsByName("move");
+		var i = moveInputs.length;
+
+		var p = document.createElement("p");
+		p.innerHTML = '招式' + (i + 1) + '：<input id="move-' + i + '" type="text" name="move" size="4"/>  <span id="defense-rate-' + i + '"></span>';
+		document.getElementById("input-area").appendChild(p);
+	}
+</script>
+
+<body>
+	<div>
+		<h1>计算器</h1>
+	</div>
+	<div>
+		<hr/>
+		<p>
+			使用方法：
+		</p>
+		<p>
+			<ul>
+				<li>在第一行输入招式的复杂度</li>
+				<li>在之后的每行中填入以4个数字标识的声调组合。例如“亢龙有悔”的声调是去声、阳平、上声、上声，则输入“4233”</li>
+				<li>要保证从招式1开始连续向下写，中间不要有空的招式，不然会出错</li>
+				<li>不要使用任何特殊符号或空格，不然会出错</li>
+				<li>最后算出来的价格会在下面标出来。破绽指数什么的都是中间过程，可看可不看</li>
+			</ul>
+		</p>
+		<hr/>
+	</div>
+	<div id="final-result">套路破绽指数：<span id="style-defect-index">--</span>，套路价格：<span id="style-price">-- </span>XP</div>
+	<div>
+		<p>套路自由度：<input type="text" name="freedom" size="4"/></p>
+		<span id='input-area'>
+			<p>招式1：<input id="move-0" type="text" name="move" size="4"/>  <span id="defense-rate-0"></span></p>
+			<p>招式2：<input id="move-1" type="text" name="move" size="4"/>  <span id="defense-rate-1"></span></p>
+			<p>招式3：<input id="move-2" type="text" name="move" size="4"/>  <span id="defense-rate-2"></span></p>
+			<p>招式4：<input id="move-3" type="text" name="move" size="4"/>  <span id="defense-rate-3"></span></p>
+			<p>招式5：<input id="move-4" type="text" name="move" size="4"/>  <span id="defense-rate-4"></span></p>
+			<p>招式6：<input id="move-5" type="text" name="move" size="4"/>  <span id="defense-rate-5"></span></p>
+		</span>
+		<input type="button" onclick="addMoveInput();" value="我要更多招式！"/>  <input type="button" onclick="calc();" value="与我算呀！"/>
+	</div>
+</body>

@@ -12,8 +12,8 @@ import java.io.OutputStreamWriter;
 
 public class Log2BbsCodeTranslater {
 
-    private static final String OUTPUT_FILE = "C:\\TRPG\\translated.log";
-    private static final String INPUT_FILE = "C:\\TRPG\\#trpg-jlu.log";
+    private static final String OUTPUT_FILE = "/home/likewise-open/NRO/yzhai/git/dndtools/dndtools//MircDndToolkit/resources/translated.log";
+    private static final String INPUT_FILE = "/home/likewise-open/NRO/yzhai/git/dndtools/dndtools//MircDndToolkit/resources/#trpg-jlu.log";
     
     private static final char TOKEN = (char) 3;
     private static final char SPACE = (char) 12288;
