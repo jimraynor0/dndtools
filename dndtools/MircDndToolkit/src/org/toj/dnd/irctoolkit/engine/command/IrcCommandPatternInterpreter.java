@@ -79,10 +79,10 @@ public class IrcCommandPatternInterpreter {
 
         doubleCount += intCount;
 
-        if (intCount < intArgsMin || intCount > intArgsMax + doubleArgsMax) {
+        if (intCount < intArgsMin) {
             return false;
         }
-        if (doubleCount < doubleArgsMin || doubleCount > intArgsMax + doubleArgsMax) {
+        if (doubleCount < doubleArgsMin) {
             return false;
         }
         if (strCount < strArgsMin || (!hasList && strCount > strArgsMax)) {
@@ -141,6 +141,9 @@ public class IrcCommandPatternInterpreter {
             if (StringNumberUtil.isDouble(p)) {
                 result.add(Double.parseDouble(p));
                 i.remove();
+                if (result.size() == doubleArgsMax) {
+                    break;
+                }
             }
         }
         return result;
@@ -158,6 +161,9 @@ public class IrcCommandPatternInterpreter {
             if (StringNumberUtil.isInteger(p)) {
                 result.add(Integer.parseInt(p));
                 i.remove();
+                if (result.size() == intArgsMax) {
+                    break;
+                }
             }
         }
         return result;
