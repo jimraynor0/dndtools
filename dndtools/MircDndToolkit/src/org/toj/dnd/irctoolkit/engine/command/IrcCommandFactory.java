@@ -21,6 +21,7 @@ import org.toj.dnd.irctoolkit.engine.command.game.D6sDiceRollCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.DamageCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.EndBattleCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.EndCommand;
+import org.toj.dnd.irctoolkit.engine.command.game.FateDiceRollCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.GameUndoCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.GotoCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.HealCommand;
@@ -80,6 +81,7 @@ public class IrcCommandFactory {
         cmdClasses.add(DamageCommand.class);
         cmdClasses.add(EndBattleCommand.class);
         cmdClasses.add(EndCommand.class);
+        cmdClasses.add(FateDiceRollCommand.class);
         cmdClasses.add(GameUndoCommand.class);
         cmdClasses.add(GotoCommand.class);
         cmdClasses.add(HealCommand.class);
