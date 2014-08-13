@@ -1,0 +1,116 @@
+CR 1 Traps
+Basic Arrow Trap
+Camouflaged Pit Trap
+Deeper Pit Trap
+Fusillade of Darts
+Poison Dart Trap
+Poison Needle Trap
+Portcullis Trap
+Razor-Wire across Hallway
+Rolling Rock Trap
+Scything Blade Trap
+Spear Trap
+Swinging Block Trap
+Wall Blade Trap
+CR 2 Traps
+Box of Brown Mold
+Bricks from Ceiling
+Burning Hands Trap
+Camouflaged Pit Trap
+Inflict Light Wounds Trap
+Javelin Trap
+Large Net Trap
+Pit Trap
+Poison Needle Trap
+Spiked Pit Trap
+Tripping Chain
+Well-Camouflaged Pit Trap
+CR 3 Traps
+Burning Hands Trap
+Camouflaged Pit Trap
+Ceiling Pendulum
+Fire Trap
+Extended Bane Trap
+Ghoul Touch Trap
+Hail of Needles
+Acid Arrow Trap
+Pit Trap
+Poisoned Arrow Trap
+Spiked Pit Trap
+Stone Blocks from Ceiling
+CR 4 Traps
+Bestow Curse Trap
+Camouflaged Pit Trap
+Collapsing Column
+Glyph of Warding (Blast)
+Lightning Bolt Trap
+Pit Trap
+Poisoned Dart Trap
+Sepia Snake Sigil Trap
+Spiked Pit Trap
+Wall Scythe Trap
+Water-Filled Room Trap
+Wide-Mouth Spiked Pit Trap
+ 
+CR 5 Traps
+Camouflaged Pit Trap
+Doorknob Smeared with Contact Poison
+Falling Block Trap
+Fire Trap
+Fireball Trap
+Flooding Room Trap
+Fusillade of Darts
+Moving Executioner Statue
+Phantasmal Killer Trap
+Pit Trap
+Poison Wall Spikes
+Spiked Pit Trap
+Spiked Pit Trap (80 Ft. Deep)
+Ungol Dust Vapor Trap
+CR 6 Traps
+Built-to-Collapse Wall
+Compacting Room
+Flame Strike Trap
+Fusillade of Spears
+Glyph of Warding (Blast)
+Lightning Bolt Trap
+Spiked Blocks from Ceiling
+Spiked Pit Trap (100 Ft. Deep)
+Whirling Poison Blades
+Wide-Mouth Pit Trap
+Wyvern Arrow Trap
+CR 7 Traps
+Acid Fog Trap
+Blade Barrier Trap
+Burnt Othur Vapor Trap
+Chain Lightning Trap
+Black Tentacles Trap
+Fusillade of Greenblood Oil Darts
+Lock Covered in Dragon Bile
+Summon Monster VI Trap
+Water-Filled Room
+Well-Camouflaged Pit Trap
+CR 8 Traps
+Deathblade Wall Scythe
+Destruction Trap
+Earthquake Trap
+Insanity Mist Vapor Trap
+Acid Arrow Trap
+Power Word Stun Trap
+Prismatic Spray Trap
+Reverse Gravity Trap
+Well-Camouflaged Pit Trap
+Word of Chaos Trap
+CR 9 Traps
+Drawer Handle Smeared with Contact Poison
+Dropping Ceiling
+Incendiary Cloud Trap
+Wide-Mouth Pit Trap
+Wide-Mouth Spiked Pit with Poisoned Spikes
+CR 10 Traps
+Crushing Room
+Crushing Wall Trap
+Energy Drain Trap
+Forcecage and Summon Monster VII trap
+Poisoned Spiked Pit Trap
+Wail of the Banshee Trap
