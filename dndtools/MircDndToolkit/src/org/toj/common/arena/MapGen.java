@@ -8,8 +8,8 @@ import org.toj.common.FileIoUtils;
 
 public class MapGen {
     public static void main(String[] args) throws IOException {
-        int mapId = 4;
-        int charLevel = 3;
+        int mapId = 6;
+        int charLevel = 4;
         ArenaMap map;
         if (mapId == 6) {
             map = new DungeonMap(14, 14, loadStrFromFile(getMapFile("" + mapId)), charLevel);

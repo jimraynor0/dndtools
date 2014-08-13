@@ -16,11 +16,11 @@ public class DungeonMap extends ArenaMap {
 
     public DungeonMap(int width, int height, String mapText, int charLevel) {
         super(width, height, mapText);
-        this.charLevel = charLevel;
+        this.charLevel = charLevel - 2;
     }
 
     public void placeTraps() throws IOException {
-        if (charLevel < 3) {
+        if (charLevel < 1) {
             return;
         }
         int totalTraps = Dice.getDice(3).roll();
@@ -64,14 +64,14 @@ public class DungeonMap extends ArenaMap {
         String line = null;
         boolean flag = false;
         while ((line = reader.readLine()) != null) {
-            if (line.equals("CR " + charLevel + " Traps")) {
-                flag = true;
+            if (line.equals("CR " + (charLevel + 1) + " Traps")) {
+                return traps;
             }
             if (flag) {
                 traps.add(line);
             }
-            if (line.equals("CR " + charLevel + 1 + " Traps")) {
-                return traps;
+            if (line.equals("CR " + charLevel + " Traps")) {
+                flag = true;
             }
         }
         return traps;
