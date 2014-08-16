@@ -55,6 +55,7 @@ import org.toj.dnd.irctoolkit.engine.command.game.SurgeCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.TempHitPointsCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.UseItemCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.UsePowerCommand;
+import org.toj.dnd.irctoolkit.engine.command.map.ListModelCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.MoveMapObjectCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.PlaceRandomTrapCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.PrintMapCommand;
@@ -118,6 +119,7 @@ public class IrcCommandFactory {
         cmdClasses.add(UsePowerCommand.class);
 
         cmdClasses.add(PrintMapCommand.class);
+        cmdClasses.add(ListModelCommand.class);
         cmdClasses.add(MoveMapObjectCommand.class);
         cmdClasses.add(PlaceRandomTrapCommand.class);
     }

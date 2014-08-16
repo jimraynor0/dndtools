@@ -49,4 +49,8 @@ public class ViewPoint extends Point implements Serializable {
     public void setRange(int range) {
         this.range = range;
     }
+
+    public double getOneAndHalfSquareSlope() {
+        return (double) range / ((double) range + 1.5);
+    }
 }

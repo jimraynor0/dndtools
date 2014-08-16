@@ -87,16 +87,20 @@ public class State implements Cloneable {
         this.appliedOnInit = init;
         this.appliedOnRound = round;
 
-        if (isDot(name)) {
-            this.endCondition =
-                endCondition == null ? END_COND_SAVE : endCondition;
-            String dmg = name.substring(TYPE_DOT.length());
-            getBehaviorList().add(new DotBehavior(Integer.parseInt(dmg), this));
-        } else {
-            this.endCondition =
-                endCondition == null ? END_COND_EONT : endCondition;
+        // 4th be with you
+        // if (isDot(name)) {
+        // this.endCondition =
+        // endCondition == null ? END_COND_SAVE : endCondition;
+        // String dmg = name.substring(TYPE_DOT.length());
+        // getBehaviorList().add(new DotBehavior(Integer.parseInt(dmg), this));
+        // } else {
+        // this.endCondition =
+        // endCondition == null ? END_COND_EONT : endCondition;
+        // }
+        this.endCondition = endCondition;
+        if (endCondition != null) {
+            buildEndConditionBehavior();
         }
-        buildEndConditionBehavior();
     }
 
     private void buildEndConditionBehavior() {
@@ -146,7 +150,7 @@ public class State implements Cloneable {
 
     public String toStatString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(name).append("|").append(endCondition).append("|")
+        sb.append(name).append("|").append(endCondition == null ? "Permanent" : endCondition).append("|")
             .append(appliedOnRound).append("|").append(this.appliedOnInit);
         return sb.toString();
     }
@@ -229,6 +233,15 @@ public class State implements Cloneable {
             if (other.name != null)
                 return false;
         } else if (!name.equals(other.name))
+            return false;
+        return true;
+    }
+
+    public boolean endConditionMatches(String other) {
+        if (endCondition == null) {
+            if (other != null)
+                return false;
+        } else if (!endCondition.equals(other))
             return false;
         return true;
     }

@@ -10,6 +10,8 @@ import java.util.Map;
 
 import org.toj.common.FileIoUtils;
 import org.toj.dnd.irctoolkit.dice.Dice;
+import org.toj.dnd.irctoolkit.rules.Rule;
+import org.toj.dnd.irctoolkit.rules.RuleBook;
 
 public class TrapUtil {
     private static final File TRAPS_FILE = new File("./resources/traps.config");
@@ -52,6 +54,8 @@ public class TrapUtil {
                     }
                     ALL_TRAPS.get(cr).add(trap);
 
+                    addToRule(trap);
+
                     name = null;
                     desc = null;
                 } else if (name == null) {
@@ -63,6 +67,14 @@ public class TrapUtil {
             reader.close();
         }
         return ALL_TRAPS;
+    }
+
+    private static void addToRule(Trap trap) {
+        Rule rule = new Rule();
+        rule.setName(trap.name);
+        rule.setType("Trap");
+        rule.setText(trap.desc);
+        RuleBook.getRuleBook().addToRuleSet(rule);
     }
 
     public static class Trap {

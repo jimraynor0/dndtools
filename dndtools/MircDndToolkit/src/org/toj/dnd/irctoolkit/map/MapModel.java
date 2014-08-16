@@ -127,10 +127,14 @@ public class MapModel implements Serializable {
 
     @Override
     public String toString() {
-        return "MapModel [id=" + id + ", foreground=" + foreground
-                + ", background=" + background + ", ch=" + ch + ", desc="
-                + desc + ", blocksLineOfSight=" + blocksLineOfSight
-                + ", blocksLineOfEffect=" + blocksLineOfEffect + "]";
+        StringBuilder result = new StringBuilder(ch).append(" - ").append(desc);
+        if (blocksLineOfSight) {
+            result.append("(阻挡视线)");
+        }
+        if (blocksLineOfEffect) {
+            result.append("(阻挡效果线)");
+        }
+        return result.toString();
     }
 
     public Element toXmlElement() {

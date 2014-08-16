@@ -255,7 +255,7 @@ public class PC extends Combatant {
         if (states != null && !states.isEmpty()) {
             sb.append("Existing Effects: ");
             for (State s : states) {
-                sb.append(s.getName()).append("|").append(s.getEndCondition());
+                sb.append(s.toString());
                 sb.append(s != states.getLast() ? ", " : "\r\n");
             }
         }

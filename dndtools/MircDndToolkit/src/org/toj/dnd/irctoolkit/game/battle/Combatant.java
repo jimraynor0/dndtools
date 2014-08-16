@@ -106,12 +106,12 @@ public class Combatant implements Cloneable {
                 matchFields = 1;
             }
             if (matchFields < 2 && target.getName().equals(state.getName())
-                    && target.getEndCondition().equals(state.getEndCondition())) {
+                    && target.endConditionMatches(state.getEndCondition())) {
                 match = target;
                 matchFields = 2;
             }
             if (matchFields < 3 && target.getName().equals(state.getName())
-                    && target.getEndCondition().equals(state.getEndCondition())
+                    && target.endConditionMatches(state.getEndCondition())
                     && target.getAppliedOnInit() == state.getAppliedOnInit()) {
                 match = target;
                 matchFields = 3;
