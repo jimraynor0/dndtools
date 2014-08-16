@@ -26,8 +26,8 @@ public class EndsInAFewTurnsBehavior implements StateBehavior {
 
         if (roundsLeft <= 0) {
             owner.removeState(controllsState);
-            return new StringBuilder("[").append(controllsState.getName())
-                .append("] faded from [").append(owner.getName()).append("]")
+            return new StringBuilder("[").append(owner.getName())
+                .append("]身上的[").append(controllsState.getName()).append("]效果消失了。")
                 .toString();
         }
         return null;

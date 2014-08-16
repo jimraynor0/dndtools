@@ -76,6 +76,7 @@ public class State implements Cloneable {
         // this.endCondition = endCondition == null ? END_COND_EONT
         // : endCondition;
         // }
+        this.endCondition = endCondition;
         if (endCondition != null) {
             buildEndConditionBehavior();
         }

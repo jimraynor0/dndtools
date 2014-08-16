@@ -15,14 +15,15 @@ import org.toj.dnd.irctoolkit.engine.command.map.LoadMapFromFileCommand;
 import org.toj.dnd.irctoolkit.game.encounter.Encounter;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
 
-@IrcCommand(command="startbattle", args = {CommandSegment.NULLABLE_LIST})
+@IrcCommand(command = "startbattle", args = { CommandSegment.NULLABLE_LIST })
 public class StartBattleCommand extends UndoableTopicCommand {
 
     private String encounterName;
 
     public StartBattleCommand(Object[] args) {
         if (args != null && args.length > 0) {
-            this.encounterName = StringUtils.join(Arrays.copyOfRange(args, 1, args.length), " ");
+            this.encounterName =
+                StringUtils.join(Arrays.copyOfRange(args, 1, args.length), " ");
         }
     }
 
@@ -45,9 +46,9 @@ public class StartBattleCommand extends UndoableTopicCommand {
             } else {
                 if (encounter.mapName != null) {
                     ToolkitEngine.getEngine()
-                            .queueCommand(
-                                    new LoadMapFromFileCommand(new File(
-                                            encounter.mapName)));
+                        .queueCommand(
+                            new LoadMapFromFileCommand(new File(
+                                encounter.mapName)));
                 }
                 getGame().startEncounter(encounter);
             }
@@ -55,8 +56,9 @@ public class StartBattleCommand extends UndoableTopicCommand {
             getGame().startBattle();
         }
 
-        List<String> needsInitRolled = new ArrayList<String>(getGame().getPcs()
-                .size() + getGame().getNpcs().size());
+        List<String> needsInitRolled =
+            new ArrayList<String>(getGame().getPcs().size()
+                + getGame().getNpcs().size());
         for (String pcName : getGame().getPcs().keySet()) {
             if (getGame().getBattle().findCharByName(pcName) == null) {
                 needsInitRolled.add(pcName);
@@ -70,9 +72,9 @@ public class StartBattleCommand extends UndoableTopicCommand {
         if (!needsInitRolled.isEmpty()) {
             Object[] args = new Object[needsInitRolled.size() + 1];
             args[0] = null;
-            System.arraycopy(needsInitRolled.toArray(), 0, args, 1, needsInitRolled.size());
-            ToolkitEngine.getEngine().queueCommand(
-                    new InitCommand(args));
+            System.arraycopy(needsInitRolled.toArray(), 0, args, 1,
+                needsInitRolled.size());
+            ToolkitEngine.getEngine().queueCommand(new InitCommand(args));
             ToolkitEngine.getEngine().queueCommand(new RefreshTopicCommand());
         }
     }

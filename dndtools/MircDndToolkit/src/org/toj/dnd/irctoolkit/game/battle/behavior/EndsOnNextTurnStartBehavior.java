@@ -17,9 +17,9 @@ public class EndsOnNextTurnStartBehavior implements StateBehavior {
                 || round == this.controllsState.getAppliedOnRound() + 1
                 && current.getInit() <= this.controllsState.getAppliedOnInit()) {
             owner.removeState(controllsState);
-            return new StringBuilder("[").append(controllsState)
-                    .append("] faded from [").append(owner.getName())
-                    .append("]").toString();
+            return new StringBuilder("[").append(owner.getName())
+                .append("]身上的[").append(controllsState.getName()).append("]效果消失了。")
+                .toString();
         }
         return null;
     }

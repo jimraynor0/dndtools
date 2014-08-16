@@ -149,7 +149,7 @@ public class MapModelPane extends JPanel {
                 .setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         add(scrollPane);
 
-        JButton bAdd = new JButton("Add");
+        JButton bAdd = new JButton("新建地图符号");
         bAdd.setPreferredSize(SIZE_BUTTON);
         bAdd.setMargin(INSETS_BUTTON);
         bAdd.addActionListener(new ActionListener() {
@@ -160,7 +160,7 @@ public class MapModelPane extends JPanel {
             }
         });
 
-        JButton bDel = new JButton("Delete");
+        JButton bDel = new JButton("删除地图符号");
         bDel.setPreferredSize(SIZE_BUTTON);
         bDel.setMargin(INSETS_BUTTON);
         bDel.addActionListener(new ActionListener() {
@@ -172,7 +172,7 @@ public class MapModelPane extends JPanel {
             }
         });
 
-        JButton bClearSelection = new JButton("Clear");
+        JButton bClearSelection = new JButton("取消符号选择");
         bClearSelection.setPreferredSize(SIZE_BUTTON);
         bClearSelection.setMargin(INSETS_BUTTON);
         bClearSelection.addActionListener(new ActionListener() {
@@ -184,7 +184,7 @@ public class MapModelPane extends JPanel {
             }
         });
 
-        JToggleButton bEraser = new JToggleButton("Eraser");
+        JToggleButton bEraser = new JToggleButton("擦除模式");
         bEraser.setPreferredSize(SIZE_BUTTON);
         bEraser.setMargin(INSETS_BUTTON);
         bEraser.addItemListener(new ItemListener() {
@@ -199,7 +199,7 @@ public class MapModelPane extends JPanel {
             }
         });
 
-        JToggleButton bSelectionMode = new JToggleButton("Editing");
+        JToggleButton bSelectionMode = new JToggleButton("绘图模式");
         bSelectionMode.setPreferredSize(SIZE_BUTTON);
         bSelectionMode.setMargin(INSETS_BUTTON);
         bSelectionMode.addItemListener(new ItemListener() {
@@ -207,17 +207,17 @@ public class MapModelPane extends JPanel {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    ((JToggleButton) e.getSource()).setText("Controlling");
+                    ((JToggleButton) e.getSource()).setText("移动模式");
                     getMapGridPanel()
                             .setEditMode(MapGridPanel.MODE_CONTROLLING);
                 } else {
-                    ((JToggleButton) e.getSource()).setText("Editing");
+                    ((JToggleButton) e.getSource()).setText("绘图模式");
                     getMapGridPanel().setEditMode(MapGridPanel.MODE_EDITING);
                 }
             }
         });
 
-        JButton bImportModels = new JButton("Default Models");
+        JButton bImportModels = new JButton("载入默认符号");
         bImportModels.setPreferredSize(SIZE_BUTTON);
         bImportModels.setMargin(INSETS_BUTTON);
         bImportModels.addActionListener(new ActionListener() {

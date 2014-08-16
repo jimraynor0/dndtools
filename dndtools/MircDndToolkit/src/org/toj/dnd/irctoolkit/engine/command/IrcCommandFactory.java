@@ -56,6 +56,7 @@ import org.toj.dnd.irctoolkit.engine.command.game.TempHitPointsCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.UseItemCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.UsePowerCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.MoveMapObjectCommand;
+import org.toj.dnd.irctoolkit.engine.command.map.PlaceRandomTrapCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.PrintMapCommand;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.io.pircbot.IrcClient;
@@ -118,6 +119,7 @@ public class IrcCommandFactory {
 
         cmdClasses.add(PrintMapCommand.class);
         cmdClasses.add(MoveMapObjectCommand.class);
+        cmdClasses.add(PlaceRandomTrapCommand.class);
     }
 
     private static final String START_GAME = "startgame";

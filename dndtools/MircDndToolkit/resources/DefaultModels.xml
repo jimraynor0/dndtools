@@ -1,48 +1,5 @@
 
 <modelList>
-<!-- pure hack! -->
-    <mapModel>
-        <id>pc.1</id>
-        <foreground>BLACK</foreground>
-        <ch>弗</ch>
-        <desc>弗沃茨</desc>
-        <blocksLineOfSight>false</blocksLineOfSight>
-        <blocksLineOfEffect>false</blocksLineOfEffect>
-    </mapModel>
-    <mapModel>
-        <id>pc.3</id>
-        <foreground>BLACK</foreground>
-        <ch>凯</ch>
-        <desc>凯莫</desc>
-        <blocksLineOfSight>false</blocksLineOfSight>
-        <blocksLineOfEffect>false</blocksLineOfEffect>
-    </mapModel>
-    <mapModel>
-        <id>pc.5</id>
-        <foreground>BLACK</foreground>
-        <ch>科</ch>
-        <desc>科林</desc>
-        <blocksLineOfSight>false</blocksLineOfSight>
-        <blocksLineOfEffect>false</blocksLineOfEffect>
-    </mapModel>
-    <mapModel>
-        <id>pc.2</id>
-        <foreground>BLACK</foreground>
-        <ch>万</ch>
-        <desc>万德</desc>
-        <blocksLineOfSight>false</blocksLineOfSight>
-        <blocksLineOfEffect>false</blocksLineOfEffect>
-    </mapModel>
-    <mapModel>
-        <id>pc.4</id>
-        <foreground>BLACK</foreground>
-        <ch>扎</ch>
-        <desc>扎克</desc>
-        <blocksLineOfSight>false</blocksLineOfSight>
-        <blocksLineOfEffect>false</blocksLineOfEffect>
-    </mapModel>
-<!-- pure hack! -->
-
     <mapModel>
         <id>default.light</id>
         <foreground>RED</foreground>
@@ -84,6 +41,45 @@
         <blocksLineOfEffect>true</blocksLineOfEffect>
     </mapModel>
     <mapModel>
+      <id>default.lowwall</id>
+      <background>MAROON</background>
+      <ch></ch>
+      <desc>胸墙</desc>
+      <blocksLineOfSight>false</blocksLineOfSight>
+      <blocksLineOfEffect>false</blocksLineOfEffect>
+    </mapModel>
+    <mapModel>
+      <id>default.difficultterrain</id>
+      <background>SILVER</background>
+      <ch></ch>
+      <desc>困难地形</desc>
+      <blocksLineOfSight>false</blocksLineOfSight>
+      <blocksLineOfEffect>false</blocksLineOfEffect>
+    </mapModel>
+    <mapModel>
+      <id>default.lowground</id>
+      <background>GRAY</background>
+      <ch></ch>
+      <desc>低洼地形</desc>
+      <blocksLineOfSight>false</blocksLineOfSight>
+      <blocksLineOfEffect>false</blocksLineOfEffect>
+    </mapModel>
+    <mapModel>
+        <id>default.small.tree</id>
+        <background>GREEN</background>
+        <desc>小型树</desc>
+        <blocksLineOfSight>false</blocksLineOfSight>
+        <blocksLineOfEffect>false</blocksLineOfEffect>
+    </mapModel>
+    <mapModel>
+        <id>default.big.tree</id>
+        <foreground>GREEN</foreground>
+        <ch>树</ch>
+        <desc>大型树(占满一格)</desc>
+        <blocksLineOfSight>true</blocksLineOfSight>
+        <blocksLineOfEffect>true</blocksLineOfEffect>
+    </mapModel>
+    <mapModel>
         <id>default.trap1</id>
         <background>YELLOW</background>
         <desc>陷阱1</desc>
@@ -94,13 +90,6 @@
         <id>default.trap2</id>
         <background>BLUE</background>
         <desc>陷阱2</desc>
-        <blocksLineOfSight>false</blocksLineOfSight>
-        <blocksLineOfEffect>false</blocksLineOfEffect>
-    </mapModel>
-    <mapModel>
-        <id>default.trap3</id>
-        <background>GREEN</background>
-        <desc>陷阱3</desc>
         <blocksLineOfSight>false</blocksLineOfSight>
         <blocksLineOfEffect>false</blocksLineOfEffect>
     </mapModel>

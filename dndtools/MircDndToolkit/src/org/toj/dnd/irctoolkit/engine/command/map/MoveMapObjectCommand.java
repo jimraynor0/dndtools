@@ -1,8 +1,8 @@
 package org.toj.dnd.irctoolkit.engine.command.map;
 
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
-import org.toj.dnd.irctoolkit.engine.command.MapCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
+import org.toj.dnd.irctoolkit.engine.command.MapCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.map.MapObject;
 import org.toj.dnd.irctoolkit.map.Point;
@@ -18,6 +18,9 @@ public class MoveMapObjectCommand extends MapCommand {
         String model = (String) args[0];
         if (model != null) {
             MapObject o = context.getCurrentMap().findObjByIconOrDesc(model);
+            if (o != null) {
+                objs = new MapObject[] {o};
+            }
         }
         dests = new Point[] { new Point(AxisUtil.toNumber((String) args[1]),
             AxisUtil.toNumber((String) args[2])) };

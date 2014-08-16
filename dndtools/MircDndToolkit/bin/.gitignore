@@ -1,7 +1,5 @@
-/DefaultModels.xml
-/GlobalConfigs.properties
-/MapGenConfigs.properties
-/classes
-/d6xs武侠套路价格计算器.html
-/log4j.properties
 /org
+/DefaultModels.xml.bak
+/DefaultModels.out.xml
+/traps.properties
+/traps.config
