@@ -15,15 +15,18 @@ public class InitCommand extends UndoableTopicCommand {
     private double init = Double.NEGATIVE_INFINITY;
 
     public InitCommand(Object[] args) {
-        if (args[0] != null) {
+        if (args.length > 0 && (args[0] instanceof Double || args[0] instanceof Integer)) {
             init = (Double) args[0];
         }
 
-        if (args.length == 1) {
-            charName = new String[] {caller};
-        } else {
-            charName = new String[args.length - 1];
-            System.arraycopy(args, 1, charName, 0, charName.length);
+        if (args.length != 0 && (args.length > 1 || init == Double.NEGATIVE_INFINITY)) {
+            if (init != Double.NEGATIVE_INFINITY) {
+                charName = new String[args.length - 1];
+                System.arraycopy(args, 1, charName, 0, charName.length);
+            } else {
+                charName = new String[args.length];
+                System.arraycopy(args, 0, charName, 0, charName.length);
+            }
         }
     }
 

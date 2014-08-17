@@ -26,7 +26,7 @@
 
 	<target name="compile">
 		<mkdir dir="${classes.dir}" />
-		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" encoding="GBK" />
 		<copy todir="${classes.dir}">
 			<fileset dir="${resources.dir}" excludes="**/*.java" />
 		</copy>
