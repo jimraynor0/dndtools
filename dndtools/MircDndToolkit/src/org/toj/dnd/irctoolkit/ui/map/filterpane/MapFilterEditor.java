@@ -45,7 +45,7 @@ public class MapFilterEditor extends JDialog {
 
     public MapFilterEditor() {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        setResizable(false);
+        setResizable(true);
         setBounds(100, 100, 318, 159);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
