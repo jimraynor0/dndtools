@@ -5,7 +5,7 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "-", args = { CommandSegment.STRING, CommandSegment.LIST } )
+@IrcCommand(command = "-", args = { CommandSegment.STRING, CommandSegment.NULLABLE_LIST } )
 public class RemoveStateCommand extends UndoableTopicCommand {
 
     private String stateStr;
