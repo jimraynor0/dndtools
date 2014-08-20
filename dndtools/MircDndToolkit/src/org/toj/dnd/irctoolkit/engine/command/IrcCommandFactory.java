@@ -55,10 +55,13 @@ import org.toj.dnd.irctoolkit.engine.command.game.SurgeCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.TempHitPointsCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.UseItemCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.UsePowerCommand;
+import org.toj.dnd.irctoolkit.engine.command.map.CreateMapObjectCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.ListModelCommand;
+import org.toj.dnd.irctoolkit.engine.command.map.LoadMapFromFileCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.MoveMapObjectCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.PlaceRandomTrapCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.PrintMapCommand;
+import org.toj.dnd.irctoolkit.engine.command.map.PrintMapForDmCommand;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.io.pircbot.IrcClient;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
@@ -76,6 +79,7 @@ public class IrcCommandFactory {
         cmdClasses.add(AddCharCommand.class);
         cmdClasses.add(AddPcCommand.class);
         cmdClasses.add(AddPowerCommand.class);
+        cmdClasses.add(HealCommand.class);
         cmdClasses.add(AddStateCommand.class);
         cmdClasses.add(CharStateCommand.class);
         cmdClasses.add(CreateOrLoadCommand.class);
@@ -86,7 +90,6 @@ public class IrcCommandFactory {
         cmdClasses.add(FateDiceRollCommand.class);
         cmdClasses.add(GameUndoCommand.class);
         cmdClasses.add(GotoCommand.class);
-        cmdClasses.add(HealCommand.class);
         cmdClasses.add(InitCommand.class);
         cmdClasses.add(ListAliasCommand.class);
         cmdClasses.add(ListItemCommand.class);
@@ -118,9 +121,12 @@ public class IrcCommandFactory {
         cmdClasses.add(UseItemCommand.class);
         cmdClasses.add(UsePowerCommand.class);
 
+        cmdClasses.add(LoadMapFromFileCommand.class);
         cmdClasses.add(PrintMapCommand.class);
+        cmdClasses.add(PrintMapForDmCommand.class);
         cmdClasses.add(ListModelCommand.class);
         cmdClasses.add(MoveMapObjectCommand.class);
+        cmdClasses.add(CreateMapObjectCommand.class);
         cmdClasses.add(PlaceRandomTrapCommand.class);
     }
 

@@ -1,11 +1,14 @@
 package org.toj.dnd.irctoolkit.map;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+
+import org.toj.dnd.irctoolkit.token.Color;
 
 public class MapModelList implements Serializable, Iterable<MapModel> {
     private static final long serialVersionUID = 6853194581268144323L;
@@ -206,6 +209,20 @@ public class MapModelList implements Serializable, Iterable<MapModel> {
 
     public String toString() {
         return list.toString();
+    }
+
+    public MapModel createNewModel(String ch, String desc, Color foreground, Color background, int index) {
+        MapModel model = new MapModel();
+        model.setCh(ch);
+        model.setDesc(desc);
+        model.setForeground(foreground);
+        model.setBackground(background);
+        if (index == -1) {
+            this.add(model);
+        } else {
+            this.add(index, model);
+        }
+        return model;
     }
 
     public MapModel findModelById(String ch) {

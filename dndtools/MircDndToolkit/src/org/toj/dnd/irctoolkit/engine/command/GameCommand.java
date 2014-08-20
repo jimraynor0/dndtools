@@ -84,9 +84,9 @@ public abstract class GameCommand extends Command {
         return true;
     }
 
-    protected String composite(String[] parts) {
+    protected String composite(Object[] parts) {
         StringBuilder sb = new StringBuilder();
-        for (String str : parts) {
+        for (Object str : parts) {
             if (!str.equals(parts[0])) {
                 sb.append(" ");
             }

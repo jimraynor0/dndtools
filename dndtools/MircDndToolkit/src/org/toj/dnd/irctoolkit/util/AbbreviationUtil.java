@@ -1,5 +1,7 @@
 package org.toj.dnd.irctoolkit.util;
 
+import org.apache.commons.lang.StringUtils;
+
 public class AbbreviationUtil {
 
     public static boolean isCapitalAbbre(String abbre, String text) {
@@ -46,11 +48,35 @@ public class AbbreviationUtil {
         }
     }
 
+    public static String getIcon(String desc) {
+        if (StringUtils.isEmpty(desc)) {
+            return null;
+        }
+        if (isChinese(desc.substring(0, 1))) {
+            return desc.substring(0, 1);
+        }
+        if (desc.length() == 1) {
+            return desc + desc;
+        }
+        if (desc.length() == 2) {
+            return desc;
+        }
+        return desc.substring(0, 2);
+    }
+
     public static void main(String[] args) {
         System.out.println(isPrefixAbbre("b", "Bairmot"));
         System.out.println(isPrefixAbbre("bai", "Bairmot"));
         System.out.println(isPrefixAbbre("bair", "Bairmot"));
         System.out.println(isPrefixAbbre("±´", "±´ÄªÍÐ"));
         System.out.println(isPrefixAbbre("±´ÄªÍÐ", "±´ÄªÍÐÍçÊ¯"));
+
+        System.out.println("-------------------");
+
+        System.out.println(getIcon("B"));
+        System.out.println(getIcon("Ba"));
+        System.out.println(getIcon("Bairmot"));
+        System.out.println(getIcon("±´"));
+        System.out.println(getIcon("±´ÄªÍÐ"));
     }
 }

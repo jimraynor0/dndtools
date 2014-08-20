@@ -330,6 +330,11 @@ public class MapGrid implements FilterListObserver, PcViewObserver {
         return new MapGrid(filteredGrid);
     }
 
+    public MapGrid getUnfilteredMap() {
+        MapGridCell[][] filteredGrid = new FillEmptySpaceFilter().applyFilter(this.getGrid());
+        return new MapGrid(filteredGrid);
+    }
+    
     private void refreshFilteredMap() {
         filteredGrid = new FillEmptySpaceFilter().applyFilter(this.getGrid());
         for (MapFilter filter : filterList) {
