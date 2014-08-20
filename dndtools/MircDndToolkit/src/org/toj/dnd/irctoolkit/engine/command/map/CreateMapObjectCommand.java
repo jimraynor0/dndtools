@@ -32,9 +32,9 @@ public class CreateMapObjectCommand extends MapCommand {
     @Override
     protected void doExecute() throws ToolkitCommandException {
         if (model == null && this.caller != null) {
-            MapModel o = context.getModelList().findModelByChOrDesc(caller);
-            if (o == null) {
-                context.getModelList().createNewModel(AbbreviationUtil.getIcon(caller), caller, Color.BLACK, null, 0);
+            model = context.getModelList().findModelByChOrDesc(caller);
+            if (model == null) {
+                model = context.getModelList().createNewModel(AbbreviationUtil.getIcon(caller), caller, Color.BLACK, null, 0);
             }
         }
         if (model == null || dests == null) {
