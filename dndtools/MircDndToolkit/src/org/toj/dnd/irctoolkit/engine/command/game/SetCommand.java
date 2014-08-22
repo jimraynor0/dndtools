@@ -38,26 +38,15 @@ public class SetCommand extends UndoableTopicCommand {
             if ("thp".equalsIgnoreCase(attr)) {
                 pc.setThp(value);
             }
-            if ("surge".equalsIgnoreCase(attr)) {
-                pc.setSurge(value);
-            }
-            if ("maxSurge".equalsIgnoreCase(attr)) {
-                pc.setMaxSurge(value);
-            }
-            if ("ap".equalsIgnoreCase(attr)) {
-                pc.setAp(value);
-            }
             if ("pp".equalsIgnoreCase(attr)) {
                 pc.setPp(value);
             }
             if ("maxPp".equalsIgnoreCase(attr)) {
                 pc.setMaxPp(value);
+                pc.setPsionic(0 == value);
             }
             if ("initMod".equalsIgnoreCase(attr)) {
                 pc.setInitMod(value);
-            }
-            if ("psionic".equalsIgnoreCase(attr)) {
-                pc.setPsionic(1 == value);
             }
         }
         sendTopic(getGame().generateTopic());

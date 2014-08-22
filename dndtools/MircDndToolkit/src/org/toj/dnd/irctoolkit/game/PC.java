@@ -19,9 +19,6 @@ public class PC extends Combatant {
     private int xp;
     private int hp;
     private int maxHp;
-    private int surge;
-    private int maxSurge;
-    private int ap;
     private int pp;
     private int maxPp;
     private int initMod;
@@ -43,9 +40,6 @@ public class PC extends Combatant {
         this.xp = Integer.parseInt(e.elementTextTrim("xp"));
         this.hp = Integer.parseInt(e.elementTextTrim("hp"));
         this.maxHp = Integer.parseInt(e.elementTextTrim("maxHp"));
-        this.maxSurge = Integer.parseInt(e.elementTextTrim("maxSurge"));
-        this.surge = Integer.parseInt(e.elementTextTrim("surge"));
-        this.ap = Integer.parseInt(e.elementTextTrim("ap"));
         if (e.element("maxPp") != null) {
             this.isPsionic = true;
             this.pp = Integer.parseInt(e.elementTextTrim("pp"));
@@ -86,7 +80,6 @@ public class PC extends Combatant {
     }
 
     public void damage(int dmg) {
-        boolean bloodied = isBloodied();
         if (getThp() >= dmg) {
             setThp(getThp() - dmg);
             return;
@@ -96,41 +89,13 @@ public class PC extends Combatant {
             setThp(0);
         }
         hp -= dmg;
-        if (!bloodied && isBloodied()) {
-            super.applyState(State.parseState("bloodied|eoe"));
-        }
     }
 
+
     public void heal(int heal) {
-        boolean bloodied = isBloodied();
-        // commented out for 3r
-        if (hp < 0) {
-            hp = 0;
-        }
         hp += heal;
         if (hp > maxHp) {
             hp = maxHp;
-        }
-        if (bloodied && !isBloodied()) {
-            super.removeState(State.parseState("bloodied|eoe"));
-        }
-    }
-
-    public boolean isBloodied() {
-        return hp <= maxHp / 2;
-    }
-
-    public void recordAp(int usage) {
-        this.ap -= usage;
-        if (this.ap < 0) {
-            this.ap = 0;
-        }
-    }
-
-    public void recordSurge(int usage) {
-        this.surge -= usage;
-        if (surge < 0) {
-            surge = 0;
         }
     }
 
@@ -169,8 +134,6 @@ public class PC extends Combatant {
         for (Power power : encounterPowers.values()) {
             power.setCharges(power.getMaxCharges());
         }
-        this.pp = maxPp;
-        this.setThp(0);
     }
 
     public void applyExtendedRest() {
@@ -178,13 +141,6 @@ public class PC extends Combatant {
         for (Power power : dailyPowers.values()) {
             power.setCharges(power.getMaxCharges());
         }
-        this.ap = 1;
-        this.hp = maxHp;
-        this.surge = maxSurge;
-    }
-
-    public void applyMilestone() {
-        ap++;
     }
 
     public String toStatString() {
@@ -196,9 +152,6 @@ public class PC extends Combatant {
             sb.append("(Temporary HP: ").append(this.getThp()).append(")");
         }
         sb.append("\r\n");
-        sb.append("Surge: ").append(surge).append("/").append(maxSurge)
-                .append("\r\n");
-        sb.append("AP: ").append(this.ap).append("\r\n");
         if (isPsionic) {
             sb.append("Psionic Point: ").append(pp).append("/").append(maxPp)
                     .append("\r\n");
@@ -268,9 +221,6 @@ public class PC extends Combatant {
         e.add(XmlUtil.textElement("xp", String.valueOf(xp)));
         e.add(XmlUtil.textElement("hp", String.valueOf(hp)));
         e.add(XmlUtil.textElement("maxHp", String.valueOf(maxHp)));
-        e.add(XmlUtil.textElement("surge", String.valueOf(surge)));
-        e.add(XmlUtil.textElement("maxSurge", String.valueOf(maxSurge)));
-        e.add(XmlUtil.textElement("ap", String.valueOf(ap)));
         if (isPsionic) {
             e.add(XmlUtil.textElement("pp", String.valueOf(pp)));
             e.add(XmlUtil.textElement("maxPp", String.valueOf(maxPp)));
@@ -301,30 +251,11 @@ public class PC extends Combatant {
     }
 
     public void setHp(int hp) {
-        boolean bloodied = isBloodied();
         this.hp = hp;
-        if (!bloodied && isBloodied()) {
-            super.applyState(State.parseState("bloodied|eoe"));
-        }
-        if (bloodied && !isBloodied()) {
-            super.removeState(State.parseState("bloodied|eoe"));
-        }
     }
 
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
-    }
-
-    public void setSurge(int surge) {
-        this.surge = surge;
-    }
-
-    public void setMaxSurge(int maxSurge) {
-        this.maxSurge = maxSurge;
-    }
-
-    public void setAp(int ap) {
-        this.ap = ap;
     }
 
     public void setPp(int pp) {
@@ -409,9 +340,6 @@ public class PC extends Combatant {
             sb.append("+").append(getThp());
         }
         sb.append(")");
-        if (isBloodied()) {
-            return IrcColoringUtil.paint(sb.toString(), Color.RED.getCode());
-        }
         return sb.toString();
     }
 

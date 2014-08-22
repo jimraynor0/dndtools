@@ -10,7 +10,6 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
 import org.toj.dnd.irctoolkit.engine.command.game.ActAsCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.ActionPointsCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.AddCharCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.AddPcCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.AddPowerCommand;
@@ -51,7 +50,6 @@ import org.toj.dnd.irctoolkit.engine.command.game.SetCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ShowTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.StartBattleCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.StartRoundCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.SurgeCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.TempHitPointsCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.UseItemCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.UsePowerCommand;
@@ -75,7 +73,6 @@ public class IrcCommandFactory {
 
     static {
         cmdClasses.add(ActAsCommand.class);
-        cmdClasses.add(ActionPointsCommand.class);
         cmdClasses.add(AddCharCommand.class);
         cmdClasses.add(AddPcCommand.class);
         cmdClasses.add(AddPowerCommand.class);
@@ -116,7 +113,6 @@ public class IrcCommandFactory {
         cmdClasses.add(ShowTopicCommand.class);
         cmdClasses.add(StartBattleCommand.class);
         cmdClasses.add(StartRoundCommand.class);
-        cmdClasses.add(SurgeCommand.class);
         cmdClasses.add(TempHitPointsCommand.class);
         cmdClasses.add(UseItemCommand.class);
         cmdClasses.add(UsePowerCommand.class);

@@ -335,12 +335,6 @@ public class Game {
         }
     }
 
-    public void applyMilestone() {
-        for (PC pc : pcs.values()) {
-            pc.applyMilestone();
-        }
-    }
-
     public List<String> readPower(String powerName) {
         List<String> powerRead = new LinkedList<String>();
         for (PC pc : pcs.values()) {
