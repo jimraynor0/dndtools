@@ -236,7 +236,7 @@ public class MapModelList implements Serializable, Iterable<MapModel> {
 
     public MapModel findModelByChOrDesc(String ch) {
         for (MapModel model : this.list) {
-            if (model.getCh().equals(ch) || model.getDesc().equals(ch)) {
+            if ((model.getCh() != null && model.getCh().equals(ch)) || (model.getDesc() != null && model.getDesc().equals(ch))) {
                 return model;
             }
         }
