@@ -10,10 +10,6 @@ import org.toj.dnd.irctoolkit.util.RandomUtil;
 
 public class Dungeon {
 
-    // public static final String WALL = "¡ö";
-    // public static final String DOOR = "¡î";
-    // public static final String SPACE = "¡¡";
-
     private static final String WALL_ID = "default.wall";
     private static final String DOOR_ID = "default.doorclosed";
 

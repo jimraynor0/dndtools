@@ -26,16 +26,16 @@
     </mapModel>
     <mapModel>
         <id>default.forcefield</id>
-        <foreground>SILVER</foreground>
-        <ch>■</ch>
+        <background>SILVER</background>
+        <ch></ch>
         <desc>力场墙</desc>
         <blocksLineOfSight>false</blocksLineOfSight>
         <blocksLineOfEffect>true</blocksLineOfEffect>
     </mapModel>
     <mapModel>
         <id>default.wall</id>
-        <foreground>BLACK</foreground>
-        <ch>■</ch>
+        <background>BLACK</background>
+        <ch></ch>
         <desc>墙</desc>
         <blocksLineOfSight>true</blocksLineOfSight>
         <blocksLineOfEffect>true</blocksLineOfEffect>
