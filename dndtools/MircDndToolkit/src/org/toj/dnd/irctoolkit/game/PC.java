@@ -9,9 +9,7 @@ import java.util.Map;
 import org.dom4j.Element;
 import org.toj.dnd.irctoolkit.game.battle.Combatant;
 import org.toj.dnd.irctoolkit.game.battle.State;
-import org.toj.dnd.irctoolkit.token.Color;
 import org.toj.dnd.irctoolkit.util.AbbreviationUtil;
-import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
 import org.toj.dnd.irctoolkit.util.XmlUtil;
 
 public class PC extends Combatant {
