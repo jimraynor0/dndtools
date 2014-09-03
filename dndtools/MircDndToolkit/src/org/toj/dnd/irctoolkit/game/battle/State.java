@@ -107,15 +107,6 @@ public class State implements Cloneable {
         if (StringNumberUtil.isInteger(endCondition)) {
             getBehaviorList().add(new EndsInAFewTurnsBehavior(this));
         }
-        if (END_COND_EONT.equals(endCondition)) {
-            getBehaviorList().add(new EndsOnNextTurnEndBehavior(this));
-        }
-        if (END_COND_SONT.equals(endCondition)) {
-            getBehaviorList().add(new EndsOnNextTurnStartBehavior(this));
-        }
-        if (END_COND_SAVE.equals(endCondition)) {
-            getBehaviorList().add(new EndsOnSaveBehavior(this));
-        }
     }
 
     private boolean isDot(String name) {
@@ -140,9 +131,7 @@ public class State implements Cloneable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(name);
-        if (endCondition != null && !endCondition.isEmpty()
-            && !(isDot(name) && endCondition.equals(END_COND_SAVE))
-            && !(!isDot(name) && endCondition.equals(END_COND_EONT))) {
+        if (endCondition != null && !endCondition.isEmpty()) {
             sb.append("|").append(endCondition);
         }
         return sb.toString();
@@ -150,7 +139,7 @@ public class State implements Cloneable {
 
     public String toStatString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(name).append("|").append(endCondition == null ? "Permanent" : endCondition).append("|")
+        sb.append(name).append("|").append(endCondition == null ? "" : endCondition).append("|")
             .append(appliedOnRound).append("|").append(this.appliedOnInit);
         return sb.toString();
     }
