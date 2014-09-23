@@ -27,6 +27,7 @@ import org.toj.dnd.irctoolkit.engine.command.game.HealCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.InitCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ListAliasCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ListItemCommand;
+import org.toj.dnd.irctoolkit.engine.command.game.ListSavedGamesCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.LogCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ModifyXpCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.MoveCharAfterCommand;
@@ -46,6 +47,7 @@ import org.toj.dnd.irctoolkit.engine.command.game.RemoveStateCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RenameCharCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RuleQueryCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.SaveStateCommand;
+import org.toj.dnd.irctoolkit.engine.command.game.SavegameCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.SetCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ShowTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.StartBattleCommand;
@@ -124,6 +126,8 @@ public class IrcCommandFactory {
         cmdClasses.add(MoveMapObjectCommand.class);
         cmdClasses.add(CreateMapObjectCommand.class);
         cmdClasses.add(PlaceRandomTrapCommand.class);
+        cmdClasses.add(ListSavedGamesCommand.class);
+        cmdClasses.add(SavegameCommand.class);
     }
 
     private static final String START_GAME = "startgame";

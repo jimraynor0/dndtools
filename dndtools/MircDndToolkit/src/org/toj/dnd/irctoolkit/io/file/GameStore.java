@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -124,6 +126,14 @@ public class GameStore {
 
         writer.write(doc);
         writer.close();
+    }
+
+    public static List<String> listSavedGames() {
+        File gameDir = new File(getGameDir("."));
+        if (!gameDir.isDirectory()) {
+            return Collections.emptyList();
+        }
+        return Arrays.asList(gameDir.list());
     }
 
     public static void saveLog(List<String> lines, String game) {
