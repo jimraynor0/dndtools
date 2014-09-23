@@ -22,6 +22,9 @@ public class EndsInAFewTurnsBehavior implements StateBehavior {
         if ((endOnRound < roundsLeft + round) && current.getInit() <= this.controllsState.getAppliedOnInit()) {
             roundsLeft--;
             this.controllsState.setEndCondition(String.valueOf(roundsLeft));
+        } else if (endOnRound < roundsLeft + round - 1) {
+            roundsLeft -= roundsLeft + round - endOnRound - 1;
+            this.controllsState.setEndCondition(String.valueOf(roundsLeft));
         }
 
         if (roundsLeft <= 0) {
