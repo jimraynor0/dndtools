@@ -7,6 +7,7 @@ import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
 import org.toj.dnd.irctoolkit.map.MapGrid;
 import org.toj.dnd.irctoolkit.map.MapGridCell;
 import org.toj.dnd.irctoolkit.map.MapModel;
+import org.toj.dnd.irctoolkit.token.Color;
 
 public class InvisibilityFilter extends MapFilter {
 
@@ -14,6 +15,7 @@ public class InvisibilityFilter extends MapFilter {
 
     private transient MapGridCell[][] originalMap;
     private List<String> invObjs;
+    private List<MapModel> models;
 
     public InvisibilityFilter(List<String> invObjs) {
         super();
@@ -30,7 +32,12 @@ public class InvisibilityFilter extends MapFilter {
                 if (grid[j][i].getObjRef() != null
                         && resolveModels().contains(
                                 grid[j][i].getObjRef().getModel())) {
-                    grid[j][i] = MapGrid.WHITESPACE;
+                    try {
+                        grid[j][i] = (MapGridCell) grid[j][i].clone();
+                    } catch (CloneNotSupportedException e) {
+                        // not gonna happen
+                    }
+                    grid[j][i].setCh(MapGrid.WHITESPACE.getCh());
                 }
             }
         }
@@ -38,7 +45,7 @@ public class InvisibilityFilter extends MapFilter {
     }
 
     private List<MapModel> resolveModels() {
-        List<MapModel> models = new ArrayList<MapModel>(invObjs.size());
+        models = new ArrayList<MapModel>(invObjs.size());
         for (String id : invObjs) {
             MapModel model = ToolkitEngine.getEngine().getContext()
                     .getModelList().findModelById(id);

@@ -2,7 +2,7 @@ package org.toj.dnd.irctoolkit.map;
 
 import org.toj.dnd.irctoolkit.token.Color;
 
-public class MapGridCell {
+public class MapGridCell implements Cloneable {
 
     private Color foreground;
     private Color background;
@@ -92,5 +92,17 @@ public class MapGridCell {
 
     public void setObjRef(MapObject o) {
         this.objRef = o;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        MapGridCell clone = (MapGridCell) super.clone();
+        clone.setBackground(this.background);
+        clone.setForeground(this.foreground);
+        clone.setCh(this.ch);
+        clone.setBlockLineOfEffect(this.blockLineOfEffect);
+        clone.setBlockLineOfSight(this.blockLineOfSight);
+        clone.setObjRef(this.objRef);
+        return clone;
     }
 }
