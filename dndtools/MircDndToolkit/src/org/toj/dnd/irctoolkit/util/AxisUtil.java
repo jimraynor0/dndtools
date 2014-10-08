@@ -18,6 +18,9 @@ public class AxisUtil {
     }
 
     public static int toNumber(String label) {
+        if (label.matches("[xyXY]\\d+")) {
+            return Integer.valueOf(label.substring(1));
+        }
         return SUFFIXES.indexOf(label.substring(1));
     }
 
