@@ -24,11 +24,13 @@ public class Game {
     private Map<String, PC> pcs;
     private Battle battle;
     private Map<String, String> aliases;
+    private Map<String, Item> items;
 
     public Game() {
         super();
         pcs = new HashMap<String, PC>();
         aliases = new HashMap<String, String>();
+        items = new HashMap<String, Item>();
     }
 
     public Game(String name) {
@@ -63,6 +65,14 @@ public class Game {
             }
         }
 
+        if (e.element("items") != null) {
+            Iterator<Element> i = e.element("items").elementIterator();
+            while (i.hasNext()) {
+                Item c = new Item(i.next());
+                this.items.put(c.getName(), c);
+            }
+        }
+
         this.battle = e.element("battle") == null ? null : new Battle(
                 e.element("battle"), this.pcs);
     }
@@ -85,6 +95,12 @@ public class Game {
                 Element alias = e.element("aliases").addElement("alias");
                 alias.addAttribute("abbr", key);
                 alias.addAttribute("text", aliases.get(key));
+            }
+        }
+        if (items != null && !items.isEmpty()) {
+            Element dps = e.addElement("items");
+            for (Item item : items.values()) {
+                dps.add(item.toXmlElement());
             }
         }
         if (this.battle != null) {
@@ -364,6 +380,21 @@ public class Game {
         }
     }
 
+    public String removeItem(Item item) {
+        if (!items.containsKey(item.getName())) {
+            return "团队持有物品中没有[" + item.getName() + "]";
+        }
+        Item loot = items.get(item.getName());
+        if (loot.getCharges() < item.getCharges()) {
+            return "团队持有的物品[" + item.getName() + "]数量只有" + loot.getCharges();
+        }
+        loot.decreaseCharge(item.getCharges());
+        if (loot.getCharges() == 0) {
+            items.remove(loot.getName());
+        }
+        return null;
+    }
+
     public String getDm() {
         return dm;
     }
@@ -382,5 +413,13 @@ public class Game {
 
     public void setRuleSet(String ruleSet) {
         this.ruleSet = ruleSet;
+    }
+
+    public Map<String, Item> getItems() {
+        return items;
+    }
+
+    public void setItems(Map<String, Item> items) {
+        this.items = items;
     }
 }

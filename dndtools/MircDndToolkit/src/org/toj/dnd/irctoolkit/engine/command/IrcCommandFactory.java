@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
 import org.toj.dnd.irctoolkit.engine.command.game.ActAsCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.AddCharCommand;
+import org.toj.dnd.irctoolkit.engine.command.game.AddLootCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.AddPcCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.AddPowerCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.AddStateCommand;
@@ -27,6 +28,7 @@ import org.toj.dnd.irctoolkit.engine.command.game.HealCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.InitCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ListAliasCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ListItemCommand;
+import org.toj.dnd.irctoolkit.engine.command.game.ListLootCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ListSavedGamesCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.LogCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ModifyXpCommand;
@@ -76,6 +78,7 @@ public class IrcCommandFactory {
     static {
         cmdClasses.add(ActAsCommand.class);
         cmdClasses.add(AddCharCommand.class);
+        cmdClasses.add(AddLootCommand.class);
         cmdClasses.add(AddPcCommand.class);
         cmdClasses.add(AddPowerCommand.class);
         cmdClasses.add(HealCommand.class);
@@ -91,6 +94,7 @@ public class IrcCommandFactory {
         cmdClasses.add(GotoCommand.class);
         cmdClasses.add(InitCommand.class);
         cmdClasses.add(ListAliasCommand.class);
+        cmdClasses.add(ListLootCommand.class);
         cmdClasses.add(ListItemCommand.class);
         cmdClasses.add(LogCommand.class);
         cmdClasses.add(ModifyXpCommand.class);

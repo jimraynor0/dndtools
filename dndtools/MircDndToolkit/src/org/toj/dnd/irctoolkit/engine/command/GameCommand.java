@@ -94,4 +94,8 @@ public abstract class GameCommand extends Command {
         }
         return sb.toString();
     }
+
+    public void setCaller(String caller) {
+        this.caller = caller;
+    }
 }

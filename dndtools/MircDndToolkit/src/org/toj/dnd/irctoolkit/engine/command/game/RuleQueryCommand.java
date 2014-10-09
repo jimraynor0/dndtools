@@ -12,30 +12,21 @@ import org.toj.dnd.irctoolkit.rules.RuleBook;
 @IrcCommand(command="rule", args = {CommandSegment.LIST})
 public class RuleQueryCommand extends GameCommand {
 
-    private String[] elements;
+    private String elements;
 
     public RuleQueryCommand(Object[] args) {
-        elements = new String[args.length];
-        System.arraycopy(args, 0, elements, 0, args.length);
+        elements = composite(args);
     }
 
     @Override
     public List<OutgoingMsg> execute() throws ToolkitCommandException {
-        StringBuilder rule = new StringBuilder();
-        for (String seg : elements) {
-            if (seg != elements[0]) {
-                rule.append(" ");
-            }
-            rule.append(seg);
-        }
-
-        List<String> result = RuleBook.getRuleBook().query(rule.toString());
+        List<String> result = RuleBook.getRuleBook().query(elements.toString());
         if (result != null && !result.isEmpty()) {
             for (String line : result) {
                 this.sendMsg(line.trim());
             }
         } else {
-            this.sendMsg("cannot find rule: [" + rule + "]");
+            this.sendMsg("cannot find rule: [" + elements + "]");
         }
         return this.msgs;
     }

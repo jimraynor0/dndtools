@@ -41,7 +41,7 @@ public class ListItemCommand extends UndoableTopicCommand {
         }
     }
 
-    private String buildItemsString(String name, Map<String, Item> items) {
+    protected String buildItemsString(String name, Map<String, Item> items) {
         StringBuilder sb = new StringBuilder(name);
         if (items.isEmpty()) {
             sb.append("没有可用的物品。");

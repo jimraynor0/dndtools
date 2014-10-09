@@ -69,4 +69,8 @@ public class Item {
         e.add(XmlUtil.textElement("charges", String.valueOf(charges)));
         return e;
     }
+
+    public void decreaseCharge(int decCharge) {
+        this.charges -= decCharge;
+    }
 }
