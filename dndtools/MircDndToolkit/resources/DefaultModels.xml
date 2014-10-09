@@ -34,17 +34,17 @@
     </mapModel>
     <mapModel>
         <id>default.wall</id>
-        <background>BLACK</background>
-        <ch></ch>
+        <foreground>BLACK</foreground>
+        <ch>墙</ch>
         <desc>墙</desc>
         <blocksLineOfSight>true</blocksLineOfSight>
         <blocksLineOfEffect>true</blocksLineOfEffect>
     </mapModel>
     <mapModel>
       <id>default.lowwall</id>
-      <background>MAROON</background>
-      <ch></ch>
-      <desc>胸墙</desc>
+      <foreground>MAROON</foreground>
+      <ch>墙</ch>
+      <desc>墙</desc>
       <blocksLineOfSight>false</blocksLineOfSight>
       <blocksLineOfEffect>false</blocksLineOfEffect>
     </mapModel>

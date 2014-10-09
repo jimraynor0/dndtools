@@ -26,17 +26,56 @@
     </mapModel>
     <mapModel>
         <id>default.forcefield</id>
-        <foreground>SILVER</foreground>
-        <ch>■</ch>
+        <background>SILVER</background>
+        <ch></ch>
         <desc>力场墙</desc>
         <blocksLineOfSight>false</blocksLineOfSight>
         <blocksLineOfEffect>true</blocksLineOfEffect>
     </mapModel>
     <mapModel>
         <id>default.wall</id>
-        <foreground>BLACK</foreground>
-        <ch>■</ch>
+        <background>BLACK</background>
+        <ch></ch>
         <desc>墙</desc>
+        <blocksLineOfSight>true</blocksLineOfSight>
+        <blocksLineOfEffect>true</blocksLineOfEffect>
+    </mapModel>
+    <mapModel>
+      <id>default.lowwall</id>
+      <background>MAROON</background>
+      <ch></ch>
+      <desc>胸墙</desc>
+      <blocksLineOfSight>false</blocksLineOfSight>
+      <blocksLineOfEffect>false</blocksLineOfEffect>
+    </mapModel>
+    <mapModel>
+      <id>default.difficultterrain</id>
+      <background>SILVER</background>
+      <ch></ch>
+      <desc>困难地形</desc>
+      <blocksLineOfSight>false</blocksLineOfSight>
+      <blocksLineOfEffect>false</blocksLineOfEffect>
+    </mapModel>
+    <mapModel>
+      <id>default.lowground</id>
+      <background>GRAY</background>
+      <ch></ch>
+      <desc>低洼地形</desc>
+      <blocksLineOfSight>false</blocksLineOfSight>
+      <blocksLineOfEffect>false</blocksLineOfEffect>
+    </mapModel>
+    <mapModel>
+        <id>default.small.tree</id>
+        <background>GREEN</background>
+        <desc>小型树</desc>
+        <blocksLineOfSight>false</blocksLineOfSight>
+        <blocksLineOfEffect>false</blocksLineOfEffect>
+    </mapModel>
+    <mapModel>
+        <id>default.big.tree</id>
+        <foreground>GREEN</foreground>
+        <ch>树</ch>
+        <desc>大型树(占满一格)</desc>
         <blocksLineOfSight>true</blocksLineOfSight>
         <blocksLineOfEffect>true</blocksLineOfEffect>
     </mapModel>
@@ -51,13 +90,6 @@
         <id>default.trap2</id>
         <background>BLUE</background>
         <desc>陷阱2</desc>
-        <blocksLineOfSight>false</blocksLineOfSight>
-        <blocksLineOfEffect>false</blocksLineOfEffect>
-    </mapModel>
-    <mapModel>
-        <id>default.trap3</id>
-        <background>GREEN</background>
-        <desc>陷阱3</desc>
         <blocksLineOfSight>false</blocksLineOfSight>
         <blocksLineOfEffect>false</blocksLineOfEffect>
     </mapModel>
