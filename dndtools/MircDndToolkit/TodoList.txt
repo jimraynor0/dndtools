@@ -7,10 +7,7 @@ ability to save current model list into properties file
 
 read charsheet.
 
-fix initial map
-
 autosave for map
-autoload last map on init
 
 dm credential
 encounter level set-up!
