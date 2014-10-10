@@ -8,16 +8,15 @@ import org.toj.dnd.irctoolkit.game.battle.behavior.EndsInAFewTurnsBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.EndsOnNextTurnEndBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.EndsOnNextTurnStartBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.EndsOnSaveBehavior;
+import org.toj.dnd.irctoolkit.game.battle.behavior.FastHealingBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.StateBehavior;
 import org.toj.dnd.irctoolkit.util.StringNumberUtil;
 
 // TODO multiple instance of same state on same char
 public class State implements Cloneable {
 
-    private static final String END_COND_EONT = "eont";
-    private static final String END_COND_SONT = "sont";
-    private static final String END_COND_SAVE = "sv";
     private static final String TYPE_DOT = "dot";
+    private static final String TYPE_FAST_HEALING = "fh";
 
     public static State parseState(String stateStr, int round, double init) {
         String[] stateParams = stateStr.split("\\|");
@@ -80,6 +79,10 @@ public class State implements Cloneable {
         if (endCondition != null) {
             buildEndConditionBehavior();
         }
+        if (isFastHealing(name)) {
+            String heal = name.substring(TYPE_FAST_HEALING.length());
+            getBehaviorList().add(new FastHealingBehavior(Integer.parseInt(heal), this));
+        }
     }
 
     private State(String name, String endCondition, int round, double init) {
@@ -101,6 +104,10 @@ public class State implements Cloneable {
         if (endCondition != null) {
             buildEndConditionBehavior();
         }
+        if (isFastHealing(name)) {
+            String heal = name.substring(TYPE_FAST_HEALING.length());
+            getBehaviorList().add(new FastHealingBehavior(Integer.parseInt(heal), this));
+        }
     }
 
     private void buildEndConditionBehavior() {
@@ -109,8 +116,8 @@ public class State implements Cloneable {
         }
     }
 
-    private boolean isDot(String name) {
-        return name.toLowerCase().startsWith(TYPE_DOT);
+    private boolean isFastHealing(String name) {
+        return name.toLowerCase().startsWith(TYPE_FAST_HEALING);
     }
 
     private LinkedList<StateBehavior> getBehaviorList() {
