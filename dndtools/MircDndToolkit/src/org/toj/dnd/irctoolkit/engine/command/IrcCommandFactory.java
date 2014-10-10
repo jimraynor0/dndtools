@@ -138,60 +138,13 @@ public class IrcCommandFactory {
         cmdClasses.add(SavegameCommand.class);
     }
 
-    private static final String START_GAME = "startgame";
-    private static final String UNDO = "undo";
-
-    private static final String CHARSTAT = "charstat";
-    private static final String RULE = "rule";
-    private static final String READ_POWER = "readpower";
-
-    private static final String ADD_PC = "addpc";
-    private static final String REMOVE_PC = "removepc";
-    private static final String SET = "set";
-    private static final String ADD_POWER = "addpower";
-    private static final String REMOVE_POWER = "removepower";
-    private static final String POWER = "power";
-    private static final String REGAIN_POWER = "regainpower";
-    private static final String POWER_GROUP = "powergroup";
-    private static final String AP = "ap";
-    private static final String SURGE = "surge";
-    private static final String PP = "pp";
-    private static final String SHORT_REST = "shortrest";
-    private static final String EXTENDED_REST = "extendedrest";
-    private static final String LONG_REST = "longrest";
-    private static final String MILESTONE = "milestone";
-    private static final String GAINXP = "gainxp";
-    private static final String LOSEXP = "losexp";
-
-    private static final String STARTBATTLE = "startbattle";
-    private static final String ENDBATTLE = "endbattle";
-    private static final String SURPRISE = "surprise";
-    private static final String START = "start";
-    private static final String INIT = "init";
-    private static final String END = "end";
-    private static final String PRE = "pre";
-    private static final String GO = "go";
     private static final String THP = "thp";
-    private static final String BEFORE = "before";
-    private static final String AFTER = "after";
-    private static final String RENAME = "rename";
-    private static final String SAVE = "save";
-    private static final String SV = "sv";
     private static final String MINUS = "-";
     private static final String PLUS = "+";
     private static final String HEAL = "heal";
     private static final String DAMAGE = "damage";
     private static final String DMG = "dmg";
     private static final String DAM = "dam";
-
-    private static final String MAP = "map";
-    private static final String MOVE = "move";
-
-    private static final String LOG = "log";
-
-    private static final String SHOW_TOPIC = "showtopic";
-
-    private static final String D6S = "d6s";
 
     private static final String[] SPECIAL_COMMANDS = { "+", "-", "thp", "dmg",
         "heal" };
