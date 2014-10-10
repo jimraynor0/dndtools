@@ -331,6 +331,29 @@ public class PC extends Combatant {
         return null;
     }
 
+    public String removeItem(Item item) {
+        if (!items.containsKey(item.getName())) {
+            return this.getName() + "持有物品中没有[" + item.getName() + "]";
+        }
+        Item loot = items.get(item.getName());
+        if (loot.getCharges() < item.getCharges()) {
+            return this.getName() + "持有的物品[" + item.getName() + "]数量只有" + loot.getCharges();
+        }
+        loot.decreaseCharge(item.getCharges());
+        if (loot.getCharges() == 0) {
+            items.remove(loot.getName());
+        }
+        return null;
+    }
+
+    public void addItem(Item item) {
+        if (!items.containsKey(item.getName())) {
+            items.put(item.getName(), item);
+        } else {
+            items.get(item.getName()).increaseCharge(item.getCharges());
+        }
+    }
+
     protected String getHpExpression() {
         StringBuilder sb = new StringBuilder("(");
         sb.append(hp).append("/").append(maxHp);

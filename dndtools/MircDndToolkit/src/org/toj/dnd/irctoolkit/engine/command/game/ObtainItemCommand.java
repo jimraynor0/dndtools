@@ -50,14 +50,14 @@ public class ObtainItemCommand extends UndoableTopicCommand {
                     sendMsg(result);
                     continue;
                 }
-                pc.getItems().put(item.getName(), item);
+                pc.addItem(item);
                 if (!takeLootString.isEmpty()) {
-                    takeLootString += "|";
+                    takeLootString += "; ";
                 }
-                takeLootString += item.getName() + "*" + item.getCharges();
+                takeLootString += item;
             }
 
-            LogCommand logCommand = new LogCommand(new Object[] {"分配团队物品", owner + "从团队物品中拿走了" + takeLootString});
+            LogCommand logCommand = new LogCommand(new Object[] {"分配团队物品|" + owner + "从团队物品中拿走了" + takeLootString});
             logCommand.setCaller(caller);
             ToolkitEngine.getEngine().queueCommand(logCommand);
         } else {

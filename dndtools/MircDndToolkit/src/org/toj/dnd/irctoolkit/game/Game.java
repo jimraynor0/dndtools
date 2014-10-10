@@ -395,6 +395,14 @@ public class Game {
         return null;
     }
 
+    public void addItem(Item item) {
+        if (!items.containsKey(item.getName())) {
+            items.put(item.getName(), item);
+        } else {
+            items.get(item.getName()).increaseCharge(item.getCharges());
+        }
+    }
+
     public String getDm() {
         return dm;
     }

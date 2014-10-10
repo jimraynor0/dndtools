@@ -11,12 +11,12 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.Item;
 import org.toj.dnd.irctoolkit.game.PC;
 
-@IrcCommand(command = "loot", args = { CommandSegment.LIST })
-public class AddLootCommand extends UndoableTopicCommand {
+@IrcCommand(command = "droploot", args = { CommandSegment.LIST })
+public class DropLootCommand extends UndoableTopicCommand {
 
     private List<Item> items = new ArrayList<Item>();
 
-    public AddLootCommand(Object[] args) {
+    public DropLootCommand(Object[] args) {
         String lootString = composite(args);
         for (String itemStr : lootString.split("\\|")) {
             Item item = null;
@@ -34,9 +34,9 @@ public class AddLootCommand extends UndoableTopicCommand {
     @Override
     public void doProcess() throws ToolkitCommandException {
         for (Item i : items) {
-            getGame().addItem(i);
+            getGame().removeItem(i);
         }
-        LogCommand logCommand = new LogCommand(new Object[] {"团队获得物品|" + getLootString()});
+        LogCommand logCommand = new LogCommand(new Object[] {"团队丢弃物品|" + getLootString()});
         logCommand.setCaller(caller);
         ToolkitEngine.getEngine().queueCommand(logCommand);
     }

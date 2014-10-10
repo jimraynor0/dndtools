@@ -60,6 +60,15 @@ public class Item {
         this.desc = desc;
     }
 
+    @Override
+    public String toString() {
+        if (this.charges == 1) {
+            return name;
+        } else {
+            return name + "(" + charges + ")";
+        }
+    }
+
     public Element toXmlElement() {
         Element e = DocumentHelper.createElement("item");
         e.add(XmlUtil.textElement("name", name));
@@ -72,5 +81,9 @@ public class Item {
 
     public void decreaseCharge(int decCharge) {
         this.charges -= decCharge;
+    }
+
+    public void increaseCharge(int incCharge) {
+        this.charges += incCharge;
     }
 }
