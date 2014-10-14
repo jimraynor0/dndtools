@@ -13,8 +13,8 @@ import org.toj.dnd.irctoolkit.engine.command.game.ActAsCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.AddCharCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.AddLootCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.AddPcCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.AddPowerCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.AddStateCommand;
+import org.toj.dnd.irctoolkit.engine.command.game.CastSpellCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.CharStateCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.CreateOrLoadCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.D6sDiceRollCommand;
@@ -37,16 +37,13 @@ import org.toj.dnd.irctoolkit.engine.command.game.ModifyXpCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.MoveCharAfterCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.MoveCharBeforeCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ObtainItemCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.PowerGroupCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.PreCommand;
+import org.toj.dnd.irctoolkit.engine.command.game.PrepareSpellCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.PsionicPointCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.ReadPowerCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RefreshTopicCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.RegainPowerCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RemoveAliasCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RemoveCharCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RemovePcCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.RemovePowerCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RemoveStateCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RenameCharCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.RuleQueryCommand;
@@ -58,7 +55,6 @@ import org.toj.dnd.irctoolkit.engine.command.game.StartBattleCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.StartRoundCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.TempHitPointsCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.UseItemCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.UsePowerCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.CreateMapObjectCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.ListModelCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.LoadMapFromFileCommand;
@@ -82,7 +78,7 @@ public class IrcCommandFactory {
         cmdClasses.add(AddCharCommand.class);
         cmdClasses.add(AddLootCommand.class);
         cmdClasses.add(AddPcCommand.class);
-        cmdClasses.add(AddPowerCommand.class);
+        cmdClasses.add(PrepareSpellCommand.class);
         cmdClasses.add(HealCommand.class);
         cmdClasses.add(AddStateCommand.class);
         cmdClasses.add(CharStateCommand.class);
@@ -105,16 +101,12 @@ public class IrcCommandFactory {
         cmdClasses.add(MoveCharAfterCommand.class);
         cmdClasses.add(MoveCharBeforeCommand.class);
         cmdClasses.add(ObtainItemCommand.class);
-        cmdClasses.add(PowerGroupCommand.class);
         cmdClasses.add(PreCommand.class);
         cmdClasses.add(PsionicPointCommand.class);
-        cmdClasses.add(ReadPowerCommand.class);
         cmdClasses.add(RefreshTopicCommand.class);
-        cmdClasses.add(RegainPowerCommand.class);
         cmdClasses.add(RemoveAliasCommand.class);
         cmdClasses.add(RemoveCharCommand.class);
         cmdClasses.add(RemovePcCommand.class);
-        cmdClasses.add(RemovePowerCommand.class);
         cmdClasses.add(RemoveStateCommand.class);
         cmdClasses.add(RenameCharCommand.class);
         cmdClasses.add(RuleQueryCommand.class);
@@ -125,7 +117,7 @@ public class IrcCommandFactory {
         cmdClasses.add(StartRoundCommand.class);
         cmdClasses.add(TempHitPointsCommand.class);
         cmdClasses.add(UseItemCommand.class);
-        cmdClasses.add(UsePowerCommand.class);
+        cmdClasses.add(CastSpellCommand.class);
 
         cmdClasses.add(LoadMapFromFileCommand.class);
         cmdClasses.add(PrintMapCommand.class);
@@ -138,60 +130,13 @@ public class IrcCommandFactory {
         cmdClasses.add(SavegameCommand.class);
     }
 
-    private static final String START_GAME = "startgame";
-    private static final String UNDO = "undo";
-
-    private static final String CHARSTAT = "charstat";
-    private static final String RULE = "rule";
-    private static final String READ_POWER = "readpower";
-
-    private static final String ADD_PC = "addpc";
-    private static final String REMOVE_PC = "removepc";
-    private static final String SET = "set";
-    private static final String ADD_POWER = "addpower";
-    private static final String REMOVE_POWER = "removepower";
-    private static final String POWER = "power";
-    private static final String REGAIN_POWER = "regainpower";
-    private static final String POWER_GROUP = "powergroup";
-    private static final String AP = "ap";
-    private static final String SURGE = "surge";
-    private static final String PP = "pp";
-    private static final String SHORT_REST = "shortrest";
-    private static final String EXTENDED_REST = "extendedrest";
-    private static final String LONG_REST = "longrest";
-    private static final String MILESTONE = "milestone";
-    private static final String GAINXP = "gainxp";
-    private static final String LOSEXP = "losexp";
-
-    private static final String STARTBATTLE = "startbattle";
-    private static final String ENDBATTLE = "endbattle";
-    private static final String SURPRISE = "surprise";
-    private static final String START = "start";
-    private static final String INIT = "init";
-    private static final String END = "end";
-    private static final String PRE = "pre";
-    private static final String GO = "go";
     private static final String THP = "thp";
-    private static final String BEFORE = "before";
-    private static final String AFTER = "after";
-    private static final String RENAME = "rename";
-    private static final String SAVE = "save";
-    private static final String SV = "sv";
     private static final String MINUS = "-";
     private static final String PLUS = "+";
     private static final String HEAL = "heal";
     private static final String DAMAGE = "damage";
     private static final String DMG = "dmg";
     private static final String DAM = "dam";
-
-    private static final String MAP = "map";
-    private static final String MOVE = "move";
-
-    private static final String LOG = "log";
-
-    private static final String SHOW_TOPIC = "showtopic";
-
-    private static final String D6S = "d6s";
 
     private static final String[] SPECIAL_COMMANDS = { "+", "-", "thp", "dmg",
         "heal" };
@@ -423,7 +368,7 @@ public class IrcCommandFactory {
          * (parts[0].equalsIgnoreCase(REMOVE_PC)) { return new
          * RemovePcCommand(getTheRestOfTheParams(parts)); } if
          * (parts[0].equalsIgnoreCase(ADD_POWER)) { return new
-         * AddPowerCommand(getTheRestOfTheParams(parts)); } if
+         * PrepareSpellCommand(getTheRestOfTheParams(parts)); } if
          * (parts[0].equalsIgnoreCase(REMOVE_POWER)) { return new
          * RemovePowerCommand(getTheRestOfTheParams(parts)); } if
          * (parts[0].equalsIgnoreCase(READ_POWER)) { return new
@@ -446,7 +391,7 @@ public class IrcCommandFactory {
          * (parts[0].equalsIgnoreCase(MILESTONE)) { return new
          * RestCommand(MILESTONE, getTheRestOfTheParams(parts)); } if
          * (parts[0].equalsIgnoreCase(POWER)) { return new
-         * UsePowerCommand(getTheRestOfTheParams(parts)); } if
+         * CastSpellCommand(getTheRestOfTheParams(parts)); } if
          * (parts[0].equalsIgnoreCase(REGAIN_POWER)) { return new
          * RegainPowerCommand(getTheRestOfTheParams(parts)); } if
          * (parts[0].equalsIgnoreCase(POWER_GROUP)) { return new

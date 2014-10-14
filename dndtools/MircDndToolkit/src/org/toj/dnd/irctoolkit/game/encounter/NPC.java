@@ -1,18 +1,9 @@
 package org.toj.dnd.irctoolkit.game.encounter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.dom4j.Element;
-import org.toj.dnd.irctoolkit.game.Power;
-import org.toj.dnd.irctoolkit.game.PowerDepleteException;
 import org.toj.dnd.irctoolkit.game.battle.Combatant;
 import org.toj.dnd.irctoolkit.game.battle.State;
 import org.toj.dnd.irctoolkit.token.Color;
-import org.toj.dnd.irctoolkit.util.AbbreviationUtil;
 import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
 import org.toj.dnd.irctoolkit.util.XmlUtil;
 
@@ -25,13 +16,9 @@ public class NPC extends Combatant {
     private int maxSurge;
     private int ap;
     private int initMod;
-    private Map<String, RechargablePower> rechargablePowers;
-    private Map<String, Power> encounterPowers;
 
     public NPC(String name) {
         super(name);
-        this.encounterPowers = new HashMap<String, Power>();
-        this.rechargablePowers = new HashMap<String, RechargablePower>();
     }
 
     @SuppressWarnings("unchecked")
@@ -46,26 +33,6 @@ public class NPC extends Combatant {
         String initModSave = e.elementTextTrim("initMod");
         if (initModSave != null) {
             this.initMod = Integer.parseInt(initModSave);
-        }
-
-        this.encounterPowers = new HashMap<String, Power>();
-        this.rechargablePowers = new HashMap<String, RechargablePower>();
-        if (e.element("encounterPowers") != null) {
-            Iterator<Element> i = e.element("encounterPowers")
-                    .elementIterator();
-            while (i.hasNext()) {
-                Power power = new Power(i.next());
-                this.encounterPowers.put(power.getName(), power);
-            }
-        }
-
-        if (e.element("rechargablePowers") != null) {
-            Iterator<Element> i = e.element("rechargablePowers")
-                    .elementIterator();
-            while (i.hasNext()) {
-                RechargablePower power = new RechargablePower(i.next());
-                this.rechargablePowers.put(power.getName(), power);
-            }
         }
     }
 
@@ -125,31 +92,6 @@ public class NPC extends Combatant {
         }
     }
 
-    public void addPower(String type, Power power) {
-        if (type.startsWith("e")) {
-            this.encounterPowers.put(power.getName(), power);
-        } else if (power instanceof RechargablePower) {
-            this.rechargablePowers.put(power.getName(),
-                    (RechargablePower) power);
-        }
-    }
-
-    public void removePower(String type, String powerName) {
-        if (type.startsWith("e")) {
-            this.encounterPowers.remove(powerName);
-        } else {
-            this.rechargablePowers.remove(powerName);
-        }
-    }
-
-    public void removePower(String powerName) {
-        Power power = findPower(powerName);
-        if (power != null) {
-            this.encounterPowers.remove(powerName);
-            this.rechargablePowers.remove(powerName);
-        }
-    }
-
     public void applyMilestone() {
         ap++;
     }
@@ -167,48 +109,6 @@ public class NPC extends Combatant {
                 .append("\r\n");
         sb.append("AP: ").append(this.ap).append("\r\n");
         sb.append("Init Modifier: ").append(this.initMod).append("\r\n");
-        if (!rechargablePowers.isEmpty()) {
-            sb.append("Rechargable Powers").append(": ");
-            boolean first = true;
-            for (Power power : rechargablePowers.values()) {
-                if (first) {
-                    first = false;
-                } else {
-                    sb.append(", ");
-                }
-                if (power.getCharges() <= 0) {
-                    sb.append((char) 3).append(14);
-                }
-                sb.append(power.getName()).append("(")
-                        .append(power.getCharges()).append("/")
-                        .append(power.getMaxCharges()).append(")");
-                if (power.getCharges() <= 0) {
-                    sb.append((char) 15);
-                }
-            }
-            sb.append("\r\n");
-        }
-        if (!encounterPowers.isEmpty()) {
-            sb.append("Encounter Powers").append(": ");
-            boolean first = true;
-            for (Power power : encounterPowers.values()) {
-                if (first) {
-                    first = false;
-                } else {
-                    sb.append(", ");
-                }
-                if (power.getCharges() == 0) {
-                    sb.append((char) 3).append(14);
-                }
-                sb.append(power.getName()).append("(")
-                        .append(power.getCharges()).append("/")
-                        .append(power.getMaxCharges()).append(")");
-                if (power.getCharges() == 0) {
-                    sb.append((char) 15);
-                }
-            }
-            sb.append("\r\n");
-        }
         if (states != null && !states.isEmpty()) {
             sb.append("Existing Effects: ");
             for (State s : states) {
@@ -229,20 +129,6 @@ public class NPC extends Combatant {
         e.add(XmlUtil.textElement("maxSurge", String.valueOf(maxSurge)));
         e.add(XmlUtil.textElement("ap", String.valueOf(ap)));
         e.add(XmlUtil.textElement("initMod", String.valueOf(initMod)));
-
-        if (!encounterPowers.isEmpty()) {
-            Element eps = e.addElement("encounterPowers");
-            for (Power power : encounterPowers.values()) {
-                eps.add(power.toXmlElement());
-            }
-        }
-
-        if (!rechargablePowers.isEmpty()) {
-            Element dps = e.addElement("rechargablePowers");
-            for (Power power : rechargablePowers.values()) {
-                dps.add(power.toXmlElement());
-            }
-        }
         return e;
     }
 
@@ -271,71 +157,6 @@ public class NPC extends Combatant {
 
     public void setAp(int ap) {
         this.ap = ap;
-    }
-
-    public void usePower(String name) throws PowerDepleteException {
-        Power power = findPower(name);
-        if (power != null) {
-            if (power.getCharges() > 0) {
-                power.setCharges(power.getCharges() - 1);
-            } else {
-                throw new PowerDepleteException();
-            }
-        }
-        if (power.getGroup() != null) {
-            for (Power sameGroupPower : this.getPowersInGroup(power.getGroup())) {
-                if (sameGroupPower.getCharges() > 0) {
-                    sameGroupPower.setCharges(sameGroupPower.getCharges() - 1);
-                }
-            }
-        }
-    }
-
-    private List<Power> getPowersInGroup(String group) {
-        List<Power> powers = new ArrayList<Power>();
-        for (Power power : encounterPowers.values()) {
-            if (power.getGroup().equals(group)) {
-                powers.add(power);
-            }
-        }
-        for (Power power : rechargablePowers.values()) {
-            if (power.getGroup().equals(group)) {
-                powers.add(power);
-            }
-        }
-        return powers;
-    }
-
-    public void regainPower(String name) {
-        Power power = findPower(name);
-        if (power != null) {
-            power.setCharges(power.getCharges() + 1);
-        }
-    }
-
-    public String readPower(String name) {
-        Power power = findPower(name);
-        if (power == null) {
-            return null;
-        } else {
-            return power.getName() + " - " + power.getDescription();
-        }
-    }
-
-    public Power findPower(String name) {
-        for (String key : encounterPowers.keySet()) {
-            if (key.equalsIgnoreCase(name)
-                    || AbbreviationUtil.isAbbre(name, key)) {
-                return encounterPowers.get(key);
-            }
-        }
-        for (String key : rechargablePowers.keySet()) {
-            if (key.equalsIgnoreCase(name)
-                    || AbbreviationUtil.isAbbre(name, key)) {
-                return rechargablePowers.get(key);
-            }
-        }
-        return null;
     }
 
     protected String getHpExpression() {

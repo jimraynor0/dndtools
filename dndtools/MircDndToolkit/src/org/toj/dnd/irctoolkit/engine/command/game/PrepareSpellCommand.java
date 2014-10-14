@@ -5,12 +5,12 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command="removepower", args = {CommandSegment.LIST})
-public class RemovePowerCommand extends UndoableTopicCommand {
+@IrcCommand(command = "prepare", args = { CommandSegment.LIST } )
+public class PrepareSpellCommand extends UndoableTopicCommand {
 
     private String[] args;
 
-    public RemovePowerCommand(Object[] args) {
+    public PrepareSpellCommand(Object[] args) {
         this.args = new String[args.length];
         System.arraycopy(args, 0, this.args, 0, args.length);
     }
@@ -20,7 +20,7 @@ public class RemovePowerCommand extends UndoableTopicCommand {
         if (args.length == 0) {
             return;
         } else if (args.length == 1) {
-            getGame().removePower(args[0], caller);
+            getGame().addPower(args[0], caller);
         } else {
             if (getGame().findCharByNameOrAbbre(args[0]) == null) {
                 StringBuilder power = new StringBuilder();
@@ -30,7 +30,7 @@ public class RemovePowerCommand extends UndoableTopicCommand {
                     }
                     power.append(seg);
                 }
-                getGame().removePower(power.toString(), caller);
+                getGame().addPower(power.toString(), caller);
             } else {
                 StringBuilder power = new StringBuilder();
                 for (int i = 1; i < args.length; i++) {
@@ -39,7 +39,7 @@ public class RemovePowerCommand extends UndoableTopicCommand {
                     }
                     power.append(args[i]);
                 }
-                getGame().removePower(power.toString(), args[0]);
+                getGame().addPower(power.toString(), args[0]);
             }
         }
     }

@@ -29,7 +29,7 @@ public class UseItemCommand extends UndoableTopicCommand {
         if (pc != null) {
             Item current = pc.getItems().get(item);
             if (current != null && current.getCharges() >= amount) {
-                current.consume(amount);
+                current.decreaseCharge(amount);
                 if (current.getCharges() == 0) {
                     pc.getItems().remove(item);
                 }
