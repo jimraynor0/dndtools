@@ -56,14 +56,16 @@ public class PC extends Combatant {
         if (e.element("spells") != null) {
             Iterator<Element> i = e.element("spells").elementIterator();
             while (i.hasNext()) {
-                Iterator<Element> group = e.element("group").elementIterator();
+                Element groupElement = i.next();
+
+                Iterator<Element> groups = groupElement.elementIterator();
                 List<Spell> spellGroup = new ArrayList<Spell>();
-                while (group.hasNext()) {
-                    Spell c = new Spell(group.next());
+                while (groups.hasNext()) {
+                    Spell c = new Spell(groups.next());
                     spellGroup.add(c);
                 }
                 if (!spellGroup.isEmpty()) {
-                    this.spells.put(e.attributeValue("name"), spellGroup);
+                    this.spells.put(groupElement.attributeValue("name"), spellGroup);
                 }
             }
         }
