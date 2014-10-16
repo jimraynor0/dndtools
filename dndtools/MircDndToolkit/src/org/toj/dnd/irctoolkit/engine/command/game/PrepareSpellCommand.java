@@ -1,46 +1,44 @@
 package org.toj.dnd.irctoolkit.engine.command.game;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
-import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
+import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
+import org.toj.dnd.irctoolkit.game.PC;
+import org.toj.dnd.irctoolkit.game.Spell;
 
 @IrcCommand(command = "prepare", args = { CommandSegment.LIST } )
 public class PrepareSpellCommand extends UndoableTopicCommand {
-
-    private String[] args;
+    private PC pc;
+    private String group;
+    private List<Spell> spells;
 
     public PrepareSpellCommand(Object[] args) {
-        this.args = new String[args.length];
-        System.arraycopy(args, 0, this.args, 0, args.length);
+        pc = getGame().findCharByNameOrAbbre((String) args[0]);
+        List<Object> argList = Arrays.asList(args);
+        if (pc != null) {
+            argList = argList.subList(1, argList.size());
+        }
+        group = (String) argList.get(0);
+        argList = argList.subList(1, argList.size());
+
+        spells = new ArrayList<Spell>();
+        for (String spellStr : composite(argList.toArray()).split("\\|")) {
+            spells.add(new Spell(spellStr.trim(), 1));
+        }
     }
 
     @Override
     public void doProcess() throws ToolkitCommandException {
-        if (args.length == 0) {
-            return;
-        } else if (args.length == 1) {
-            getGame().addPower(args[0], caller);
-        } else {
-            if (getGame().findCharByNameOrAbbre(args[0]) == null) {
-                StringBuilder power = new StringBuilder();
-                for (String seg : args) {
-                    if (seg != args[0]) {
-                        power.append(" ");
-                    }
-                    power.append(seg);
-                }
-                getGame().addPower(power.toString(), caller);
-            } else {
-                StringBuilder power = new StringBuilder();
-                for (int i = 1; i < args.length; i++) {
-                    if (i > 1) {
-                        power.append(" ");
-                    }
-                    power.append(args[i]);
-                }
-                getGame().addPower(power.toString(), args[0]);
-            }
+        if (pc == null) {
+            pc = getGame().findCharByNameOrAbbre(caller);
+        }
+        for (Spell spell : spells) {
+            pc.addSpell(group, spell);
         }
     }
 }

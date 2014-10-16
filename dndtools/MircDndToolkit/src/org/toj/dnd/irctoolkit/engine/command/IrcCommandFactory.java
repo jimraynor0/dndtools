@@ -32,6 +32,7 @@ import org.toj.dnd.irctoolkit.engine.command.game.ListAliasCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ListItemCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ListLootCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ListSavedGamesCommand;
+import org.toj.dnd.irctoolkit.engine.command.game.ListSpellCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.LogCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.ModifyXpCommand;
 import org.toj.dnd.irctoolkit.engine.command.game.MoveCharAfterCommand;
@@ -78,9 +79,9 @@ public class IrcCommandFactory {
         cmdClasses.add(AddCharCommand.class);
         cmdClasses.add(AddLootCommand.class);
         cmdClasses.add(AddPcCommand.class);
-        cmdClasses.add(PrepareSpellCommand.class);
         cmdClasses.add(HealCommand.class);
         cmdClasses.add(AddStateCommand.class);
+        cmdClasses.add(CastSpellCommand.class);
         cmdClasses.add(CharStateCommand.class);
         cmdClasses.add(CreateOrLoadCommand.class);
         cmdClasses.add(D6sDiceRollCommand.class);
@@ -94,6 +95,7 @@ public class IrcCommandFactory {
         cmdClasses.add(GotoCommand.class);
         cmdClasses.add(InitCommand.class);
         cmdClasses.add(ListAliasCommand.class);
+        cmdClasses.add(ListSpellCommand.class);
         cmdClasses.add(ListLootCommand.class);
         cmdClasses.add(ListItemCommand.class);
         cmdClasses.add(LogCommand.class);
@@ -102,6 +104,7 @@ public class IrcCommandFactory {
         cmdClasses.add(MoveCharBeforeCommand.class);
         cmdClasses.add(ObtainItemCommand.class);
         cmdClasses.add(PreCommand.class);
+        cmdClasses.add(PrepareSpellCommand.class);
         cmdClasses.add(PsionicPointCommand.class);
         cmdClasses.add(RefreshTopicCommand.class);
         cmdClasses.add(RemoveAliasCommand.class);
@@ -117,7 +120,6 @@ public class IrcCommandFactory {
         cmdClasses.add(StartRoundCommand.class);
         cmdClasses.add(TempHitPointsCommand.class);
         cmdClasses.add(UseItemCommand.class);
-        cmdClasses.add(CastSpellCommand.class);
 
         cmdClasses.add(LoadMapFromFileCommand.class);
         cmdClasses.add(PrintMapCommand.class);
