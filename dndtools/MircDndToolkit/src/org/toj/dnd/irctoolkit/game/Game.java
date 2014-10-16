@@ -2,8 +2,6 @@ package org.toj.dnd.irctoolkit.game;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import org.dom4j.DocumentHelper;
@@ -308,58 +306,10 @@ public class Game {
         this.outputChan = defaultOutputChannel;
     }
 
-    public void addPower(String power, String pcName) {
-        PC pc = this.findCharByNameOrAbbre(pcName);
-        String[] parsed = power.split("\\|");
-        String type = parsed[1];
-        String name = parsed[0];
-        int charges = 1;
-        String desc = null;
-        if (parsed.length == 3) {
-            try {
-                charges = Integer.parseInt(parsed[2]);
-            } catch (NumberFormatException e) {
-                desc = parsed[2];
-            }
-        }
-        if (parsed.length == 4) {
-            charges = Integer.parseInt(parsed[2]);
-            desc = parsed[3];
-        }
-        pc.addPower(type, new Power(name, charges, desc));
-    }
-
-    public void removePower(String power, String pcName) {
-        PC pc = this.findCharByNameOrAbbre(pcName);
-        if (power.contains("\\|")) {
-            String[] parsed = power.split("\\|");
-            pc.removePower(parsed[1], parsed[0]);
-        } else {
-            pc.removePower(power);
-        }
-    }
-
-    public void applyShortRest() {
-        for (PC pc : pcs.values()) {
-            pc.applyShortRest();
-        }
-    }
-
     public void applyExtendedRest() {
         for (PC pc : pcs.values()) {
             pc.applyExtendedRest();
         }
-    }
-
-    public List<String> readPower(String powerName) {
-        List<String> powerRead = new LinkedList<String>();
-        for (PC pc : pcs.values()) {
-            String powerDesc = pc.readPower(powerName);
-            if (powerDesc != null && !powerDesc.isEmpty()) {
-                powerRead.add(pc.getName() + ": " + powerDesc);
-            }
-        }
-        return powerRead;
     }
 
     public void addChar(String name) {

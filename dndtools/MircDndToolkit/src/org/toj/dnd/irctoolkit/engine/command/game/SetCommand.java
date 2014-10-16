@@ -43,7 +43,6 @@ public class SetCommand extends UndoableTopicCommand {
             }
             if ("maxPp".equalsIgnoreCase(attr)) {
                 pc.setMaxPp(value);
-                pc.setPsionic(0 == value);
             }
             if ("initMod".equalsIgnoreCase(attr)) {
                 pc.setInitMod(value);
