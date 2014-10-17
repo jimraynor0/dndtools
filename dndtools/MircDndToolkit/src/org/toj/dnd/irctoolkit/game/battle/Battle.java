@@ -13,6 +13,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
 import org.toj.dnd.irctoolkit.game.PC;
+import org.toj.dnd.irctoolkit.game.battle.behavior.BattleEvent;
 import org.toj.dnd.irctoolkit.game.encounter.Encounter;
 import org.toj.dnd.irctoolkit.game.encounter.NPC;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
@@ -26,6 +27,7 @@ public class Battle implements Cloneable {
     private int round = -1;
     private Encounter encounter;
     private Map<String, NPC> npcs;
+    private List<String> eventResultBuffer = new LinkedList<String>();
 
     public Battle() {
         this.combatants = new LinkedList<Combatant>();
@@ -185,6 +187,9 @@ public class Battle implements Cloneable {
     }
 
     public void go(Combatant c, int round) {
+        if (round >= 0 && c != null) {
+            fireInitiativeChange(round, c.getInit());
+        }
         // fire battle event
         this.round = round;
         if (round < 0) {
@@ -408,24 +413,17 @@ public class Battle implements Cloneable {
         return null;
     }
 
-    public List<String> onTurnStart() {
-        return checkStatesOnCondition(true);
-    }
-
-    public List<String> onTurnEnd() {
-        return checkStatesOnCondition(false);
-    }
-
-    private List<String> checkStatesOnCondition(boolean isTurnStart) {
-        List<String> result = new LinkedList<String>();
+    private void fireInitiativeChange(int newRound, double newInit) {
         for (Combatant ch : combatants) {
-            List<String> stateMsgsFromChar = ch.checkStateBehavior(this.round,
-                    this.current, isTurnStart);
+            List<String> stateMsgsFromChar = ch.checkStateBehavior(new BattleEvent(newRound, newInit));
             if (stateMsgsFromChar != null && !stateMsgsFromChar.isEmpty()) {
-                result.addAll(stateMsgsFromChar);
+                eventResultBuffer.addAll(stateMsgsFromChar);
             }
         }
-        return result;
+    }
+
+    public List<String> getEventResultBuffer() {
+        return eventResultBuffer;
     }
 
     public Battle clone() {

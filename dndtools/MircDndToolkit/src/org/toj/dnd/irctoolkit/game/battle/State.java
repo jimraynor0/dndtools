@@ -3,11 +3,8 @@ package org.toj.dnd.irctoolkit.game.battle;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.toj.dnd.irctoolkit.game.battle.behavior.DotBehavior;
+import org.toj.dnd.irctoolkit.game.battle.behavior.BattleEvent;
 import org.toj.dnd.irctoolkit.game.battle.behavior.EndsInAFewTurnsBehavior;
-import org.toj.dnd.irctoolkit.game.battle.behavior.EndsOnNextTurnEndBehavior;
-import org.toj.dnd.irctoolkit.game.battle.behavior.EndsOnNextTurnStartBehavior;
-import org.toj.dnd.irctoolkit.game.battle.behavior.EndsOnSaveBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.FastHealingBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.StateBehavior;
 import org.toj.dnd.irctoolkit.util.StringNumberUtil;
@@ -24,16 +21,13 @@ public class State implements Cloneable {
         if (stateParams.length == 1) {
             state = new State(stateParams[0].trim(), null, round, init);
         } else if (stateParams.length == 2) {
-            state =
-                new State(stateParams[0].trim(), stateParams[1].trim(), round,
-                    init);
+            state = new State(stateParams[0].trim(), stateParams[1].trim(),
+                    round, init);
         } else if (stateParams.length == 3) {
-            state =
-                new State(stateParams[0].trim(), stateParams[1].trim(), round,
-                    Double.parseDouble(stateParams[2]));
+            state = new State(stateParams[0].trim(), stateParams[1].trim(),
+                    round, Double.parseDouble(stateParams[2]));
         } else {
-            state =
-                new State(stateParams[0].trim(), stateParams[1].trim(),
+            state = new State(stateParams[0].trim(), stateParams[1].trim(),
                     Integer.parseInt(stateParams[2]),
                     Double.parseDouble(stateParams[3]));
         }
@@ -48,8 +42,7 @@ public class State implements Cloneable {
         } else if (stateParams.length == 2) {
             state = new State(stateParams[0].trim(), stateParams[1].trim());
         } else {
-            state =
-                new State(stateParams[0].trim(), stateParams[1].trim(),
+            state = new State(stateParams[0].trim(), stateParams[1].trim(),
                     Integer.parseInt(stateParams[2]),
                     Double.parseDouble(stateParams[3]));
         }
@@ -81,7 +74,8 @@ public class State implements Cloneable {
         }
         if (isFastHealing(name)) {
             String heal = name.substring(TYPE_FAST_HEALING.length());
-            getBehaviorList().add(new FastHealingBehavior(Integer.parseInt(heal), this));
+            getBehaviorList().add(
+                    new FastHealingBehavior(Integer.parseInt(heal), this));
         }
     }
 
@@ -106,7 +100,8 @@ public class State implements Cloneable {
         }
         if (isFastHealing(name)) {
             String heal = name.substring(TYPE_FAST_HEALING.length());
-            getBehaviorList().add(new FastHealingBehavior(Integer.parseInt(heal), this));
+            getBehaviorList().add(
+                    new FastHealingBehavior(Integer.parseInt(heal), this));
         }
     }
 
@@ -146,21 +141,23 @@ public class State implements Cloneable {
 
     public String toStatString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(name).append("|").append(endCondition == null ? "" : endCondition).append("|")
-            .append(appliedOnRound).append("|").append(this.appliedOnInit);
+        sb.append(name).append("|")
+                .append(endCondition == null ? "" : endCondition).append("|")
+                .append(appliedOnRound).append("|").append(this.appliedOnInit);
         return sb.toString();
     }
 
-    public List<String> triggerBehavior(int round, Combatant current,
-        Combatant owner, boolean isTurnStart) {
+    public List<String> triggerBehavior(BattleEvent e, Combatant owner) {
         if (this.behaviors == null) {
             return null;
         }
         List<String> result = new LinkedList<String>();
         for (StateBehavior b : this.behaviors) {
-            String msg =
-                isTurnStart ? b.onTurnStart(round, current, owner) : b
-                    .onTurnEnd(round, current, owner);
+            String msg = b.onTurnStart(e.getRound(), e.getInit(), owner);
+            if (msg != null) {
+                result.add(msg);
+            }
+            msg = b.onTurnEnd(e.getRound(), e.getInit(), owner);
             if (msg != null) {
                 result.add(msg);
             }
@@ -199,8 +196,7 @@ public class State implements Cloneable {
         temp = Double.doubleToLongBits(appliedOnInit);
         result = prime * result + (int) (temp ^ (temp >>> 32));
         result = prime * result + appliedOnRound;
-        result =
-            prime * result
+        result = prime * result
                 + ((endCondition == null) ? 0 : endCondition.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
@@ -216,7 +212,7 @@ public class State implements Cloneable {
             return false;
         State other = (State) obj;
         if (Double.doubleToLongBits(appliedOnInit) != Double
-            .doubleToLongBits(other.appliedOnInit))
+                .doubleToLongBits(other.appliedOnInit))
             return false;
         if (appliedOnRound != other.appliedOnRound)
             return false;

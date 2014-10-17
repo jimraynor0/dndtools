@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.toj.dnd.irctoolkit.game.battle.behavior.BattleEvent;
 import org.toj.dnd.irctoolkit.token.Color;
 import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
 import org.toj.dnd.irctoolkit.util.XmlUtil;
@@ -187,8 +188,7 @@ public class Combatant implements Cloneable {
         return sb.toString();
     }
 
-    public List<String> checkStateBehavior(int round, Combatant current,
-            boolean isTurnStart) {
+    public List<String> checkStateBehavior(BattleEvent e) {
         if (states == null) {
             return null;
         }
@@ -196,8 +196,7 @@ public class Combatant implements Cloneable {
         LinkedList<State> statesCopy = new LinkedList<State>();
         statesCopy.addAll(states);
         for (State s : statesCopy) {
-            List<String> stateMsgsFromState = s.triggerBehavior(round, current,
-                    this, isTurnStart);
+            List<String> stateMsgsFromState = s.triggerBehavior(e, this);
             if (stateMsgsFromState != null && !stateMsgsFromState.isEmpty()) {
                 result.addAll(stateMsgsFromState);
             }

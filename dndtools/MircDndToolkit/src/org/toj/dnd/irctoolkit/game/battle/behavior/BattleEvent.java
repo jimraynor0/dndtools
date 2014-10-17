@@ -1,15 +1,20 @@
 package org.toj.dnd.irctoolkit.game.battle.behavior;
 
 public class BattleEvent {
-    private int turn;
+    private int round;
     private double init;
 
-    public int getTurn() {
-        return turn;
+    public BattleEvent(int newRound, double newInit) {
+        this.round = newRound;
+        this.init = newInit;
     }
 
-    public void setTurn(int turn) {
-        this.turn = turn;
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
     }
 
     public double getInit() {

@@ -16,10 +16,10 @@ public class EndsInAFewTurnsBehavior implements StateBehavior {
     }
 
     @Override
-    public String onTurnStart(int round, Combatant current, Combatant owner) {
+    public String onTurnStart(int round, double init, Combatant owner) {
         int roundsLeft = Integer.parseInt(this.controllsState.getEndCondition());
 
-        if ((endOnRound < roundsLeft + round) && current.getInit() <= this.controllsState.getAppliedOnInit()) {
+        if ((endOnRound < roundsLeft + round) && init <= this.controllsState.getAppliedOnInit()) {
             roundsLeft--;
             this.controllsState.setEndCondition(String.valueOf(roundsLeft));
         } else if (endOnRound < roundsLeft + round - 1) {
@@ -37,7 +37,7 @@ public class EndsInAFewTurnsBehavior implements StateBehavior {
     }
 
     @Override
-    public String onTurnEnd(int round, Combatant current, Combatant owner) {
+    public String onTurnEnd(int round, double init, Combatant owner) {
         return null;
     }
 }

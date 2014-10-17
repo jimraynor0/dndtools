@@ -14,19 +14,18 @@ public class FastHealingBehavior implements StateBehavior {
     }
 
     @Override
-    public String onTurnStart(int round, Combatant current, Combatant owner) {
+    public String onTurnStart(int round, double init, Combatant owner) {
         if (round >= this.controllsState.getAppliedOnRound()
-                && current == owner) {
+                && init == owner.getInit()) {
             owner.heal(heal);
             return new StringBuilder("[").append(owner.getName())
-                    .append("]恢复了[")
-                    .append(heal).append("]点hp").toString();
+                    .append("]恢复了[").append(heal).append("]点hp").toString();
         }
         return null;
     }
 
     @Override
-    public String onTurnEnd(int round, Combatant current, Combatant owner) {
+    public String onTurnEnd(int round, double init, Combatant owner) {
         return null;
     }
 }
