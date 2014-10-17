@@ -177,6 +177,7 @@ public class GameStore {
             while ((line = reader.readLine()) != null) {
                 lines.add(line);
             }
+            reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

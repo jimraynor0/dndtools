@@ -1,3 +1,8 @@
+fix same init number issue
+make states behavior act on events rather than commands.
+merge edit status buttons on map ui
+
+
 add param editor to map gen
 add traps to map gen
 add monsters to map gen

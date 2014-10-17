@@ -4,3 +4,5 @@
 /build
 /doc
 /lib.bak
+/target
+*.bak

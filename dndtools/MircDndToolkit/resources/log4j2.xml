@@ -1,0 +1,13 @@
+<Configuration status="info">
+	<Loggers>
+		<Logger name="log4j.logger.org.toj.dnd.irctoolkit.mapgenerator" level="debug"/>
+		<Root level="info">
+			<AppenderRef ref="Console" />
+		</Root>
+	</Loggers>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} %-5p [%t] %c %3x - %m%n" />
+		</Console>
+	</Appenders>
+</Configuration>
