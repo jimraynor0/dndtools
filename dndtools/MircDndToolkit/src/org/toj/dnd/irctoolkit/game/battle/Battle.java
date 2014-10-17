@@ -126,6 +126,7 @@ public class Battle implements Cloneable {
     }
 
     public void addCharByInit(String charName, double init) {
+        init = findNextNonoccupiedInit(init);
         Combatant ch = this.findCharByNameOrAbbre(charName);
         if (ch == null) {
             combatants.add(new Combatant(charName, init));
@@ -149,12 +150,22 @@ public class Battle implements Cloneable {
     }
 
     public void addCharByInit(PC pc, double init) {
+        init = findNextNonoccupiedInit(init);
         pc.setInit(init);
         Combatant ch = this.findCharByNameOrAbbre(pc.getName());
         if (ch == null) {
             combatants.add(pc);
         }
         restoreOrder();
+    }
+
+    private double findNextNonoccupiedInit(double init) {
+        for (Combatant c : combatants) {
+            if (c.getInit() == init) {
+                init += 0.03;
+            }
+        }
+        return init;
     }
 
     public void startRound(int n) {
@@ -330,7 +341,6 @@ public class Battle implements Cloneable {
 
     public void restoreOrder() {
         Collections.sort(combatants, new Comparator<Combatant>() {
-
             @Override
             public int compare(Combatant o1, Combatant o2) {
                 return (int) Math.signum(o2.getInit() - o1.getInit());
