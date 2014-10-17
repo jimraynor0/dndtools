@@ -23,7 +23,7 @@ public class MoveCharAfterCommand extends UndoableTopicCommand {
         if (this.toBeMoved == null) {
             this.toBeMoved = caller;
         }
-        if (getGame().getBattle().getCurrent()
+        if (getGame().getBattle().getCurrent() != null && getGame().getBattle().getCurrent()
                 .equals(getGame().findCharByNameOrAbbre(toBeMoved))) {
             List<String> stateMsgs = getGame().getBattle().onTurnEnd();
             for (String msg : stateMsgs) {

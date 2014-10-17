@@ -162,18 +162,17 @@ public class Battle implements Cloneable {
     private double findNextNonoccupiedInit(double init) {
         for (Combatant c : combatants) {
             if (c.getInit() == init) {
-                init += 0.03;
+                init -= 0.03;
             }
         }
         return init;
     }
 
     public void startRound(int n) {
-        round = n;
-        if (round < 0) {
-            current = null;
+        if (combatants != null && !combatants.isEmpty()) {
+            this.go(combatants.getFirst(), n);
         } else {
-            current = combatants.getFirst();
+            this.go((Combatant) null, n);
         }
     }
 
@@ -182,35 +181,38 @@ public class Battle implements Cloneable {
     }
 
     public void go(String charName, int round) {
+        this.go(findCharByNameOrAbbre(charName), round);
+    }
+
+    public void go(Combatant c, int round) {
+        // fire battle event
         this.round = round;
         if (round < 0) {
             current = null;
         } else {
-            current = findCharByNameOrAbbre(charName);
+            current = c;
         }
     }
 
     public void pre() {
-        if (current == null) {
+        if (current == null || combatants == null || combatants.isEmpty()) {
             return;
         }
         if (current.equals(combatants.getFirst())) {
-            current = combatants.getLast();
-            round--;
-            if (round < 0) {
-                current = null;
-            }
+            this.go(combatants.getLast(), round - 1);
         } else {
-            current = combatants.get(combatants.indexOf(current) - 1);
+            this.go(combatants.get(combatants.indexOf(current) - 1), round);
         }
     }
 
     public void end() {
+        if (current == null || combatants == null || combatants.isEmpty()) {
+            return;
+        }
         if (current.equals(combatants.getLast())) {
-            current = combatants.getFirst();
-            round++;
+            this.go(combatants.getFirst(), round + 1);
         } else {
-            current = combatants.get(combatants.indexOf(current) + 1);
+            this.go(combatants.get(combatants.indexOf(current) + 1), round);
         }
     }
 
