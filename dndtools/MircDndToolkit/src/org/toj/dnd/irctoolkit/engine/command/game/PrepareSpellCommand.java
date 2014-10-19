@@ -28,7 +28,12 @@ public class PrepareSpellCommand extends UndoableTopicCommand {
 
         spells = new ArrayList<Spell>();
         for (String spellStr : composite(argList.toArray()).split("\\|")) {
-            spells.add(new Spell(spellStr.trim(), 1));
+            if (spellStr.contains("*")) {
+                String[] spellParts = spellStr.split("\\*");
+                spells.add(new Spell(spellParts[0], Integer.parseInt(spellParts[1])));
+            } else {
+                spells.add(new Spell(spellStr.trim(), 1));
+            }
         }
     }
 

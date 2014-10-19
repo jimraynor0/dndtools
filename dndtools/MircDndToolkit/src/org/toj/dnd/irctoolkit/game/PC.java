@@ -99,7 +99,7 @@ public class PC extends Combatant {
     }
 
     public void applyExtendedRest() {
-        
+        this.spells.clear();
     }
 
     public String toStatString() {
