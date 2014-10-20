@@ -24,7 +24,7 @@ public class MapGenConfigs {
     public static final String CONF_DOOR_WIDTH_MAX = "door.maxwidth";
 
     private static final File CONFIG_FILE = new File(
-            "./resources/MapGenConfigs.properties");
+            "./config/MapGenConfigs.properties");
 
     private Properties props;
 
@@ -37,7 +37,7 @@ public class MapGenConfigs {
             return Integer.parseInt(props.getProperty(key));
         } catch (NumberFormatException e) {
             ToolkitEngine.getEngine().fireErrorMsgWindow(
-                    "ÅäÖÃÎÄ¼þ¸ñÊ½´íÎó: " + CONFIG_FILE + " - " + key + "µÄÖµÓ¦ÎªÕýÕûÊý¡£");
+                    "ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½: " + CONFIG_FILE + " - " + key + "ï¿½ï¿½ÖµÓ¦Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         }
         return 0;
     }
@@ -51,7 +51,7 @@ public class MapGenConfigs {
         props = new Properties();
         if (!CONFIG_FILE.isFile()) {
             JOptionPane.showMessageDialog(null,
-                    "ÕÒ²»µ½ÅäÖÃÎÄ¼þ" + CONFIG_FILE.getAbsolutePath() + "£¬Æô¶¯Ê§°Ü¡£",
+                    "ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½" + CONFIG_FILE.getAbsolutePath() + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü¡ï¿½",
                     ToolkitEngine.ERR_MSG_TITLE, JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }

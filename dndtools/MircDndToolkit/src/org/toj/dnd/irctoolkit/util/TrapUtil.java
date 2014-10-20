@@ -14,7 +14,7 @@ import org.toj.dnd.irctoolkit.rules.Rule;
 import org.toj.dnd.irctoolkit.rules.RuleBook;
 
 public class TrapUtil {
-    private static final File TRAPS_FILE = new File("./resources/traps.config");
+    private static final File TRAPS_FILE = new File("./config/traps.config");
     private static Map<Integer, List<Trap>> ALL_TRAPS;
 
     public static Trap getRandomTrap(int cr) throws IOException {
