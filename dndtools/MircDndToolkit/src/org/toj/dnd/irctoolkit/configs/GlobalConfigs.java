@@ -24,7 +24,7 @@ public class GlobalConfigs {
     public static final String CONF_LAST_ENCOUNTER = "last.encounter";
 
     private static final File CONFIG_FILE = new File(
-            "./config/GlobalConfigs.properties");
+            "./resources/GlobalConfigs.properties");
     private static GlobalConfigs INSTANCE;
 
     public static GlobalConfigs getConfigs() {
@@ -49,7 +49,7 @@ public class GlobalConfigs {
         props = new Properties();
         if (!CONFIG_FILE.isFile()) {
             JOptionPane.showMessageDialog(null,
-                    "ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½" + CONFIG_FILE.getAbsolutePath() + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü¡ï¿½",
+                    "ÕÒ²»µ½ÅäÖÃÎÄ¼þ" + CONFIG_FILE.getAbsolutePath() + "£¬Æô¶¯Ê§°Ü¡£",
                     ToolkitEngine.ERR_MSG_TITLE, JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }

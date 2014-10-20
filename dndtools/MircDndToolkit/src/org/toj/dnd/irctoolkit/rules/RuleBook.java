@@ -16,7 +16,7 @@ import org.toj.dnd.irctoolkit.util.AbbreviationUtil;
 
 public class RuleBook {
     private static final File RULE_FILE = new File(
-        "./config/rules.xml");
+        "./resources/rules.xml");
     private static RuleBook INSTANCE;
 
     public static RuleBook getRuleBook() {

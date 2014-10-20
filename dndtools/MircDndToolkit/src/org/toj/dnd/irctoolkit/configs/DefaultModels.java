@@ -16,15 +16,15 @@ import org.toj.dnd.irctoolkit.map.MapModel;
 public class DefaultModels {
     private static final String ENCODING_UTF_8 = "UTF-8";
     private static final File DEF_MODEL_FILE = new File(
-            "./config/DefaultModels.xml");
+            "./resources/DefaultModels.xml");
 
     public List<MapModel> loadDefaultModels() {
         ArrayList<MapModel> result = new ArrayList<MapModel>();
         if (!DEF_MODEL_FILE.isFile()) {
             JOptionPane
                     .showMessageDialog(null,
-                            "ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½" + DEF_MODEL_FILE.getAbsolutePath()
-                                    + "ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½Í¼ï¿½ï¿½",
+                            "ÕÒ²»µ½ÅäÖÃÎÄ¼þ" + DEF_MODEL_FILE.getAbsolutePath()
+                                    + "£¬ÎÞ·¨ÔØÈëÔ¤ÉèÍ¼Àý¡£",
                             ToolkitEngine.ERR_MSG_TITLE,
                             JOptionPane.ERROR_MESSAGE);
             return result;
@@ -40,8 +40,8 @@ public class DefaultModels {
             }
         } catch (DocumentException e) {
             JOptionPane.showMessageDialog(null,
-                    "ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½" + DEF_MODEL_FILE.getAbsolutePath()
-                            + "Ê§ï¿½Ü£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½Í¼ï¿½ï¿½", ToolkitEngine.ERR_MSG_TITLE,
+                    "¶ÁÈ¡ÅäÖÃÎÄ¼þ" + DEF_MODEL_FILE.getAbsolutePath()
+                            + "Ê§°Ü£¬ÎÞ·¨ÔØÈëÔ¤ÉèÍ¼Àý¡£", ToolkitEngine.ERR_MSG_TITLE,
                     JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
