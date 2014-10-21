@@ -4,6 +4,10 @@
 	<groupId>MircDndToolkit</groupId>
 	<artifactId>MircDndToolkit</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<properties>
+		<project.build.sourceEncoding>GBK</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>GBK</project.reporting.outputEncoding>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>commons-lang</groupId>
