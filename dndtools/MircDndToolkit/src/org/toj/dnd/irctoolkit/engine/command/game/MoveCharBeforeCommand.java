@@ -25,17 +25,13 @@ public class MoveCharBeforeCommand extends UndoableTopicCommand {
         }
         if (getGame().getBattle().getCurrent()
                 .equals(getGame().findCharByNameOrAbbre(toBeMoved))) {
-            List<String> stateMsgs = getGame().getBattle().onTurnEnd();
-            for (String msg : stateMsgs) {
-                sendMsgToDefaultChan(msg);
-            }
             getGame().getBattle().putCharBefore(toBeMoved, dest);
-            stateMsgs = getGame().getBattle().onTurnStart();
-            for (String msg : stateMsgs) {
-                sendMsgToDefaultChan(msg);
-            }
             sendTopic(getGame().generateTopic());
             refreshTopic();
+            List<String> stateMsgs = getGame().getBattle().getEventResultBuffer();
+            for (String msg : stateMsgs) {
+                sendMsgToDefaultChan(msg);
+            }
             sendMsgToDefaultChan("轮到"
                     + getGame().getBattle().getCurrent().getName() + "行动了");
         } else {

@@ -1,5 +1,7 @@
 package org.toj.dnd.irctoolkit.engine.command.game;
 
+import java.util.List;
+
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
@@ -30,5 +32,11 @@ public class GotoCommand extends UndoableTopicCommand {
         }
         sendTopic(getGame().generateTopic());
         refreshTopic();
+        List<String> stateMsgs = getGame().getBattle().getEventResultBuffer();
+        for (String msg : stateMsgs) {
+            sendMsgToDefaultChan(msg);
+        }
+        sendMsgToDefaultChan("轮到"
+                + getGame().getBattle().getCurrent().getName() + "行动了");
     }
 }
