@@ -9,20 +9,19 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DropMode;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JToggleButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
@@ -45,6 +44,13 @@ public class MapModelPane extends JPanel {
 
     private static final Insets INSETS_BUTTON = new Insets(0, 0, 0, 0);
     private static final Dimension SIZE_BUTTON = new Dimension(66, 25);
+
+    private static final String EDIT_MODE_ERASER = "擦除模式";
+    private static final String EDIT_MODE_DRAW = "绘图模式";
+    private static final String EDIT_MODE_MOVE = "拖动模式";
+    private static final String[] EDIT_MODES = { EDIT_MODE_DRAW,
+            EDIT_MODE_MOVE, EDIT_MODE_ERASER };
+
     private JTable table;
     private MapModelEditor modelEditor;
     private MapGridPanel mapGridPanel;
@@ -115,7 +121,6 @@ public class MapModelPane extends JPanel {
                             panel.setBackground(table.getSelectionBackground());
                         } else {
                             panel.setBackground(table.getBackground());
-
                         }
 
                         JLabel label = new JLabel();
@@ -183,40 +188,50 @@ public class MapModelPane extends JPanel {
                 table.clearSelection();
             }
         });
-
-        JToggleButton bEraser = new JToggleButton("擦除模式");
-        bEraser.setPreferredSize(SIZE_BUTTON);
-        bEraser.setMargin(INSETS_BUTTON);
-        bEraser.addItemListener(new ItemListener() {
-
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
+        JComboBox cbEditMode = new JComboBox(new DefaultComboBoxModel(
+                EDIT_MODES));
+        cbEditMode.setPreferredSize(new Dimension(134, 25));
+        cbEditMode.setOpaque(true);
+        cbEditMode.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent e) {
+                String mode = ((String) ((JComboBox) e.getSource())
+                        .getSelectedItem());
+                if (EDIT_MODE_ERASER.equals(mode)) {
+                    getMapGridPanel().setEditMode(MapGridPanel.MODE_EDITING);
                     MapModel.setSelectionMode(MapModel.MODE_ERASE);
-                } else {
+                } else if (EDIT_MODE_MOVE.equals(mode)) {
                     MapModel.setSelectionMode(MapModel.MODE_DRAW);
-                }
-            }
-        });
-
-        JToggleButton bSelectionMode = new JToggleButton("绘图模式");
-        bSelectionMode.setPreferredSize(SIZE_BUTTON);
-        bSelectionMode.setMargin(INSETS_BUTTON);
-        bSelectionMode.addItemListener(new ItemListener() {
-
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    ((JToggleButton) e.getSource()).setText("移动模式");
                     getMapGridPanel()
                             .setEditMode(MapGridPanel.MODE_CONTROLLING);
                 } else {
-                    ((JToggleButton) e.getSource()).setText("绘图模式");
+                    MapModel.setSelectionMode(MapModel.MODE_DRAW);
                     getMapGridPanel().setEditMode(MapGridPanel.MODE_EDITING);
                 }
             }
         });
-
+        /*
+         * JToggleButton bEraser = new JToggleButton("擦除模式");
+         * bEraser.setPreferredSize(SIZE_BUTTON);
+         * bEraser.setMargin(INSETS_BUTTON); bEraser.addItemListener(new
+         * ItemListener() {
+         * 
+         * @Override public void itemStateChanged(ItemEvent e) { if
+         * (e.getStateChange() == ItemEvent.SELECTED) {
+         * MapModel.setSelectionMode(MapModel.MODE_ERASE); } else {
+         * MapModel.setSelectionMode(MapModel.MODE_DRAW); } } });
+         * 
+         * JToggleButton bSelectionMode = new JToggleButton("绘图模式");
+         * bSelectionMode.setPreferredSize(SIZE_BUTTON);
+         * bSelectionMode.setMargin(INSETS_BUTTON);
+         * bSelectionMode.addItemListener(new ItemListener() {
+         * 
+         * @Override public void itemStateChanged(ItemEvent e) { if
+         * (e.getStateChange() == ItemEvent.SELECTED) { ((JToggleButton)
+         * e.getSource()).setText("移动模式"); getMapGridPanel()
+         * .setEditMode(MapGridPanel.MODE_CONTROLLING); } else {
+         * ((JToggleButton) e.getSource()).setText("绘图模式");
+         * getMapGridPanel().setEditMode(MapGridPanel.MODE_EDITING); } } });
+         */
         JButton bImportModels = new JButton("载入默认符号");
         bImportModels.setPreferredSize(SIZE_BUTTON);
         bImportModels.setMargin(INSETS_BUTTON);
@@ -248,8 +263,9 @@ public class MapModelPane extends JPanel {
         controlPanel.add(bAdd);
         controlPanel.add(bDel);
         controlPanel.add(bClearSelection);
-        controlPanel.add(bEraser);
-        controlPanel.add(bSelectionMode);
+        controlPanel.add(cbEditMode);
+        // controlPanel.add(bEraser);
+        // controlPanel.add(bSelectionMode);
         controlPanel.add(bImportModels);
         add(controlPanel, BorderLayout.NORTH);
     }
