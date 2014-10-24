@@ -85,6 +85,12 @@ public class PC extends Combatant {
 
 
     public void heal(int heal) {
+        if (getNonlethal() > 0) {
+            setNonlethal(getNonlethal() - heal);
+            if (getNonlethal() < 0) {
+                setNonlethal(0);
+            }
+        }
         hp += heal;
         if (hp > maxHp) {
             hp = maxHp;
@@ -108,16 +114,19 @@ public class PC extends Combatant {
         sb.append("XP: ").append(xp).append("\r\n");
         sb.append("HP: ").append(hp).append("/").append(maxHp);
         if (getThp() > 0) {
-            sb.append("(Temporary HP: ").append(this.getThp()).append(")");
+            sb.append("(临时HP: ").append(this.getThp()).append(")");
+        }
+        if (getNonlethal() > 0) {
+            sb.append("(淤伤: ").append(this.getNonlethal()).append(")");
         }
         sb.append("\r\n");
         if (isPsionic()) {
-            sb.append("Psionic Point: ").append(pp).append("/").append(maxPp)
+            sb.append("灵能点: ").append(pp).append("/").append(maxPp)
                     .append("\r\n");
         }
-        sb.append("Init Modifier: ").append(this.initMod).append("\r\n");
+        sb.append("先攻调整值: ").append(this.initMod).append("\r\n");
         if (states != null && !states.isEmpty()) {
-            sb.append("Existing Effects: ");
+            sb.append("状态: ");
             for (State s : states) {
                 sb.append(s.toString());
                 sb.append(s != states.getLast() ? ", " : "\r\n");
@@ -247,6 +256,9 @@ public class PC extends Combatant {
         sb.append(hp).append("/").append(maxHp);
         if (getThp() > 0) {
             sb.append("+").append(getThp());
+        }
+        if (getNonlethal() > 0) {
+            sb.append("(-").append(getNonlethal()).append(")");
         }
         sb.append(")");
         return sb.toString();

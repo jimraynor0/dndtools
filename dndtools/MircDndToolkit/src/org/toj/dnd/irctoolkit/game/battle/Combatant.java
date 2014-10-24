@@ -15,6 +15,7 @@ public class Combatant implements Cloneable {
 
     private String name;
     private int wound;
+    private int nonlethal;
     private int thp;
     private double init;
 
@@ -39,6 +40,7 @@ public class Combatant implements Cloneable {
         this();
         this.name = e.elementTextTrim("name");
         this.wound = Integer.parseInt(e.elementTextTrim("wound"));
+        this.nonlethal = Integer.parseInt(e.elementTextTrim("nonlethal"));
         this.thp = Integer.parseInt(e.elementTextTrim("thp"));
         this.init = Double.parseDouble(e.elementTextTrim("init"));
 
@@ -54,6 +56,7 @@ public class Combatant implements Cloneable {
         Element e = DocumentHelper.createElement("combatant");
         e.add(XmlUtil.textElement("name", name));
         e.add(XmlUtil.textElement("wound", String.valueOf(wound)));
+        e.add(XmlUtil.textElement("nonlethal", String.valueOf(nonlethal)));
         e.add(XmlUtil.textElement("thp", String.valueOf(thp)));
         e.add(XmlUtil.textElement("init", String.valueOf(init)));
 
@@ -79,7 +82,17 @@ public class Combatant implements Cloneable {
         wound += dmg;
     }
 
+    public void nonlethalDamage(int dmg) {
+        nonlethal += dmg;
+    }
+
     public void heal(int heal) {
+        if (nonlethal > 0) {
+            nonlethal -= heal;
+            if (nonlethal < 0) {
+                nonlethal = 0;
+            }
+        }
         wound -= heal;
         if (wound < 0) {
             wound = 0;
@@ -179,11 +192,8 @@ public class Combatant implements Cloneable {
         if (thp > 0) {
             sb.append("+").append(thp);
         }
-        for (State state : states) {
-            if (state.getName().equalsIgnoreCase("bloodied")) {
-                return IrcColoringUtil
-                        .paint(sb.toString(), Color.RED.getCode());
-            }
+        if (nonlethal > 0) {
+            sb.append("(-").append(nonlethal).append(")");
         }
         return sb.toString();
     }
@@ -229,6 +239,7 @@ public class Combatant implements Cloneable {
         result = prime * result + ((states == null) ? 0 : states.hashCode());
         result = prime * result + thp;
         result = prime * result + wound;
+        result = prime * result + nonlethal;
         return result;
     }
 
@@ -258,11 +269,21 @@ public class Combatant implements Cloneable {
             return false;
         if (wound != other.wound)
             return false;
+        if (nonlethal != other.nonlethal)
+            return false;
         return true;
     }
 
     public int getWound() {
         return wound;
+    }
+
+    public int getNonlethal() {
+        return nonlethal;
+    }
+
+    public void setNonlethal(int nonlethal) {
+        this.nonlethal = nonlethal;
     }
 
     public int getThp() {
