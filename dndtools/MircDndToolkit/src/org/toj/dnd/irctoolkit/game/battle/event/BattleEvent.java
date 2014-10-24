@@ -1,12 +1,12 @@
-package org.toj.dnd.irctoolkit.game.battle.behavior;
+package org.toj.dnd.irctoolkit.game.battle.event;
 
 public class BattleEvent {
     private int round;
     private double init;
 
-    public BattleEvent(int newRound, double newInit) {
-        this.round = newRound;
-        this.init = newInit;
+    public BattleEvent(int round, double init) {
+        this.round = round;
+        this.init = init;
     }
 
     public int getRound() {

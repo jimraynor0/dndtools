@@ -13,7 +13,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
 import org.toj.dnd.irctoolkit.game.PC;
-import org.toj.dnd.irctoolkit.game.battle.behavior.BattleEvent;
+import org.toj.dnd.irctoolkit.game.battle.event.InitiativePassesEvent;
 import org.toj.dnd.irctoolkit.game.encounter.Encounter;
 import org.toj.dnd.irctoolkit.game.encounter.NPC;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
@@ -414,8 +414,10 @@ public class Battle implements Cloneable {
     }
 
     private void fireInitiativeChange(int newRound, double newInit) {
+        int oldRound = round;
+        double oldInit = current.getInit();
         for (Combatant ch : combatants) {
-            List<String> stateMsgsFromChar = ch.checkStateBehavior(new BattleEvent(newRound, newInit));
+            List<String> stateMsgsFromChar = ch.checkStateBehavior(new InitiativePassesEvent(oldRound, oldInit, newRound, newInit));
             if (stateMsgsFromChar != null && !stateMsgsFromChar.isEmpty()) {
                 eventResultBuffer.addAll(stateMsgsFromChar);
             }

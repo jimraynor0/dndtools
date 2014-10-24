@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.toj.dnd.irctoolkit.game.battle.behavior.BattleEvent;
+import org.toj.dnd.irctoolkit.game.battle.event.BattleEvent;
 import org.toj.dnd.irctoolkit.token.Color;
 import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
 import org.toj.dnd.irctoolkit.util.XmlUtil;

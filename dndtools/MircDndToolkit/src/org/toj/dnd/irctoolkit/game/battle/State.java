@@ -3,10 +3,10 @@ package org.toj.dnd.irctoolkit.game.battle;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.toj.dnd.irctoolkit.game.battle.behavior.BattleEvent;
 import org.toj.dnd.irctoolkit.game.battle.behavior.EndsInAFewTurnsBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.FastHealingBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.StateBehavior;
+import org.toj.dnd.irctoolkit.game.battle.event.BattleEvent;
 import org.toj.dnd.irctoolkit.util.StringNumberUtil;
 
 // TODO multiple instance of same state on same char
@@ -84,16 +84,6 @@ public class State implements Cloneable {
         this.appliedOnInit = init;
         this.appliedOnRound = round;
 
-        // 4th be with you
-        // if (isDot(name)) {
-        // this.endCondition =
-        // endCondition == null ? END_COND_SAVE : endCondition;
-        // String dmg = name.substring(TYPE_DOT.length());
-        // getBehaviorList().add(new DotBehavior(Integer.parseInt(dmg), this));
-        // } else {
-        // this.endCondition =
-        // endCondition == null ? END_COND_EONT : endCondition;
-        // }
         this.endCondition = endCondition;
         if (endCondition != null) {
             buildEndConditionBehavior();
@@ -130,6 +120,14 @@ public class State implements Cloneable {
         return endCondition;
     }
 
+    public int getEndsInRounds() {
+        try {
+            return Integer.parseInt(endCondition);
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(name);
@@ -151,13 +149,18 @@ public class State implements Cloneable {
         if (this.behaviors == null) {
             return null;
         }
+        // hack, always put behavior that can end this state at the end of the trigger list.
+        for (StateBehavior sb : behaviors) {
+            if (sb instanceof EndsInAFewTurnsBehavior) {
+                behaviors.remove(sb);
+                behaviors.addLast(sb);
+                break;
+            }
+        }
+
         List<String> result = new LinkedList<String>();
         for (StateBehavior b : this.behaviors) {
-            String msg = b.onTurnStart(e.getRound(), e.getInit(), owner);
-            if (msg != null) {
-                result.add(msg);
-            }
-            msg = b.onTurnEnd(e.getRound(), e.getInit(), owner);
+            String msg = b.fireBattleEvent(e, owner);
             if (msg != null) {
                 result.add(msg);
             }

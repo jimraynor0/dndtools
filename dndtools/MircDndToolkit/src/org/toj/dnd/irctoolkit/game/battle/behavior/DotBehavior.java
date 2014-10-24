@@ -2,6 +2,8 @@ package org.toj.dnd.irctoolkit.game.battle.behavior;
 
 import org.toj.dnd.irctoolkit.game.battle.Combatant;
 import org.toj.dnd.irctoolkit.game.battle.State;
+import org.toj.dnd.irctoolkit.game.battle.event.BattleEvent;
+import org.toj.dnd.irctoolkit.game.battle.event.InitiativePassesEvent;
 
 public class DotBehavior implements StateBehavior {
 
@@ -14,19 +16,34 @@ public class DotBehavior implements StateBehavior {
     }
 
     @Override
-    public String onTurnStart(int round, double init, Combatant owner) {
-        if (round >= this.controllsState.getAppliedOnRound()
-                && init == owner.getInit()) {
-            owner.damage(dmg);
+    public String fireBattleEvent(BattleEvent event, Combatant owner) {
+        if (!(event instanceof InitiativePassesEvent)) {
+            return null;
+        }
+        InitiativePassesEvent e = (InitiativePassesEvent) event;
+
+        // figure out how many times fast healing has been triggered
+        int triggered = calcTriggeredTimes(e);
+
+        if (triggered > 0) {
+            owner.damage(dmg * triggered);
             return new StringBuilder("[").append(owner.getName())
                     .append("]受到来自[").append(controllsState).append("]的[")
-                    .append(dmg).append("]点伤害").toString();
+                    .append(dmg * triggered).append("]点伤害").toString();
         }
         return null;
     }
 
-    @Override
-    public String onTurnEnd(int round, double init, Combatant owner) {
-        return null;
+    private int calcTriggeredTimes(InitiativePassesEvent e) {
+        int triggeredTimes = e.getRound() - e.getCurrentRound();
+
+        if (e.getCurrentInit() > controllsState.getAppliedOnInit() && e.getInit() <= controllsState.getAppliedOnInit()) {
+            triggeredTimes++;
+        }
+        if (e.getCurrentInit() <= controllsState.getAppliedOnInit() && e.getInit() > controllsState.getAppliedOnInit()) {
+            triggeredTimes--;
+        }
+
+        return triggeredTimes;
     }
 }
