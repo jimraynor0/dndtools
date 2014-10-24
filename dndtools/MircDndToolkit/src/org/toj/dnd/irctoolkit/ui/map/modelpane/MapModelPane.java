@@ -196,6 +196,7 @@ public class MapModelPane extends JPanel {
             public void actionPerformed(final ActionEvent e) {
                 String mode = ((String) ((JComboBox) e.getSource())
                         .getSelectedItem());
+                getMapGridPanel().clearSelection();
                 if (EDIT_MODE_ERASER.equals(mode)) {
                     getMapGridPanel().setEditMode(MapGridPanel.MODE_EDITING);
                     MapModel.setSelectionMode(MapModel.MODE_ERASE);
