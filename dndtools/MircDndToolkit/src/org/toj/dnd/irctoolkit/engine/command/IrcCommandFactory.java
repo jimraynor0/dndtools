@@ -102,7 +102,7 @@ public class IrcCommandFactory {
 
     private static String[] separateSpecialCommand(String[] parts) {
         for (String spCmd : SPECIAL_COMMANDS) {
-            if (parts[0].startsWith(spCmd)) {
+            if (parts[0].startsWith(spCmd) && !spCmd.equals(parts[0])) {
                 String[] formalized = new String[parts.length + 1];
                 System.arraycopy(parts, 0, formalized, 1, parts.length);
                 formalized[0] = spCmd;
