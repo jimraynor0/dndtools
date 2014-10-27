@@ -176,6 +176,7 @@ public class Combatant implements Cloneable {
         return sb.toString();
     }
 
+    @Override
     public String toString() {
         return toString(false);
     }
@@ -214,12 +215,13 @@ public class Combatant implements Cloneable {
         return result;
     }
 
+    @Override
     public Combatant clone() {
         try {
             Combatant clone = (Combatant) super.clone();
             clone.states = new LinkedList<State>();
             for (State state : states) {
-                clone.states.add((State) state.clone());
+                clone.states.add(state.clone());
             }
             return clone;
         } catch (CloneNotSupportedException e) {

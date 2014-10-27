@@ -53,6 +53,7 @@ public class GameLog {
         return false;
     }
 
+    @Override
     public String toString() {
         return new StringBuilder().append(time).append(SEPARATOR)
                 .append(logger).append(SEPARATOR).append(title)

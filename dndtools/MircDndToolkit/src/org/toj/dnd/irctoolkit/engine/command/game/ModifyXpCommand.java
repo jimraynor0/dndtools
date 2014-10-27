@@ -57,7 +57,7 @@ public class ModifyXpCommand extends UndoableTopicCommand {
         } else {
             sb.append("ºı…Ÿ");
         }
-        sb.append((int) Math.abs(value)).append("µ„xp");
+        sb.append(Math.abs(value)).append("µ„xp");
 
         LogCommand logCommand = new LogCommand(new Object[] { sb.toString() });
         logCommand.setCaller(caller);

@@ -1,6 +1,5 @@
 package org.toj.dnd.irctoolkit.map;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
@@ -43,6 +42,7 @@ public class MapModelList implements Serializable, Iterable<MapModel> {
         list.clear();
     }
 
+    @Override
     public Object clone() {
         return list.clone();
     }
@@ -63,6 +63,7 @@ public class MapModelList implements Serializable, Iterable<MapModel> {
         return list.element();
     }
 
+    @Override
     public boolean equals(Object arg0) {
         return list.equals(arg0);
     }
@@ -79,6 +80,7 @@ public class MapModelList implements Serializable, Iterable<MapModel> {
         return list.getLast();
     }
 
+    @Override
     public int hashCode() {
         return list.hashCode();
     }
@@ -91,6 +93,7 @@ public class MapModelList implements Serializable, Iterable<MapModel> {
         return list.isEmpty();
     }
 
+    @Override
     public Iterator<MapModel> iterator() {
         return list.iterator();
     }
@@ -207,6 +210,7 @@ public class MapModelList implements Serializable, Iterable<MapModel> {
         return list.toArray(arg0);
     }
 
+    @Override
     public String toString() {
         return list.toString();
     }

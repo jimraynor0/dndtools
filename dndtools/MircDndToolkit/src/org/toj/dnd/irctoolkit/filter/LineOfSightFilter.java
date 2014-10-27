@@ -72,6 +72,7 @@ public class LineOfSightFilter extends MapFilter {
         }
     }
 
+    @Override
     public MapGridCell[][] doApplyFilter(MapGridCell[][] map) {
         this.originalMap = map;
         initMaskedMap();
@@ -140,7 +141,7 @@ public class LineOfSightFilter extends MapFilter {
         log("Math.abs(slope) <= 1? %s", Math.abs(slope) <= 1);
         if (Math.abs(slope) <= 1) {
             log("entering j loop");
-            for (int j = 0; j <= (int) Math.abs(yEnd - yStart); j++) {
+            for (int j = 0; j <= Math.abs(yEnd - yStart); j++) {
                 log("j = %s", j);
                 double iExact = (slope == Double.POSITIVE_INFINITY) ? 0 : j
                         * slope;
@@ -173,7 +174,7 @@ public class LineOfSightFilter extends MapFilter {
                     if (isBlockedAt(x, y)) {
                         log("blocked set to true");
                         blocked = true;
-                        if (j == (int) Math.abs(yEnd - yStart)) {
+                        if (j == Math.abs(yEnd - yStart)) {
                             log("blockedAtEndingPoint set to true");
                             blockedAtEndingPoint = true;
                         }
@@ -183,7 +184,7 @@ public class LineOfSightFilter extends MapFilter {
             }
         } else {
             log("entering i loop");
-            for (int i = 0; i <= (int) Math.abs(xEnd - xStart); i++) {
+            for (int i = 0; i <= Math.abs(xEnd - xStart); i++) {
                 log("i = %s", i);
                 double jExact = (slope == Double.POSITIVE_INFINITY) ? 0 : i
                         / slope;
@@ -216,7 +217,7 @@ public class LineOfSightFilter extends MapFilter {
                     if (isBlockedAt(x, y)) {
                         log("isBlockedAt(x, y)? %s", isBlockedAt(x, y));
                         blocked = true;
-                        if (i == (int) Math.abs(xEnd - xStart)) {
+                        if (i == Math.abs(xEnd - xStart)) {
                             log("blockedAtEndingPoint set to true");
                             blockedAtEndingPoint = true;
                         }

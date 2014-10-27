@@ -15,6 +15,7 @@ public class Door {
         this.squares = doorSquares;
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Door = [");
         for (Point p : squares) {

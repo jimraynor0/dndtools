@@ -2,7 +2,6 @@ package org.toj.dnd.irctoolkit.engine.command.game;
 
 import java.util.List;
 
-import org.toj.dnd.irctoolkit.dice.D6sRoll;
 import org.toj.dnd.irctoolkit.dice.FateRoll;
 import org.toj.dnd.irctoolkit.engine.command.GameCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
@@ -67,6 +66,7 @@ public class FateDiceRollCommand extends GameCommand {
         return this.msgs;
     }
 
+    @Override
     public boolean requireGameContext() {
         return false;
     }

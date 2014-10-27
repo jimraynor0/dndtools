@@ -39,7 +39,7 @@ public class MapGridLoader {
                             && !("" + STYLE_END).equals(segment)) {
                         String cellValue = null;
                         char ch = segment.charAt(0);
-                        if ((int) ch < 256) {
+                        if (ch < 256) {
                             cellValue = ""
                                     + ch
                                     + (segment.length() > 1 ? segment.charAt(1)

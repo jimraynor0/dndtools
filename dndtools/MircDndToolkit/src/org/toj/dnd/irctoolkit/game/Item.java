@@ -16,6 +16,7 @@ public class Item extends LimitedResource {
         super(name, desc, charges);
     }
 
+    @Override
     protected String getTypeName() {
         return "spell";
     }

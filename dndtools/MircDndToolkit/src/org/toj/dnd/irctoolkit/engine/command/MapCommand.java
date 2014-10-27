@@ -40,6 +40,7 @@ public abstract class MapCommand extends GameCommand {
                 return null;
             }
 
+            @Override
             protected void done() {
                 if (mapChanged()) {
                     ToolkitEngine.getEngine().fireMapChangeEvent();

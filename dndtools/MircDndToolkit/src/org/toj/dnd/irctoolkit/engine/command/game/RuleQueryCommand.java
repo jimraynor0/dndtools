@@ -31,6 +31,7 @@ public class RuleQueryCommand extends GameCommand {
         return this.msgs;
     }
 
+    @Override
     public boolean requireGameContext() {
         return false;
     }

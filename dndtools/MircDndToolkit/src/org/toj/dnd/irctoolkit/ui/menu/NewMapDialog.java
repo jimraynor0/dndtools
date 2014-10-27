@@ -97,6 +97,7 @@ public class NewMapDialog extends JDialog {
         getContentPane().add(bCancel);
         bCancel.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
             }

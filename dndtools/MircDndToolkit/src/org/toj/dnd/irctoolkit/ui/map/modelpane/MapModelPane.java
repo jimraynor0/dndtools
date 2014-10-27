@@ -80,6 +80,7 @@ public class MapModelPane extends JPanel {
         table.setTransferHandler(new MapModelTransferHandler(table, context));
         table.addMouseListener(new MouseAdapter() {
 
+            @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     launchMapModelEditor(table.getSelectedRow());
@@ -89,6 +90,7 @@ public class MapModelPane extends JPanel {
         table.getSelectionModel().addListSelectionListener(
                 new ListSelectionListener() {
 
+                    @Override
                     public void valueChanged(ListSelectionEvent e) {
                         if (table.getSelectedRow() == -1) {
                             MapModel.setCurrentSelection(null);
@@ -98,7 +100,7 @@ public class MapModelPane extends JPanel {
                             List<MapModel> selectedModels = new ArrayList<MapModel>(
                                     table.getSelectedRows().length);
                             for (int rowIndex : table.getSelectedRows()) {
-                                selectedModels.add((MapModel) modelList
+                                selectedModels.add(modelList
                                         .getModelAt(rowIndex));
                             }
                             MapModel.setCurrentSelection(selectedModels);
@@ -193,6 +195,7 @@ public class MapModelPane extends JPanel {
         cbEditMode.setPreferredSize(new Dimension(134, 25));
         cbEditMode.setOpaque(true);
         cbEditMode.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(final ActionEvent e) {
                 String mode = ((String) ((JComboBox) e.getSource())
                         .getSelectedItem());

@@ -185,10 +185,10 @@ public class IrcCommandFactory {
 
     private static GameCommand buildCmdByType(String[] parts) {
         for (Class<? extends GameCommand> c : cmdClasses) {
-            IrcCommand anno = (IrcCommand) c.getAnnotation(IrcCommand.class);
+            IrcCommand anno = c.getAnnotation(IrcCommand.class);
             if (anno != null && getInterpreter(anno).matches(parts)) {
                 try {
-                    return (GameCommand) c
+                    return c
                             .getConstructor(Object[].class)
                             .newInstance(
                                     new Object[] { getInterpreter(anno)

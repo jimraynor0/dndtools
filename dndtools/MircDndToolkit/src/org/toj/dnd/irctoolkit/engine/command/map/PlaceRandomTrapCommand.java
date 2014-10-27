@@ -2,8 +2,6 @@ package org.toj.dnd.irctoolkit.engine.command.map;
 
 import java.io.IOException;
 
-import org.apache.commons.lang.StringUtils;
-import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.engine.command.MapCommand;

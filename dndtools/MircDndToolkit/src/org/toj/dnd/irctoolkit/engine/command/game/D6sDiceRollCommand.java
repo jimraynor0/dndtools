@@ -76,6 +76,7 @@ public class D6sDiceRollCommand extends GameCommand {
         return this.msgs;
     }
 
+    @Override
     public boolean requireGameContext() {
         return false;
     }

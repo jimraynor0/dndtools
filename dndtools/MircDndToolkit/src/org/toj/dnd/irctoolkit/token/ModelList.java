@@ -31,6 +31,7 @@ public class ModelList implements Iterable<Model>, Serializable {
         return list.contains(o);
     }
 
+    @Override
     public boolean equals(Object o) {
         return list.equals(o);
     }
@@ -39,6 +40,7 @@ public class ModelList implements Iterable<Model>, Serializable {
         return list.get(index);
     }
 
+    @Override
     public int hashCode() {
         return list.hashCode();
     }
@@ -51,6 +53,7 @@ public class ModelList implements Iterable<Model>, Serializable {
         return list.isEmpty();
     }
 
+    @Override
     public Iterator<Model> iterator() {
         return list.iterator();
     }

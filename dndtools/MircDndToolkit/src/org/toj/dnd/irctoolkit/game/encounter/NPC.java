@@ -44,6 +44,7 @@ public class NPC extends Combatant {
         this(name);
     }
 
+    @Override
     public void damage(int dmg) {
         boolean bloodied = isBloodied();
         if (getThp() >= dmg) {
@@ -60,6 +61,7 @@ public class NPC extends Combatant {
         }
     }
 
+    @Override
     public void heal(int heal) {
         boolean bloodied = isBloodied();
         if (hp < 0) {
@@ -119,6 +121,7 @@ public class NPC extends Combatant {
         return sb.toString();
     }
 
+    @Override
     public Element toXmlElement() {
         Element e = super.toXmlElement();
         e.setName("npc");
@@ -159,6 +162,7 @@ public class NPC extends Combatant {
         this.ap = ap;
     }
 
+    @Override
     protected String getHpExpression() {
         StringBuilder sb = new StringBuilder("(");
         sb.append(hp).append("/").append(maxHp);

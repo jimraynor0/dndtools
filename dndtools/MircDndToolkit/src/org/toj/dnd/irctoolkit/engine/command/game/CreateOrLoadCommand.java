@@ -50,6 +50,7 @@ public class CreateOrLoadCommand extends GameCommand {
         return this.msgs;
     }
 
+    @Override
     public boolean requireGameContext() {
         return false;
     }

@@ -128,6 +128,7 @@ public class State implements Cloneable {
         }
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(name);
@@ -181,6 +182,7 @@ public class State implements Cloneable {
         this.endCondition = endCondition;
     }
 
+    @Override
     public State clone() {
         try {
             // for now it's ok to shallow copy behavior list since they are only

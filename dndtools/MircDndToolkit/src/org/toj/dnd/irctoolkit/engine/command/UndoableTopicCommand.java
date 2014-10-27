@@ -25,10 +25,12 @@ public abstract class UndoableTopicCommand extends GameCommand {
         return this.msgs;
     }
 
+    @Override
     public boolean undoable() {
         return true;
     }
 
+    @Override
     public void undo() throws ToolkitCommandException {
         Element last = context.getHistory().retrievePreviousGame();
         context.setGame(GameStore.loadGame(last));

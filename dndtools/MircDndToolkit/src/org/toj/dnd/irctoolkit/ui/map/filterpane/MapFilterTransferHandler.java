@@ -40,7 +40,7 @@ public class MapFilterTransferHandler extends TransferHandler {
                 table.getSelectedRows().length);
         oriRowIndice = table.getSelectedRows();
         for (int i : oriRowIndice) {
-            list.add((MapFilter) context.getFilterList().get(i));
+            list.add(context.getFilterList().get(i));
         }
         return new DataHandler(list.toArray(new MapFilter[list.size()]),
                 localObjectFlavor.getMimeType());

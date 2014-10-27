@@ -52,6 +52,7 @@ public class MapFilterPane extends JPanel {
         table.setTransferHandler(new MapFilterTransferHandler(table, context));
         table.addMouseListener(new MouseAdapter() {
 
+            @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     launchMapFilterEditor(table.getSelectedRow());

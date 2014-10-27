@@ -2,7 +2,6 @@ package org.toj.dnd.irctoolkit.game;
 
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.dom4j.QName;
 import org.toj.dnd.irctoolkit.util.XmlUtil;
 
 public abstract class LimitedResource {

@@ -7,7 +7,6 @@ import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
 import org.toj.dnd.irctoolkit.map.MapGrid;
 import org.toj.dnd.irctoolkit.map.MapGridCell;
 import org.toj.dnd.irctoolkit.map.MapModel;
-import org.toj.dnd.irctoolkit.token.Color;
 
 public class InvisibilityFilter extends MapFilter {
 

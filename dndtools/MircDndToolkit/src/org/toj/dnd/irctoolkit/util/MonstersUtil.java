@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
 import org.toj.common.FileIoUtils;
 import org.toj.dnd.irctoolkit.dice.Dice;
 

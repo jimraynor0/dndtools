@@ -430,12 +430,13 @@ public class Battle implements Cloneable {
         return eventResultBuffer;
     }
 
+    @Override
     public Battle clone() {
         Battle clone = null;
         try {
             clone = (Battle) super.clone();
             if (current != null) {
-                clone.current = (Combatant) this.current.clone();
+                clone.current = this.current.clone();
             }
             clone.combatants = new LinkedList<Combatant>();
             for (Combatant ch : combatants) {

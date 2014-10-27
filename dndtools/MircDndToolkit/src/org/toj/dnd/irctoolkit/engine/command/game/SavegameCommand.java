@@ -38,6 +38,7 @@ public class SavegameCommand extends GameCommand {
         return this.msgs;
     }
 
+    @Override
     public boolean requireGameContext() {
         return false;
     }

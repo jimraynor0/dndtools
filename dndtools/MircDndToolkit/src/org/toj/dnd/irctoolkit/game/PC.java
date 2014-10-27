@@ -72,6 +72,7 @@ public class PC extends Combatant {
         }
     }
 
+    @Override
     public void damage(int dmg) {
         if (getThp() >= dmg) {
             setThp(getThp() - dmg);
@@ -84,6 +85,7 @@ public class PC extends Combatant {
         hp -= dmg;
     }
 
+    @Override
     public void heal(int heal) {
         if (getNonlethal() > 0) {
             setNonlethal(getNonlethal() - heal);
@@ -135,6 +137,7 @@ public class PC extends Combatant {
         return sb.toString();
     }
 
+    @Override
     public Element toXmlElement() {
         Element e = super.toXmlElement();
         e.setName("pc");
@@ -253,6 +256,7 @@ public class PC extends Combatant {
         return null;
     }
 
+    @Override
     protected String getHpExpression() {
         StringBuilder sb = new StringBuilder("(");
         sb.append(hp).append("/").append(maxHp);

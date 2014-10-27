@@ -15,6 +15,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import org.apache.log4j.Logger;
@@ -44,7 +45,7 @@ public class MapFilterEditor extends JDialog {
     private FilterParamComponent paramComponent;
 
     public MapFilterEditor() {
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setResizable(true);
         setBounds(100, 100, 318, 159);
         contentPane = new JPanel();
@@ -74,6 +75,7 @@ public class MapFilterEditor extends JDialog {
         listType.setMaximumRowCount(16);
         listType.setOpaque(true);
         listType.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(final ActionEvent e) {
                 initParamPanelContent((String) ((JComboBox) e.getSource())
                         .getSelectedItem());

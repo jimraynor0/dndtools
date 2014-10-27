@@ -7,6 +7,7 @@ public class Color {
 
     private int length;
 
+    @Override
     public String toString() {
         return new StringBuilder("[").append(foreground).append(", ")
                 .append(background).append(", ").append(length).append("]")

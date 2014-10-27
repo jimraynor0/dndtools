@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
@@ -41,7 +42,7 @@ public class MapModelEditor extends JDialog {
     private int index;
 
     public MapModelEditor() {
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setResizable(false);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,7 +57,7 @@ public class MapModelEditor extends JDialog {
         tfId.setBounds(70, 10, 230, 20);
         tfId.setEditable(false);
         tfId.setBackground(java.awt.Color.WHITE);
-        tfId.setHorizontalAlignment(JTextField.RIGHT);
+        tfId.setHorizontalAlignment(SwingConstants.RIGHT);
         contentPane.add(tfId);
         // tfId.setColumns(10);
 

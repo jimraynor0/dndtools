@@ -25,28 +25,34 @@ public abstract class GameCommand extends Command {
     protected String caller;
     protected boolean topicRefreshNeeded;
 
+    @Override
     public abstract List<OutgoingMsg> execute() throws ToolkitCommandException;
 
     public boolean topicRefreshNeeded() {
         return topicRefreshNeeded;
     }
 
+    @Override
     public boolean updatesTopic() {
         return true;
     }
 
+    @Override
     public boolean updatesMap() {
         return false;
     }
 
+    @Override
     public boolean undoable() {
         return false;
     }
 
+    @Override
     public void undo() throws ToolkitCommandException {
         return;
     }
 
+    @Override
     protected Game getGame() {
         return context.getGame();
     }

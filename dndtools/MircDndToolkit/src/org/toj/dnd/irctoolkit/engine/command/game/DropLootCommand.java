@@ -9,7 +9,6 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.Item;
-import org.toj.dnd.irctoolkit.game.PC;
 
 @IrcCommand(command = "droploot", args = { CommandSegment.LIST })
 public class DropLootCommand extends UndoableTopicCommand {

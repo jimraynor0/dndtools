@@ -40,7 +40,7 @@ public class MapModelTransferHandler extends TransferHandler {
                 table.getSelectedRows().length);
         oriRowIndice = table.getSelectedRows();
         for (int i : oriRowIndice) {
-            list.add((MapModel) context.getModelList().get(i));
+            list.add(context.getModelList().get(i));
         }
         return new DataHandler(list.toArray(new MapModel[list.size()]),
                 localObjectFlavor.getMimeType());
