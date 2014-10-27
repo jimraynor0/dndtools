@@ -15,8 +15,7 @@ import org.dom4j.io.SAXReader;
 import org.toj.dnd.irctoolkit.util.AbbreviationUtil;
 
 public class RuleBook {
-    private static final File RULE_FILE = new File(
-        "./resources/rules.xml");
+    private static final File RULE_FILE = new File("./resources/rules.xml");
     private static RuleBook INSTANCE;
 
     public static RuleBook getRuleBook() {
@@ -55,7 +54,8 @@ public class RuleBook {
     public List<String> query(String ruleElement) {
         ruleElement = ruleElement.toLowerCase();
         for (String ruleName : rules.keySet()) {
-            if (ruleName.equals(ruleElement) || AbbreviationUtil.isAbbre(ruleElement, ruleName)) {
+            if (ruleName.equals(ruleElement)
+                    || AbbreviationUtil.isAbbre(ruleElement, ruleName)) {
                 List<String> result = new LinkedList<String>();
                 for (Rule rule : rules.get(ruleName)) {
                     result.add(getTitle(rule));

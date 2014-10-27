@@ -11,7 +11,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.PC;
 import org.toj.dnd.irctoolkit.game.Spell;
 
-@IrcCommand(command = "prepare", args = { CommandSegment.LIST } )
+@IrcCommand(command = "prepare", args = { CommandSegment.LIST })
 public class PrepareSpellCommand extends UndoableTopicCommand {
     private PC pc;
     private String group;
@@ -30,7 +30,8 @@ public class PrepareSpellCommand extends UndoableTopicCommand {
         for (String spellStr : composite(argList.toArray()).split("\\|")) {
             if (spellStr.contains("*")) {
                 String[] spellParts = spellStr.split("\\*");
-                spells.add(new Spell(spellParts[0], Integer.parseInt(spellParts[1])));
+                spells.add(new Spell(spellParts[0], Integer
+                        .parseInt(spellParts[1])));
             } else {
                 spells.add(new Spell(spellStr.trim(), 1));
             }

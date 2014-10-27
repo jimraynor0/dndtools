@@ -30,9 +30,8 @@ public class NewMapCommand extends MapCommand {
     @Override
     public void doExecute() throws ToolkitCommandException {
         context.setCurrentMap(new MapGrid(width, height));
-        ToolkitEngine.getEngine()
-            .queueCommand(
+        ToolkitEngine.getEngine().queueCommand(
                 new AddOrUpdateModelCommand(new DefaultModels()
-                    .loadDefaultModels()));
+                        .loadDefaultModels()));
     }
 }

@@ -55,7 +55,7 @@ public class D6sRoll {
     public List<Integer> getDiceRollResults() {
         return diceRollResults;
     }
-    
+
     public static void main(String[] args) {
         D6sRoll jimSword = new D6sRoll(14, true);
         D6sRoll jimDodge = new D6sRoll(5, true);
@@ -63,18 +63,24 @@ public class D6sRoll {
         D6sRoll wqSword = new D6sRoll(13, true);
         D6sRoll wqDodge = new D6sRoll(8, true);
         D6sRoll wqParry = new D6sRoll(13, true);
-        
+
         jimSword.roll();
-        System.out.println("JimÕ∂÷¿π•ª˜: " + (jimSword.getBaseSucc() + jimSword.getRolledSucc()));
+        System.out.println("JimÕ∂÷¿π•ª˜: "
+                + (jimSword.getBaseSucc() + jimSword.getRolledSucc()));
         jimDodge.roll();
-        System.out.println("JimÕ∂÷¿…¡±‹: " + (jimDodge.getBaseSucc() + jimDodge.getRolledSucc()));
+        System.out.println("JimÕ∂÷¿…¡±‹: "
+                + (jimDodge.getBaseSucc() + jimDodge.getRolledSucc()));
         jimParry.roll();
-        System.out.println("JimÕ∂÷¿∏Òµ≤: " + (jimParry.getBaseSucc() + jimParry.getRolledSucc()));
+        System.out.println("JimÕ∂÷¿∏Òµ≤: "
+                + (jimParry.getBaseSucc() + jimParry.getRolledSucc()));
         wqSword.roll();
-        System.out.println("JesÕ∂÷¿π•ª˜: " + (wqSword.getBaseSucc() + wqSword.getRolledSucc()));
+        System.out.println("JesÕ∂÷¿π•ª˜: "
+                + (wqSword.getBaseSucc() + wqSword.getRolledSucc()));
         wqDodge.roll();
-        System.out.println("JesÕ∂÷¿…¡±‹: " + (wqDodge.getBaseSucc() + wqDodge.getRolledSucc()));
+        System.out.println("JesÕ∂÷¿…¡±‹: "
+                + (wqDodge.getBaseSucc() + wqDodge.getRolledSucc()));
         wqParry.roll();
-        System.out.println("JesÕ∂÷¿∏Òµ≤: " + (wqParry.getBaseSucc() + wqParry.getRolledSucc()));
+        System.out.println("JesÕ∂÷¿∏Òµ≤: "
+                + (wqParry.getBaseSucc() + wqParry.getRolledSucc()));
     }
 }

@@ -11,7 +11,8 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.Item;
 import org.toj.dnd.irctoolkit.game.PC;
 
-@IrcCommand(command = "gift", args = { CommandSegment.STRING, CommandSegment.STRING, CommandSegment.LIST })
+@IrcCommand(command = "gift", args = { CommandSegment.STRING,
+        CommandSegment.STRING, CommandSegment.LIST })
 public class GiftItemCommand extends UndoableTopicCommand {
 
     private String owner;
@@ -27,7 +28,8 @@ public class GiftItemCommand extends UndoableTopicCommand {
         for (String itemStr : lootString.split("\\|")) {
             Item item = null;
             if (itemStr.contains("*")) {
-                item = new Item(itemStr.split("\\*")[0], Integer.parseInt(itemStr.split("\\*")[1]));
+                item = new Item(itemStr.split("\\*")[0],
+                        Integer.parseInt(itemStr.split("\\*")[1]));
             } else {
                 item = new Item(itemStr, 1);
             }
@@ -62,7 +64,8 @@ public class GiftItemCommand extends UndoableTopicCommand {
                 takeLootString += item;
             }
 
-            LogCommand logCommand = new LogCommand(new Object[] {"交还团队物品|" + owner + "把" + takeLootString + "交给了团队"});
+            LogCommand logCommand = new LogCommand(new Object[] { "交还团队物品|"
+                    + owner + "把" + takeLootString + "交给了团队" });
             logCommand.setCaller(caller);
             ToolkitEngine.getEngine().queueCommand(logCommand);
         } else {
@@ -84,8 +87,9 @@ public class GiftItemCommand extends UndoableTopicCommand {
                     }
                     takeLootString += item;
                 }
-    
-                LogCommand logCommand = new LogCommand(new Object[] {"物品转交|" + owner + "把" + takeLootString + "交给了" + target});
+
+                LogCommand logCommand = new LogCommand(new Object[] { "物品转交|"
+                        + owner + "把" + takeLootString + "交给了" + target });
                 logCommand.setCaller(caller);
                 ToolkitEngine.getEngine().queueCommand(logCommand);
             }

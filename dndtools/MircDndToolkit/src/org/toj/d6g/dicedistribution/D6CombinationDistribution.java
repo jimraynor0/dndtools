@@ -30,14 +30,14 @@ public class D6CombinationDistribution {
                     + " dice, total " + resultSet.size()
                     + " results genereted.");
             System.out.println("Chance for 1 hit(5/6): "
-                    + chanceForNumberOfHits(createClone(resultSet), 1)
-                    * 100 + "%");
+                    + chanceForNumberOfHits(createClone(resultSet), 1) * 100
+                    + "%");
             System.out.println("Chance for 2 hit(5/6 + 5/6): "
-                    + chanceForNumberOfHits(createClone(resultSet), 2)
-                    * 100 + "%");
+                    + chanceForNumberOfHits(createClone(resultSet), 2) * 100
+                    + "%");
             System.out.println("Chance for 3 hit(5/6 + 5/6 + 5/6): "
-                    + chanceForNumberOfHits(createClone(resultSet), 3)
-                    * 100 + "%");
+                    + chanceForNumberOfHits(createClone(resultSet), 3) * 100
+                    + "%");
             System.out.println("Chance for any pairs(n+n): "
                     + chanceForAnyNumberOccurance(createClone(resultSet), 2)
                     * 100 + "%");
@@ -59,52 +59,102 @@ public class D6CombinationDistribution {
             System.out.println("Chance for 3 specific numbers(4+5+6): "
                     + chanceForSpecificNumberSeries(createClone(resultSet), 3)
                     * 100 + "%");
-            System.out.println("Chance for 2 consecutive numbers(1+2/2+3/...): "
-                    + chanceForConsecutiveNumbers(createClone(resultSet), 2)
-                    * 100 + "%");
-            System.out.println("Chance for 3 consecutive numbers(1+2+3/2+3+4/...): "
-                    + chanceForConsecutiveNumbers(createClone(resultSet), 3)
-                    * 100 + "%");
-            System.out.println("Chance for a pair plus a specific number(n+n+6): "
-                    + chanceForAnyPairPlusSpecificNumber(createClone(resultSet))
-                    * 100 + "%");
-//            System.out.println("Chance for k3 total equal or greater than 14: "
-//                    + chanceForTotalGreaterThan(createClone(resultSet), 14)
-//                    * 100 + "%");
-//            System.out.println("Chance for k3 total equal or greater than 15: "
-//                    + chanceForTotalGreaterThan(createClone(resultSet), 15)
-//                    * 100 + "%");
-//            System.out.println("Chance for k3 total equal or greater than 16: "
-//                    + chanceForTotalGreaterThan(createClone(resultSet), 16)
-//                    * 100 + "%");
-//            System.out.println("Chance for k3 total equal or greater than 17: "
-//                    + chanceForTotalGreaterThan(createClone(resultSet), 17)
-//                    * 100 + "%");
-//            System.out.println("Chance for k3 total equal or greater than 18: "
-//                    + chanceForTotalGreaterThan(createClone(resultSet), 18)
-//                    * 100 + "%");
+            System.out
+                    .println("Chance for 2 consecutive numbers(1+2/2+3/...): "
+                            + chanceForConsecutiveNumbers(
+                                    createClone(resultSet), 2) * 100 + "%");
+            System.out
+                    .println("Chance for 3 consecutive numbers(1+2+3/2+3+4/...): "
+                            + chanceForConsecutiveNumbers(
+                                    createClone(resultSet), 3) * 100 + "%");
+            System.out
+                    .println("Chance for a pair plus a specific number(n+n+6): "
+                            + chanceForAnyPairPlusSpecificNumber(createClone(resultSet))
+                            * 100 + "%");
+            // System.out.println("Chance for k3 total equal or greater than 14: "
+            // + chanceForTotalGreaterThan(createClone(resultSet), 14)
+            // * 100 + "%");
+            // System.out.println("Chance for k3 total equal or greater than 15: "
+            // + chanceForTotalGreaterThan(createClone(resultSet), 15)
+            // * 100 + "%");
+            // System.out.println("Chance for k3 total equal or greater than 16: "
+            // + chanceForTotalGreaterThan(createClone(resultSet), 16)
+            // * 100 + "%");
+            // System.out.println("Chance for k3 total equal or greater than 17: "
+            // + chanceForTotalGreaterThan(createClone(resultSet), 17)
+            // * 100 + "%");
+            // System.out.println("Chance for k3 total equal or greater than 18: "
+            // + chanceForTotalGreaterThan(createClone(resultSet), 18)
+            // * 100 + "%");
             System.out.println();
-            
-            getList(results, "Chance for 1 hit(5/6): ").add(MessageFormat.format("{0,number,#.##%}", chanceForNumberOfHits(createClone(resultSet), 1)));
-            getList(results, "Chance for 2 hit(5/6 + 5/6): ").add(MessageFormat.format("{0,number,#.##%}", chanceForNumberOfHits(createClone(resultSet), 2)));
-            getList(results, "Chance for 3 hit(5/6 + 5/6 + 5/6): ").add(MessageFormat.format("{0,number,#.##%}", chanceForNumberOfHits(createClone(resultSet), 3)));
-            getList(results, "Chance for any pairs(n+n): ").add(MessageFormat.format("{0,number,#.##%}", chanceForAnyNumberOccurance(createClone(resultSet), 2)));
-            getList(results, "Chance for any triples(n+n+n): ").add(MessageFormat.format("{0,number,#.##%}", chanceForAnyNumberOccurance(createClone(resultSet), 3)));
-            getList(results, "Chance for specific number(6): ").add(MessageFormat.format("{0,number,#.##%}", chanceForSpecificNumberOccurance(createClone(resultSet), 1)));
-            getList(results, "Chance for specific pairs(6+6): ").add(MessageFormat.format("{0,number,#.##%}", chanceForSpecificNumberOccurance(createClone(resultSet), 2)));
-            getList(results, "Chance for specific triples(6+6+6): ").add(MessageFormat.format("{0,number,#.##%}", chanceForSpecificNumberOccurance(createClone(resultSet), 3)));
-            getList(results, "Chance for 2 specific numbers(5+6): ").add(MessageFormat.format("{0,number,#.##%}", chanceForSpecificNumberSeries(createClone(resultSet), 2)));
-            getList(results, "Chance for 3 specific numbers(4+5+6): ").add(MessageFormat.format("{0,number,#.##%}", chanceForSpecificNumberSeries(createClone(resultSet), 3)));
-            getList(results, "Chance for 2 consecutive numbers(1+2/2+3/...): ").add(MessageFormat.format("{0,number,#.##%}", chanceForConsecutiveNumbers(createClone(resultSet), 2)));
-            getList(results, "Chance for 3 consecutive numbers(1+2+3/2+3+4/...): ").add(MessageFormat.format("{0,number,#.##%}", chanceForConsecutiveNumbers(createClone(resultSet), 3)));
-            getList(results, "Chance for a pair plus a specific number(n+n+6): ").add(MessageFormat.format("{0,number,#.##%}", chanceForAnyPairPlusSpecificNumber(createClone(resultSet))));
+
+            getList(results, "Chance for 1 hit(5/6): ").add(
+                    MessageFormat.format("{0,number,#.##%}",
+                            chanceForNumberOfHits(createClone(resultSet), 1)));
+            getList(results, "Chance for 2 hit(5/6 + 5/6): ").add(
+                    MessageFormat.format("{0,number,#.##%}",
+                            chanceForNumberOfHits(createClone(resultSet), 2)));
+            getList(results, "Chance for 3 hit(5/6 + 5/6 + 5/6): ").add(
+                    MessageFormat.format("{0,number,#.##%}",
+                            chanceForNumberOfHits(createClone(resultSet), 3)));
+            getList(results, "Chance for any pairs(n+n): ").add(
+                    MessageFormat.format(
+                            "{0,number,#.##%}",
+                            chanceForAnyNumberOccurance(createClone(resultSet),
+                                    2)));
+            getList(results, "Chance for any triples(n+n+n): ").add(
+                    MessageFormat.format(
+                            "{0,number,#.##%}",
+                            chanceForAnyNumberOccurance(createClone(resultSet),
+                                    3)));
+            getList(results, "Chance for specific number(6): ").add(
+                    MessageFormat.format(
+                            "{0,number,#.##%}",
+                            chanceForSpecificNumberOccurance(
+                                    createClone(resultSet), 1)));
+            getList(results, "Chance for specific pairs(6+6): ").add(
+                    MessageFormat.format(
+                            "{0,number,#.##%}",
+                            chanceForSpecificNumberOccurance(
+                                    createClone(resultSet), 2)));
+            getList(results, "Chance for specific triples(6+6+6): ").add(
+                    MessageFormat.format(
+                            "{0,number,#.##%}",
+                            chanceForSpecificNumberOccurance(
+                                    createClone(resultSet), 3)));
+            getList(results, "Chance for 2 specific numbers(5+6): ").add(
+                    MessageFormat.format(
+                            "{0,number,#.##%}",
+                            chanceForSpecificNumberSeries(
+                                    createClone(resultSet), 2)));
+            getList(results, "Chance for 3 specific numbers(4+5+6): ").add(
+                    MessageFormat.format(
+                            "{0,number,#.##%}",
+                            chanceForSpecificNumberSeries(
+                                    createClone(resultSet), 3)));
+            getList(results, "Chance for 2 consecutive numbers(1+2/2+3/...): ")
+                    .add(MessageFormat.format(
+                            "{0,number,#.##%}",
+                            chanceForConsecutiveNumbers(createClone(resultSet),
+                                    2)));
+            getList(results,
+                    "Chance for 3 consecutive numbers(1+2+3/2+3+4/...): ").add(
+                    MessageFormat.format(
+                            "{0,number,#.##%}",
+                            chanceForConsecutiveNumbers(createClone(resultSet),
+                                    3)));
+            getList(results,
+                    "Chance for a pair plus a specific number(n+n+6): ")
+                    .add(MessageFormat
+                            .format("{0,number,#.##%}",
+                                    chanceForAnyPairPlusSpecificNumber(createClone(resultSet))));
         }
 
         System.out.println(printAsTable(results));
     }
 
-    private static double chanceForConsecutiveNumbers(List<List<String>> resultSet,
-            int consecutiveThreshold) {
+    private static double chanceForConsecutiveNumbers(
+            List<List<String>> resultSet, int consecutiveThreshold) {
         int count = 0;
         int total = resultSet.size();
 
@@ -271,8 +321,10 @@ public class D6CombinationDistribution {
     }
 
     private static String printAsTable(Map<String, List<String>> results) {
-        StringBuilder sb = new StringBuilder(wrapWith("[td][/td][td]3d6[/td][td]4d6[/td][td]5d6[/td][td]6d6[/td]", "tr"));
-        for (String key: results.keySet()) {
+        StringBuilder sb = new StringBuilder(wrapWith(
+                "[td][/td][td]3d6[/td][td]4d6[/td][td]5d6[/td][td]6d6[/td]",
+                "tr"));
+        for (String key : results.keySet()) {
             sb.append(buildRow(key, results.get(key)));
         }
         return wrapWith(sb.toString(), "table");
@@ -290,7 +342,8 @@ public class D6CombinationDistribution {
         return "[" + tag + "]" + content + "[/" + tag + "]";
     }
 
-    private static List<String> getList(Map<String, List<String>> map, String key) {
+    private static List<String> getList(Map<String, List<String>> map,
+            String key) {
         if (!map.containsKey(key)) {
             map.put(key, new ArrayList<String>(5));
         }

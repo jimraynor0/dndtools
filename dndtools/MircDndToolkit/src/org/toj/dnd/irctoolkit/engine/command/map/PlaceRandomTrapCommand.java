@@ -15,7 +15,8 @@ import org.toj.dnd.irctoolkit.map.Point;
 import org.toj.dnd.irctoolkit.token.Color;
 import org.toj.dnd.irctoolkit.util.TrapUtil;
 
-@IrcCommand(command="randomtraps", args = {CommandSegment.INT, CommandSegment.INT})
+@IrcCommand(command = "randomtraps", args = { CommandSegment.INT,
+        CommandSegment.INT })
 public class PlaceRandomTrapCommand extends MapCommand {
 
     private int numberOfTraps;
@@ -36,7 +37,8 @@ public class PlaceRandomTrapCommand extends MapCommand {
             try {
                 model = generateTrapModel(i + 1);
                 context.getModelList().add(model);
-                context.getCurrentMap().drawObjectsOntoGrid(new int[] {p.getX()}, new int[] {p.getY()}, model);
+                context.getCurrentMap().drawObjectsOntoGrid(
+                        new int[] { p.getX() }, new int[] { p.getY() }, model);
                 if (filterParam.length() > 0) {
                     filterParam.append(",");
                 }
@@ -45,7 +47,8 @@ public class PlaceRandomTrapCommand extends MapCommand {
                 throw new ToolkitCommandException(e);
             }
         }
-        MapFilter filter = MapFilter.MapFilterFactory.createFilter(MapFilter.TYPE_INVISIBILITY_FILTER, filterParam.toString());
+        MapFilter filter = MapFilter.MapFilterFactory.createFilter(
+                MapFilter.TYPE_INVISIBILITY_FILTER, filterParam.toString());
         filter.setActive(true);
         context.getFilterList().add(filter);
     }

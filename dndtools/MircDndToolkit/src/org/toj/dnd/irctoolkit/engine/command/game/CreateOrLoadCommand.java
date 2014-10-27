@@ -11,7 +11,7 @@ import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 
-@IrcCommand(command = "startgame", args = { CommandSegment.STRING } )
+@IrcCommand(command = "startgame", args = { CommandSegment.STRING })
 public class CreateOrLoadCommand extends GameCommand {
 
     private Logger log = Logger.getLogger(this.getClass());

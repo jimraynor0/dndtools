@@ -22,8 +22,8 @@ public class StartBattleCommand extends UndoableTopicCommand {
 
     public StartBattleCommand(Object[] args) {
         if (args != null && args.length > 0) {
-            this.encounterName =
-                StringUtils.join(Arrays.copyOfRange(args, 1, args.length), " ");
+            this.encounterName = StringUtils.join(
+                    Arrays.copyOfRange(args, 1, args.length), " ");
         }
     }
 
@@ -45,10 +45,9 @@ public class StartBattleCommand extends UndoableTopicCommand {
                 getGame().startBattle();
             } else {
                 if (encounter.mapName != null) {
-                    ToolkitEngine.getEngine()
-                        .queueCommand(
+                    ToolkitEngine.getEngine().queueCommand(
                             new LoadMapFromFileCommand(new File(
-                                encounter.mapName)));
+                                    encounter.mapName)));
                 }
                 getGame().startEncounter(encounter);
             }
@@ -56,9 +55,8 @@ public class StartBattleCommand extends UndoableTopicCommand {
             getGame().startBattle();
         }
 
-        List<String> needsInitRolled =
-            new ArrayList<String>(getGame().getPcs().size()
-                + getGame().getNpcs().size());
+        List<String> needsInitRolled = new ArrayList<String>(getGame().getPcs()
+                .size() + getGame().getNpcs().size());
         for (String pcName : getGame().getPcs().keySet()) {
             if (getGame().getBattle().findCharByName(pcName) == null) {
                 needsInitRolled.add(pcName);
@@ -73,7 +71,7 @@ public class StartBattleCommand extends UndoableTopicCommand {
             Object[] args = new Object[needsInitRolled.size() + 1];
             args[0] = null;
             System.arraycopy(needsInitRolled.toArray(), 0, args, 1,
-                needsInitRolled.size());
+                    needsInitRolled.size());
             ToolkitEngine.getEngine().queueCommand(new InitCommand(args));
             ToolkitEngine.getEngine().queueCommand(new RefreshTopicCommand());
         }

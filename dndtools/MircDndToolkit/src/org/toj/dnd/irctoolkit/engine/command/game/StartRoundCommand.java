@@ -10,7 +10,7 @@ public class StartRoundCommand extends UndoableTopicCommand {
     private int startAt;
 
     public StartRoundCommand(Object[] args) {
-        if (args.length == 0){
+        if (args.length == 0) {
             this.startAt = 1;
         } else {
             this.startAt = (Integer) args[0];

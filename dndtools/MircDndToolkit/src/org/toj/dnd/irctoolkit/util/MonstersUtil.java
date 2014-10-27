@@ -16,8 +16,10 @@ import org.toj.common.FileIoUtils;
 import org.toj.dnd.irctoolkit.dice.Dice;
 
 public class MonstersUtil {
-    private static final File MM1_CR_FILE = new File("./resources/monsters/mm1cr.txt");
-    private static final File MM1_PAGES_FILE = new File("./resources/monsters/mm1pages.txt");
+    private static final File MM1_CR_FILE = new File(
+            "./resources/monsters/mm1cr.txt");
+    private static final File MM1_PAGES_FILE = new File(
+            "./resources/monsters/mm1pages.txt");
     private static Map<String, List<String>> MONSTERS;
 
     public static String getRandomMonsterByCr(String cr) throws IOException {
@@ -30,8 +32,7 @@ public class MonstersUtil {
         return loadFromFile().get(cr);
     }
 
-    private static Map<String, List<String>> loadFromFile()
-        throws IOException {
+    private static Map<String, List<String>> loadFromFile() throws IOException {
         if (MONSTERS == null) {
             MONSTERS = new HashMap<String, List<String>>();
 
@@ -44,7 +45,8 @@ public class MonstersUtil {
                     line += reader.readLine();
                 }
                 List<String> splited = Arrays.asList(line.split("\\."));
-                monstersByPage.put(splited.get(0).trim(), splited.get(0).trim() + " - page " + splited.get(splited.size() - 1).trim());
+                monstersByPage.put(splited.get(0).trim(), splited.get(0).trim()
+                        + " - page " + splited.get(splited.size() - 1).trim());
             }
             reader.close();
 
@@ -57,13 +59,15 @@ public class MonstersUtil {
                     line += reader.readLine();
                 }
                 List<String> splited = Arrays.asList(line.split("\\."));
-                monstersByCr.put(splited.get(0).trim(), splited.get(splited.size() - 1).trim());
+                monstersByCr.put(splited.get(0).trim(),
+                        splited.get(splited.size() - 1).trim());
             }
             reader.close();
 
             Set<String> removes = new HashSet<String>(monstersByCr.size());
             for (String name : monstersByCr.keySet()) {
-                putIntoMonsters(name, monstersByCr.get(name), monstersByPage, removes);
+                putIntoMonsters(name, monstersByCr.get(name), monstersByPage,
+                        removes);
             }
             for (String key : removes) {
                 monstersByPage.remove(key);
@@ -72,7 +76,7 @@ public class MonstersUtil {
                 System.out.println(name + " is not mapped to a cr.");
             }
         }
-        
+
         return MONSTERS;
     }
 

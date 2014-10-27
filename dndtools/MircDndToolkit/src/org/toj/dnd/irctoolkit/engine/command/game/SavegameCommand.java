@@ -11,7 +11,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 
-@IrcCommand(command = "savegame", args = { CommandSegment.STRING } )
+@IrcCommand(command = "savegame", args = { CommandSegment.STRING })
 public class SavegameCommand extends GameCommand {
 
     private Logger log = Logger.getLogger(this.getClass());

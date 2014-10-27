@@ -12,7 +12,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
 import org.toj.dnd.irctoolkit.map.MapGrid;
 
-@IrcCommand(command="loadmap", args = {CommandSegment.NULLABLE_LIST})
+@IrcCommand(command = "loadmap", args = { CommandSegment.NULLABLE_LIST })
 public class LoadMapFromFileCommand extends MapCommand {
 
     private static final String MAPFILE_EXT = ".map";

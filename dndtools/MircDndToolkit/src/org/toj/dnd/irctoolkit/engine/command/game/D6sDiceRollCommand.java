@@ -11,7 +11,8 @@ import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 import org.toj.dnd.irctoolkit.token.Color;
 import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
 
-@IrcCommand(command = "d6s", args = { CommandSegment.INT, CommandSegment.NULLABLE_LIST } )
+@IrcCommand(command = "d6s", args = { CommandSegment.INT,
+        CommandSegment.NULLABLE_LIST })
 public class D6sDiceRollCommand extends GameCommand {
 
     private int diceNumber;
@@ -28,42 +29,37 @@ public class D6sDiceRollCommand extends GameCommand {
         }
     }
 
-
     @Override
     public List<OutgoingMsg> execute() throws ToolkitCommandException {
         D6sRoll roll = new D6sRoll(diceNumber, true);
         roll.roll();
-        StringBuilder result =
-            new StringBuilder(this.caller)
+        StringBuilder result = new StringBuilder(this.caller)
                 .append("进行")
-                .append(
-                    IrcColoringUtil.paint(composite(desc), Color.BLUE.getCode()))
+                .append(IrcColoringUtil.paint(composite(desc),
+                        Color.BLUE.getCode()))
                 .append("检定，投掷")
-                .append(
-                    IrcColoringUtil.paint(diceNumber + "d6",
+                .append(IrcColoringUtil.paint(diceNumber + "d6",
                         Color.TEAL.getCode()))
                 .append("(基础 ")
-                .append(
-                    IrcColoringUtil.paint(String.valueOf(roll.getBaseSucc()),
+                .append(IrcColoringUtil.paint(
+                        String.valueOf(roll.getBaseSucc()),
                         Color.PURPLE.getCode()))
                 .append("，掷骰 ")
-                .append(
-                    IrcColoringUtil.paint(
+                .append(IrcColoringUtil.paint(
                         String.valueOf(roll.getDiceNumber()
-                            - roll.getBaseSucc()), Color.PURPLE.getCode()))
+                                - roll.getBaseSucc()), Color.PURPLE.getCode()))
                 .append(")，结果：")
-                .append(
-                    IrcColoringUtil.paint(String.valueOf(roll.getBaseSucc()),
+                .append(IrcColoringUtil.paint(
+                        String.valueOf(roll.getBaseSucc()),
                         Color.PURPLE.getCode()))
                 .append(" + ")
-                .append(
-                    IrcColoringUtil.paint(String.valueOf(roll.getRolledSucc()),
+                .append(IrcColoringUtil.paint(
+                        String.valueOf(roll.getRolledSucc()),
                         Color.PURPLE.getCode()))
                 .append(" = ")
-                .append(
-                    IrcColoringUtil.paint(
+                .append(IrcColoringUtil.paint(
                         String.valueOf(roll.getBaseSucc()
-                            + roll.getRolledSucc()), Color.TEAL.getCode()));
+                                + roll.getRolledSucc()), Color.TEAL.getCode()));
         sendMsg(result.toString());
         result = new StringBuilder("掷骰结果：");
         boolean first = true;
@@ -74,7 +70,7 @@ public class D6sDiceRollCommand extends GameCommand {
                 result.append(", ");
             }
             result.append(die > 3 ? IrcColoringUtil.paint(String.valueOf(die),
-                Color.TEAL.getCode()) : die);
+                    Color.TEAL.getCode()) : die);
         }
         sendMsg(result.toString());
         return this.msgs;

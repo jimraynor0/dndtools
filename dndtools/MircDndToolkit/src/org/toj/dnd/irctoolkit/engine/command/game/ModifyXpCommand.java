@@ -7,7 +7,8 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.PC;
 
-@IrcCommand(command = "xp", args = { CommandSegment.INT, CommandSegment.NULLABLE_LIST })
+@IrcCommand(command = "xp", args = { CommandSegment.INT,
+        CommandSegment.NULLABLE_LIST })
 public class ModifyXpCommand extends UndoableTopicCommand {
 
     private String[] pcs;
@@ -58,7 +59,7 @@ public class ModifyXpCommand extends UndoableTopicCommand {
         }
         sb.append((int) Math.abs(value)).append("µãxp");
 
-        LogCommand logCommand = new LogCommand(new Object[] {sb.toString()});
+        LogCommand logCommand = new LogCommand(new Object[] { sb.toString() });
         logCommand.setCaller(caller);
         ToolkitEngine.getEngine().queueCommand(logCommand);
     }

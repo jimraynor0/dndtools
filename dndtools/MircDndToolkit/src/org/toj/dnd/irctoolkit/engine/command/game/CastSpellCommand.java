@@ -10,7 +10,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.PC;
 import org.toj.dnd.irctoolkit.game.Spell;
 
-@IrcCommand(command="cast", args = {CommandSegment.LIST})
+@IrcCommand(command = "cast", args = { CommandSegment.LIST })
 public class CastSpellCommand extends UndoableTopicCommand {
 
     private PC pc;

@@ -8,7 +8,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 
-@IrcCommand(command = "charstat", args = { CommandSegment.NULLABLE_LIST } )
+@IrcCommand(command = "charstat", args = { CommandSegment.NULLABLE_LIST })
 public class CharStateCommand extends GameCommand {
     private String[] charNames;
 

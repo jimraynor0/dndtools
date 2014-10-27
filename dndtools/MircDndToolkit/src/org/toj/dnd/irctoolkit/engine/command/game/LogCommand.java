@@ -9,7 +9,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.log.GameLogManager;
 
-@IrcCommand(command="log", args = {CommandSegment.LIST})
+@IrcCommand(command = "log", args = { CommandSegment.LIST })
 public class LogCommand extends UndoableTopicCommand {
 
     private String[] args;

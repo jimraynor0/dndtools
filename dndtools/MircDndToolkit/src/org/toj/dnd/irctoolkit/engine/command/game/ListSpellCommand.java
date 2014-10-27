@@ -38,20 +38,23 @@ public class ListSpellCommand extends UndoableTopicCommand {
         for (String name : owner) {
             PC pc = getGame().findCharByNameOrAbbre(name);
             if (pc != null) {
-                for (String msg : buildSpellsString(pc.getName(), pc.getSpells())) {
+                for (String msg : buildSpellsString(pc.getName(),
+                        pc.getSpells())) {
                     sendMsg(msg);
                 }
             }
         }
     }
 
-    protected List<String> buildSpellsString(String name, Map<String, List<Spell>> spells) {
+    protected List<String> buildSpellsString(String name,
+            Map<String, List<Spell>> spells) {
         List<String> msg = new ArrayList<String>();
         if (spells.isEmpty()) {
             msg.add(name + "没有准备法术");
         } else {
             StringBuilder sb = new StringBuilder();
-            sb.append("-------- ").append(name).append(" --------").append("\r\n");
+            sb.append("-------- ").append(name).append(" --------")
+                    .append("\r\n");
             msg.add(sb.toString());
             List<String> groups = new ArrayList<String>(spells.keySet());
             Collections.sort(groups);

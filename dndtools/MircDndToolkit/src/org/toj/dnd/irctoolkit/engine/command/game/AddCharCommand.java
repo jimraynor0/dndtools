@@ -5,7 +5,7 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "addchar", args = { CommandSegment.LIST } )
+@IrcCommand(command = "addchar", args = { CommandSegment.LIST })
 public class AddCharCommand extends UndoableTopicCommand {
 
     private String[] chars;

@@ -7,7 +7,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 import org.toj.dnd.irctoolkit.util.MapGridIrcFormatter;
 
-@IrcCommand(command="dmmap", args = {})
+@IrcCommand(command = "dmmap", args = {})
 public class PrintMapForDmCommand extends GameCommand {
 
     public PrintMapForDmCommand(Object[] args) {

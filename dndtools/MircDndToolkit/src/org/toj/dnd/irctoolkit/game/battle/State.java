@@ -149,7 +149,8 @@ public class State implements Cloneable {
         if (this.behaviors == null) {
             return null;
         }
-        // hack, always put behavior that can end this state at the end of the trigger list.
+        // hack, always put behavior that can end this state at the end of the
+        // trigger list.
         for (StateBehavior sb : behaviors) {
             if (sb instanceof EndsInAFewTurnsBehavior) {
                 behaviors.remove(sb);

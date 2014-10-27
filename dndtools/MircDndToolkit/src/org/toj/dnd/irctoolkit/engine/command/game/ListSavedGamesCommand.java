@@ -8,7 +8,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 
-@IrcCommand(command = "listgames", args = {} )
+@IrcCommand(command = "listgames", args = {})
 public class ListSavedGamesCommand extends GameCommand {
 
     private Logger log = Logger.getLogger(this.getClass());

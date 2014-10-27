@@ -21,7 +21,8 @@ public class DropLootCommand extends UndoableTopicCommand {
         for (String itemStr : lootString.split("\\|")) {
             Item item = null;
             if (itemStr.contains("*")) {
-                item = new Item(itemStr.split("\\*")[0], Integer.parseInt(itemStr.split("\\*")[1]));
+                item = new Item(itemStr.split("\\*")[0],
+                        Integer.parseInt(itemStr.split("\\*")[1]));
             } else {
                 item = new Item(itemStr, 1);
             }
@@ -36,7 +37,8 @@ public class DropLootCommand extends UndoableTopicCommand {
         for (Item i : items) {
             getGame().removeItem(i);
         }
-        LogCommand logCommand = new LogCommand(new Object[] {"团队丢弃物品|" + getLootString()});
+        LogCommand logCommand = new LogCommand(new Object[] { "团队丢弃物品|"
+                + getLootString() });
         logCommand.setCaller(caller);
         ToolkitEngine.getEngine().queueCommand(logCommand);
     }

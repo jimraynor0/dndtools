@@ -5,7 +5,8 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "pp", args = { CommandSegment.NULLABLE_INT, CommandSegment.NULLABLE_STRING })
+@IrcCommand(command = "pp", args = { CommandSegment.NULLABLE_INT,
+        CommandSegment.NULLABLE_STRING })
 public class PsionicPointCommand extends UndoableTopicCommand {
     private String charName;
     private int usage = 1;

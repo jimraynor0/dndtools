@@ -8,18 +8,21 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.PC;
 import org.toj.dnd.irctoolkit.game.encounter.NPC;
 
-@IrcCommand(command = "init", args = { CommandSegment.NULLABLE_DOUBLE, CommandSegment.NULLABLE_LIST } )
+@IrcCommand(command = "init", args = { CommandSegment.NULLABLE_DOUBLE,
+        CommandSegment.NULLABLE_LIST })
 public class InitCommand extends UndoableTopicCommand {
 
     private String[] charName;
     private double init = Double.NEGATIVE_INFINITY;
 
     public InitCommand(Object[] args) {
-        if (args.length > 0 && (args[0] instanceof Double || args[0] instanceof Integer)) {
+        if (args.length > 0
+                && (args[0] instanceof Double || args[0] instanceof Integer)) {
             init = (Double) args[0];
         }
 
-        if (args.length != 0 && (args.length > 1 || init == Double.NEGATIVE_INFINITY)) {
+        if (args.length != 0
+                && (args.length > 1 || init == Double.NEGATIVE_INFINITY)) {
             if (init != Double.NEGATIVE_INFINITY) {
                 charName = new String[args.length - 1];
                 System.arraycopy(args, 1, charName, 0, charName.length);

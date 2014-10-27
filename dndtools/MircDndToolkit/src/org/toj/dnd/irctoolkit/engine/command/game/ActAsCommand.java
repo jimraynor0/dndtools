@@ -5,7 +5,7 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command="actas", args = {CommandSegment.STRING})
+@IrcCommand(command = "actas", args = { CommandSegment.STRING })
 public class ActAsCommand extends UndoableTopicCommand {
     private String actAs;
 

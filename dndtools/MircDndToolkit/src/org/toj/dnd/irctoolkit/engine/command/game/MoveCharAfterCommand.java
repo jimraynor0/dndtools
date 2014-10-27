@@ -7,7 +7,8 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command="after", args = {CommandSegment.NULLABLE_STRING, CommandSegment.STRING})
+@IrcCommand(command = "after", args = { CommandSegment.NULLABLE_STRING,
+        CommandSegment.STRING })
 public class MoveCharAfterCommand extends UndoableTopicCommand {
 
     private String toBeMoved;
@@ -23,12 +24,14 @@ public class MoveCharAfterCommand extends UndoableTopicCommand {
         if (this.toBeMoved == null) {
             this.toBeMoved = caller;
         }
-        if (getGame().getBattle().getCurrent() != null && getGame().getBattle().getCurrent()
-                .equals(getGame().findCharByNameOrAbbre(toBeMoved))) {
+        if (getGame().getBattle().getCurrent() != null
+                && getGame().getBattle().getCurrent()
+                        .equals(getGame().findCharByNameOrAbbre(toBeMoved))) {
             getGame().getBattle().putCharAfter(toBeMoved, dest);
             sendTopic(getGame().generateTopic());
             refreshTopic();
-            List<String> stateMsgs = getGame().getBattle().getEventResultBuffer();
+            List<String> stateMsgs = getGame().getBattle()
+                    .getEventResultBuffer();
             for (String msg : stateMsgs) {
                 sendMsgToDefaultChan(msg);
             }

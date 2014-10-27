@@ -9,17 +9,18 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IrcCommand {
     String command();
+
     CommandSegment[] args();
 
     enum CommandSegment {
-        NULLABLE_STRING (true, "string"), 
-        STRING (false, "string"), 
-        NULLABLE_INT (true, "int"),
-        INT (false, "int"),
-        NULLABLE_DOUBLE (true, "double"),
-        DOUBLE (false, "double"),
-        NULLABLE_LIST (true, "list"),
-        LIST (false, "list");
+        NULLABLE_STRING(true, "string"),
+        STRING(false, "string"),
+        NULLABLE_INT(true, "int"),
+        INT(false, "int"),
+        NULLABLE_DOUBLE(true, "double"),
+        DOUBLE(false, "double"),
+        NULLABLE_LIST(true, "list"),
+        LIST(false, "list");
 
         private boolean nullable;
         private String type;
@@ -37,11 +38,11 @@ public @interface IrcCommand {
         public String type() {
             return type;
         }
-        
+
         public String value() {
             return value;
         }
-        
+
         public void setValue(String value) {
             this.value = value;
         }

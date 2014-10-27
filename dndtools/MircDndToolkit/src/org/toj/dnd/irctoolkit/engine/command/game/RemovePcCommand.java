@@ -5,7 +5,7 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command="removepc", args = {CommandSegment.NULLABLE_LIST})
+@IrcCommand(command = "removepc", args = { CommandSegment.NULLABLE_LIST })
 public class RemovePcCommand extends UndoableTopicCommand {
 
     private String[] chars;

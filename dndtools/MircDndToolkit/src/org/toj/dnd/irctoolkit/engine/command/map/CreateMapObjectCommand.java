@@ -10,7 +10,8 @@ import org.toj.dnd.irctoolkit.token.Color;
 import org.toj.dnd.irctoolkit.util.AbbreviationUtil;
 import org.toj.dnd.irctoolkit.util.AxisUtil;
 
-@IrcCommand(command="place", args = {CommandSegment.NULLABLE_STRING, CommandSegment.STRING, CommandSegment.STRING})
+@IrcCommand(command = "place", args = { CommandSegment.NULLABLE_STRING,
+        CommandSegment.STRING, CommandSegment.STRING })
 public class CreateMapObjectCommand extends MapCommand {
 
     private MapModel model;
@@ -21,7 +22,9 @@ public class CreateMapObjectCommand extends MapCommand {
         if (model != null) {
             MapModel o = context.getModelList().findModelByChOrDesc(model);
             if (o == null) {
-                o = context.getModelList().createNewModel(AbbreviationUtil.getIcon(model), model, Color.BLACK, null, 0);
+                o = context.getModelList().createNewModel(
+                        AbbreviationUtil.getIcon(model), model, Color.BLACK,
+                        null, 0);
             }
             this.model = o;
         }
@@ -34,13 +37,16 @@ public class CreateMapObjectCommand extends MapCommand {
         if (model == null && this.caller != null) {
             model = context.getModelList().findModelByChOrDesc(caller);
             if (model == null) {
-                model = context.getModelList().createNewModel(AbbreviationUtil.getIcon(caller), caller, Color.BLACK, null, 0);
+                model = context.getModelList().createNewModel(
+                        AbbreviationUtil.getIcon(caller), caller, Color.BLACK,
+                        null, 0);
             }
         }
         if (model == null || dests == null) {
             return;
         }
-        context.getCurrentMap().drawObjectsOntoGrid(new int[] {dests.getX()}, new int[] {dests.getY()}, model);
+        context.getCurrentMap().drawObjectsOntoGrid(new int[] { dests.getX() },
+                new int[] { dests.getY() }, model);
     }
 
     @Override

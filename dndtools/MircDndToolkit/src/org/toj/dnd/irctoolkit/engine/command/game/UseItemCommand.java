@@ -7,7 +7,8 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.Item;
 import org.toj.dnd.irctoolkit.game.PC;
 
-@IrcCommand(command = "use", args = { CommandSegment.NULLABLE_INT, CommandSegment.NULLABLE_STRING, CommandSegment.STRING })
+@IrcCommand(command = "use", args = { CommandSegment.NULLABLE_INT,
+        CommandSegment.NULLABLE_STRING, CommandSegment.STRING })
 public class UseItemCommand extends UndoableTopicCommand {
 
     private String owner;

@@ -37,10 +37,12 @@ public class DotBehavior implements StateBehavior {
     private int calcTriggeredTimes(InitiativePassesEvent e) {
         int triggeredTimes = e.getRound() - e.getCurrentRound();
 
-        if (e.getCurrentInit() > controllsState.getAppliedOnInit() && e.getInit() <= controllsState.getAppliedOnInit()) {
+        if (e.getCurrentInit() > controllsState.getAppliedOnInit()
+                && e.getInit() <= controllsState.getAppliedOnInit()) {
             triggeredTimes++;
         }
-        if (e.getCurrentInit() <= controllsState.getAppliedOnInit() && e.getInit() > controllsState.getAppliedOnInit()) {
+        if (e.getCurrentInit() <= controllsState.getAppliedOnInit()
+                && e.getInit() > controllsState.getAppliedOnInit()) {
             triggeredTimes--;
         }
 

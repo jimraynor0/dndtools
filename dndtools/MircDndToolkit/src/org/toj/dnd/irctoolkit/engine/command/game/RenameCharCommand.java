@@ -5,7 +5,8 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "rename", args = { CommandSegment.STRING, CommandSegment.STRING } )
+@IrcCommand(command = "rename", args = { CommandSegment.STRING,
+        CommandSegment.STRING })
 public class RenameCharCommand extends UndoableTopicCommand {
 
     private String oldName;

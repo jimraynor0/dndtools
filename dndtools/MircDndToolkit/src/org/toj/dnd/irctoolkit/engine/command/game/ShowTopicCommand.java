@@ -7,7 +7,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 
-@IrcCommand(command = "showtopic", args = {} )
+@IrcCommand(command = "showtopic", args = {})
 public class ShowTopicCommand extends GameCommand {
 
     public ShowTopicCommand(Object[] args) {

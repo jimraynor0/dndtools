@@ -417,7 +417,9 @@ public class Battle implements Cloneable {
         int oldRound = round;
         double oldInit = current.getInit();
         for (Combatant ch : combatants) {
-            List<String> stateMsgsFromChar = ch.checkStateBehavior(new InitiativePassesEvent(oldRound, oldInit, newRound, newInit));
+            List<String> stateMsgsFromChar = ch
+                    .checkStateBehavior(new InitiativePassesEvent(oldRound,
+                            oldInit, newRound, newInit));
             if (stateMsgsFromChar != null && !stateMsgsFromChar.isEmpty()) {
                 eventResultBuffer.addAll(stateMsgsFromChar);
             }

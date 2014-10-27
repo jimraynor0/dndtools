@@ -6,7 +6,8 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.PC;
 
-@IrcCommand(command = "set", args = { CommandSegment.INT, CommandSegment.NULLABLE_STRING, CommandSegment.STRING })
+@IrcCommand(command = "set", args = { CommandSegment.INT,
+        CommandSegment.NULLABLE_STRING, CommandSegment.STRING })
 public class SetCommand extends UndoableTopicCommand {
 
     private String name;

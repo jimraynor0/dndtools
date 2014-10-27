@@ -5,7 +5,7 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "addpc", args = { CommandSegment.LIST } )
+@IrcCommand(command = "addpc", args = { CommandSegment.LIST })
 public class AddPcCommand extends UndoableTopicCommand {
 
     private String[] chars;

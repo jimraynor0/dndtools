@@ -6,7 +6,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
 @IrcCommand(command = "pre", args = {})
 public class PreCommand extends UndoableTopicCommand {
-    
+
     public PreCommand(Object[] args) {
         super();
     }

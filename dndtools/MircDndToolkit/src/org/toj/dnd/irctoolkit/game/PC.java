@@ -65,7 +65,8 @@ public class PC extends Combatant {
                     spellGroup.add(c);
                 }
                 if (!spellGroup.isEmpty()) {
-                    this.spells.put(groupElement.attributeValue("name"), spellGroup);
+                    this.spells.put(groupElement.attributeValue("name"),
+                            spellGroup);
                 }
             }
         }
@@ -82,7 +83,6 @@ public class PC extends Combatant {
         }
         hp -= dmg;
     }
-
 
     public void heal(int heal) {
         if (getNonlethal() > 0) {
@@ -189,7 +189,8 @@ public class PC extends Combatant {
         }
         Item loot = items.get(item.getName());
         if (loot.getCharges() < item.getCharges()) {
-            return this.getName() + "持有的物品[" + item.getName() + "]数量只有" + loot.getCharges();
+            return this.getName() + "持有的物品[" + item.getName() + "]数量只有"
+                    + loot.getCharges();
         }
         loot.decreaseCharge(item.getCharges());
         if (loot.getCharges() == 0) {
@@ -212,7 +213,8 @@ public class PC extends Combatant {
             return "你没有准备[" + spell.getName() + "]法术";
         }
         if (prepared.getCharges() < spell.getCharges()) {
-            return "你只准备了" + prepared.getCharges() + "个[" + spell.getName() + "]法术";
+            return "你只准备了" + prepared.getCharges() + "个[" + spell.getName()
+                    + "]法术";
         }
         prepared.decreaseCharge(spell.getCharges());
         if (prepared.getCharges() == 0) {

@@ -5,7 +5,8 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "+", args = { CommandSegment.STRING, CommandSegment.NULLABLE_LIST } )
+@IrcCommand(command = "+", args = { CommandSegment.STRING,
+        CommandSegment.NULLABLE_LIST })
 public class AddStateCommand extends UndoableTopicCommand {
 
     private String stateStr;
@@ -20,7 +21,6 @@ public class AddStateCommand extends UndoableTopicCommand {
             System.arraycopy(args, 1, chars, 0, chars.length);
         }
     }
-
 
     public AddStateCommand(String stateStr, String[] chars) {
         super();

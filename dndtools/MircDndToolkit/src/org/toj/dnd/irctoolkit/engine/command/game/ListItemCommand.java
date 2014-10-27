@@ -53,7 +53,7 @@ public class ListItemCommand extends UndoableTopicCommand {
                     sb.append(", ");
                 }
                 sb.append(items.get(i).getName()).append("(")
-                    .append(items.get(i).getCharges()).append(")");
+                        .append(items.get(i).getCharges()).append(")");
                 first = false;
             }
         }

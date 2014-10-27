@@ -6,7 +6,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
 @IrcCommand(command = "thp", args = { CommandSegment.INT,
-    CommandSegment.NULLABLE_LIST })
+        CommandSegment.NULLABLE_LIST })
 public class TempHitPointsCommand extends UndoableTopicCommand {
 
     private String[] chars;

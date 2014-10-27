@@ -7,7 +7,9 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.Item;
 import org.toj.dnd.irctoolkit.game.PC;
 
-@IrcCommand(command = "newitem", args = { CommandSegment.NULLABLE_INT, CommandSegment.NULLABLE_STRING, CommandSegment.STRING, CommandSegment.STRING })
+@IrcCommand(command = "newitem", args = { CommandSegment.NULLABLE_INT,
+        CommandSegment.NULLABLE_STRING, CommandSegment.STRING,
+        CommandSegment.STRING })
 public class NewItemCommand extends UndoableTopicCommand {
 
     private String owner;

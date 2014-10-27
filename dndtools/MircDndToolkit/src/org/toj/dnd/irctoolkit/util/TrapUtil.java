@@ -28,7 +28,7 @@ public class TrapUtil {
     }
 
     private static Map<Integer, List<Trap>> loadTrapListFromFile()
-        throws IOException {
+            throws IOException {
         if (ALL_TRAPS == null) {
             ALL_TRAPS = new HashMap<Integer, List<Trap>>();
             BufferedReader reader = FileIoUtils.getReader(TRAPS_FILE);
@@ -48,7 +48,7 @@ public class TrapUtil {
 
                     String crStr = desc.split(";")[0];
                     int cr = Integer.parseInt(crStr.substring(3).trim());
-                    
+
                     if (!ALL_TRAPS.containsKey(cr)) {
                         ALL_TRAPS.put(cr, new LinkedList<Trap>());
                     }

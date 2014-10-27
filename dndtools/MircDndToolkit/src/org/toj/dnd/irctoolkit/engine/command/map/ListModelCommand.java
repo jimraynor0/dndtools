@@ -21,7 +21,8 @@ public class ListModelCommand extends GameCommand {
     @Override
     public List<OutgoingMsg> execute() {
         for (MapModel model : context.getModelList()) {
-            if ("ALL".equals(models[0]) || contains(models, model.getCh()) || contains(models, model.getDesc())) {
+            if ("ALL".equals(models[0]) || contains(models, model.getCh())
+                    || contains(models, model.getDesc())) {
                 this.msgs.add(new OutgoingMsg(chan, caller, model.toString(),
                         OutgoingMsg.WRITE_TO_MSG, null, -1));
             }

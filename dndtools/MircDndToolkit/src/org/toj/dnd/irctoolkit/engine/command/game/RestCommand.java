@@ -5,7 +5,7 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 
 @IrcCommand(command = "rest", args = {})
 public class RestCommand extends UndoableTopicCommand {
-    
+
     public RestCommand(Object[] args) {
         super();
     }

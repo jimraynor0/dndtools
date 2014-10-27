@@ -7,7 +7,8 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "goto", args = { CommandSegment.NULLABLE_INT, CommandSegment.STRING })
+@IrcCommand(command = "goto", args = { CommandSegment.NULLABLE_INT,
+        CommandSegment.STRING })
 public class GotoCommand extends UndoableTopicCommand {
 
     private String charName;

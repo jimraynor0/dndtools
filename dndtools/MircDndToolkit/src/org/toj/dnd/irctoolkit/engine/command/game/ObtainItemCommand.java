@@ -11,7 +11,8 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.Item;
 import org.toj.dnd.irctoolkit.game.PC;
 
-@IrcCommand(command = "takeloot", args = { CommandSegment.STRING, CommandSegment.LIST })
+@IrcCommand(command = "takeloot", args = { CommandSegment.STRING,
+        CommandSegment.LIST })
 public class ObtainItemCommand extends UndoableTopicCommand {
 
     private String owner;
@@ -25,7 +26,8 @@ public class ObtainItemCommand extends UndoableTopicCommand {
         for (String itemStr : lootString.split("\\|")) {
             Item item = null;
             if (itemStr.contains("*")) {
-                item = new Item(itemStr.split("\\*")[0], Integer.parseInt(itemStr.split("\\*")[1]));
+                item = new Item(itemStr.split("\\*")[0],
+                        Integer.parseInt(itemStr.split("\\*")[1]));
             } else {
                 item = new Item(itemStr, 1);
             }
@@ -57,7 +59,8 @@ public class ObtainItemCommand extends UndoableTopicCommand {
                 takeLootString += item;
             }
 
-            LogCommand logCommand = new LogCommand(new Object[] {"分配团队物品|" + owner + "从团队物品中拿走了" + takeLootString});
+            LogCommand logCommand = new LogCommand(new Object[] { "分配团队物品|"
+                    + owner + "从团队物品中拿走了" + takeLootString });
             logCommand.setCaller(caller);
             ToolkitEngine.getEngine().queueCommand(logCommand);
         } else {

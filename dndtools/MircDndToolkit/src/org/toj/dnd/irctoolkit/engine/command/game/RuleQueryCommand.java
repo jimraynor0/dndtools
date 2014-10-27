@@ -9,7 +9,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 import org.toj.dnd.irctoolkit.rules.RuleBook;
 
-@IrcCommand(command="rule", args = {CommandSegment.LIST})
+@IrcCommand(command = "rule", args = { CommandSegment.LIST })
 public class RuleQueryCommand extends GameCommand {
 
     private String elements;

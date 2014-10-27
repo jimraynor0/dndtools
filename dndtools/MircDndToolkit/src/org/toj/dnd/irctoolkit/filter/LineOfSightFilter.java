@@ -101,16 +101,19 @@ public class LineOfSightFilter extends MapFilter {
                 if (y < 0 || y >= originalMap[0].length) {
                     continue;
                 }
-                
-                double distance = Math.sqrt(Math.pow(x - p.getX(), 2) + Math.pow(y - p.getY(), 2));
-                if (distance > d + 1 - p.getOneAndHalfSquareSlope() || distance < d - p.getOneAndHalfSquareSlope()) {
+
+                double distance = Math.sqrt(Math.pow(x - p.getX(), 2)
+                        + Math.pow(y - p.getY(), 2));
+                if (distance > d + 1 - p.getOneAndHalfSquareSlope()
+                        || distance < d - p.getOneAndHalfSquareSlope()) {
                     continue;
                 }
-                
-//                if (x != p.getX() - d && x != p.getX() + d && y != p.getY() - d
-//                        && y != p.getY() + d) {
-//                    continue;
-//                }
+
+                // if (x != p.getX() - d && x != p.getX() + d && y != p.getY() -
+                // d
+                // && y != p.getY() + d) {
+                // continue;
+                // }
                 if (resolveVisibilityBetween(p.getX(), p.getY(), x, y)) {
                     blockedInAllDirection = false;
                 }

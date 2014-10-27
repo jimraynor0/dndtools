@@ -5,7 +5,8 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "-", args = { CommandSegment.INT, CommandSegment.NULLABLE_LIST })
+@IrcCommand(command = "-", args = { CommandSegment.INT,
+        CommandSegment.NULLABLE_LIST })
 public class DamageCommand extends UndoableTopicCommand {
 
     private int value;
