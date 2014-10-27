@@ -38,10 +38,6 @@ public class IrcCommandFactory {
     private static final String THP = "thp";
     private static final String MINUS = "-";
     private static final String PLUS = "+";
-    private static final String HEAL = "heal";
-    private static final String DAMAGE = "damage";
-    private static final String DMG = "dmg";
-    private static final String DAM = "dam";
 
     private static final String[] SPECIAL_COMMANDS = { "+", "-", "thp", "dmg",
             "heal" };
@@ -152,12 +148,9 @@ public class IrcCommandFactory {
         if (cmd.length < 1) {
             return "";
         }
-        if (cmd[0].equalsIgnoreCase(DMG) || cmd[0].equalsIgnoreCase(MINUS)
-                || cmd[0].equalsIgnoreCase(DAMAGE)
-                || cmd[0].equalsIgnoreCase(DAM)) {
+        if (cmd[0].equalsIgnoreCase(MINUS)) {
             cmd[0] = MINUS + value;
-        } else if (cmd[0].equalsIgnoreCase(PLUS)
-                || cmd[0].equalsIgnoreCase(HEAL)) {
+        } else if (cmd[0].equalsIgnoreCase(PLUS)) {
             cmd[0] = PLUS + value;
         } else if (cmd[0].equalsIgnoreCase(THP)) {
             cmd[0] = THP + value;
