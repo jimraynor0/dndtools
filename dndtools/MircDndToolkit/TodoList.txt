@@ -1,5 +1,6 @@
 fix same init number issue
 make states behavior act on events rather than commands.
+add regen state
 
 add param editor to map gen
 add traps to map gen

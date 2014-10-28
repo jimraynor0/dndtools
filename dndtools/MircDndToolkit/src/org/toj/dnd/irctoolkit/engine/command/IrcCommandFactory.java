@@ -35,12 +35,7 @@ public class IrcCommandFactory {
         }
     }
 
-    private static final String THP = "thp";
-    private static final String MINUS = "-";
-    private static final String PLUS = "+";
-
-    private static final String[] SPECIAL_COMMANDS = { "+", "-", "thp", "dmg",
-            "heal" };
+    private static final String[] SPECIAL_COMMANDS = { "+", "-", "thp", "nonlethal", "nl" };
 
     public static Command buildCommand(String cmdStr, InetAddress addr, int port) {
         boolean forceUpdateTopic = false;
@@ -105,7 +100,11 @@ public class IrcCommandFactory {
             if (parts[0].startsWith(spCmd) && !spCmd.equals(parts[0])) {
                 String[] formalized = new String[parts.length + 1];
                 System.arraycopy(parts, 0, formalized, 1, parts.length);
-                formalized[0] = spCmd;
+                if (spCmd.equals("nl")) {
+                    formalized[0] = "nonlethal";
+                } else {
+                    formalized[0] = spCmd;
+                }
                 formalized[1] = formalized[1].substring(spCmd.length());
                 log.debug("parts formalized: " + Arrays.toString(formalized));
                 return formalized;
@@ -148,13 +147,16 @@ public class IrcCommandFactory {
         if (cmd.length < 1) {
             return "";
         }
-        if (cmd[0].equalsIgnoreCase(MINUS)) {
-            cmd[0] = MINUS + value;
-        } else if (cmd[0].equalsIgnoreCase(PLUS)) {
-            cmd[0] = PLUS + value;
-        } else if (cmd[0].equalsIgnoreCase(THP)) {
-            cmd[0] = THP + value;
-        } else {
+
+        boolean isSpecialOp = false;
+        for (String specialOp : SPECIAL_COMMANDS) {
+            if (cmd[0].equalsIgnoreCase(specialOp)) {
+                cmd[0] = specialOp + value;
+                isSpecialOp = true;
+                break;
+            }
+        }
+        if (!isSpecialOp) {
             cmd[0] = cmd[0] + " " + value;
         }
 
