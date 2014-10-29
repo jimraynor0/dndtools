@@ -1,6 +1,7 @@
 package org.toj.dnd.irctoolkit.game.battle;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -187,7 +188,7 @@ public class Battle implements Cloneable {
     }
 
     public void go(Combatant c, int round) {
-        if (round >= 0 && c != null) {
+        if (round >= 0 && c != null && current != null) {
             fireInitiativeChange(round, c.getInit());
         }
         // fire battle event
@@ -427,7 +428,9 @@ public class Battle implements Cloneable {
     }
 
     public List<String> getEventResultBuffer() {
-        return eventResultBuffer;
+        List<String> events = new ArrayList<String>(eventResultBuffer);
+        eventResultBuffer.clear();
+        return events;
     }
 
     @Override
