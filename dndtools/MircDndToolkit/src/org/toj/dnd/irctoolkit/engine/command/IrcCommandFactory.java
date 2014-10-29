@@ -11,6 +11,8 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.reflections.Reflections;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
+import org.toj.dnd.irctoolkit.engine.command.game.DamageCommand;
+import org.toj.dnd.irctoolkit.engine.command.game.HealCommand;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.io.pircbot.IrcClient;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
@@ -28,7 +30,13 @@ public class IrcCommandFactory {
     }
 
     private static void addToCmdClasses(Set<Class<? extends GameCommand>> cmds) {
+        // make sure heal and damage is at the top, otherwise addstate/removestate command will take over all .+/.- commands.
+        cmdClasses.add(HealCommand.class);
+        cmdClasses.add(DamageCommand.class);
         for (Class<? extends GameCommand> c : cmds) {
+            if (cmdClasses.contains(c)) {
+                continue;
+            }
             if (c.isAnnotationPresent(IrcCommand.class)) {
                 cmdClasses.add(c);
             }
