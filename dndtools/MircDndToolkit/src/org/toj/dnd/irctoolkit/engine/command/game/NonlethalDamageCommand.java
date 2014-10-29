@@ -25,16 +25,24 @@ public class NonlethalDamageCommand extends UndoableTopicCommand {
     @Override
     public void doProcess() throws ToolkitCommandException {
         if (chars.length == 0) {
-            getGame().findCharByNameOrAbbre(caller).nonlethalDamage(value);
+            dealNonLethalDmg(caller);
         } else {
             for (String charName : chars) {
-                getGame().findCharByNameOrAbbre(charName)
-                        .nonlethalDamage(value);
+                dealNonLethalDmg(charName);
             }
         }
         sendTopic(getGame().generateTopic());
         if (topicRefreshNeeded) {
             refreshTopic();
+        }
+    }
+
+    private void dealNonLethalDmg(String charName) {
+        if (getGame().inBattle()) {
+            getGame().getBattle().findCharByNameOrAbbre(charName)
+                    .nonlethalDamage(value);
+        } else {
+            getGame().findCharByNameOrAbbre(charName).nonlethalDamage(value);
         }
     }
 }

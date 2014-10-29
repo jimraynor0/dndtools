@@ -40,8 +40,12 @@ public class Combatant implements Cloneable {
         this();
         this.name = e.elementTextTrim("name");
         this.wound = Integer.parseInt(e.elementTextTrim("wound"));
-        this.nonlethal = Integer.parseInt(e.elementTextTrim("nonlethal"));
-        this.thp = Integer.parseInt(e.elementTextTrim("thp"));
+        if (e.element("nonlethal") != null) {
+            this.nonlethal = Integer.parseInt(e.elementTextTrim("nonlethal"));
+        }
+        if (e.element("thp") != null) {
+            this.thp = Integer.parseInt(e.elementTextTrim("thp"));
+        }
         this.init = Double.parseDouble(e.elementTextTrim("init"));
 
         if (e.element("states") != null) {

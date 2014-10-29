@@ -1,7 +1,7 @@
 <Configuration status="info">
 	<Loggers>
 		<Logger name="log4j.logger.org.toj.dnd.irctoolkit.mapgenerator" level="debug"/>
-		<Root level="info">
+		<Root level="debug">
 			<AppenderRef ref="Console" />
 		</Root>
 	</Loggers>
