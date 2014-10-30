@@ -3,6 +3,7 @@ package org.toj.dnd.irctoolkit.game.battle;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.toj.dnd.irctoolkit.game.battle.behavior.DotBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.EndsInAFewTurnsBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.FastHealingBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.StateBehavior;
@@ -93,12 +94,21 @@ public class State implements Cloneable {
             getBehaviorList().add(
                     new FastHealingBehavior(Integer.parseInt(heal), this));
         }
+        if (isDamageOverTime(name)) {
+            String dot = name.substring(TYPE_DOT.length());
+            getBehaviorList()
+                    .add(new DotBehavior(Integer.parseInt(dot), this));
+        }
     }
 
     private void buildEndConditionBehavior() {
         if (StringNumberUtil.isInteger(endCondition)) {
             getBehaviorList().add(new EndsInAFewTurnsBehavior(this));
         }
+    }
+
+    private boolean isDamageOverTime(String name) {
+        return name.toLowerCase().startsWith(TYPE_DOT);
     }
 
     private boolean isFastHealing(String name) {
