@@ -6,6 +6,7 @@ import java.util.List;
 import org.toj.dnd.irctoolkit.game.battle.behavior.DotBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.EndsInAFewTurnsBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.FastHealingBehavior;
+import org.toj.dnd.irctoolkit.game.battle.behavior.RegenerationBehavior;
 import org.toj.dnd.irctoolkit.game.battle.behavior.StateBehavior;
 import org.toj.dnd.irctoolkit.game.battle.event.BattleEvent;
 import org.toj.dnd.irctoolkit.util.StringNumberUtil;
@@ -15,6 +16,7 @@ public class State implements Cloneable {
 
     private static final String TYPE_DOT = "dot";
     private static final String TYPE_FAST_HEALING = "fh";
+    private static final String TYPE_REGEN = "regen";
 
     public static State parseState(String stateStr, int round, double init) {
         String[] stateParams = stateStr.split("\\|");
@@ -99,6 +101,11 @@ public class State implements Cloneable {
             getBehaviorList()
                     .add(new DotBehavior(Integer.parseInt(dot), this));
         }
+        if (isRegen(name)) {
+            String regen = name.substring(TYPE_REGEN.length());
+            getBehaviorList()
+                    .add(new RegenerationBehavior(Integer.parseInt(regen), this));
+        }
     }
 
     private void buildEndConditionBehavior() {
@@ -113,6 +120,10 @@ public class State implements Cloneable {
 
     private boolean isFastHealing(String name) {
         return name.toLowerCase().startsWith(TYPE_FAST_HEALING);
+    }
+
+    private boolean isRegen(String name) {
+        return name.toLowerCase().startsWith(TYPE_REGEN);
     }
 
     private LinkedList<StateBehavior> getBehaviorList() {

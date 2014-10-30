@@ -103,6 +103,13 @@ public class Combatant implements Cloneable {
         }
     }
 
+    public void healNonLethal(int heal) {
+        nonlethal -= heal;
+        if (nonlethal < 0) {
+            nonlethal = 0;
+        }
+    }
+
     public void setThp(int thp) {
         this.thp = thp;
     }
