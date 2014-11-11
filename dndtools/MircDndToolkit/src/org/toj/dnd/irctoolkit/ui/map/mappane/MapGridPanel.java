@@ -1,17 +1,24 @@
 package org.toj.dnd.irctoolkit.ui.map.mappane;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.toj.dnd.irctoolkit.engine.ReadonlyContext;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
+import org.toj.dnd.irctoolkit.engine.command.map.AddOrUpdateFilterCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.EraseWithinAreaCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.FillAreaWithCommand;
 import org.toj.dnd.irctoolkit.engine.observers.MapGridObserver;
+import org.toj.dnd.irctoolkit.filter.MapFilter;
 import org.toj.dnd.irctoolkit.map.MapGrid;
 import org.toj.dnd.irctoolkit.map.MapModel;
 import org.toj.dnd.irctoolkit.ui.map.data.MapGridWrapper;
@@ -25,6 +32,8 @@ public class MapGridPanel extends JTable implements MapGridObserver {
 
     public static final String MODE_EDITING = "editing";
     public static final String MODE_CONTROLLING = "controlling";
+
+    public static boolean isCtrlDown = false;
 
     private SelectionListener selectionListener;
 
@@ -46,6 +55,16 @@ public class MapGridPanel extends JTable implements MapGridObserver {
 
         this.setDefaultRenderer(this.getColumnClass(0), new MapCellRenderer());
 
+        this.addMouseListener(new MouseAdapter() {
+            private Logger log = Logger.getLogger(this.getClass());
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if ((e.getModifiersEx() & MouseEvent.CTRL_DOWN_MASK) == MouseEvent.CTRL_DOWN_MASK) {
+                    isCtrlDown = true;
+                }
+            }
+        });
         this.setTransferHandler(new MoveObjectTransferHandler(this,
                 ToolkitEngine.getEngine().getContext()));
         this.setEditMode(MODE_EDITING);
@@ -98,10 +117,23 @@ public class MapGridPanel extends JTable implements MapGridObserver {
                 // Row selection changed
                 selectionFinished = !selectionFinished;
             }
+
             if (selectionFinished) {
-                if (log.isDebugEnabled()) {
-                    log.debug(e.toString());
+                if (isCtrlDown) {
+                    
+                    int xMin = table.getSelectedColumns()[0];
+                    int xMax = table.getSelectedColumns()[table.getSelectedColumns().length - 1];
+                    int yMin = table.getSelectedRows()[0];
+                    int yMax = table.getSelectedRows()[table.getSelectedColumns().length - 1];
+                    MapFilter filter = MapFilter.MapFilterFactory.createFilter(
+                            MapFilter.TYPE_CROP_FILTER, StringUtils.join(new Integer[]{xMin, xMax, yMin, yMax}, ","));
+                    filter.setActive(true);
+                    if (filter != null) {
+                        ToolkitEngine.getEngine().queueCommand(
+                                new AddOrUpdateFilterCommand(filter, -1));
+                    }
                 }
+                isCtrlDown = false;
                 if (MapModel.getSelectionMode() == MapModel.MODE_DRAW
                         && MapModel.getFirstSelection() != null) {
                     ToolkitEngine.getEngine().queueCommand(
