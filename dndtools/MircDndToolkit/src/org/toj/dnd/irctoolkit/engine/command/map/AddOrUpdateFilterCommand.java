@@ -9,6 +9,15 @@ public class AddOrUpdateFilterCommand extends MapCommand {
     private MapFilter filter;
     private int index;
 
+    public AddOrUpdateFilterCommand(MapFilter filter, Class filterClass) {
+        this.filter = filter;
+        for (MapFilter f : context.getFilterList()) {
+            if (filterClass.isInstance(f)) {
+                this.index = context.getFilterList().indexOf(f);
+            }
+        }
+    }
+
     public AddOrUpdateFilterCommand(MapFilter filter, int index) {
         this.filter = filter;
         this.index = index;

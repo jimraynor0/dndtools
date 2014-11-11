@@ -3,6 +3,7 @@ package org.toj.dnd.irctoolkit.ui.map.mappane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Arrays;
 
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JTable;
@@ -18,6 +19,7 @@ import org.toj.dnd.irctoolkit.engine.command.map.AddOrUpdateFilterCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.EraseWithinAreaCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.FillAreaWithCommand;
 import org.toj.dnd.irctoolkit.engine.observers.MapGridObserver;
+import org.toj.dnd.irctoolkit.filter.CropFilter;
 import org.toj.dnd.irctoolkit.filter.MapFilter;
 import org.toj.dnd.irctoolkit.map.MapGrid;
 import org.toj.dnd.irctoolkit.map.MapModel;
@@ -120,7 +122,9 @@ public class MapGridPanel extends JTable implements MapGridObserver {
 
             if (selectionFinished) {
                 if (isCtrlDown) {
-                    
+                    isCtrlDown = false;
+                    log.debug("table.getSelectedColumns(): " + Arrays.toString(table.getSelectedColumns()));
+                    log.debug("table.getSelectedRows(): " + Arrays.toString(table.getSelectedRows()));
                     int xMin = table.getSelectedColumns()[0];
                     int xMax = table.getSelectedColumns()[table.getSelectedColumns().length - 1];
                     int yMin = table.getSelectedRows()[0];
@@ -130,10 +134,10 @@ public class MapGridPanel extends JTable implements MapGridObserver {
                     filter.setActive(true);
                     if (filter != null) {
                         ToolkitEngine.getEngine().queueCommand(
-                                new AddOrUpdateFilterCommand(filter, -1));
+                                new AddOrUpdateFilterCommand(filter, CropFilter.class));
                     }
+                    return;
                 }
-                isCtrlDown = false;
                 if (MapModel.getSelectionMode() == MapModel.MODE_DRAW
                         && MapModel.getFirstSelection() != null) {
                     ToolkitEngine.getEngine().queueCommand(
