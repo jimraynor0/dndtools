@@ -1,19 +1,24 @@
 package org.toj.dnd.irctoolkit.engine.command.map;
 
+import org.apache.log4j.Logger;
 import org.toj.dnd.irctoolkit.engine.command.MapCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.filter.MapFilter;
 
 public class AddOrUpdateFilterCommand extends MapCommand {
+    protected Logger log = Logger.getLogger(this.getClass());
 
     private MapFilter filter;
-    private int index;
+    private int index = -1;
 
     public AddOrUpdateFilterCommand(MapFilter filter, Class filterClass) {
         this.filter = filter;
+        log.debug("filter list size: " + context.getFilterList().size());
         for (MapFilter f : context.getFilterList()) {
+            log.debug("checking against filter: " + f.getType());
             if (filterClass.isInstance(f)) {
                 this.index = context.getFilterList().indexOf(f);
+                log.debug("index found: " + index);
             }
         }
     }
@@ -26,8 +31,10 @@ public class AddOrUpdateFilterCommand extends MapCommand {
     @Override
     protected void doExecute() throws ToolkitCommandException {
         if (index == -1) {
+            log.debug("creating filter: " + filter);
             context.getFilterList().add(filter);
         } else {
+            log.debug("updating filter: " + filter);
             context.getFilterList().set(index, filter);
         }
     }

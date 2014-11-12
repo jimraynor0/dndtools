@@ -199,43 +199,18 @@ public class MapModelPane extends JPanel {
             public void actionPerformed(final ActionEvent e) {
                 String mode = ((String) ((JComboBox) e.getSource())
                         .getSelectedItem());
-                getMapGridPanel().clearSelection();
                 if (EDIT_MODE_ERASER.equals(mode)) {
-                    getMapGridPanel().setEditMode(MapGridPanel.MODE_EDITING);
-                    MapModel.setSelectionMode(MapModel.MODE_ERASE);
+                    getMapGridPanel().setEditMode(MapGridPanel.MODE_REMOVING);
                 } else if (EDIT_MODE_MOVE.equals(mode)) {
-                    MapModel.setSelectionMode(MapModel.MODE_DRAW);
                     getMapGridPanel()
                             .setEditMode(MapGridPanel.MODE_CONTROLLING);
                 } else {
-                    MapModel.setSelectionMode(MapModel.MODE_DRAW);
                     getMapGridPanel().setEditMode(MapGridPanel.MODE_EDITING);
                 }
+                getMapGridPanel().clearSelection();
             }
         });
-        /*
-         * JToggleButton bEraser = new JToggleButton("擦除模式");
-         * bEraser.setPreferredSize(SIZE_BUTTON);
-         * bEraser.setMargin(INSETS_BUTTON); bEraser.addItemListener(new
-         * ItemListener() {
-         * 
-         * @Override public void itemStateChanged(ItemEvent e) { if
-         * (e.getStateChange() == ItemEvent.SELECTED) {
-         * MapModel.setSelectionMode(MapModel.MODE_ERASE); } else {
-         * MapModel.setSelectionMode(MapModel.MODE_DRAW); } } });
-         * 
-         * JToggleButton bSelectionMode = new JToggleButton("绘图模式");
-         * bSelectionMode.setPreferredSize(SIZE_BUTTON);
-         * bSelectionMode.setMargin(INSETS_BUTTON);
-         * bSelectionMode.addItemListener(new ItemListener() {
-         * 
-         * @Override public void itemStateChanged(ItemEvent e) { if
-         * (e.getStateChange() == ItemEvent.SELECTED) { ((JToggleButton)
-         * e.getSource()).setText("移动模式"); getMapGridPanel()
-         * .setEditMode(MapGridPanel.MODE_CONTROLLING); } else {
-         * ((JToggleButton) e.getSource()).setText("绘图模式");
-         * getMapGridPanel().setEditMode(MapGridPanel.MODE_EDITING); } } });
-         */
+
         JButton bImportModels = new JButton("载入默认符号");
         bImportModels.setPreferredSize(SIZE_BUTTON);
         bImportModels.setMargin(INSETS_BUTTON);

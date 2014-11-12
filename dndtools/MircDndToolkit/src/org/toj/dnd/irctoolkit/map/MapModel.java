@@ -12,11 +12,7 @@ import org.toj.dnd.irctoolkit.util.XmlUtil;
 public class MapModel implements Serializable {
     private static final long serialVersionUID = -4894500322186180868L;
 
-    public static final String MODE_DRAW = "draw";
-    public static final String MODE_ERASE = "erase";
-
     private static List<MapModel> currentSelection;
-    private static String selectionMode = MapModel.MODE_DRAW;
 
     public static MapModel getFirstSelection() {
         if (currentSelection == null || currentSelection.isEmpty()) {
@@ -36,14 +32,6 @@ public class MapModel implements Serializable {
 
     public static boolean hasSelection() {
         return getCurrentSelection() != null;
-    }
-
-    public static String getSelectionMode() {
-        return selectionMode;
-    }
-
-    public static void setSelectionMode(String selectionMode) {
-        MapModel.selectionMode = selectionMode;
     }
 
     private Color foreground = Color.BLACK;

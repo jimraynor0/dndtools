@@ -62,47 +62,4 @@ public class PcViewPanel extends JTable implements PcViewObserver {
         ((MapViewWrapper) this.getModel()).fireTableStructureChanged();
         initColumnModel();
     }
-
-    private static final class SelectionListener implements
-            ListSelectionListener {
-
-        private PcViewPanel table;
-        private boolean selectionFinished = true;
-
-        public SelectionListener(PcViewPanel mapGridTable) {
-            this.table = mapGridTable;
-        }
-
-        @Override
-        public void valueChanged(ListSelectionEvent e) {
-            if (e.getValueIsAdjusting()) {
-                return;
-            }
-            if (e.getSource() == table.getSelectionModel()
-                    && table.getRowSelectionAllowed()) {
-                // Column selection changed
-                selectionFinished = !selectionFinished;
-            } else if (e.getSource() == table.getColumnModel()
-                    .getSelectionModel() && table.getColumnSelectionAllowed()) {
-                // Row selection changed
-                selectionFinished = !selectionFinished;
-            }
-            if (selectionFinished) {
-                if (MapModel.getSelectionMode() == MapModel.MODE_DRAW
-                        && MapModel.getFirstSelection() != null) {
-                    ToolkitEngine.getEngine().queueCommand(
-                            new FillAreaWithCommand(table.getSelectedColumns(),
-                                    table.getSelectedRows(), MapModel
-                                            .getFirstSelection()));
-                } else if (MapModel.getSelectionMode() == MapModel.MODE_ERASE) {
-                    ToolkitEngine.getEngine().queueCommand(
-                            new EraseWithinAreaCommand(table
-                                    .getSelectedColumns(), table
-                                    .getSelectedRows()));
-                }
-                table.clearSelection();
-                table.getColumnModel().getSelectionModel().clearSelection();
-            }
-        }
-    }
 }

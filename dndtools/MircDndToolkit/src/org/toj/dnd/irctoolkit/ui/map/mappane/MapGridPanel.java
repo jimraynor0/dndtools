@@ -2,42 +2,33 @@ package org.toj.dnd.irctoolkit.ui.map.mappane;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.swing.DefaultListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.toj.dnd.irctoolkit.engine.ReadonlyContext;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
-import org.toj.dnd.irctoolkit.engine.command.map.AddOrUpdateFilterCommand;
-import org.toj.dnd.irctoolkit.engine.command.map.EraseWithinAreaCommand;
-import org.toj.dnd.irctoolkit.engine.command.map.FillAreaWithCommand;
 import org.toj.dnd.irctoolkit.engine.observers.MapGridObserver;
-import org.toj.dnd.irctoolkit.filter.CropFilter;
-import org.toj.dnd.irctoolkit.filter.MapFilter;
 import org.toj.dnd.irctoolkit.map.MapGrid;
-import org.toj.dnd.irctoolkit.map.MapModel;
 import org.toj.dnd.irctoolkit.ui.map.data.MapGridWrapper;
 
 public class MapGridPanel extends JTable implements MapGridObserver {
     private static final long serialVersionUID = 1959388793918690973L;
 
-    // private Logger log = Logger.getLogger(this.getClass());
+    private Logger log = Logger.getLogger(this.getClass());
 
     private static final int CELL_WIDTH_AND_HEIGHT = 22;
 
+    public static final String MODE_REMOVING = "removing";
     public static final String MODE_EDITING = "editing";
+    public static final String MODE_CROPPING = "cropping";
     public static final String MODE_CONTROLLING = "controlling";
 
-    public static boolean isCtrlDown = false;
-
-    private SelectionListener selectionListener;
+    private SelectionCompleteListener selectionListener;
+    private String prevMode;
 
     public MapGridPanel(ReadonlyContext context) {
         ToolkitEngine.getEngine().addMapGridObserver(this);
@@ -63,12 +54,16 @@ public class MapGridPanel extends JTable implements MapGridObserver {
             @Override
             public void mousePressed(MouseEvent e) {
                 if ((e.getModifiersEx() & MouseEvent.CTRL_DOWN_MASK) == MouseEvent.CTRL_DOWN_MASK) {
-                    isCtrlDown = true;
+                    prevMode = selectionListener.getMode();
+                    log.debug("mouse pressed with ctrl. prevMode: " + prevMode);
+                    setEditMode(MODE_CROPPING);
                 }
             }
         });
         this.setTransferHandler(new MoveObjectTransferHandler(this,
                 ToolkitEngine.getEngine().getContext()));
+
+        selectionListener = new SelectionCompleteListener(this);
         this.setEditMode(MODE_EDITING);
     }
 
@@ -91,99 +86,28 @@ public class MapGridPanel extends JTable implements MapGridObserver {
         initColumnModel();
     }
 
-    private final class SelectionListener implements ListSelectionListener {
-        private Logger log = Logger.getLogger(this.getClass());
-
-        private MapGridPanel table;
-        private boolean selectionFinished = true;
-
-        public SelectionListener(MapGridPanel mapGridTable) {
-            this.table = mapGridTable;
-        }
-
-        @Override
-        public void valueChanged(ListSelectionEvent e) {
-            if (e.getValueIsAdjusting()
-                    || ((DefaultListSelectionModel) e.getSource())
-                            .getMinSelectionIndex() == -1
-                    || ((DefaultListSelectionModel) e.getSource())
-                            .getMaxSelectionIndex() == -1) {
-                return;
-            }
-            if (e.getSource() == table.getSelectionModel()
-                    && table.getRowSelectionAllowed()) {
-                // Column selection changed
-                selectionFinished = !selectionFinished;
-            } else if (e.getSource() == table.getColumnModel()
-                    .getSelectionModel() && table.getColumnSelectionAllowed()) {
-                // Row selection changed
-                selectionFinished = !selectionFinished;
-            }
-
-            if (selectionFinished) {
-                if (isCtrlDown) {
-                    isCtrlDown = false;
-                    log.debug("table.getSelectedColumns(): " + Arrays.toString(table.getSelectedColumns()));
-                    log.debug("table.getSelectedRows(): " + Arrays.toString(table.getSelectedRows()));
-                    int xMin = table.getSelectedColumns()[0];
-                    int xMax = table.getSelectedColumns()[table.getSelectedColumns().length - 1];
-                    int yMin = table.getSelectedRows()[0];
-                    int yMax = table.getSelectedRows()[table.getSelectedColumns().length - 1];
-                    MapFilter filter = MapFilter.MapFilterFactory.createFilter(
-                            MapFilter.TYPE_CROP_FILTER, StringUtils.join(new Integer[]{xMin, xMax, yMin, yMax}, ","));
-                    filter.setActive(true);
-                    if (filter != null) {
-                        ToolkitEngine.getEngine().queueCommand(
-                                new AddOrUpdateFilterCommand(filter, CropFilter.class));
-                    }
-                    return;
-                }
-                if (MapModel.getSelectionMode() == MapModel.MODE_DRAW
-                        && MapModel.getFirstSelection() != null) {
-                    ToolkitEngine.getEngine().queueCommand(
-                            new FillAreaWithCommand(table.getSelectedColumns(),
-                                    table.getSelectedRows(), MapModel
-                                            .getFirstSelection()));
-                } else if (MapModel.getSelectionMode() == MapModel.MODE_ERASE
-                        && MapModel.getFirstSelection() != null) {
-                    ToolkitEngine.getEngine().queueCommand(
-                            new EraseWithinAreaCommand(table
-                                    .getSelectedColumns(), table
-                                    .getSelectedRows(), MapModel
-                                    .getCurrentSelection()));
-                } else if (MapModel.getSelectionMode() == MapModel.MODE_ERASE
-                        && MapModel.getFirstSelection() == null) {
-                    ToolkitEngine.getEngine().queueCommand(
-                            new EraseWithinAreaCommand(table
-                                    .getSelectedColumns(), table
-                                    .getSelectedRows()));
-                }
-                table.clearSelection();
-                table.getColumnModel().getSelectionModel().clearSelection();
-            }
-        }
-    }
-
     public void setEditMode(String mode) {
-        if (mode == MODE_EDITING) {
-            this.setDragEnabled(false);
-            this.getSelectionModel().addListSelectionListener(
-                    getSelectionListener());
-            this.getColumnModel().getSelectionModel()
-                    .addListSelectionListener(getSelectionListener());
-        } else {
+        log.debug("switching to mode: " + mode);
+        if (mode == MODE_CONTROLLING) {
             this.getSelectionModel().removeListSelectionListener(
-                    getSelectionListener());
+                    selectionListener);
             this.getColumnModel().getSelectionModel()
-                    .removeListSelectionListener(getSelectionListener());
+                    .removeListSelectionListener(selectionListener);
             this.setDragEnabled(true);
+            log.debug("drag & drop enabled.");
+        } else {
+            this.setDragEnabled(false);
+            log.debug("drag & drop disabled.");
+            selectionListener.setMode(mode);
+            this.getSelectionModel()
+                    .addListSelectionListener(selectionListener);
+            this.getColumnModel().getSelectionModel()
+                    .addListSelectionListener(selectionListener);
+            log.debug("selectionListener set to mode: " + mode);
         }
     }
 
-    private SelectionListener getSelectionListener() {
-        if (selectionListener == null) {
-            selectionListener = new SelectionListener(this);
-        }
-        return selectionListener;
+    public String getPrevMode() {
+        return prevMode;
     }
 }
