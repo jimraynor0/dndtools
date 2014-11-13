@@ -35,6 +35,7 @@ import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
 import org.toj.dnd.irctoolkit.engine.command.map.AddOrUpdateModelCommand;
 import org.toj.dnd.irctoolkit.engine.command.map.RemoveModelCommand;
 import org.toj.dnd.irctoolkit.map.MapModel;
+import org.toj.dnd.irctoolkit.ui.StyleConstants;
 import org.toj.dnd.irctoolkit.ui.map.data.MapModelListWrapper;
 import org.toj.dnd.irctoolkit.ui.map.mappane.MapGridPanel;
 
@@ -128,14 +129,12 @@ public class MapModelPane extends JPanel {
                         JLabel label = new JLabel();
                         panel.add(label);
 
-                        // label.setSize(new Dimension(18, 18));
                         label.setBounds(new Rectangle((34 - 20) / 2,
-                                (21 - 20) / 2, 20, 20));
+                                (21 - 20) / 2, 22, 22));
                         label.setVerticalAlignment(SwingConstants.CENTER);
                         label.setHorizontalAlignment(SwingConstants.CENTER);
-                        // label.setBorder(BorderFactory
-                        // .createLineBorder(java.awt.Color.DARK_GRAY));
-                        label.setFont(new Font(Font.DIALOG, Font.PLAIN, 12));
+
+                        label.setFont(StyleConstants.GLOBAL_FONT);
                         if (model.getBackground() != null) {
                             label.setBackground(model.getBackground()
                                     .getColor());

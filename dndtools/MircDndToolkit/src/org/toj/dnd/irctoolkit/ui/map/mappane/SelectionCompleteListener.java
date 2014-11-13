@@ -24,7 +24,8 @@ public class SelectionCompleteListener implements ListSelectionListener {
     private String mode;
 
     private MapGridPanel table;
-    private boolean selectionFinished = true;
+    private boolean rowSelectionFinished = false;
+    private boolean colSelectionFinished = false;
 
     public SelectionCompleteListener(MapGridPanel mapGridTable) {
         this.table = mapGridTable;
@@ -39,32 +40,35 @@ public class SelectionCompleteListener implements ListSelectionListener {
                         .getMaxSelectionIndex() == -1) {
             return;
         }
-        if (e.getSource() == table.getSelectionModel()
-                && table.getRowSelectionAllowed()) {
+        log.debug("adjusting stopped from "
+                + (e.getSource() == table.getSelectionModel() ? "column"
+                        : "row") + " selection change: " + e);
+        if (e.getSource() == table.getSelectionModel()) {
             // Column selection changed
-            selectionFinished = !selectionFinished;
-        } else if (e.getSource() == table.getColumnModel().getSelectionModel()
-                && table.getColumnSelectionAllowed()) {
+            colSelectionFinished = true;
+        } else if (e.getSource() == table.getColumnModel().getSelectionModel()) {
             // Row selection changed
-            selectionFinished = !selectionFinished;
+            rowSelectionFinished = true;
         }
+        log.debug("column selection finished: " + colSelectionFinished);
+        log.debug("row selection finished: " + rowSelectionFinished);
 
-        if (selectionFinished) {
+        if (colSelectionFinished && rowSelectionFinished) {
             onSelectionFinish();
+            rowSelectionFinished = false;
+            colSelectionFinished = false;
         }
     }
 
     private void onSelectionFinish() {
+        log.debug("onSelectionFinish() called, mode: " + mode);
         if (MapGridPanel.MODE_CONTROLLING.equals(mode)) {
             return;
-        }
-        if (MapGridPanel.MODE_EDITING.equals(mode)) {
+        } else if (MapGridPanel.MODE_EDITING.equals(mode)) {
             drawMapObjects();
-        }
-        if (MapGridPanel.MODE_REMOVING.equals(mode)) {
+        } else if (MapGridPanel.MODE_REMOVING.equals(mode)) {
             removeMapObjects();
-        }
-        if (MapGridPanel.MODE_CROPPING.equals(mode)) {
+        } else if (MapGridPanel.MODE_CROPPING.equals(mode)) {
             createCropFilter();
         }
     }
@@ -92,7 +96,6 @@ public class SelectionCompleteListener implements ListSelectionListener {
     }
 
     private void createCropFilter() {
-        log.debug("creating crop filter...");
         int xMin = getTable().getSelectedColumns()[0];
         int xMax = getTable().getSelectedColumns()[getTable()
                 .getSelectedColumns().length - 1];
@@ -102,7 +105,6 @@ public class SelectionCompleteListener implements ListSelectionListener {
                 .createFilter(MapFilter.TYPE_CROP_FILTER, StringUtils.join(
                         new Integer[] { xMin, xMax, yMin, yMax }, ","));
         filter.setActive(true);
-        log.debug("filter created: " + filter);
         if (filter != null) {
             ToolkitEngine.getEngine().queueCommand(
                     new AddOrUpdateFilterCommand(filter, CropFilter.class));
@@ -110,6 +112,7 @@ public class SelectionCompleteListener implements ListSelectionListener {
 
         log.debug("restoring prevMode: " + getTable().getPrevMode());
         getTable().setEditMode(getTable().getPrevMode());
+        getTable().clearSelection();
     }
 
     public MapGridPanel getTable() {

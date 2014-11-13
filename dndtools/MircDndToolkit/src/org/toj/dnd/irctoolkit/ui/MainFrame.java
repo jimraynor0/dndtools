@@ -38,7 +38,6 @@ public class MainFrame extends JFrame {
     public MainFrame(ReadonlyContext context) {
         this.context = context;
         try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             WebLookAndFeel.install();
         } catch (Exception e) {
             e.printStackTrace();

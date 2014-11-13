@@ -2,7 +2,6 @@ package org.toj.dnd.irctoolkit.ui.map.filterpane.params;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Rectangle;
 
 import javax.swing.BorderFactory;
@@ -17,6 +16,7 @@ import javax.swing.table.TableCellRenderer;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
 import org.toj.dnd.irctoolkit.map.MapModel;
 import org.toj.dnd.irctoolkit.map.MapModelList;
+import org.toj.dnd.irctoolkit.ui.StyleConstants;
 import org.toj.dnd.irctoolkit.ui.map.data.MapModelListWrapper;
 
 public class InvFilterParamComponent extends FilterParamComponent {
@@ -69,7 +69,7 @@ public class InvFilterParamComponent extends FilterParamComponent {
                         label.setHorizontalAlignment(SwingConstants.CENTER);
                         label.setBorder(BorderFactory
                                 .createLineBorder(java.awt.Color.DARK_GRAY));
-                        label.setFont(new Font(Font.DIALOG, Font.PLAIN, 14));
+                        label.setFont(StyleConstants.GLOBAL_FONT);
                         if (model.getBackground() != null) {
                             label.setBackground(model.getBackground()
                                     .getColor());

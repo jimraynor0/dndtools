@@ -15,6 +15,7 @@ import javax.swing.table.TableCellRenderer;
 import org.apache.log4j.Logger;
 import org.toj.dnd.irctoolkit.map.MapGridCell;
 import org.toj.dnd.irctoolkit.token.Color;
+import org.toj.dnd.irctoolkit.ui.StyleConstants;
 
 public class MapCellRenderer extends JLabel implements TableCellRenderer {
     private static final long serialVersionUID = -8140764076998674882L;
@@ -29,7 +30,7 @@ public class MapCellRenderer extends JLabel implements TableCellRenderer {
     public MapCellRenderer() {
         super();
         this.setHorizontalAlignment(SwingConstants.CENTER);
-        this.setFont(new Font(Font.DIALOG, Font.PLAIN, 14));
+        this.setFont(StyleConstants.GLOBAL_FONT);
         this.setOpaque(true);
     }
 
