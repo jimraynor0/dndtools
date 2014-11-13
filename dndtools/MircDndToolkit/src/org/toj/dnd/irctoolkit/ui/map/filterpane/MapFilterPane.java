@@ -3,7 +3,6 @@ package org.toj.dnd.irctoolkit.ui.map.filterpane;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -20,14 +19,13 @@ import javax.swing.ScrollPaneConstants;
 import org.toj.dnd.irctoolkit.engine.ReadonlyContext;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
 import org.toj.dnd.irctoolkit.engine.command.map.RemoveFilterCommand;
+import org.toj.dnd.irctoolkit.ui.StyleConstants;
 import org.toj.dnd.irctoolkit.ui.map.data.MapFilterListWrapper;
 
 public class MapFilterPane extends JPanel {
 
     private static final long serialVersionUID = -4456025525662253885L;
 
-    private static final Insets INSETS_BUTTON = new Insets(0, 0, 0, 0);
-    private static final Dimension SIZE_BUTTON = new Dimension(50, 25);
     private JTable table;
     private MapFilterEditor modelEditor;
 
@@ -67,9 +65,9 @@ public class MapFilterPane extends JPanel {
                 .setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         add(scrollPane);
 
-        JButton bAdd = new JButton("Add");
-        bAdd.setPreferredSize(SIZE_BUTTON);
-        bAdd.setMargin(INSETS_BUTTON);
+        JButton bAdd = new JButton("ÐÂ½¨µØÍ¼ÂË¾µ");
+        bAdd.setPreferredSize(StyleConstants.SIZE_BUTTON);
+        bAdd.setMargin(StyleConstants.INSETS_BUTTON);
         bAdd.addActionListener(new ActionListener() {
 
             @Override
@@ -78,9 +76,9 @@ public class MapFilterPane extends JPanel {
             }
         });
 
-        JButton bDel = new JButton("Delete");
-        bDel.setPreferredSize(SIZE_BUTTON);
-        bDel.setMargin(INSETS_BUTTON);
+        JButton bDel = new JButton("É¾³ýµØÍ¼ÂË¾µ");
+        bDel.setPreferredSize(StyleConstants.SIZE_BUTTON);
+        bDel.setMargin(StyleConstants.INSETS_BUTTON);
         bDel.addActionListener(new ActionListener() {
 
             @Override

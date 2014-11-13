@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Insets;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -13,7 +11,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DropMode;
 import javax.swing.JButton;
@@ -41,36 +38,12 @@ import org.toj.dnd.irctoolkit.ui.map.data.MapModelListWrapper;
 import org.toj.dnd.irctoolkit.ui.map.mappane.MapGridPanel;
 
 import com.alee.laf.combobox.WebComboBoxCellRenderer;
-import com.alee.laf.table.WebTableHeaderUI;
 
 public class MapModelPane extends JPanel {
 
     private static final long serialVersionUID = 4368011483894796637L;
 
     private Logger log = Logger.getLogger(this.getClass());
-
-    private static final int MODEL_PANE_WIDTH = 280;
-
-    private static final Dimension SIZE_CONTROL_PANEL = new Dimension(
-            MODEL_PANE_WIDTH, 64);
-
-    private static final int SIZE_MODEL_LIST_ROW_HEIGHT = 30;
-    private static final Dimension SIZE_MODEL_LIST_HEADER = new Dimension(
-            MODEL_PANE_WIDTH, SIZE_MODEL_LIST_ROW_HEIGHT);
-    private static final Dimension SIZE_MODEL_LIST_COLUMN_0 = new Dimension(44,
-            SIZE_MODEL_LIST_ROW_HEIGHT);
-    private static final Dimension SIZE_MODEL_LIST_COLUMN_1 = new Dimension(
-            115, SIZE_MODEL_LIST_ROW_HEIGHT);
-    private static final Dimension SIZE_MODEL_LIST_COLUMN_2 = new Dimension(44,
-            SIZE_MODEL_LIST_ROW_HEIGHT);
-    private static final Dimension SIZE_MODEL_LIST_COLUMN_3 = new Dimension(56,
-            SIZE_MODEL_LIST_ROW_HEIGHT);
-    private static final Dimension SIZE_ICON_LABEL = new Dimension(22, 22);
-
-    private static final Dimension SIZE_BUTTON = new Dimension(90, 30);
-    private static final Dimension SIZE_DROPDOWN = new Dimension(182, 30);
-
-    private static final Insets INSETS_BUTTON = new Insets(0, 0, 0, 0);
 
     private static final String EDIT_MODE_ERASER = "擦除模式";
     private static final String EDIT_MODE_DRAW = "绘图模式";
@@ -87,23 +60,23 @@ public class MapModelPane extends JPanel {
      */
     public MapModelPane(ReadonlyContext context, MapGridPanel mapGridPanel) {
         setLayout(new BorderLayout(0, 0));
-        this.setPreferredSize(new Dimension(MODEL_PANE_WIDTH, 451));
+        this.setPreferredSize(new Dimension(StyleConstants.MODEL_PANE_WIDTH, 451));
         this.mapGridPanel = mapGridPanel;
 
         table = new JTable();
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         table.setModel(new MapModelListWrapper(context));
-        table.getTableHeader().setPreferredSize(SIZE_MODEL_LIST_HEADER);
-        table.setRowHeight(SIZE_MODEL_LIST_ROW_HEIGHT);
+        table.getTableHeader().setPreferredSize(StyleConstants.SIZE_MODEL_LIST_HEADER);
+        table.setRowHeight(StyleConstants.SIZE_MODEL_LIST_ROW_HEIGHT);
         table.getColumnModel().getColumn(0)
-                .setPreferredWidth(SIZE_MODEL_LIST_COLUMN_0.width);
+                .setPreferredWidth(StyleConstants.SIZE_MODEL_LIST_COLUMN_0.width);
         table.getColumnModel().getColumn(1)
-                .setPreferredWidth(SIZE_MODEL_LIST_COLUMN_1.width);
+                .setPreferredWidth(StyleConstants.SIZE_MODEL_LIST_COLUMN_1.width);
         table.getColumnModel().getColumn(2)
-                .setPreferredWidth(SIZE_MODEL_LIST_COLUMN_2.width);
+                .setPreferredWidth(StyleConstants.SIZE_MODEL_LIST_COLUMN_2.width);
         table.getColumnModel().getColumn(3)
-                .setPreferredWidth(SIZE_MODEL_LIST_COLUMN_3.width);
+                .setPreferredWidth(StyleConstants.SIZE_MODEL_LIST_COLUMN_3.width);
         table.setRowSelectionAllowed(true);
         table.setColumnSelectionAllowed(false);
         table.setDragEnabled(true);
@@ -160,9 +133,9 @@ public class MapModelPane extends JPanel {
                         panel.add(label);
 
                         label.setBounds(
-                                (SIZE_MODEL_LIST_COLUMN_0.width - SIZE_ICON_LABEL.width) / 2,
-                                (SIZE_MODEL_LIST_COLUMN_0.height - SIZE_ICON_LABEL.height) / 2,
-                                SIZE_ICON_LABEL.width, SIZE_ICON_LABEL.height);
+                                (StyleConstants.SIZE_MODEL_LIST_COLUMN_0.width - StyleConstants.SIZE_ICON_LABEL.width) / 2,
+                                (StyleConstants.SIZE_MODEL_LIST_COLUMN_0.height - StyleConstants.SIZE_ICON_LABEL.height) / 2,
+                                StyleConstants.SIZE_ICON_LABEL.width, StyleConstants.SIZE_ICON_LABEL.height);
                         label.setVerticalAlignment(SwingConstants.CENTER);
                         label.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -188,8 +161,8 @@ public class MapModelPane extends JPanel {
         add(scrollPane);
 
         JButton bAdd = new JButton("新建地图符号");
-        bAdd.setPreferredSize(SIZE_BUTTON);
-        bAdd.setMargin(INSETS_BUTTON);
+        bAdd.setPreferredSize(StyleConstants.SIZE_BUTTON);
+        bAdd.setMargin(StyleConstants.INSETS_BUTTON);
         bAdd.addActionListener(new ActionListener() {
 
             @Override
@@ -199,8 +172,8 @@ public class MapModelPane extends JPanel {
         });
 
         JButton bDel = new JButton("删除地图符号");
-        bDel.setPreferredSize(SIZE_BUTTON);
-        bDel.setMargin(INSETS_BUTTON);
+        bDel.setPreferredSize(StyleConstants.SIZE_BUTTON);
+        bDel.setMargin(StyleConstants.INSETS_BUTTON);
         bDel.addActionListener(new ActionListener() {
 
             @Override
@@ -211,8 +184,8 @@ public class MapModelPane extends JPanel {
         });
 
         JButton bClearSelection = new JButton("取消符号选择");
-        bClearSelection.setPreferredSize(SIZE_BUTTON);
-        bClearSelection.setMargin(INSETS_BUTTON);
+        bClearSelection.setPreferredSize(StyleConstants.SIZE_BUTTON);
+        bClearSelection.setMargin(StyleConstants.INSETS_BUTTON);
         bClearSelection.addActionListener(new ActionListener() {
 
             @Override
@@ -223,7 +196,7 @@ public class MapModelPane extends JPanel {
         });
         JComboBox cbEditMode = new JComboBox(new DefaultComboBoxModel(
                 EDIT_MODES));
-        cbEditMode.setPreferredSize(SIZE_DROPDOWN);
+        cbEditMode.setPreferredSize(StyleConstants.SIZE_DROPDOWN);
         ((WebComboBoxCellRenderer) cbEditMode.getRenderer()).getBoxRenderer()
                 .setHorizontalAlignment(SwingConstants.CENTER);
         cbEditMode.setOpaque(true);
@@ -245,8 +218,8 @@ public class MapModelPane extends JPanel {
         });
 
         JButton bImportModels = new JButton("载入默认符号");
-        bImportModels.setPreferredSize(SIZE_BUTTON);
-        bImportModels.setMargin(INSETS_BUTTON);
+        bImportModels.setPreferredSize(StyleConstants.SIZE_BUTTON);
+        bImportModels.setMargin(StyleConstants.INSETS_BUTTON);
         bImportModels.addActionListener(new ActionListener() {
 
             @Override
@@ -270,7 +243,7 @@ public class MapModelPane extends JPanel {
         // });
 
         JPanel controlPanel = new JPanel();
-        controlPanel.setPreferredSize(SIZE_CONTROL_PANEL);
+        controlPanel.setPreferredSize(StyleConstants.SIZE_CONTROL_PANEL);
         controlPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
         controlPanel.add(bAdd);
         controlPanel.add(bDel);

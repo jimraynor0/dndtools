@@ -28,7 +28,7 @@ public class NewMapDialog extends JDialog {
         super(frame, true);
         getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-        JLabel lWidth = new JLabel("Width");
+        JLabel lWidth = new JLabel("宽度");
         getContentPane().add(lWidth);
 
         tWidth = new JTextField();
@@ -48,7 +48,7 @@ public class NewMapDialog extends JDialog {
         getContentPane().add(tWidth);
         tWidth.setColumns(10);
 
-        JLabel lHeight = new JLabel("Height");
+        JLabel lHeight = new JLabel("高度");
         getContentPane().add(lHeight);
 
         tHeight = new JTextField();
@@ -68,7 +68,7 @@ public class NewMapDialog extends JDialog {
         getContentPane().add(tHeight);
         tHeight.setColumns(10);
 
-        JButton bOk = new JButton("OK");
+        JButton bOk = new JButton("创建");
         getContentPane().add(bOk);
         bOk.addActionListener(new ActionListener() {
 
@@ -93,7 +93,7 @@ public class NewMapDialog extends JDialog {
             }
         });
 
-        JButton bCancel = new JButton("Cancel");
+        JButton bCancel = new JButton("取消");
         getContentPane().add(bCancel);
         bCancel.addActionListener(new ActionListener() {
 

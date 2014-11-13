@@ -59,13 +59,13 @@ public class IrcToolkitMenu extends JMenuBar {
 
             @Override
             public String getDescription() {
-                return "DM Toolkit Map(*.map)";
+                return "DM Toolkit 地图 (*.map)";
             }
         });
 
-        JMenu fileMenu = new JMenu("File");
+        JMenu fileMenu = new JMenu("文件");
 
-        JMenuItem newMap = new JMenuItem("New Map", KeyEvent.VK_N);
+        JMenuItem newMap = new JMenuItem("新建地图", KeyEvent.VK_N);
         newMap.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
                 ActionEvent.ALT_MASK));
         newMap.addActionListener(new ActionListener() {
@@ -77,14 +77,14 @@ public class IrcToolkitMenu extends JMenuBar {
         });
         fileMenu.add(newMap);
 
-        JMenuItem loadFromFile = new JMenuItem("Load from File", KeyEvent.VK_F);
+        JMenuItem loadFromFile = new JMenuItem("读取地图", KeyEvent.VK_F);
         loadFromFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,
                 ActionEvent.CTRL_MASK));
         loadFromFile.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                int result = fileChooser.showDialog(frame, "Load Map");
+                int result = fileChooser.showDialog(frame, "读取地图");
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
                     ToolkitEngine.getEngine().queueCommand(
@@ -94,7 +94,7 @@ public class IrcToolkitMenu extends JMenuBar {
         });
         fileMenu.add(loadFromFile);
 
-        JMenuItem SaveToFile = new JMenuItem("Save To File", KeyEvent.VK_S);
+        JMenuItem SaveToFile = new JMenuItem("保存地图", KeyEvent.VK_S);
         SaveToFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 ActionEvent.CTRL_MASK));
         SaveToFile.addActionListener(new ActionListener() {
@@ -129,7 +129,7 @@ public class IrcToolkitMenu extends JMenuBar {
 
         fileMenu.addSeparator();
 
-        JMenuItem undo = new JMenuItem("Undo", KeyEvent.VK_U);
+        JMenuItem undo = new JMenuItem("撤销操作", KeyEvent.VK_U);
         undo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
                 ActionEvent.CTRL_MASK));
         undo.addActionListener(new ActionListener() {
@@ -143,9 +143,9 @@ public class IrcToolkitMenu extends JMenuBar {
 
         this.add(fileMenu);
 
-        JMenu mapGenMenu = new JMenu("Map Generator");
+        JMenu mapGenMenu = new JMenu("随机地图");
 
-        JMenuItem generateMap = new JMenuItem("Generate Random Map",
+        JMenuItem generateMap = new JMenuItem("随机生成地城",
                 KeyEvent.VK_R);
         generateMap.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
                 ActionEvent.ALT_MASK));
@@ -162,7 +162,7 @@ public class IrcToolkitMenu extends JMenuBar {
 
         JMenu ircMenu = new JMenu("IRC");
 
-        JMenuItem connectToIrc = new JMenuItem("Connect", KeyEvent.VK_C);
+        JMenuItem connectToIrc = new JMenuItem("连接至IRC", KeyEvent.VK_C);
         connectToIrc.addActionListener(new ActionListener() {
 
             @Override
@@ -208,7 +208,7 @@ public class IrcToolkitMenu extends JMenuBar {
         });
         ircMenu.add(connectToIrc);
 
-        JMenuItem changeNick = new JMenuItem("Change Nickname", KeyEvent.VK_N);
+        JMenuItem changeNick = new JMenuItem("更改昵称", KeyEvent.VK_N);
         changeNick.addActionListener(new ActionListener() {
 
             @Override

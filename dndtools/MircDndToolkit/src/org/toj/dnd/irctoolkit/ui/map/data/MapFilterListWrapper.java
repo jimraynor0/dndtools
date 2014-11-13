@@ -15,8 +15,8 @@ public class MapFilterListWrapper extends AbstractTableModel implements
 
     private static final long serialVersionUID = 464717390800595912L;
 
-    private List<String> colNames = Arrays.asList(new String[] { "Filter",
-            "Params", "Active" });
+    private List<String> colNames = Arrays.asList(new String[] { "ÂË¾µ",
+            "²ÎÊý", "Æô¶¯" });
     private ReadonlyContext context;
 
     public MapFilterListWrapper(ReadonlyContext context) {
