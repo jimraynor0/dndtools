@@ -50,7 +50,7 @@ public class MainFrame extends JFrame {
             Object value = UIManager.get(key);
             if (value instanceof javax.swing.plaf.FontUIResource) {
                 UIManager.put(key, new javax.swing.plaf.FontUIResource(
-                        "Dialog", Font.PLAIN, 10));
+                        "Dialog", Font.PLAIN, 12));
                 // log.debug("" + key + UIManager.get(key));
             }
         }
@@ -113,7 +113,7 @@ public class MainFrame extends JFrame {
 
     public void launch() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension frameSize = new Dimension(800, 600);
+        Dimension frameSize = StyleConstants.APP_WINDOW_DIMENSION;
         this.setSize(frameSize);
         if (frameSize.height > screenSize.height) {
             frameSize.height = screenSize.height;

@@ -69,7 +69,7 @@ public class InvFilterParamComponent extends FilterParamComponent {
                         label.setHorizontalAlignment(SwingConstants.CENTER);
                         label.setBorder(BorderFactory
                                 .createLineBorder(java.awt.Color.DARK_GRAY));
-                        label.setFont(StyleConstants.GLOBAL_FONT);
+                        label.setFont(StyleConstants.ICON_FONT);
                         if (model.getBackground() != null) {
                             label.setBackground(model.getBackground()
                                     .getColor());

@@ -16,8 +16,8 @@ public class MapModelListWrapper extends AbstractTableModel implements
 
     private static final long serialVersionUID = 464717390800595912L;
 
-    private List<String> colNames = Arrays.asList(new String[] { "Icon",
-            "Description", "LoS", "LoE" });
+    private List<String> colNames = Arrays.asList(new String[] { "图标",
+            "描述", "视线", "效果线" });
     private ReadonlyContext context;
 
     public MapModelListWrapper(ReadonlyContext context) {

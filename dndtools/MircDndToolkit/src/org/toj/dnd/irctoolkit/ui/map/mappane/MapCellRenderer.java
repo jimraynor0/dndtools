@@ -30,7 +30,7 @@ public class MapCellRenderer extends JLabel implements TableCellRenderer {
     public MapCellRenderer() {
         super();
         this.setHorizontalAlignment(SwingConstants.CENTER);
-        this.setFont(StyleConstants.GLOBAL_FONT);
+        this.setFont(StyleConstants.ICON_FONT);
         this.setOpaque(true);
     }
 
