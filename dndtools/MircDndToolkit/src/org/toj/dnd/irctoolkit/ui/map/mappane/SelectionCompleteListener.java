@@ -1,8 +1,5 @@
 package org.toj.dnd.irctoolkit.ui.map.mappane;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -20,7 +17,6 @@ import org.toj.dnd.irctoolkit.map.MapModel;
 public class SelectionCompleteListener implements ListSelectionListener {
     protected Logger log = Logger.getLogger(this.getClass());
 
-    private Map<String, SelectionCompleteListener> listenersCache = new HashMap<String, SelectionCompleteListener>();
     private String mode;
 
     private MapGridPanel table;
@@ -40,9 +36,11 @@ public class SelectionCompleteListener implements ListSelectionListener {
                         .getMaxSelectionIndex() == -1) {
             return;
         }
-        log.debug("adjusting stopped from "
-                + (e.getSource() == table.getSelectionModel() ? "column"
-                        : "row") + " selection change: " + e);
+        if (log.isDebugEnabled()) {
+            log.debug("adjusting stopped from "
+                    + (e.getSource() == table.getSelectionModel() ? "column"
+                            : "row") + " selection change: " + e);
+        }
         if (e.getSource() == table.getSelectionModel()) {
             // Column selection changed
             colSelectionFinished = true;
@@ -50,8 +48,10 @@ public class SelectionCompleteListener implements ListSelectionListener {
             // Row selection changed
             rowSelectionFinished = true;
         }
-        log.debug("column selection finished: " + colSelectionFinished);
-        log.debug("row selection finished: " + rowSelectionFinished);
+        if (log.isDebugEnabled()) {
+            log.debug("column selection finished: " + colSelectionFinished);
+            log.debug("row selection finished: " + rowSelectionFinished);
+        }
 
         if (colSelectionFinished && rowSelectionFinished) {
             onSelectionFinish();
@@ -61,7 +61,7 @@ public class SelectionCompleteListener implements ListSelectionListener {
     }
 
     private void onSelectionFinish() {
-        log.debug("onSelectionFinish() called, mode: " + mode);
+        log.info("onSelectionFinish() called, mode: " + mode);
         if (MapGridPanel.MODE_CONTROLLING.equals(mode)) {
             return;
         } else if (MapGridPanel.MODE_EDITING.equals(mode)) {
@@ -71,6 +71,7 @@ public class SelectionCompleteListener implements ListSelectionListener {
         } else if (MapGridPanel.MODE_CROPPING.equals(mode)) {
             createCropFilter();
         }
+        getTable().clearSelection();
     }
 
     protected void drawMapObjects() {
@@ -110,9 +111,10 @@ public class SelectionCompleteListener implements ListSelectionListener {
                     new AddOrUpdateFilterCommand(filter, CropFilter.class));
         }
 
-        log.debug("restoring prevMode: " + getTable().getPrevMode());
+        if (log.isDebugEnabled()) {
+            log.debug("restoring prevMode: " + getTable().getPrevMode());
+        }
         getTable().setEditMode(getTable().getPrevMode());
-        getTable().clearSelection();
     }
 
     public MapGridPanel getTable() {

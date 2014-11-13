@@ -16,11 +16,11 @@ public class ColorTypeRadioGroup extends ButtonGroup {
 
     ColorTypeRadioGroup() {
 
-        radioFore = new JRadioButton("Foreground");
+        radioFore = new JRadioButton("Ç°¾°É«");
         this.add(radioFore);
         radioFore.setBounds(11, 65, 89, 23);
 
-        radioBack = new JRadioButton("Background");
+        radioBack = new JRadioButton("±³¾°É«");
         this.add(radioBack);
         radioBack.setBounds(102, 65, 89, 23);
     }

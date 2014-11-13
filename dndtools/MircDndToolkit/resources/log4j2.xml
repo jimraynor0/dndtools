@@ -1,6 +1,7 @@
 <Configuration status="info">
 	<Loggers>
-		<Logger name="log4j.logger.org.toj.dnd.irctoolkit.mapgenerator" level="debug"/>
+		<Logger name="org.toj.dnd.irctoolkit.mapgenerator" level="debug"/>
+		<Logger name="org.toj.dnd.irctoolkit.ui.map.mappane.SelectionCompleteListener" level="info"/>
 		<Root level="debug">
 			<AppenderRef ref="Console" />
 		</Root>

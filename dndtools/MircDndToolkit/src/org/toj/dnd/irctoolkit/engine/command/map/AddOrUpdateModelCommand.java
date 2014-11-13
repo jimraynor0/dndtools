@@ -25,7 +25,16 @@ public class AddOrUpdateModelCommand extends MapCommand {
     protected void doExecute() throws ToolkitCommandException {
         if (index == -1) {
             for (MapModel model : models) {
-                context.getModelList().add(model);
+                // skip existing ones
+                boolean exists = false;
+                for (MapModel existing : context.getModelList()) {
+                    if (existing.getId().equals(model.getId())) {
+                        exists = true;
+                    }
+                }
+                if (!exists) {
+                    context.getModelList().add(model);
+                }
             }
         } else {
             context.getModelList().set(index, models.get(0));

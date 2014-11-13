@@ -27,7 +27,6 @@ import org.toj.dnd.irctoolkit.ui.map.filterpane.params.FilterParamComponent;
 public class MapFilterEditor extends JDialog {
 
     private static final String[] FILTER_TYPES = new String[] {
-            // MapFilter.TYPE_AXIS_LABEL_FILTER,
             MapFilter.TYPE_INVISIBILITY_FILTER,
             MapFilter.TYPE_LINE_OF_SIGHT_FILTER, MapFilter.TYPE_CROP_FILTER };
 
@@ -68,7 +67,7 @@ public class MapFilterEditor extends JDialog {
         panel.setLayout(new FlowLayout());
         panel.setPreferredSize(new Dimension(103, 60));
 
-        panel.add(new JLabel("Filter Type: "));
+        panel.add(new JLabel("ÂË¾µÀàÐÍ: "));
         listType = new JComboBox(new DefaultComboBoxModel(FILTER_TYPES));
 
         // listType.setBounds(197, 36, 103, 20);
@@ -84,7 +83,7 @@ public class MapFilterEditor extends JDialog {
         });
         panel.add(listType);
 
-        panel.add(new JLabel("  Active:"));
+        panel.add(new JLabel("  Æô¶¯:"));
         this.cbActive = new JCheckBox();
         panel.add(cbActive);
 

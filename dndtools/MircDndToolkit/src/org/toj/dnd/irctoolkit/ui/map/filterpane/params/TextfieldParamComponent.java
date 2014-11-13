@@ -17,7 +17,7 @@ public class TextfieldParamComponent extends FilterParamComponent {
     public TextfieldParamComponent(String params) {
         this.panel = new JPanel();
         panel.setLayout(new FlowLayout());
-        panel.add(new JLabel("Parameter: "));
+        panel.add(new JLabel("²ÎÊý: "));
         tf = new JTextField();
         tf.setText(params);
         tf.setPreferredSize(new Dimension(316, 20));

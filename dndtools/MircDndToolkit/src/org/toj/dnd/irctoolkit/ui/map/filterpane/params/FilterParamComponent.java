@@ -10,10 +10,10 @@ public abstract class FilterParamComponent {
     public static FilterParamComponent getFilterParamComponent(
             String filterType, String param) {
         if (filterType == null) {
-            return TextLabelComponent.getInstance("Select filter to add.");
+            return TextLabelComponent.getInstance("请选择你要添加/修改的滤镜类型。");
         } else if (filterType == MapFilter.TYPE_AXIS_LABEL_FILTER) {
             return TextLabelComponent
-                    .getInstance("This type of filter does not require any parameter.");
+                    .getInstance("你选择的滤镜不需要额外的参数。");
         } else if (filterType == MapFilter.TYPE_CROP_FILTER) {
             return new CropFilterParamComponent(param);
         } else if (filterType == MapFilter.TYPE_INVISIBILITY_FILTER) {

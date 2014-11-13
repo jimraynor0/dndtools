@@ -11,7 +11,6 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -25,8 +24,15 @@ import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
 import org.toj.dnd.irctoolkit.engine.command.map.AddOrUpdateModelCommand;
 import org.toj.dnd.irctoolkit.map.MapModel;
 import org.toj.dnd.irctoolkit.token.Color;
+import org.toj.dnd.irctoolkit.ui.StyleConstants;
 
 public class MapModelEditor extends JDialog {
+
+    private static final String ICON_ID = "图标Id";
+    private static final String ICON = "图标";
+    private static final String ICON_DESC = "描述";
+    private static final String BLOCK_LOS = "阻挡视线";
+    private static final String BLOCK_LOE = "阻挡效果线";
 
     private static final long serialVersionUID = -5864200205663505539L;
 
@@ -49,7 +55,7 @@ public class MapModelEditor extends JDialog {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        JLabel lId = new JLabel("Model Id");
+        JLabel lId = new JLabel(ICON_ID);
         lId.setBounds(16, 13, 59, 14);
         contentPane.add(lId);
 
@@ -61,16 +67,17 @@ public class MapModelEditor extends JDialog {
         contentPane.add(tfId);
         // tfId.setColumns(10);
 
-        JLabel lIcon = new JLabel("Icon");
+        JLabel lIcon = new JLabel(ICON);
         lIcon.setBounds(16, 41, 29, 14);
         contentPane.add(lIcon);
 
         tfIcon = new JTextField();
-        tfIcon.setBounds(45, 38, 20, 20);
+        tfIcon.setBounds(45, 38, 22, 22);
+        tfIcon.setFont(StyleConstants.ICON_FONT);
         contentPane.add(tfIcon);
         tfIcon.setColumns(10);
 
-        JLabel lDesc = new JLabel("Description");
+        JLabel lDesc = new JLabel(ICON_DESC);
         lDesc.setBounds(73, 41, 61, 14);
         contentPane.add(lDesc);
 
@@ -125,11 +132,11 @@ public class MapModelEditor extends JDialog {
         });
         contentPane.add(listColor);
 
-        checkLoS = new JCheckBox("Blocks Line Of Sight");
+        checkLoS = new JCheckBox(BLOCK_LOS);
         checkLoS.setBounds(10, 93, 124, 23);
         contentPane.add(checkLoS);
 
-        checkLoE = new JCheckBox("Blocks Line Of Effect");
+        checkLoE = new JCheckBox(BLOCK_LOE);
         checkLoE.setBounds(163, 93, 132, 23);
         contentPane.add(checkLoE);
 
@@ -138,11 +145,6 @@ public class MapModelEditor extends JDialog {
     }
 
     public void initWithModel(MapModel initModel, int index) {
-        // this.model = new MapModel();
-        // if (initModel != null) {
-        // copyValues(initModel);
-        // }
-
         this.model = initModel;
         if (initModel == null) {
             this.model = new MapModel();
@@ -166,15 +168,6 @@ public class MapModelEditor extends JDialog {
         checkLoE.setSelected(model.isBlocksLineOfEffect());
     }
 
-    private void copyValues(MapModel m) {
-        model.setCh(m.getCh());
-        model.setDesc(m.getDesc());
-        model.setForeground(m.getForeground());
-        model.setBackground(m.getBackground());
-        model.setBlocksLineOfEffect(m.isBlocksLineOfEffect());
-        model.setBlocksLineOfSight(m.isBlocksLineOfSight());
-    }
-
     void addOrUpdateModel() {
 
         if (ColorTypeRadioGroup.FOREGROUND.equals(rColorType.getSelected())) {
@@ -185,6 +178,7 @@ public class MapModelEditor extends JDialog {
         if (ColorTypeRadioGroup.BACKGROUND.equals(rColorType.getSelected())) {
             model.setBackground((Color) listColor.getSelectedItem());
             model.setForeground(null);
+            model.setCh("");
         }
 
         if (model.getForeground() != null) {
@@ -194,7 +188,7 @@ public class MapModelEditor extends JDialog {
                 throw new IllegalArgumentException();
             }
             ic = ic.trim();
-            if (isDBC(ic.substring(0, 1))) {
+            if (isDoubleByteCharacter(ic.substring(0, 1))) {
                 ic = ic.substring(0, 1);
             } else {
                 if (ic.length() > 2) {
@@ -216,7 +210,7 @@ public class MapModelEditor extends JDialog {
                 new AddOrUpdateModelCommand(model, index));
     }
 
-    private boolean isDBC(String ch) {
+    private boolean isDoubleByteCharacter(String ch) {
         return ch.getBytes().length > 1;
     }
 

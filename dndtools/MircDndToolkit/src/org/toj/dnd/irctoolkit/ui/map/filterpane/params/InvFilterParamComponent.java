@@ -30,14 +30,24 @@ public class InvFilterParamComponent extends FilterParamComponent {
         table.setModel(new MapModelListWrapper(ToolkitEngine.getEngine()
                 .getContext()));
 
-        // table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        table.setRowHeight(22);
-        table.getColumnModel().getColumn(0).setPreferredWidth(34);
-        table.getColumnModel().getColumn(0).setMinWidth(22);
-        table.getColumnModel().getColumn(1).setPreferredWidth(126);
-        table.getColumnModel().getColumn(2).setPreferredWidth(30);
-        table.getColumnModel().getColumn(3).setPreferredWidth(30);
+        table.setRowHeight(StyleConstants.SIZE_MODEL_LIST_ROW_HEIGHT);
+        table.getColumnModel()
+                .getColumn(0)
+                .setPreferredWidth(
+                        StyleConstants.SIZE_MODEL_LIST_COLUMN_0.width);
+        table.getColumnModel()
+                .getColumn(1)
+                .setPreferredWidth(
+                        StyleConstants.SIZE_MODEL_LIST_COLUMN_1.width);
+        table.getColumnModel()
+                .getColumn(2)
+                .setPreferredWidth(
+                        StyleConstants.SIZE_MODEL_LIST_COLUMN_2.width);
+        table.getColumnModel()
+                .getColumn(3)
+                .setPreferredWidth(
+                        StyleConstants.SIZE_MODEL_LIST_COLUMN_3.width);
         table.setRowSelectionAllowed(true);
         table.setColumnSelectionAllowed(false);
 
@@ -62,13 +72,13 @@ public class InvFilterParamComponent extends FilterParamComponent {
                         JLabel label = new JLabel();
                         panel.add(label);
 
-                        // label.setSize(new Dimension(18, 18));
-                        label.setBounds(new Rectangle((34 - 18) / 2,
-                                (22 - 18) / 2, 18, 18));
+                        label.setBounds(
+                                (StyleConstants.SIZE_MODEL_LIST_COLUMN_0.width - StyleConstants.SIZE_ICON_LABEL.width) / 2,
+                                (StyleConstants.SIZE_MODEL_LIST_COLUMN_0.height - StyleConstants.SIZE_ICON_LABEL.height) / 2,
+                                StyleConstants.SIZE_ICON_LABEL.width,
+                                StyleConstants.SIZE_ICON_LABEL.height);
                         label.setVerticalAlignment(SwingConstants.CENTER);
                         label.setHorizontalAlignment(SwingConstants.CENTER);
-                        label.setBorder(BorderFactory
-                                .createLineBorder(java.awt.Color.DARK_GRAY));
                         label.setFont(StyleConstants.ICON_FONT);
                         if (model.getBackground() != null) {
                             label.setBackground(model.getBackground()
@@ -96,14 +106,6 @@ public class InvFilterParamComponent extends FilterParamComponent {
                             modelList.indexOf(model));
                 }
             }
-            // List<String> params = Arrays.asList(param.split(","));
-            // for (MapModel model : modelList) {
-            // if (params.contains(model.getCh())
-            // || params.contains(model.getDesc())) {
-            // table.addRowSelectionInterval(modelList.indexOf(model),
-            // modelList.indexOf(model));
-            // }
-            // }
         }
     }
 
@@ -138,7 +140,7 @@ public class InvFilterParamComponent extends FilterParamComponent {
 
     @Override
     public Component getTitle() {
-        JLabel jLabel = new JLabel("Selected model will be invisible to PCs:");
+        JLabel jLabel = new JLabel("被选中的图标将对PC隐形，使用ctrl或shift来选择多个图标。");
         jLabel.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel.setPreferredSize(new Dimension(400, 30));
         return jLabel;

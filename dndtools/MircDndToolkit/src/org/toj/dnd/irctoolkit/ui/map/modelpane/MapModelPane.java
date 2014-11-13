@@ -45,6 +45,10 @@ public class MapModelPane extends JPanel {
 
     private Logger log = Logger.getLogger(this.getClass());
 
+    private static final String NEW_MODEL = "新建地图符号";
+    private static final String DELETE_MODEL = "删除地图符号";
+    private static final String CANCEL_MODEL_SELECTION = "取消符号选择";
+    private static final String LOAD_DEFAULT_MODELS = "载入默认符号";
     private static final String EDIT_MODE_ERASER = "擦除模式";
     private static final String EDIT_MODE_DRAW = "绘图模式";
     private static final String EDIT_MODE_MOVE = "拖动模式";
@@ -60,23 +64,33 @@ public class MapModelPane extends JPanel {
      */
     public MapModelPane(ReadonlyContext context, MapGridPanel mapGridPanel) {
         setLayout(new BorderLayout(0, 0));
-        this.setPreferredSize(new Dimension(StyleConstants.MODEL_PANE_WIDTH, 451));
+        this.setPreferredSize(new Dimension(StyleConstants.MODEL_PANE_WIDTH,
+                451));
         this.mapGridPanel = mapGridPanel;
 
         table = new JTable();
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         table.setModel(new MapModelListWrapper(context));
-        table.getTableHeader().setPreferredSize(StyleConstants.SIZE_MODEL_LIST_HEADER);
+        table.getTableHeader().setPreferredSize(
+                StyleConstants.SIZE_MODEL_LIST_HEADER);
         table.setRowHeight(StyleConstants.SIZE_MODEL_LIST_ROW_HEIGHT);
-        table.getColumnModel().getColumn(0)
-                .setPreferredWidth(StyleConstants.SIZE_MODEL_LIST_COLUMN_0.width);
-        table.getColumnModel().getColumn(1)
-                .setPreferredWidth(StyleConstants.SIZE_MODEL_LIST_COLUMN_1.width);
-        table.getColumnModel().getColumn(2)
-                .setPreferredWidth(StyleConstants.SIZE_MODEL_LIST_COLUMN_2.width);
-        table.getColumnModel().getColumn(3)
-                .setPreferredWidth(StyleConstants.SIZE_MODEL_LIST_COLUMN_3.width);
+        table.getColumnModel()
+                .getColumn(0)
+                .setPreferredWidth(
+                        StyleConstants.SIZE_MODEL_LIST_COLUMN_0.width);
+        table.getColumnModel()
+                .getColumn(1)
+                .setPreferredWidth(
+                        StyleConstants.SIZE_MODEL_LIST_COLUMN_1.width);
+        table.getColumnModel()
+                .getColumn(2)
+                .setPreferredWidth(
+                        StyleConstants.SIZE_MODEL_LIST_COLUMN_2.width);
+        table.getColumnModel()
+                .getColumn(3)
+                .setPreferredWidth(
+                        StyleConstants.SIZE_MODEL_LIST_COLUMN_3.width);
         table.setRowSelectionAllowed(true);
         table.setColumnSelectionAllowed(false);
         table.setDragEnabled(true);
@@ -135,7 +149,8 @@ public class MapModelPane extends JPanel {
                         label.setBounds(
                                 (StyleConstants.SIZE_MODEL_LIST_COLUMN_0.width - StyleConstants.SIZE_ICON_LABEL.width) / 2,
                                 (StyleConstants.SIZE_MODEL_LIST_COLUMN_0.height - StyleConstants.SIZE_ICON_LABEL.height) / 2,
-                                StyleConstants.SIZE_ICON_LABEL.width, StyleConstants.SIZE_ICON_LABEL.height);
+                                StyleConstants.SIZE_ICON_LABEL.width,
+                                StyleConstants.SIZE_ICON_LABEL.height);
                         label.setVerticalAlignment(SwingConstants.CENTER);
                         label.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -160,7 +175,7 @@ public class MapModelPane extends JPanel {
                 .setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         add(scrollPane);
 
-        JButton bAdd = new JButton("新建地图符号");
+        JButton bAdd = new JButton(NEW_MODEL);
         bAdd.setPreferredSize(StyleConstants.SIZE_BUTTON);
         bAdd.setMargin(StyleConstants.INSETS_BUTTON);
         bAdd.addActionListener(new ActionListener() {
@@ -171,7 +186,7 @@ public class MapModelPane extends JPanel {
             }
         });
 
-        JButton bDel = new JButton("删除地图符号");
+        JButton bDel = new JButton(DELETE_MODEL);
         bDel.setPreferredSize(StyleConstants.SIZE_BUTTON);
         bDel.setMargin(StyleConstants.INSETS_BUTTON);
         bDel.addActionListener(new ActionListener() {
@@ -183,7 +198,7 @@ public class MapModelPane extends JPanel {
             }
         });
 
-        JButton bClearSelection = new JButton("取消符号选择");
+        JButton bClearSelection = new JButton(CANCEL_MODEL_SELECTION);
         bClearSelection.setPreferredSize(StyleConstants.SIZE_BUTTON);
         bClearSelection.setMargin(StyleConstants.INSETS_BUTTON);
         bClearSelection.addActionListener(new ActionListener() {
@@ -217,7 +232,7 @@ public class MapModelPane extends JPanel {
             }
         });
 
-        JButton bImportModels = new JButton("载入默认符号");
+        JButton bImportModels = new JButton(LOAD_DEFAULT_MODELS);
         bImportModels.setPreferredSize(StyleConstants.SIZE_BUTTON);
         bImportModels.setMargin(StyleConstants.INSETS_BUTTON);
         bImportModels.addActionListener(new ActionListener() {

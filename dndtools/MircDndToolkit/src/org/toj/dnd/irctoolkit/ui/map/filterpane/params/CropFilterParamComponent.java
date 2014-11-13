@@ -10,6 +10,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
+import org.toj.dnd.irctoolkit.ui.StyleConstants;
 import org.toj.dnd.irctoolkit.ui.map.mappane.MapCellRenderer;
 import org.toj.dnd.irctoolkit.util.AxisUtil;
 
@@ -17,15 +18,13 @@ public class CropFilterParamComponent extends FilterParamComponent {
 
     public static final Dimension SUGGESTED_SIZE = new Dimension(400, 400);
 
-    private static final int CELL_WIDTH_AND_HEIGHT = 22;
-
     private JTable table;
 
     public CropFilterParamComponent(String param) {
         table = new JTable();
         table.setModel(new MapGridWrapper(ToolkitEngine.getEngine()
                 .getContext().getCurrentMap().getUnAxisfiedFilteredMap()));
-        table.setRowHeight(CELL_WIDTH_AND_HEIGHT);
+        table.setRowHeight(StyleConstants.SIZE_ICON_LABEL.height);
         table.setRowSelectionAllowed(false);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
@@ -66,11 +65,11 @@ public class CropFilterParamComponent extends FilterParamComponent {
         for (int i = 0; i < table.getModel().getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setResizable(false);
             table.getColumnModel().getColumn(i)
-                    .setPreferredWidth(CELL_WIDTH_AND_HEIGHT);
+                    .setPreferredWidth(StyleConstants.SIZE_ICON_LABEL.width);
             table.getColumnModel().getColumn(i)
-                    .setMinWidth(CELL_WIDTH_AND_HEIGHT);
+                    .setMinWidth(StyleConstants.SIZE_ICON_LABEL.width);
             table.getColumnModel().getColumn(i)
-                    .setMaxWidth(CELL_WIDTH_AND_HEIGHT);
+                    .setMaxWidth(StyleConstants.SIZE_ICON_LABEL.width);
         }
     }
 
@@ -97,7 +96,7 @@ public class CropFilterParamComponent extends FilterParamComponent {
     @Override
     public Component getTitle() {
         JLabel jLabel = new JLabel(
-                "Drag to select the area you want to show to the PCs:");
+                "圈选你想要展现给PC的区域:");
         jLabel.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel.setPreferredSize(new Dimension(400, 30));
         return jLabel;

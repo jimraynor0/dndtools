@@ -14,7 +14,7 @@ class BtnOk extends JButton implements ActionListener {
     BtnOk(MapModelEditor editorFrame) {
         this.editorFrame = editorFrame;
 
-        this.setText("OK");
+        this.setText("È·¶¨");
         this.setBounds(45, 123, 89, 23);
         this.addActionListener(this);
 
