@@ -21,6 +21,8 @@ import org.toj.dnd.irctoolkit.ui.map.modelpane.MapModelPane;
 import org.toj.dnd.irctoolkit.ui.map.viewpane.PcViewPanel;
 import org.toj.dnd.irctoolkit.ui.menu.IrcToolkitMenu;
 
+import com.alee.laf.WebLookAndFeel;
+
 public class MainFrame extends JFrame {
 
     private static final long serialVersionUID = 5410456877957941322L;
@@ -35,23 +37,9 @@ public class MainFrame extends JFrame {
 
     public MainFrame(ReadonlyContext context) {
         this.context = context;
-        // try {
-        // for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-        // if ("Nimbus".equals(info.getName())) {
-        // UIManager.setLookAndFeel(info.getClassName());
-        // break;
-        // }
-        // }
-        // } catch (Exception e) {
-        // try {
-        // UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        // } catch (Exception e1) {
-        // e1.printStackTrace();
-        // System.exit(1);
-        // }
-        // }
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            WebLookAndFeel.install();
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
