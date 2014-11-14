@@ -267,7 +267,7 @@ public class MapModelEditor extends JDialog {
         if (model.getForeground() != null) {
             String ic = tfIcon.getText();
             if (ic == null || ic.trim().isEmpty()) {
-                ToolkitEngine.getEngine().fireErrorMsgWindow("劳您驾把Icon给填上呗……");
+                ToolkitEngine.getEngine().fireErrorMsgWindow("劳您驾把图标栏给填上呗……");
                 throw new IllegalArgumentException();
             }
             ic = ic.trim();
