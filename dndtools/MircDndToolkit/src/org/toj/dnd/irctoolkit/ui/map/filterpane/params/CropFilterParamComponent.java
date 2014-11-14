@@ -16,8 +16,6 @@ import org.toj.dnd.irctoolkit.util.AxisUtil;
 
 public class CropFilterParamComponent extends FilterParamComponent {
 
-    public static final Dimension SUGGESTED_SIZE = new Dimension(400, 400);
-
     private JTable table;
 
     public CropFilterParamComponent(String param) {
@@ -75,7 +73,7 @@ public class CropFilterParamComponent extends FilterParamComponent {
 
     @Override
     public Dimension getSuggestedParentSize() {
-        return SUGGESTED_SIZE;
+        return StyleConstants.CROP_FILTER_PARAM_SIZE;
     }
 
     @Override
@@ -95,10 +93,9 @@ public class CropFilterParamComponent extends FilterParamComponent {
 
     @Override
     public Component getTitle() {
-        JLabel jLabel = new JLabel(
-                "圈选你想要展现给PC的区域:");
+        JLabel jLabel = new JLabel("圈选你想要展现给PC的区域:");
         jLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabel.setPreferredSize(new Dimension(400, 30));
+        jLabel.setPreferredSize(StyleConstants.PARAM_TITLE_LABEL_SIZE);
         return jLabel;
     }
 }

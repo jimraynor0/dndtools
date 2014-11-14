@@ -8,26 +8,28 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class TextfieldParamComponent extends FilterParamComponent {
-    private static final Dimension SUGGESTED_SIZE = new Dimension(400, 127);
+import org.toj.dnd.irctoolkit.ui.StyleConstants;
 
+public class TextfieldParamComponent extends FilterParamComponent {
     private JPanel panel;
     private JTextField tf;
 
     public TextfieldParamComponent(String params) {
         this.panel = new JPanel();
         panel.setLayout(new FlowLayout());
-        panel.add(new JLabel("参数: "));
+        JLabel jLabel = new JLabel("参数: ");
+        jLabel.setPreferredSize(StyleConstants.TEXT_PARAM_LABEL_SIZE);
+        panel.add(jLabel);
+
         tf = new JTextField();
         tf.setText(params);
-        tf.setPreferredSize(new Dimension(316, 20));
-        // tf.setSize(new Dimension());
+        tf.setPreferredSize(StyleConstants.TEXT_PARAM_INPUT_SIZE);
         panel.add(tf);
     }
 
     @Override
     public Dimension getSuggestedParentSize() {
-        return SUGGESTED_SIZE;
+        return StyleConstants.TEXT_FIELD_PARAM_SIZE;
     }
 
     @Override

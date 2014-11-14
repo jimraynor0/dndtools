@@ -2,9 +2,7 @@ package org.toj.dnd.irctoolkit.ui.map.filterpane.params;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Rectangle;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,8 +18,6 @@ import org.toj.dnd.irctoolkit.ui.StyleConstants;
 import org.toj.dnd.irctoolkit.ui.map.data.MapModelListWrapper;
 
 public class InvFilterParamComponent extends FilterParamComponent {
-
-    public static final Dimension SUGGESTED_SIZE = new Dimension(400, 400);
 
     private JTable table;
 
@@ -111,7 +107,7 @@ public class InvFilterParamComponent extends FilterParamComponent {
 
     @Override
     public Dimension getSuggestedParentSize() {
-        return SUGGESTED_SIZE;
+        return StyleConstants.INV_FILTER_PARAM_SIZE;
     }
 
     @Override
@@ -142,7 +138,7 @@ public class InvFilterParamComponent extends FilterParamComponent {
     public Component getTitle() {
         JLabel jLabel = new JLabel("被选中的图标将对PC隐形，使用ctrl或shift来选择多个图标。");
         jLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabel.setPreferredSize(new Dimension(400, 30));
+        jLabel.setPreferredSize(StyleConstants.PARAM_TITLE_LABEL_SIZE);
         return jLabel;
     }
 }
