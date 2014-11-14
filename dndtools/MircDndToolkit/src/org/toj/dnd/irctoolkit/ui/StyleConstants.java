@@ -73,7 +73,7 @@ public class StyleConstants {
             INPUT_HEIGHT);
 
     /* ---------------------- new map dialog ---------------------- */
-    public static final Dimension NEW_MAP_DIALOG_SIZE = new Dimension(170, 120);
+    public static final Dimension NEW_MAP_DIALOG_SIZE = new Dimension(180, 120);
     public static final Dimension NEW_MAP_INPUT_SIZE = new Dimension(120,
             INPUT_HEIGHT);
 
