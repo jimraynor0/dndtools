@@ -84,26 +84,6 @@ public class Dungeon {
         return map;
     }
 
-    //
-    // public String toString() {
-    // String[][] grid = new String[width][height];
-    // for (Room room : rooms) {
-    // paint(room, grid);
-    // }
-    // for (Point door : doors) {
-    // paint(door, grid);
-    // }
-    //
-    // StringBuilder sb = new StringBuilder();
-    // for (int x = 0; x < width; x++) {
-    // for (int y = 0; y < height; y++) {
-    // sb.append(grid[x][y] == null ? SPACE : grid[x][y]);
-    // }
-    // sb.append("\r\n");
-    // }
-    // return sb.toString();
-    // }
-
     private void paint(Door door, MapGrid map) {
         for (Point p : door.getSquares()) {
             map.drawObjectsOntoGrid(new int[] { p.x }, new int[] { p.y }, map

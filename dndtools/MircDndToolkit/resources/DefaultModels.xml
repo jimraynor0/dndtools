@@ -44,7 +44,7 @@
       <id>default.lowwall</id>
       <foreground>MAROON</foreground>
       <ch>墙</ch>
-      <desc>墙</desc>
+      <desc>矮墙</desc>
       <blocksLineOfSight>false</blocksLineOfSight>
       <blocksLineOfEffect>false</blocksLineOfEffect>
     </mapModel>
