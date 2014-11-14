@@ -1,5 +1,6 @@
 package org.toj.dnd.irctoolkit.ui.menu;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -30,9 +31,11 @@ public class NewMapDialog extends JDialog {
         getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 2));
 
         JLabel lWidth = new JLabel("宽度");
+        lWidth.setPreferredSize(new Dimension(25, StyleConstants.INPUT_HEIGHT));
         getContentPane().add(lWidth);
 
         tWidth = new JTextField();
+        tWidth.setPreferredSize(StyleConstants.NEW_MAP_INPUT_SIZE);
         tWidth.setInputVerifier(new InputVerifier() {
 
             @Override
@@ -47,12 +50,13 @@ public class NewMapDialog extends JDialog {
             }
         });
         getContentPane().add(tWidth);
-        tWidth.setColumns(10);
 
         JLabel lHeight = new JLabel("高度");
+        lHeight.setPreferredSize(new Dimension(25, StyleConstants.INPUT_HEIGHT));
         getContentPane().add(lHeight);
 
         tHeight = new JTextField();
+        tHeight.setPreferredSize(StyleConstants.NEW_MAP_INPUT_SIZE);
         tHeight.setInputVerifier(new InputVerifier() {
 
             @Override
@@ -67,9 +71,9 @@ public class NewMapDialog extends JDialog {
             }
         });
         getContentPane().add(tHeight);
-        tHeight.setColumns(10);
 
         JButton bOk = new JButton("创建");
+        bOk.setPreferredSize(StyleConstants.BUTTON_SIZE_SMALL);
         getContentPane().add(bOk);
         bOk.addActionListener(new ActionListener() {
 
@@ -95,6 +99,7 @@ public class NewMapDialog extends JDialog {
         });
 
         JButton bCancel = new JButton("取消");
+        bCancel.setPreferredSize(StyleConstants.BUTTON_SIZE_SMALL);
         getContentPane().add(bCancel);
         bCancel.addActionListener(new ActionListener() {
 

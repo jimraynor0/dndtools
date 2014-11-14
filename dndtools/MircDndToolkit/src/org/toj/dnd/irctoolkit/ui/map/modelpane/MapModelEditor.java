@@ -55,43 +55,105 @@ public class MapModelEditor extends JDialog {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
+        /* ------------------------------ row 1 ------------------------------ */
+        // 2 elements in row 1: icon id label(lId) and icon id input box(tfId)
+        int internalMargin = (StyleConstants.MODEL_EDITOR_SIZE.width - 2
+                * StyleConstants.DIALOG_HORIZONTAL_MARGIN
+                - StyleConstants.ICON_ID_LABEL_SIZE.width - StyleConstants.ICON_ID_INPUT_SIZE.width);
+        int startingWidth = StyleConstants.DIALOG_HORIZONTAL_MARGIN;
+        int startingHeight = StyleConstants.DIALOG_VERTICAL_MARGIN;
         JLabel lId = new JLabel(ICON_ID);
-        lId.setBounds(16, 13, 59, 14);
+        lId.setVerticalAlignment(SwingConstants.CENTER);
+        lId.setBounds(startingWidth, startingHeight,
+                StyleConstants.ICON_ID_LABEL_SIZE.width,
+                StyleConstants.ICON_ID_LABEL_SIZE.height);
         contentPane.add(lId);
 
+        startingWidth += StyleConstants.ICON_ID_LABEL_SIZE.width
+                + internalMargin;
         tfId = new JTextField();
-        tfId.setBounds(70, 10, 230, 20);
+        tfId.setBounds(startingWidth, startingHeight,
+                StyleConstants.ICON_ID_INPUT_SIZE.width,
+                StyleConstants.ICON_ID_INPUT_SIZE.height);
         tfId.setEditable(false);
         tfId.setBackground(java.awt.Color.WHITE);
         tfId.setHorizontalAlignment(SwingConstants.RIGHT);
         contentPane.add(tfId);
-        // tfId.setColumns(10);
 
+        /* ------------------------------ row 2 ------------------------------ */
+        // 4 elements in row 2: icon label(lIcon), icon input box(tfIcon), desc
+        // label(lDesc) and desc input box(tfDesc)
+        internalMargin = (StyleConstants.MODEL_EDITOR_SIZE.width - 2
+                * StyleConstants.DIALOG_HORIZONTAL_MARGIN
+                - StyleConstants.ICON_LABEL_SIZE.width
+                - StyleConstants.ICON_INPUT_SIZE.width
+                - StyleConstants.DESC_LABEL_SIZE.width - StyleConstants.DESC_INPUT_SIZE.width) / 3;
+        startingWidth = StyleConstants.DIALOG_HORIZONTAL_MARGIN;
+        startingHeight += StyleConstants.INPUT_HEIGHT
+                + StyleConstants.DIALOG_VERTICAL_MARGIN;
         JLabel lIcon = new JLabel(ICON);
-        lIcon.setBounds(16, 41, 29, 14);
+        lIcon.setBounds(startingWidth, startingHeight,
+                StyleConstants.ICON_LABEL_SIZE.width,
+                StyleConstants.ICON_LABEL_SIZE.height);
         contentPane.add(lIcon);
 
+        startingWidth += StyleConstants.ICON_LABEL_SIZE.width + internalMargin;
         tfIcon = new JTextField();
-        tfIcon.setBounds(45, 38, 22, 22);
+        tfIcon.setBounds(startingWidth, startingHeight,
+                StyleConstants.ICON_INPUT_SIZE.width,
+                StyleConstants.ICON_INPUT_SIZE.height);
         tfIcon.setFont(StyleConstants.ICON_FONT);
         contentPane.add(tfIcon);
         tfIcon.setColumns(10);
 
+        startingWidth += StyleConstants.ICON_INPUT_SIZE.width + internalMargin;
         JLabel lDesc = new JLabel(ICON_DESC);
-        lDesc.setBounds(73, 41, 61, 14);
+        lDesc.setHorizontalAlignment(SwingConstants.CENTER);
+        lDesc.setBounds(startingWidth, startingHeight,
+                StyleConstants.DESC_LABEL_SIZE.width,
+                StyleConstants.DESC_LABEL_SIZE.height);
         contentPane.add(lDesc);
 
+        startingWidth += StyleConstants.DESC_LABEL_SIZE.width + internalMargin;
         tfDesc = new JTextField();
-        tfDesc.setBounds(137, 38, 162, 20);
+        tfDesc.setBounds(startingWidth, startingHeight,
+                StyleConstants.DESC_INPUT_SIZE.width,
+                StyleConstants.DESC_INPUT_SIZE.height);
         contentPane.add(tfDesc);
         tfDesc.setColumns(10);
 
+        /* ------------------------------ row 3 ------------------------------ */
+        // 3 elements in row 3: radio button
+        // forecolor(rColorType.getRadioFore()), radio button
+        // backcolor(rColorType.getRadioBack()) and color picker
+        // dropdown(listColor)
+        internalMargin = (StyleConstants.MODEL_EDITOR_SIZE.width - 2
+                * StyleConstants.DIALOG_HORIZONTAL_MARGIN
+                - StyleConstants.COLOR_DEPTH_RADIO_BUTTON_SIZE.width * 2 - StyleConstants.COLOR_DROPDOWN_SIZE.width) / 2;
+        startingWidth = StyleConstants.DIALOG_HORIZONTAL_MARGIN;
+        startingHeight += StyleConstants.INPUT_HEIGHT
+                + StyleConstants.DIALOG_VERTICAL_MARGIN;
+
         rColorType = new ColorTypeRadioGroup();
+
+        rColorType.getRadioFore().setBounds(startingWidth, startingHeight,
+                StyleConstants.COLOR_DEPTH_RADIO_BUTTON_SIZE.width,
+                StyleConstants.COLOR_DEPTH_RADIO_BUTTON_SIZE.height);
         contentPane.add(rColorType.getRadioFore());
+
+        startingWidth += StyleConstants.COLOR_DEPTH_RADIO_BUTTON_SIZE.width
+                + internalMargin;
+        rColorType.getRadioBack().setBounds(startingWidth, startingHeight,
+                StyleConstants.COLOR_DEPTH_RADIO_BUTTON_SIZE.width,
+                StyleConstants.COLOR_DEPTH_RADIO_BUTTON_SIZE.height);
         contentPane.add(rColorType.getRadioBack());
 
+        startingWidth += StyleConstants.COLOR_DEPTH_RADIO_BUTTON_SIZE.width
+                + internalMargin;
         listColor = new JComboBox(new DefaultComboBoxModel(Color.values()));
-        listColor.setBounds(197, 66, 103, 20);
+        listColor.setBounds(startingWidth, startingHeight,
+                StyleConstants.COLOR_DROPDOWN_SIZE.width,
+                StyleConstants.COLOR_DROPDOWN_SIZE.height);
         listColor.setMaximumRowCount(16);
         listColor.setOpaque(true);
         listColor.setRenderer(new ListCellRenderer() {
@@ -117,7 +179,7 @@ public class MapModelEditor extends JDialog {
                 label.setForeground(isDark(color.getColor()) ? java.awt.Color.white
                         : java.awt.Color.black);
                 Dimension size = getPreferredSize();
-                size.height = 20;
+                size.height = StyleConstants.INPUT_HEIGHT;
                 label.setPreferredSize(size);
                 if (isSelected) {
                     label.setBorder(BorderFactory
@@ -132,16 +194,37 @@ public class MapModelEditor extends JDialog {
         });
         contentPane.add(listColor);
 
+        /* ------------------------------ row 4 ------------------------------ */
+        // 3 elements in row 4: checkbox blockLoS(checkLoS), checkbox
+        // blockLoE(checkLoE) and button ok(bOk)
+        internalMargin = (StyleConstants.MODEL_EDITOR_SIZE.width - 2
+                * StyleConstants.DIALOG_HORIZONTAL_MARGIN
+                - StyleConstants.BLOCK_LOE_CHECKBOX_SIZE.width * 2 - StyleConstants.BUTTON_SIZE_SMALL.width) / 2;
+        startingWidth = StyleConstants.DIALOG_HORIZONTAL_MARGIN;
+        startingHeight += StyleConstants.INPUT_HEIGHT
+                + StyleConstants.DIALOG_VERTICAL_MARGIN;
+
         checkLoS = new JCheckBox(BLOCK_LOS);
-        checkLoS.setBounds(10, 93, 124, 23);
+        checkLoS.setBounds(startingWidth, startingHeight,
+                StyleConstants.BLOCK_LOE_CHECKBOX_SIZE.width,
+                StyleConstants.BLOCK_LOE_CHECKBOX_SIZE.height);
         contentPane.add(checkLoS);
 
+        startingWidth += StyleConstants.BLOCK_LOE_CHECKBOX_SIZE.width
+                + internalMargin;
         checkLoE = new JCheckBox(BLOCK_LOE);
-        checkLoE.setBounds(163, 93, 132, 23);
+        checkLoE.setBounds(startingWidth, startingHeight,
+                StyleConstants.BLOCK_LOE_CHECKBOX_SIZE.width,
+                StyleConstants.BLOCK_LOE_CHECKBOX_SIZE.height);
         contentPane.add(checkLoE);
 
-        contentPane.add(new BtnCancel(this));
-        contentPane.add(new BtnOk(this));
+        startingWidth += StyleConstants.BLOCK_LOE_CHECKBOX_SIZE.width
+                + internalMargin;
+        BtnOk bOk = new BtnOk(this);
+        bOk.setBounds(startingWidth, startingHeight,
+                StyleConstants.BUTTON_SIZE_SMALL.width,
+                StyleConstants.BUTTON_SIZE_SMALL.height);
+        contentPane.add(bOk);
     }
 
     public void initWithModel(MapModel initModel, int index) {
@@ -225,8 +308,8 @@ public class MapModelEditor extends JDialog {
         if (bounds.y < 0) {
             bounds.y = 0;
         }
-        bounds.width = 318;
-        bounds.height = 189;
+        bounds.width = StyleConstants.MODEL_EDITOR_SIZE.width;
+        bounds.height = StyleConstants.MODEL_EDITOR_SIZE.height;
 
         setBounds(bounds);
     }

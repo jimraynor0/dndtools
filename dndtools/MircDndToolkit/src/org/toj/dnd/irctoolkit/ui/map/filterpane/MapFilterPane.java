@@ -66,7 +66,7 @@ public class MapFilterPane extends JPanel {
         add(scrollPane);
 
         JButton bAdd = new JButton("ÐÂ½¨µØÍ¼ÂË¾µ");
-        bAdd.setPreferredSize(StyleConstants.BUTTON_SIZE_SMALL);
+        bAdd.setPreferredSize(StyleConstants.BUTTON_SIZE_LONG);
         bAdd.setMargin(StyleConstants.ZERO_INSETS);
         bAdd.addActionListener(new ActionListener() {
 
@@ -77,7 +77,7 @@ public class MapFilterPane extends JPanel {
         });
 
         JButton bDel = new JButton("É¾³ýµØÍ¼ÂË¾µ");
-        bDel.setPreferredSize(StyleConstants.BUTTON_SIZE_SMALL);
+        bDel.setPreferredSize(StyleConstants.BUTTON_SIZE_LONG);
         bDel.setMargin(StyleConstants.ZERO_INSETS);
         bDel.addActionListener(new ActionListener() {
 

@@ -15,9 +15,7 @@ class BtnOk extends JButton implements ActionListener {
         this.editorFrame = editorFrame;
 
         this.setText("È·¶¨");
-        this.setBounds(45, 123, 89, 23);
         this.addActionListener(this);
-
     }
 
     @Override

@@ -176,7 +176,7 @@ public class MapModelPane extends JPanel {
         add(scrollPane);
 
         JButton bAdd = new JButton(NEW_MODEL);
-        bAdd.setPreferredSize(StyleConstants.BUTTON_SIZE_SMALL);
+        bAdd.setPreferredSize(StyleConstants.BUTTON_SIZE_LONG);
         bAdd.setMargin(StyleConstants.ZERO_INSETS);
         bAdd.addActionListener(new ActionListener() {
 
@@ -187,7 +187,7 @@ public class MapModelPane extends JPanel {
         });
 
         JButton bDel = new JButton(DELETE_MODEL);
-        bDel.setPreferredSize(StyleConstants.BUTTON_SIZE_SMALL);
+        bDel.setPreferredSize(StyleConstants.BUTTON_SIZE_LONG);
         bDel.setMargin(StyleConstants.ZERO_INSETS);
         bDel.addActionListener(new ActionListener() {
 
@@ -199,7 +199,7 @@ public class MapModelPane extends JPanel {
         });
 
         JButton bClearSelection = new JButton(CANCEL_MODEL_SELECTION);
-        bClearSelection.setPreferredSize(StyleConstants.BUTTON_SIZE_SMALL);
+        bClearSelection.setPreferredSize(StyleConstants.BUTTON_SIZE_LONG);
         bClearSelection.setMargin(StyleConstants.ZERO_INSETS);
         bClearSelection.addActionListener(new ActionListener() {
 
@@ -233,7 +233,7 @@ public class MapModelPane extends JPanel {
         });
 
         JButton bImportModels = new JButton(LOAD_DEFAULT_MODELS);
-        bImportModels.setPreferredSize(StyleConstants.BUTTON_SIZE_SMALL);
+        bImportModels.setPreferredSize(StyleConstants.BUTTON_SIZE_LONG);
         bImportModels.setMargin(StyleConstants.ZERO_INSETS);
         bImportModels.addActionListener(new ActionListener() {
 

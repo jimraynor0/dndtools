@@ -3,6 +3,8 @@ package org.toj.dnd.irctoolkit.ui.map.modelpane;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 
+import org.toj.dnd.irctoolkit.ui.StyleConstants;
+
 public class ColorTypeRadioGroup extends ButtonGroup {
 
     private static final long serialVersionUID = 890748691867041619L;
@@ -15,14 +17,11 @@ public class ColorTypeRadioGroup extends ButtonGroup {
     private JRadioButton radioBack;
 
     ColorTypeRadioGroup() {
-
         radioFore = new JRadioButton("Ç°¾°É«");
         this.add(radioFore);
-        radioFore.setBounds(11, 65, 89, 23);
 
         radioBack = new JRadioButton("±³¾°É«");
         this.add(radioBack);
-        radioBack.setBounds(102, 65, 89, 23);
     }
 
     public String getSelected() {
