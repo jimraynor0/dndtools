@@ -31,23 +31,23 @@ public class InvFilterParamComponent extends FilterParamComponent {
                 .getContext()));
 
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        table.setRowHeight(StyleConstants.SIZE_MODEL_LIST_ROW_HEIGHT);
+        table.setRowHeight(StyleConstants.MODEL_LIST_ROW_HEIGHT);
         table.getColumnModel()
                 .getColumn(0)
                 .setPreferredWidth(
-                        StyleConstants.SIZE_MODEL_LIST_COLUMN_0.width);
+                        StyleConstants.MODEL_LIST_COLUMN_0_SIZE.width);
         table.getColumnModel()
                 .getColumn(1)
                 .setPreferredWidth(
-                        StyleConstants.SIZE_MODEL_LIST_COLUMN_1.width);
+                        StyleConstants.MODEL_LIST_COLUMN_1_SIZE.width);
         table.getColumnModel()
                 .getColumn(2)
                 .setPreferredWidth(
-                        StyleConstants.SIZE_MODEL_LIST_COLUMN_2.width);
+                        StyleConstants.MODEL_LIST_COLUMN_2_SIZE.width);
         table.getColumnModel()
                 .getColumn(3)
                 .setPreferredWidth(
-                        StyleConstants.SIZE_MODEL_LIST_COLUMN_3.width);
+                        StyleConstants.MODEL_LIST_COLUMN_3_SIZE.width);
         table.setRowSelectionAllowed(true);
         table.setColumnSelectionAllowed(false);
 
@@ -73,10 +73,10 @@ public class InvFilterParamComponent extends FilterParamComponent {
                         panel.add(label);
 
                         label.setBounds(
-                                (StyleConstants.SIZE_MODEL_LIST_COLUMN_0.width - StyleConstants.SIZE_ICON_LABEL.width) / 2,
-                                (StyleConstants.SIZE_MODEL_LIST_COLUMN_0.height - StyleConstants.SIZE_ICON_LABEL.height) / 2,
-                                StyleConstants.SIZE_ICON_LABEL.width,
-                                StyleConstants.SIZE_ICON_LABEL.height);
+                                (StyleConstants.MODEL_LIST_COLUMN_0_SIZE.width - StyleConstants.ICON_SIZE.width) / 2,
+                                (StyleConstants.MODEL_LIST_COLUMN_0_SIZE.height - StyleConstants.ICON_SIZE.height) / 2,
+                                StyleConstants.ICON_SIZE.width,
+                                StyleConstants.ICON_SIZE.height);
                         label.setVerticalAlignment(SwingConstants.CENTER);
                         label.setHorizontalAlignment(SwingConstants.CENTER);
                         label.setFont(StyleConstants.ICON_FONT);

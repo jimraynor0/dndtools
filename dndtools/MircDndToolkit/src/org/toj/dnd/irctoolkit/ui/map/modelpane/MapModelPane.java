@@ -73,24 +73,24 @@ public class MapModelPane extends JPanel {
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         table.setModel(new MapModelListWrapper(context));
         table.getTableHeader().setPreferredSize(
-                StyleConstants.SIZE_MODEL_LIST_HEADER);
-        table.setRowHeight(StyleConstants.SIZE_MODEL_LIST_ROW_HEIGHT);
+                StyleConstants.MODEL_LIST_HEADER_SIZE);
+        table.setRowHeight(StyleConstants.MODEL_LIST_ROW_HEIGHT);
         table.getColumnModel()
                 .getColumn(0)
                 .setPreferredWidth(
-                        StyleConstants.SIZE_MODEL_LIST_COLUMN_0.width);
+                        StyleConstants.MODEL_LIST_COLUMN_0_SIZE.width);
         table.getColumnModel()
                 .getColumn(1)
                 .setPreferredWidth(
-                        StyleConstants.SIZE_MODEL_LIST_COLUMN_1.width);
+                        StyleConstants.MODEL_LIST_COLUMN_1_SIZE.width);
         table.getColumnModel()
                 .getColumn(2)
                 .setPreferredWidth(
-                        StyleConstants.SIZE_MODEL_LIST_COLUMN_2.width);
+                        StyleConstants.MODEL_LIST_COLUMN_2_SIZE.width);
         table.getColumnModel()
                 .getColumn(3)
                 .setPreferredWidth(
-                        StyleConstants.SIZE_MODEL_LIST_COLUMN_3.width);
+                        StyleConstants.MODEL_LIST_COLUMN_3_SIZE.width);
         table.setRowSelectionAllowed(true);
         table.setColumnSelectionAllowed(false);
         table.setDragEnabled(true);
@@ -147,10 +147,10 @@ public class MapModelPane extends JPanel {
                         panel.add(label);
 
                         label.setBounds(
-                                (StyleConstants.SIZE_MODEL_LIST_COLUMN_0.width - StyleConstants.SIZE_ICON_LABEL.width) / 2,
-                                (StyleConstants.SIZE_MODEL_LIST_COLUMN_0.height - StyleConstants.SIZE_ICON_LABEL.height) / 2,
-                                StyleConstants.SIZE_ICON_LABEL.width,
-                                StyleConstants.SIZE_ICON_LABEL.height);
+                                (StyleConstants.MODEL_LIST_COLUMN_0_SIZE.width - StyleConstants.ICON_SIZE.width) / 2,
+                                (StyleConstants.MODEL_LIST_COLUMN_0_SIZE.height - StyleConstants.ICON_SIZE.height) / 2,
+                                StyleConstants.ICON_SIZE.width,
+                                StyleConstants.ICON_SIZE.height);
                         label.setVerticalAlignment(SwingConstants.CENTER);
                         label.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -176,8 +176,8 @@ public class MapModelPane extends JPanel {
         add(scrollPane);
 
         JButton bAdd = new JButton(NEW_MODEL);
-        bAdd.setPreferredSize(StyleConstants.SIZE_BUTTON);
-        bAdd.setMargin(StyleConstants.INSETS_BUTTON);
+        bAdd.setPreferredSize(StyleConstants.BUTTON_SIZE_SMALL);
+        bAdd.setMargin(StyleConstants.ZERO_INSETS);
         bAdd.addActionListener(new ActionListener() {
 
             @Override
@@ -187,8 +187,8 @@ public class MapModelPane extends JPanel {
         });
 
         JButton bDel = new JButton(DELETE_MODEL);
-        bDel.setPreferredSize(StyleConstants.SIZE_BUTTON);
-        bDel.setMargin(StyleConstants.INSETS_BUTTON);
+        bDel.setPreferredSize(StyleConstants.BUTTON_SIZE_SMALL);
+        bDel.setMargin(StyleConstants.ZERO_INSETS);
         bDel.addActionListener(new ActionListener() {
 
             @Override
@@ -199,8 +199,8 @@ public class MapModelPane extends JPanel {
         });
 
         JButton bClearSelection = new JButton(CANCEL_MODEL_SELECTION);
-        bClearSelection.setPreferredSize(StyleConstants.SIZE_BUTTON);
-        bClearSelection.setMargin(StyleConstants.INSETS_BUTTON);
+        bClearSelection.setPreferredSize(StyleConstants.BUTTON_SIZE_SMALL);
+        bClearSelection.setMargin(StyleConstants.ZERO_INSETS);
         bClearSelection.addActionListener(new ActionListener() {
 
             @Override
@@ -211,7 +211,7 @@ public class MapModelPane extends JPanel {
         });
         JComboBox cbEditMode = new JComboBox(new DefaultComboBoxModel(
                 EDIT_MODES));
-        cbEditMode.setPreferredSize(StyleConstants.SIZE_DROPDOWN);
+        cbEditMode.setPreferredSize(StyleConstants.EDIT_MODE_DROPDOWN_SIZE);
         ((WebComboBoxCellRenderer) cbEditMode.getRenderer()).getBoxRenderer()
                 .setHorizontalAlignment(SwingConstants.CENTER);
         cbEditMode.setOpaque(true);
@@ -233,8 +233,8 @@ public class MapModelPane extends JPanel {
         });
 
         JButton bImportModels = new JButton(LOAD_DEFAULT_MODELS);
-        bImportModels.setPreferredSize(StyleConstants.SIZE_BUTTON);
-        bImportModels.setMargin(StyleConstants.INSETS_BUTTON);
+        bImportModels.setPreferredSize(StyleConstants.BUTTON_SIZE_SMALL);
+        bImportModels.setMargin(StyleConstants.ZERO_INSETS);
         bImportModels.addActionListener(new ActionListener() {
 
             @Override
@@ -258,7 +258,7 @@ public class MapModelPane extends JPanel {
         // });
 
         JPanel controlPanel = new JPanel();
-        controlPanel.setPreferredSize(StyleConstants.SIZE_CONTROL_PANEL);
+        controlPanel.setPreferredSize(StyleConstants.MODEL_PANEL_CONTROL_PANEL_SIZE);
         controlPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
         controlPanel.add(bAdd);
         controlPanel.add(bDel);

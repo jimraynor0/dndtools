@@ -24,7 +24,7 @@ public class CropFilterParamComponent extends FilterParamComponent {
         table = new JTable();
         table.setModel(new MapGridWrapper(ToolkitEngine.getEngine()
                 .getContext().getCurrentMap().getUnAxisfiedFilteredMap()));
-        table.setRowHeight(StyleConstants.SIZE_ICON_LABEL.height);
+        table.setRowHeight(StyleConstants.ICON_SIZE.height);
         table.setRowSelectionAllowed(false);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
@@ -65,11 +65,11 @@ public class CropFilterParamComponent extends FilterParamComponent {
         for (int i = 0; i < table.getModel().getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setResizable(false);
             table.getColumnModel().getColumn(i)
-                    .setPreferredWidth(StyleConstants.SIZE_ICON_LABEL.width);
+                    .setPreferredWidth(StyleConstants.ICON_SIZE.width);
             table.getColumnModel().getColumn(i)
-                    .setMinWidth(StyleConstants.SIZE_ICON_LABEL.width);
+                    .setMinWidth(StyleConstants.ICON_SIZE.width);
             table.getColumnModel().getColumn(i)
-                    .setMaxWidth(StyleConstants.SIZE_ICON_LABEL.width);
+                    .setMaxWidth(StyleConstants.ICON_SIZE.width);
         }
     }
 

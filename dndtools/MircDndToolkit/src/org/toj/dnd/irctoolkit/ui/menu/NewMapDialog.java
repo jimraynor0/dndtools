@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
 import org.toj.dnd.irctoolkit.engine.command.map.NewMapCommand;
+import org.toj.dnd.irctoolkit.ui.StyleConstants;
 import org.toj.dnd.irctoolkit.util.AxisUtil;
 
 public class NewMapDialog extends JDialog {
@@ -26,7 +27,7 @@ public class NewMapDialog extends JDialog {
 
     public NewMapDialog(JFrame frame) {
         super(frame, true);
-        getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 2));
 
         JLabel lWidth = new JLabel("¿í¶È");
         getContentPane().add(lWidth);
@@ -106,8 +107,8 @@ public class NewMapDialog extends JDialog {
 
     public void launch() {
         Rectangle parentBound = this.getOwner().getBounds();
-        setBounds(new Rectangle(parentBound.x + 100, parentBound.y + 100, 160,
-                120));
+        setBounds(new Rectangle(parentBound.x + 100, parentBound.y + 100, StyleConstants.NEW_MAP_DIALOG_SIZE.width,
+                StyleConstants.NEW_MAP_DIALOG_SIZE.height));
         this.setVisible(true);
     }
 }

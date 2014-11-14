@@ -31,7 +31,7 @@ public class MapGridPanel extends JTable implements MapGridObserver {
         ToolkitEngine.getEngine().addMapGridObserver(this);
 
         this.setModel(new MapGridWrapper(context));
-        this.setRowHeight(StyleConstants.SIZE_ICON_LABEL.height);
+        this.setRowHeight(StyleConstants.ICON_SIZE.height);
         this.setRowSelectionAllowed(false);
         this.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
@@ -72,11 +72,11 @@ public class MapGridPanel extends JTable implements MapGridObserver {
         for (int i = 0; i < this.getModel().getColumnCount(); i++) {
             this.getColumnModel().getColumn(i).setResizable(false);
             this.getColumnModel().getColumn(i)
-                    .setPreferredWidth(StyleConstants.SIZE_ICON_LABEL.width);
+                    .setPreferredWidth(StyleConstants.ICON_SIZE.width);
             this.getColumnModel().getColumn(i)
-                    .setMinWidth(StyleConstants.SIZE_ICON_LABEL.width);
+                    .setMinWidth(StyleConstants.ICON_SIZE.width);
             this.getColumnModel().getColumn(i)
-                    .setMaxWidth(StyleConstants.SIZE_ICON_LABEL.width);
+                    .setMaxWidth(StyleConstants.ICON_SIZE.width);
         }
     }
 
