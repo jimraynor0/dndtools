@@ -127,7 +127,40 @@
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <id>cleanup-target</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                        <configuration>
+                            <excludeDefaultDirectories>true</excludeDefaultDirectories>
+                            <filesets>
+                                <fileset>
+                                    <directory>target/dependency</directory>
+                                    <directory>target/generated-source</directory>
+                                    <directory>target/maven-archiver</directory>
+                                    <directory>target/maven-status</directory>
+                                    <directory>target/surefire</directory>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                  <configuration>
+                      <finalName>jimstoolkit.jar</finalName>                   
+                 </configuration>
+            </plugin>
+        </plugins>
 		<pluginManagement>
 			<plugins>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
@@ -158,6 +191,22 @@
 										<ignore></ignore>
 									</action>
 								</pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <artifactId>
+                                            maven-clean-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [2.0,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>clean</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
