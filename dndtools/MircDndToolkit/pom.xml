@@ -65,8 +65,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -142,10 +142,21 @@
                             <filesets>
                                 <fileset>
                                     <directory>target/dependency</directory>
-                                    <directory>target/generated-source</directory>
+                                </fileset>
+                                <fileset>
+                                    <directory>target/generated-sources</directory>
+                                </fileset>
+                                <fileset>
                                     <directory>target/maven-archiver</directory>
+                                </fileset>
+                                <fileset>
                                     <directory>target/maven-status</directory>
+                                </fileset>
+                                <fileset>
                                     <directory>target/surefire</directory>
+                                </fileset>
+                                <fileset>
+                                    <directory>target/test-classes</directory>
                                 </fileset>
                             </filesets>
                         </configuration>
@@ -157,7 +168,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.2</version>
                   <configuration>
-                      <finalName>jimstoolkit.jar</finalName>                   
+                      <finalName>jimstoolkit</finalName>                   
                  </configuration>
             </plugin>
         </plugins>
@@ -193,6 +204,9 @@
 								</pluginExecution>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
                                         <artifactId>
                                             maven-clean-plugin
                                         </artifactId>
