@@ -30,7 +30,7 @@ public class NewMapDialog extends JDialog {
         super(frame, true);
         getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 2));
 
-        JLabel lWidth = new JLabel("¿í¶È");
+        JLabel lWidth = new JLabel("å®½åº¦");
         lWidth.setPreferredSize(new Dimension(25, StyleConstants.INPUT_HEIGHT));
         getContentPane().add(lWidth);
 
@@ -51,7 +51,7 @@ public class NewMapDialog extends JDialog {
         });
         getContentPane().add(tWidth);
 
-        JLabel lHeight = new JLabel("¸ß¶È");
+        JLabel lHeight = new JLabel("é«˜åº¦");
         lHeight.setPreferredSize(new Dimension(25, StyleConstants.INPUT_HEIGHT));
         getContentPane().add(lHeight);
 
@@ -72,7 +72,7 @@ public class NewMapDialog extends JDialog {
         });
         getContentPane().add(tHeight);
 
-        JButton bOk = new JButton("´´½¨");
+        JButton bOk = new JButton("åˆ›å»º");
         bOk.setPreferredSize(StyleConstants.BUTTON_SIZE_SMALL);
         getContentPane().add(bOk);
         bOk.addActionListener(new ActionListener() {
@@ -85,20 +85,20 @@ public class NewMapDialog extends JDialog {
                     if (width > AxisUtil.supportsAxisLength()
                             || height > AxisUtil.supportsAxisLength()) {
                         ToolkitEngine.getEngine().fireErrorMsgWindow(
-                                "±§Ç¸Ó´Ç×£¬Ä¿Ç°Ö»ÄÜÖ§³Ö±ß³¤²»³¬¹ı"
+                                "æŠ±æ­‰å“Ÿäº²ï¼Œç›®å‰åªèƒ½æ”¯æŒè¾¹é•¿ä¸è¶…è¿‡"
                                         + AxisUtil.supportsAxisLength()
-                                        + "µÄµØÍ¼Ó´");
+                                        + "çš„åœ°å›¾å“Ÿ");
                     }
                     ToolkitEngine.getEngine().queueCommand(
                             new NewMapCommand(width, height));
                     setVisible(false);
                 } catch (NumberFormatException e1) {
-                    ToolkitEngine.getEngine().fireErrorMsgWindow("³¤ºÍ¿í¶¼ÒªÊÇÕıÕûÊıÓ´Ç×");
+                    ToolkitEngine.getEngine().fireErrorMsgWindow("é•¿å’Œå®½éƒ½è¦æ˜¯æ­£æ•´æ•°å“Ÿäº²");
                 }
             }
         });
 
-        JButton bCancel = new JButton("È¡Ïû");
+        JButton bCancel = new JButton("å–æ¶ˆ");
         bCancel.setPreferredSize(StyleConstants.BUTTON_SIZE_SMALL);
         getContentPane().add(bCancel);
         bCancel.addActionListener(new ActionListener() {

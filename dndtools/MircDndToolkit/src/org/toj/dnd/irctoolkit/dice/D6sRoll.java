@@ -65,22 +65,22 @@ public class D6sRoll {
         D6sRoll wqParry = new D6sRoll(13, true);
 
         jimSword.roll();
-        System.out.println("JimÍ¶ÖÀ¹¥»÷: "
+        System.out.println("JimæŠ•æ·æ”»å‡»: "
                 + (jimSword.getBaseSucc() + jimSword.getRolledSucc()));
         jimDodge.roll();
-        System.out.println("JimÍ¶ÖÀÉÁ±Ü: "
+        System.out.println("JimæŠ•æ·é—ªé¿: "
                 + (jimDodge.getBaseSucc() + jimDodge.getRolledSucc()));
         jimParry.roll();
-        System.out.println("JimÍ¶ÖÀ¸ñµ²: "
+        System.out.println("JimæŠ•æ·æ ¼æŒ¡: "
                 + (jimParry.getBaseSucc() + jimParry.getRolledSucc()));
         wqSword.roll();
-        System.out.println("JesÍ¶ÖÀ¹¥»÷: "
+        System.out.println("JesæŠ•æ·æ”»å‡»: "
                 + (wqSword.getBaseSucc() + wqSword.getRolledSucc()));
         wqDodge.roll();
-        System.out.println("JesÍ¶ÖÀÉÁ±Ü: "
+        System.out.println("JesæŠ•æ·é—ªé¿: "
                 + (wqDodge.getBaseSucc() + wqDodge.getRolledSucc()));
         wqParry.roll();
-        System.out.println("JesÍ¶ÖÀ¸ñµ²: "
+        System.out.println("JesæŠ•æ·æ ¼æŒ¡: "
                 + (wqParry.getBaseSucc() + wqParry.getRolledSucc()));
     }
 }

@@ -28,11 +28,11 @@ import org.toj.dnd.irctoolkit.ui.StyleConstants;
 
 public class MapModelEditor extends JDialog {
 
-    private static final String ICON_ID = "Í¼±êId";
-    private static final String ICON = "Í¼±ê";
-    private static final String ICON_DESC = "ÃèÊö";
-    private static final String BLOCK_LOS = "×èµ²ÊÓÏß";
-    private static final String BLOCK_LOE = "×èµ²Ğ§¹ûÏß";
+    private static final String ICON_ID = "å›¾æ ‡Id";
+    private static final String ICON = "å›¾æ ‡";
+    private static final String ICON_DESC = "æè¿°";
+    private static final String BLOCK_LOS = "é˜»æŒ¡è§†çº¿";
+    private static final String BLOCK_LOE = "é˜»æŒ¡æ•ˆæœçº¿";
 
     private static final long serialVersionUID = -5864200205663505539L;
 
@@ -267,7 +267,7 @@ public class MapModelEditor extends JDialog {
         if (model.getForeground() != null) {
             String ic = tfIcon.getText();
             if (ic == null || ic.trim().isEmpty()) {
-                ToolkitEngine.getEngine().fireErrorMsgWindow("ÀÍÄú¼İ°ÑÍ¼±êÀ¸¸øÌîÉÏßÂ¡­¡­");
+                ToolkitEngine.getEngine().fireErrorMsgWindow("åŠ³æ‚¨é©¾æŠŠå›¾æ ‡æ ç»™å¡«ä¸Šå‘—â€¦â€¦");
                 throw new IllegalArgumentException();
             }
             ic = ic.trim();

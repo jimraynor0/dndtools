@@ -34,21 +34,21 @@ public class D6sDiceRollCommand extends GameCommand {
         D6sRoll roll = new D6sRoll(diceNumber, true);
         roll.roll();
         StringBuilder result = new StringBuilder(this.caller)
-                .append("½øÐÐ")
+                .append("è¿›è¡Œ")
                 .append(IrcColoringUtil.paint(composite(desc),
                         Color.BLUE.getCode()))
-                .append("¼ì¶¨£¬Í¶ÖÀ")
+                .append("æ£€å®šï¼ŒæŠ•æŽ·")
                 .append(IrcColoringUtil.paint(diceNumber + "d6",
                         Color.TEAL.getCode()))
-                .append("(»ù´¡ ")
+                .append("(åŸºç¡€ ")
                 .append(IrcColoringUtil.paint(
                         String.valueOf(roll.getBaseSucc()),
                         Color.PURPLE.getCode()))
-                .append("£¬ÖÀ÷» ")
+                .append("ï¼ŒæŽ·éª° ")
                 .append(IrcColoringUtil.paint(
                         String.valueOf(roll.getDiceNumber()
                                 - roll.getBaseSucc()), Color.PURPLE.getCode()))
-                .append(")£¬½á¹û£º")
+                .append(")ï¼Œç»“æžœï¼š")
                 .append(IrcColoringUtil.paint(
                         String.valueOf(roll.getBaseSucc()),
                         Color.PURPLE.getCode()))
@@ -61,7 +61,7 @@ public class D6sDiceRollCommand extends GameCommand {
                         String.valueOf(roll.getBaseSucc()
                                 + roll.getRolledSucc()), Color.TEAL.getCode()));
         sendMsg(result.toString());
-        result = new StringBuilder("ÖÀ÷»½á¹û£º");
+        result = new StringBuilder("æŽ·éª°ç»“æžœï¼š");
         boolean first = true;
         for (int die : roll.getDiceRollResults()) {
             if (first) {

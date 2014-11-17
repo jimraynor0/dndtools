@@ -133,13 +133,13 @@ public class IrcCommandFactory {
         cmdStr = cmdStr.substring(0, cmdStr.lastIndexOf(' '));
 
         // What's left in cmdStr:
-        // Hunk¼ÆËãdam: 8+5+9=22
-        // JimRaynor½øÐÐdmg¼ì¶¨: d6+3+4=3+3+4=10
-        String actualCmdPrefix = "½øÐÐ";
-        String actualCmdSuffix = "¼ì¶¨";
+        // Hunkè®¡ç®—dam: 8+5+9=22
+        // JimRaynorè¿›è¡Œdmgæ£€å®š: d6+3+4=3+3+4=10
+        String actualCmdPrefix = "è¿›è¡Œ";
+        String actualCmdSuffix = "æ£€å®š";
 
-        if (cmdStr.contains("¼ÆËã")) {
-            actualCmdPrefix = "¼ÆËã";
+        if (cmdStr.contains("è®¡ç®—")) {
+            actualCmdPrefix = "è®¡ç®—";
             actualCmdSuffix = ": ";
         }
 

@@ -28,7 +28,7 @@ import org.toj.dnd.irctoolkit.ui.MainFrame;
 public class ToolkitEngine extends Thread {
 
     public static final String MAIN_FRAME_TITLE = "Jim's D&D 4E Toolkit";
-    public static final String ERR_MSG_TITLE = "ºÃ°É£¬ÎÒ°ÜÁË¡­¡­";
+    public static final String ERR_MSG_TITLE = "å¥½å§ï¼Œæˆ‘è´¥äº†â€¦â€¦";
     private static ToolkitEngine INSTANCE;
 
     public static ToolkitEngine getEngine() {
@@ -103,14 +103,14 @@ public class ToolkitEngine extends Thread {
         try {
             IrcClient.getInstance().connect();
         } catch (NickAlreadyInUseException e) {
-            fireErrorMsgWindow("DM ToolkitµÄêÇ³Æ\""
-                    + IrcClient.getInstance().getNick() + "\"ÒÑ¾­±»Õ¼ÓÃÁË¡£");
+            fireErrorMsgWindow("DM Toolkitçš„æ˜µç§°\""
+                    + IrcClient.getInstance().getNick() + "\"å·²ç»è¢«å ç”¨äº†ã€‚");
             setDisconnected();
         } catch (IOException e) {
-            fireErrorMsgWindow("ÎŞ·¨Á¬½Óµ½IRC·şÎñÆ÷¡£");
+            fireErrorMsgWindow("æ— æ³•è¿æ¥åˆ°IRCæœåŠ¡å™¨ã€‚");
             setDisconnected();
         } catch (IrcException e) {
-            fireErrorMsgWindow("ÎŞ·¨Á¬½Óµ½IRC·şÎñÆ÷¡£");
+            fireErrorMsgWindow("æ— æ³•è¿æ¥åˆ°IRCæœåŠ¡å™¨ã€‚");
             setDisconnected();
         }
     }

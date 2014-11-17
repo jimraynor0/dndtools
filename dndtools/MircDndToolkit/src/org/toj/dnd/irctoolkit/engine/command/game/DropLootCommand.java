@@ -36,7 +36,7 @@ public class DropLootCommand extends UndoableTopicCommand {
         for (Item i : items) {
             getGame().removeItem(i);
         }
-        LogCommand logCommand = new LogCommand(new Object[] { "团队丢弃物品|"
+        LogCommand logCommand = new LogCommand(new Object[] { "鍥㈤槦涓㈠純鐗╁搧|"
                 + getLootString() });
         logCommand.setCaller(caller);
         ToolkitEngine.getEngine().queueCommand(logCommand);

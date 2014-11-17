@@ -17,10 +17,10 @@ public class ColorTypeRadioGroup extends ButtonGroup {
     private JRadioButton radioBack;
 
     ColorTypeRadioGroup() {
-        radioFore = new JRadioButton("Ç°¾°É«");
+        radioFore = new JRadioButton("å‰æ™¯è‰²");
         this.add(radioFore);
 
-        radioBack = new JRadioButton("±³¾°É«");
+        radioBack = new JRadioButton("èƒŒæ™¯è‰²");
         this.add(radioBack);
     }
 

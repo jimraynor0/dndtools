@@ -12,7 +12,7 @@ import org.toj.dnd.irctoolkit.util.AxisUtil;
 
 public class LineOfSightFilter extends MapFilter {
     private static final MapGridCell OBSCURED_SPACE = new MapGridCell(
-            Color.GRAY, Color.WHITE, "Îí");
+            Color.GRAY, Color.WHITE, "é›¾");
 
     private static final long serialVersionUID = 7390606623325169731L;
 
@@ -258,7 +258,7 @@ public class LineOfSightFilter extends MapFilter {
 
     @Override
     public String getType() {
-        return "¿ÉÊÓ·¶Î§ÂË¾µ";
+        return "å¯è§†èŒƒå›´æ»¤é•œ";
     }
 
     @Override

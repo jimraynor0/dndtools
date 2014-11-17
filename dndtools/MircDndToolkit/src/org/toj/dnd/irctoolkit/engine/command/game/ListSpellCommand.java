@@ -50,7 +50,7 @@ public class ListSpellCommand extends UndoableTopicCommand {
             Map<String, List<Spell>> spells) {
         List<String> msg = new ArrayList<String>();
         if (spells.isEmpty()) {
-            msg.add(name + "没有准备法术");
+            msg.add(name + "娌℃湁鍑嗗娉曟湳");
         } else {
             StringBuilder sb = new StringBuilder();
             sb.append("-------- ").append(name).append(" --------")

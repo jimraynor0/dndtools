@@ -67,7 +67,7 @@ public class MapFilterEditor extends JDialog {
         panel.setLayout(new FlowLayout());
         panel.setPreferredSize(new Dimension(103, 60));
 
-        panel.add(new JLabel("ÂË¾µÀàĞÍ: "));
+        panel.add(new JLabel("æ»¤é•œç±»å‹: "));
         listType = new JComboBox(new DefaultComboBoxModel(FILTER_TYPES));
 
         // listType.setBounds(197, 36, 103, 20);
@@ -83,7 +83,7 @@ public class MapFilterEditor extends JDialog {
         });
         panel.add(listType);
 
-        panel.add(new JLabel("  Æô¶¯:"));
+        panel.add(new JLabel("  å¯åŠ¨:"));
         this.cbActive = new JCheckBox();
         panel.add(cbActive);
 

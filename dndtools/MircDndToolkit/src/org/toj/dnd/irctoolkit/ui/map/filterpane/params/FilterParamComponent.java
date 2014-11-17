@@ -10,10 +10,10 @@ public abstract class FilterParamComponent {
     public static FilterParamComponent getFilterParamComponent(
             String filterType, String param) {
         if (filterType == null) {
-            return TextLabelComponent.getInstance("ÇëÑ¡ÔñÄãÒªÌí¼Ó/ĞŞ¸ÄµÄÂË¾µÀàĞÍ¡£");
+            return TextLabelComponent.getInstance("è¯·é€‰æ‹©ä½ è¦æ·»åŠ /ä¿®æ”¹çš„æ»¤é•œç±»å‹ã€‚");
         } else if (filterType == MapFilter.TYPE_AXIS_LABEL_FILTER) {
             return TextLabelComponent
-                    .getInstance("ÄãÑ¡ÔñµÄÂË¾µ²»ĞèÒª¶îÍâµÄ²ÎÊı¡£");
+                    .getInstance("ä½ é€‰æ‹©çš„æ»¤é•œä¸éœ€è¦é¢å¤–çš„å‚æ•°ã€‚");
         } else if (filterType == MapFilter.TYPE_CROP_FILTER) {
             return new CropFilterParamComponent(param);
         } else if (filterType == MapFilter.TYPE_INVISIBILITY_FILTER) {

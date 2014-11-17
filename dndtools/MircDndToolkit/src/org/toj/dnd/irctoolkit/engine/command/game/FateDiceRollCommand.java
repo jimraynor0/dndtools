@@ -39,15 +39,15 @@ public class FateDiceRollCommand extends GameCommand {
         roll.roll();
         StringBuilder result = new StringBuilder(IrcColoringUtil.paint(
                 this.caller, Color.RED.getCode()))
-                .append("½øÐÐ")
+                .append("è¿›è¡Œ")
                 .append(IrcColoringUtil.paint(composite(desc),
                         Color.BLUE.getCode()))
-                .append("¼ì¶¨£¬Í¶ÖÀ")
+                .append("æ£€å®šï¼ŒæŠ•æŽ·")
                 .append(IrcColoringUtil.paint(
                         (skill == -1 ? "" : (skill + "+")),
                         Color.ORANGE.getCode()))
                 .append(IrcColoringUtil.paint("4df", Color.PURPLE.getCode()))
-                .append("£¬½á¹û£º")
+                .append("ï¼Œç»“æžœï¼š")
                 .append(IrcColoringUtil.paint((skill == -1 ? ""
                         : (skill + (roll.getResultNumber() < 0 ? "" : "+"))),
                         Color.ORANGE.getCode()))
@@ -59,7 +59,7 @@ public class FateDiceRollCommand extends GameCommand {
                         String.valueOf((skill == -1 ? 0 : skill)
                                 + roll.getResultNumber()), Color.TEAL.getCode()));
         sendMsg(result.toString());
-        result = new StringBuilder("ÖÀ÷»½á¹û£º");
+        result = new StringBuilder("æŽ·éª°ç»“æžœï¼š");
         result.append(IrcColoringUtil.paint(roll.getDiceResults().toString(),
                 Color.TEAL.getCode()));
         sendMsg(result.toString());

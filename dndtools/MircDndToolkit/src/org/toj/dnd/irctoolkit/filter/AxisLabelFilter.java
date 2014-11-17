@@ -10,7 +10,7 @@ public class AxisLabelFilter extends MapFilter {
     private static final long serialVersionUID = 5226719747025737291L;
 
     public static final MapGridCell AXIS_LABEL = new MapGridCell(Color.BLACK,
-            Color.WHITE, "¨K");
+            Color.WHITE, "â†˜");
 
     private transient MapGridCell[][] originalMap;
 
@@ -66,7 +66,7 @@ public class AxisLabelFilter extends MapFilter {
 
     @Override
     public String getType() {
-        return "×ø±êÂË¾µ";
+        return "åæ ‡æ»¤é•œ";
     }
 
     @Override

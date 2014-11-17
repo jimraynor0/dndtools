@@ -14,7 +14,7 @@ class BtnCancel extends JButton implements ActionListener {
     BtnCancel(MapFilterEditor editorFrame) {
         this.editorFrame = editorFrame;
 
-        this.setText("»°œ˚");
+        this.setText("ÂèñÊ∂à");
         this.setBounds(173, 93, 89, 23);
         this.addActionListener(this);
     }

@@ -50,7 +50,7 @@ public class InitCommand extends UndoableTopicCommand {
                     int init = roll + pc.getInitMod();
                     String initModStr = (pc.getInitMod() >= 0 ? "+" : "")
                             + pc.getInitMod();
-                    sendMsgToDefaultChan(pc.getName() + "进行先攻检定，结果: 1d20"
+                    sendMsgToDefaultChan(pc.getName() + "杩涜鍏堟敾妫�瀹氾紝缁撴灉: 1d20"
                             + initModStr + "=" + roll + initModStr + "=" + init);
                     getGame().addCharByInit(ch, init);
                     continue;
@@ -61,7 +61,7 @@ public class InitCommand extends UndoableTopicCommand {
                     int init = roll + npc.getInitMod();
                     String initModStr = (npc.getInitMod() >= 0 ? "+" : "")
                             + npc.getInitMod();
-                    sendMsgToDefaultChan(npc.getName() + "进行先攻检定，结果: 1d20"
+                    sendMsgToDefaultChan(npc.getName() + "杩涜鍏堟敾妫�瀹氾紝缁撴灉: 1d20"
                             + initModStr + "=" + roll + initModStr + "=" + init);
                     getGame().addCharByInit(ch, init);
                     continue;

@@ -65,7 +65,7 @@ public class MapFilterPane extends JPanel {
                 .setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         add(scrollPane);
 
-        JButton bAdd = new JButton("ÐÂ½¨µØÍ¼ÂË¾µ");
+        JButton bAdd = new JButton("æ–°å»ºåœ°å›¾æ»¤é•œ");
         bAdd.setPreferredSize(StyleConstants.BUTTON_SIZE_LONG);
         bAdd.setMargin(StyleConstants.ZERO_INSETS);
         bAdd.addActionListener(new ActionListener() {
@@ -76,7 +76,7 @@ public class MapFilterPane extends JPanel {
             }
         });
 
-        JButton bDel = new JButton("É¾³ýµØÍ¼ÂË¾µ");
+        JButton bDel = new JButton("åˆ é™¤åœ°å›¾æ»¤é•œ");
         bDel.setPreferredSize(StyleConstants.BUTTON_SIZE_LONG);
         bDel.setMargin(StyleConstants.ZERO_INSETS);
         bDel.addActionListener(new ActionListener() {

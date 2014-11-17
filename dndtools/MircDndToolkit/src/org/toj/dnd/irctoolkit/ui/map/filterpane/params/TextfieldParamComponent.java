@@ -17,7 +17,7 @@ public class TextfieldParamComponent extends FilterParamComponent {
     public TextfieldParamComponent(String params) {
         this.panel = new JPanel();
         panel.setLayout(new FlowLayout());
-        JLabel jLabel = new JLabel("≤Œ ˝: ");
+        JLabel jLabel = new JLabel("ÂèÇÊï∞: ");
         jLabel.setPreferredSize(StyleConstants.TEXT_PARAM_LABEL_SIZE);
         panel.add(jLabel);
 

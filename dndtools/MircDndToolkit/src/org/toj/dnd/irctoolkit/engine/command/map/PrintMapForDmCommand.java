@@ -17,7 +17,7 @@ public class PrintMapForDmCommand extends GameCommand {
     @Override
     public List<OutgoingMsg> execute() {
         if (getGame().getDm() == null || !getGame().getDm().equals(caller)) {
-            this.msgs.add(new OutgoingMsg(chan, caller, "这个命令只对dm可用，pc要乖乖的喔～",
+            this.msgs.add(new OutgoingMsg(chan, caller, "杩欎釜鍛戒护鍙dm鍙敤锛宲c瑕佷箹涔栫殑鍠旓綖",
                     OutgoingMsg.WRITE_TO_MSG, null, -1));
         } else {
             for (String line : MapGridIrcFormatter.formatToList(context

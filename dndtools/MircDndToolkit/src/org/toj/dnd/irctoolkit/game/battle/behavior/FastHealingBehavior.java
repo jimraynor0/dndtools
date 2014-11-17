@@ -28,7 +28,7 @@ public class FastHealingBehavior implements StateBehavior {
         if (triggered > 0) {
             owner.heal(heal * triggered);
             return new StringBuilder("[").append(owner.getName())
-                    .append("]ª÷∏¥¡À[").append(heal * triggered).append("]µ„hp")
+                    .append("]ÊÅ¢Â§ç‰∫Ü[").append(heal * triggered).append("]ÁÇπhp")
                     .toString();
         }
         return null;

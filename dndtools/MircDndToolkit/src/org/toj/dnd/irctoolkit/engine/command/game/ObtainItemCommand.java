@@ -40,7 +40,7 @@ public class ObtainItemCommand extends UndoableTopicCommand {
     @Override
     public void doProcess() throws ToolkitCommandException {
         if (owner == null) {
-            sendMsg("ºÜ±§Ç¸Õâ¸öÃüÁî±ØĞëÊäÈëPCµÄÃû×ÖÓ´¡£");
+            sendMsg("å¾ˆæŠ±æ­‰è¿™ä¸ªå‘½ä»¤å¿…é¡»è¾“å…¥PCçš„åå­—å“Ÿã€‚");
             return;
         }
         PC pc = getGame().findCharByNameOrAbbre(owner);
@@ -59,12 +59,12 @@ public class ObtainItemCommand extends UndoableTopicCommand {
                 takeLootString += item;
             }
 
-            LogCommand logCommand = new LogCommand(new Object[] { "·ÖÅäÍÅ¶ÓÎïÆ·|"
-                    + owner + "´ÓÍÅ¶ÓÎïÆ·ÖĞÄÃ×ßÁË" + takeLootString });
+            LogCommand logCommand = new LogCommand(new Object[] { "åˆ†é…å›¢é˜Ÿç‰©å“|"
+                    + owner + "ä»å›¢é˜Ÿç‰©å“ä¸­æ‹¿èµ°äº†" + takeLootString });
             logCommand.setCaller(caller);
             ToolkitEngine.getEngine().queueCommand(logCommand);
         } else {
-            sendMsg("ºÜ±§Ç¸pc[" + owner + "]Ã»ÓĞÕÒµ½Ó´¡£");
+            sendMsg("å¾ˆæŠ±æ­‰pc[" + owner + "]æ²¡æœ‰æ‰¾åˆ°å“Ÿã€‚");
         }
     }
 }

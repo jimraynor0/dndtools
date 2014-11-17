@@ -69,7 +69,7 @@ public class CropFilter extends MapFilter {
 
     @Override
     public String getType() {
-        return "½ØÈ¡ÂË¾µ";
+        return "æˆªå–æ»¤é•œ";
     }
 
     @Override

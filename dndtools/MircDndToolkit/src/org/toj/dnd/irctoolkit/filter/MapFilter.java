@@ -13,10 +13,10 @@ import org.toj.dnd.irctoolkit.util.XmlUtil;
 
 public abstract class MapFilter {
 
-    public static final String TYPE_AXIS_LABEL_FILTER = "×ø±êÂË¾µ";
-    public static final String TYPE_INVISIBILITY_FILTER = "ÒşĞÎÂË¾µ";
-    public static final String TYPE_LINE_OF_SIGHT_FILTER = "¿ÉÊÓ·¶Î§ÂË¾µ";
-    public static final String TYPE_CROP_FILTER = "½ØÈ¡ÂË¾µ";
+    public static final String TYPE_AXIS_LABEL_FILTER = "åæ ‡æ»¤é•œ";
+    public static final String TYPE_INVISIBILITY_FILTER = "éšå½¢æ»¤é•œ";
+    public static final String TYPE_LINE_OF_SIGHT_FILTER = "å¯è§†èŒƒå›´æ»¤é•œ";
+    public static final String TYPE_CROP_FILTER = "æˆªå–æ»¤é•œ";
 
     private boolean active = true;
 

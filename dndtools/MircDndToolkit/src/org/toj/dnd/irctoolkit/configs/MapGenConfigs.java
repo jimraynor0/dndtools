@@ -37,7 +37,7 @@ public class MapGenConfigs {
             return Integer.parseInt(props.getProperty(key));
         } catch (NumberFormatException e) {
             ToolkitEngine.getEngine().fireErrorMsgWindow(
-                    "ÅäÖÃÎÄ¼ş¸ñÊ½´íÎó: " + CONFIG_FILE + " - " + key + "µÄÖµÓ¦ÎªÕıÕûÊı¡£");
+                    "é…ç½®æ–‡ä»¶æ ¼å¼é”™è¯¯: " + CONFIG_FILE + " - " + key + "çš„å€¼åº”ä¸ºæ­£æ•´æ•°ã€‚");
         }
         return 0;
     }
@@ -51,7 +51,7 @@ public class MapGenConfigs {
         props = new Properties();
         if (!CONFIG_FILE.isFile()) {
             JOptionPane.showMessageDialog(null,
-                    "ÕÒ²»µ½ÅäÖÃÎÄ¼ş" + CONFIG_FILE.getAbsolutePath() + "£¬Æô¶¯Ê§°Ü¡£",
+                    "æ‰¾ä¸åˆ°é…ç½®æ–‡ä»¶" + CONFIG_FILE.getAbsolutePath() + "ï¼Œå¯åŠ¨å¤±è´¥ã€‚",
                     ToolkitEngine.ERR_MSG_TITLE, JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }

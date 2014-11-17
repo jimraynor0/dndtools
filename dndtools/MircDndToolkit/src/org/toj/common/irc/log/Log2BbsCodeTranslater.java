@@ -50,11 +50,11 @@ public class Log2BbsCodeTranslater {
             // line = reader.readLine().replaceAll("" + TOKEN + TOKEN, "" +
             // TOKEN);
 
-            print("[font=ËÎÌå]", -1, true);
+            print("[font=å®‹ä½“]", -1, true);
             while ((line = reader.readLine()) != null) {
                 line = line.replaceAll("" + (char) 15, "");
                 line = line.replaceAll("" + TOKEN + TOKEN, "" + TOKEN);
-                if (line.indexOf("Palbot") != -1 && line.indexOf("¡¼") != -1) {
+                if (line.indexOf("Palbot") != -1 && line.indexOf("ã€–") != -1) {
                     continue;
                 }
                 // if (line.indexOf("DnDBot") != -1) {

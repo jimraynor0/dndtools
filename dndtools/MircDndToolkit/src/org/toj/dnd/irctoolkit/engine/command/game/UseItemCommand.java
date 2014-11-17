@@ -35,7 +35,7 @@ public class UseItemCommand extends UndoableTopicCommand {
                     pc.getItems().remove(item);
                 }
             } else {
-                sendMsg("¶Ô²»Æğ£¬ÄúµÄÓà¶î²»×ã¡£");
+                sendMsg("å¯¹ä¸èµ·ï¼Œæ‚¨çš„ä½™é¢ä¸è¶³ã€‚");
             }
         }
     }

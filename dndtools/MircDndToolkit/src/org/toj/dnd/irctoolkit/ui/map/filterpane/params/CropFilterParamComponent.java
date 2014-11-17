@@ -93,7 +93,7 @@ public class CropFilterParamComponent extends FilterParamComponent {
 
     @Override
     public Component getTitle() {
-        JLabel jLabel = new JLabel("È¦Ñ¡ÄãÏëÒªÕ¹ÏÖ¸øPCµÄÇøÓò:");
+        JLabel jLabel = new JLabel("åœˆé€‰ä½ æƒ³è¦å±•ç°ç»™PCçš„åŒºåŸŸ:");
         jLabel.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel.setPreferredSize(StyleConstants.PARAM_TITLE_LABEL_SIZE);
         return jLabel;

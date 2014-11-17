@@ -158,8 +158,8 @@ public class IrcClient extends PircBot {
     protected void onInvite(String targetNick, String sourceNick,
             String sourceLogin, String sourceHostname, String channel) {
         super.joinChannel(channel);
-        super.sendAction(channel, this.getName() + "·î" + Colors.RED
-                + sourceNick + Colors.PURPLE + "µÄÕÙ»½¶øÀ´");
+        super.sendAction(channel, this.getName() + "å¥‰" + Colors.RED
+                + sourceNick + Colors.PURPLE + "çš„å¬å”¤è€Œæ¥");
     }
 
     @Override
@@ -167,7 +167,7 @@ public class IrcClient extends PircBot {
             String target, String action) {
         if (("dismiss " + this.getName()).equalsIgnoreCase(action)) {
             super.partChannel(target, Colors.PURPLE + sender
-                    + Colors.DARK_GREEN + "£¬ÎÒ»¹»á»ØÀ´µÄ£¡");
+                    + Colors.DARK_GREEN + "ï¼Œæˆ‘è¿˜ä¼šå›æ¥çš„ï¼");
         }
     }
 

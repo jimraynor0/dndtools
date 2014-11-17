@@ -117,10 +117,10 @@ public class MapModel implements Serializable {
     public String toString() {
         StringBuilder result = new StringBuilder(ch).append(" - ").append(desc);
         if (blocksLineOfSight) {
-            result.append("(×èµ²ÊÓÏß)");
+            result.append("(é˜»æŒ¡è§†çº¿)");
         }
         if (blocksLineOfEffect) {
-            result.append("(×èµ²Ð§¹ûÏß)");
+            result.append("(é˜»æŒ¡æ•ˆæžœçº¿)");
         }
         return result.toString();
     }

@@ -116,19 +116,19 @@ public class PC extends Combatant {
         sb.append("XP: ").append(xp).append("\r\n");
         sb.append("HP: ").append(hp).append("/").append(maxHp);
         if (getThp() > 0) {
-            sb.append("(ÁÙÊ±HP: ").append(this.getThp()).append(")");
+            sb.append("(ä¸´æ—¶HP: ").append(this.getThp()).append(")");
         }
         if (getNonlethal() > 0) {
-            sb.append("(ÓÙÉË: ").append(this.getNonlethal()).append(")");
+            sb.append("(æ·¤ä¼¤: ").append(this.getNonlethal()).append(")");
         }
         sb.append("\r\n");
         if (isPsionic()) {
-            sb.append("ÁéÄÜµã: ").append(pp).append("/").append(maxPp)
+            sb.append("çµèƒ½ç‚¹: ").append(pp).append("/").append(maxPp)
                     .append("\r\n");
         }
-        sb.append("ÏÈ¹¥µ÷ÕûÖµ: ").append(this.initMod).append("\r\n");
+        sb.append("å…ˆæ”»è°ƒæ•´å€¼: ").append(this.initMod).append("\r\n");
         if (states != null && !states.isEmpty()) {
-            sb.append("×´Ì¬: ");
+            sb.append("çŠ¶æ€: ");
             for (State s : states) {
                 sb.append(s.toString());
                 sb.append(s != states.getLast() ? ", " : "\r\n");
@@ -188,11 +188,11 @@ public class PC extends Combatant {
 
     public String removeItem(Item item) {
         if (!items.containsKey(item.getName())) {
-            return this.getName() + "³ÖÓĞÎïÆ·ÖĞÃ»ÓĞ[" + item.getName() + "]";
+            return this.getName() + "æŒæœ‰ç‰©å“ä¸­æ²¡æœ‰[" + item.getName() + "]";
         }
         Item loot = items.get(item.getName());
         if (loot.getCharges() < item.getCharges()) {
-            return this.getName() + "³ÖÓĞµÄÎïÆ·[" + item.getName() + "]ÊıÁ¿Ö»ÓĞ"
+            return this.getName() + "æŒæœ‰çš„ç‰©å“[" + item.getName() + "]æ•°é‡åªæœ‰"
                     + loot.getCharges();
         }
         loot.decreaseCharge(item.getCharges());
@@ -213,11 +213,11 @@ public class PC extends Combatant {
     public String removeSpell(Spell spell) {
         Spell prepared = findSpell(spell.getName());
         if (prepared == null) {
-            return "ÄãÃ»ÓĞ×¼±¸[" + spell.getName() + "]·¨Êõ";
+            return "ä½ æ²¡æœ‰å‡†å¤‡[" + spell.getName() + "]æ³•æœ¯";
         }
         if (prepared.getCharges() < spell.getCharges()) {
-            return "ÄãÖ»×¼±¸ÁË" + prepared.getCharges() + "¸ö[" + spell.getName()
-                    + "]·¨Êõ";
+            return "ä½ åªå‡†å¤‡äº†" + prepared.getCharges() + "ä¸ª[" + spell.getName()
+                    + "]æ³•æœ¯";
         }
         prepared.decreaseCharge(spell.getCharges());
         if (prepared.getCharges() == 0) {

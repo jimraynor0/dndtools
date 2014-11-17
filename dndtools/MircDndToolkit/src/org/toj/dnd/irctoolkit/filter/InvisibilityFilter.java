@@ -57,7 +57,7 @@ public class InvisibilityFilter extends MapFilter {
 
     @Override
     public String getType() {
-        return "ÒşĞÎÂË¾µ";
+        return "éšå½¢æ»¤é•œ";
     }
 
     @Override

@@ -42,12 +42,12 @@ public class GiftItemCommand extends UndoableTopicCommand {
     @Override
     public void doProcess() throws ToolkitCommandException {
         if (owner == null || target == null) {
-            sendMsg("ºÜ±§Ç¸Õâ¸öÃüÁî±ØĞëÊäÈëÔùÓëÕßºÍ½ÓÊÜÕßµÄÃû×ÖÓ´¡£");
+            sendMsg("å¾ˆæŠ±æ­‰è¿™ä¸ªå‘½ä»¤å¿…é¡»è¾“å…¥èµ ä¸è€…å’Œæ¥å—è€…çš„åå­—å“Ÿã€‚");
             return;
         }
         PC pc = getGame().findCharByNameOrAbbre(owner);
         if (pc == null) {
-            sendMsg("ºÜ±§Ç¸pc[" + owner + "]Ã»ÓĞÕÒµ½Ó´¡£");
+            sendMsg("å¾ˆæŠ±æ­‰pc[" + owner + "]æ²¡æœ‰æ‰¾åˆ°å“Ÿã€‚");
         }
         if ("loot".equalsIgnoreCase(target)) {
             String takeLootString = "";
@@ -64,14 +64,14 @@ public class GiftItemCommand extends UndoableTopicCommand {
                 takeLootString += item;
             }
 
-            LogCommand logCommand = new LogCommand(new Object[] { "½»»¹ÍÅ¶ÓÎïÆ·|"
-                    + owner + "°Ñ" + takeLootString + "½»¸øÁËÍÅ¶Ó" });
+            LogCommand logCommand = new LogCommand(new Object[] { "äº¤è¿˜å›¢é˜Ÿç‰©å“|"
+                    + owner + "æŠŠ" + takeLootString + "äº¤ç»™äº†å›¢é˜Ÿ" });
             logCommand.setCaller(caller);
             ToolkitEngine.getEngine().queueCommand(logCommand);
         } else {
             PC recv = getGame().findCharByNameOrAbbre(target);
             if (recv == null) {
-                sendMsg("ºÜ±§Ç¸pc[" + target + "]Ã»ÓĞÕÒµ½Ó´¡£");
+                sendMsg("å¾ˆæŠ±æ­‰pc[" + target + "]æ²¡æœ‰æ‰¾åˆ°å“Ÿã€‚");
             }
             if (pc != null) {
                 String takeLootString = "";
@@ -88,8 +88,8 @@ public class GiftItemCommand extends UndoableTopicCommand {
                     takeLootString += item;
                 }
 
-                LogCommand logCommand = new LogCommand(new Object[] { "ÎïÆ·×ª½»|"
-                        + owner + "°Ñ" + takeLootString + "½»¸øÁË" + target });
+                LogCommand logCommand = new LogCommand(new Object[] { "ç‰©å“è½¬äº¤|"
+                        + owner + "æŠŠ" + takeLootString + "äº¤ç»™äº†" + target });
                 logCommand.setCaller(caller);
                 ToolkitEngine.getEngine().queueCommand(logCommand);
             }

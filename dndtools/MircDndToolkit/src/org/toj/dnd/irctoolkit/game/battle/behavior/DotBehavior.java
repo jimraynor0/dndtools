@@ -28,8 +28,8 @@ public class DotBehavior implements StateBehavior {
         if (triggered > 0) {
             owner.damage(dmg * triggered);
             return new StringBuilder("[").append(owner.getName())
-                    .append("]ÊÜµ½À´×Ô[").append(controllsState).append("]µÄ[")
-                    .append(dmg * triggered).append("]µãÉËº¦").toString();
+                    .append("]å—åˆ°æ¥è‡ª[").append(controllsState).append("]çš„[")
+                    .append(dmg * triggered).append("]ç‚¹ä¼¤å®³").toString();
         }
         return null;
     }

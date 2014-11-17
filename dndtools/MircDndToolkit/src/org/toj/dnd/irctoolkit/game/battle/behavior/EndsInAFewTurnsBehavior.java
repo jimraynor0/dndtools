@@ -37,8 +37,8 @@ public class EndsInAFewTurnsBehavior implements StateBehavior {
         if (roundsLeft <= 0) {
             owner.removeState(controllsState);
             return new StringBuilder("[").append(owner.getName())
-                    .append("]ÉíÉÏµÄ[").append(controllsState.getName())
-                    .append("]Ð§¹ûÏûÊ§ÁË¡£").toString();
+                    .append("]èº«ä¸Šçš„[").append(controllsState.getName())
+                    .append("]æ•ˆæžœæ¶ˆå¤±äº†ã€‚").toString();
         }
         return null;
     }

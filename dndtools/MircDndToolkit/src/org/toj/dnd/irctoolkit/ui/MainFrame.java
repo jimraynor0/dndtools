@@ -61,10 +61,10 @@ public class MainFrame extends JFrame {
         this.getContentPane().add(jTabbedPane);
 
         jTabbedPane
-                .addTab("<html><body leftmargin=12 topmargin=2 marginwidth=12 marginheight=2><font size=+0>»æÖÆ</font></body></html>",
+                .addTab("<html><body leftmargin=12 topmargin=2 marginwidth=12 marginheight=2><font size=+0>ç»˜åˆ¶</font></body></html>",
                         createEditingPanel());
         jTabbedPane
-                .addTab("<html><body leftmargin=12 topmargin=2 marginwidth=12 marginheight=2><font size=+0>Õ¹ÏÖ</font></body></html>",
+                .addTab("<html><body leftmargin=12 topmargin=2 marginwidth=12 marginheight=2><font size=+0>å±•ç°</font></body></html>",
                         createViewingPanel());
 
         createMenuBar();

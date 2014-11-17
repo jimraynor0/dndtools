@@ -52,7 +52,7 @@ public class MapGridLoader {
                                 ColorCode.toColor(color.getForeground()),
                                 ColorCode.toColor(color.getBackground()),
                                 cellValue);
-                        if ("¡ö".equals(cell.getCh())) {
+                        if ("â– ".equals(cell.getCh())) {
                             cell.setBlockLineOfSight(true);
                             cell.setBlockLineOfEffect(true);
                         }

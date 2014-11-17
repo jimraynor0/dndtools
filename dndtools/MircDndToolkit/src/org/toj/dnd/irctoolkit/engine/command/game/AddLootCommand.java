@@ -36,7 +36,7 @@ public class AddLootCommand extends UndoableTopicCommand {
         for (Item i : items) {
             getGame().addItem(i);
         }
-        LogCommand logCommand = new LogCommand(new Object[] { "团队获得物品|"
+        LogCommand logCommand = new LogCommand(new Object[] { "鍥㈤槦鑾峰緱鐗╁搧|"
                 + getLootString() });
         logCommand.setCaller(caller);
         ToolkitEngine.getEngine().queueCommand(logCommand);

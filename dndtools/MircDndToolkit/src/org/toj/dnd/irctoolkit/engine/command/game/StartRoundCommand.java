@@ -33,7 +33,7 @@ public class StartRoundCommand extends UndoableTopicCommand {
         for (String msg : stateMsgs) {
             sendMsgToDefaultChan(msg);
         }
-        sendMsgToDefaultChan("ÂÖµ½"
-                + getGame().getBattle().getCurrent().getName() + "ÐÐ¶¯ÁË");
+        sendMsgToDefaultChan("è½®åˆ°"
+                + getGame().getBattle().getCurrent().getName() + "è¡ŒåŠ¨äº†");
     }
 }

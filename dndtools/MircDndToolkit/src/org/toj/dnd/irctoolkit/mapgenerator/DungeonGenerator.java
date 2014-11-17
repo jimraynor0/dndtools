@@ -39,7 +39,7 @@ public class DungeonGenerator {
                     failCount++;
                     if (failCount > MAX_ATTEMPTS) {
                         ToolkitEngine.getEngine().fireErrorMsgWindow(
-                                "µØÍ¼Ì«Ğ¡À²£¬·¿¼ä·Å²»ÏÂÀ²£¡Çëµ÷Õû²ÎÊı£¡");
+                                "åœ°å›¾å¤ªå°å•¦ï¼Œæˆ¿é—´æ”¾ä¸ä¸‹å•¦ï¼è¯·è°ƒæ•´å‚æ•°ï¼");
                         return null;
                     }
                 }
@@ -65,7 +65,7 @@ public class DungeonGenerator {
             room.setPosX((dungeon.getWidth() - room.getWidth()) / 2);
             room.setPosY((dungeon.getHeight() - room.getHeight()) / 2);
             if (!dungeon.canHave(room)) {
-                ToolkitEngine.getEngine().fireErrorMsgWindow("·¿¼ä±ÈµØÍ¼»¹´óÀ²£¡Çëµ÷Õû²ÎÊı£¡");
+                ToolkitEngine.getEngine().fireErrorMsgWindow("æˆ¿é—´æ¯”åœ°å›¾è¿˜å¤§å•¦ï¼è¯·è°ƒæ•´å‚æ•°ï¼");
                 throw new IllegalArgumentException(INITIAL_ROOM_PLACING_FAILED);
             }
         } else {

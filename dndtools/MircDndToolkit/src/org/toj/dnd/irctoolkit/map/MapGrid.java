@@ -22,7 +22,7 @@ import org.toj.dnd.irctoolkit.token.Color;
 import org.toj.dnd.irctoolkit.util.XmlUtil;
 
 /**
- * ÒÔ×óÉÏ½ÇÎª[0, 0]µã.
+ * ä»¥å·¦ä¸Šè§’ä¸º[0, 0]ç‚¹.
  */
 public class MapGrid implements FilterListObserver, PcViewObserver {
 
@@ -31,7 +31,7 @@ public class MapGrid implements FilterListObserver, PcViewObserver {
     private static final long serialVersionUID = -1055570870132909466L;
 
     public static final MapGridCell WHITESPACE = new MapGridCell(Color.BLACK,
-            Color.WHITE, "¡¡");
+            Color.WHITE, "ã€€");
 
     private MapFilter axisLabelFilter = new AxisLabelFilter(this);
 

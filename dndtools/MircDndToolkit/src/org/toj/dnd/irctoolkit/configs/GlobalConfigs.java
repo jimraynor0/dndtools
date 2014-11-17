@@ -49,7 +49,7 @@ public class GlobalConfigs {
         props = new Properties();
         if (!CONFIG_FILE.isFile()) {
             JOptionPane.showMessageDialog(null,
-                    "ÕÒ²»µ½ÅäÖÃÎÄ¼ş" + CONFIG_FILE.getAbsolutePath() + "£¬Æô¶¯Ê§°Ü¡£",
+                    "æ‰¾ä¸åˆ°é…ç½®æ–‡ä»¶" + CONFIG_FILE.getAbsolutePath() + "ï¼Œå¯åŠ¨å¤±è´¥ã€‚",
                     ToolkitEngine.ERR_MSG_TITLE, JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }

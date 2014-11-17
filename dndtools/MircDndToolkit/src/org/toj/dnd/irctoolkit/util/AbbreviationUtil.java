@@ -68,15 +68,15 @@ public class AbbreviationUtil {
         System.out.println(isPrefixAbbre("b", "Bairmot"));
         System.out.println(isPrefixAbbre("bai", "Bairmot"));
         System.out.println(isPrefixAbbre("bair", "Bairmot"));
-        System.out.println(isPrefixAbbre("±´", "±´ÄªÍĞ"));
-        System.out.println(isPrefixAbbre("±´ÄªÍĞ", "±´ÄªÍĞÍçÊ¯"));
+        System.out.println(isPrefixAbbre("è´", "è´è«æ‰˜"));
+        System.out.println(isPrefixAbbre("è´è«æ‰˜", "è´è«æ‰˜é¡½çŸ³"));
 
         System.out.println("-------------------");
 
         System.out.println(getIcon("B"));
         System.out.println(getIcon("Ba"));
         System.out.println(getIcon("Bairmot"));
-        System.out.println(getIcon("±´"));
-        System.out.println(getIcon("±´ÄªÍĞ"));
+        System.out.println(getIcon("è´"));
+        System.out.println(getIcon("è´è«æ‰˜"));
     }
 }

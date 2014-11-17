@@ -45,9 +45,9 @@ public class Battle implements Cloneable {
                         .elementTextTrim("encounterSettings"));
             } catch (IOException e1) {
                 ToolkitEngine.getEngine().fireErrorMsgWindow(
-                        "¶ÁÈ¡ÔâÓöĞÅÏ¢Ê§°Ü¡£ÇëÈ·ÈÏÔâÓö"
+                        "è¯»å–é­é‡ä¿¡æ¯å¤±è´¥ã€‚è¯·ç¡®è®¤é­é‡"
                                 + e.elementTextTrim("encounterSettings")
-                                + "ÊÇ·ñ´æÔÚ¡£");
+                                + "æ˜¯å¦å­˜åœ¨ã€‚");
             }
         }
 

@@ -28,7 +28,7 @@ public class RegenerationBehavior implements StateBehavior {
         if (triggered > 0) {
             owner.healNonLethal(regen * triggered);
             return new StringBuilder("[").append(owner.getName())
-                    .append("]ª÷∏¥¡À[").append(regen * triggered).append("]µ„”Ÿ…À")
+                    .append("]ÊÅ¢Â§ç‰∫Ü[").append(regen * triggered).append("]ÁÇπÊ∑§‰º§")
                     .toString();
         }
         return null;

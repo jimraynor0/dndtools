@@ -12,6 +12,6 @@ public class ListLootCommand extends ListItemCommand {
 
     @Override
     public void doProcess() throws ToolkitCommandException {
-        sendMsg(buildItemsString("ÍÅ¶Ó", getGame().getItems()));
+        sendMsg(buildItemsString("å›¢é˜Ÿ", getGame().getItems()));
     }
 }

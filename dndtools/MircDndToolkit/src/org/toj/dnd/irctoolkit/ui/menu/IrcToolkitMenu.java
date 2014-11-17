@@ -59,13 +59,13 @@ public class IrcToolkitMenu extends JMenuBar {
 
             @Override
             public String getDescription() {
-                return "DM Toolkit µØÍ¼ (*.map)";
+                return "DM Toolkit åœ°å›¾ (*.map)";
             }
         });
 
-        JMenu fileMenu = new JMenu("ÎÄ¼ş");
+        JMenu fileMenu = new JMenu("æ–‡ä»¶");
 
-        JMenuItem newMap = new JMenuItem("ĞÂ½¨µØÍ¼", KeyEvent.VK_N);
+        JMenuItem newMap = new JMenuItem("æ–°å»ºåœ°å›¾", KeyEvent.VK_N);
         newMap.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
                 ActionEvent.ALT_MASK));
         newMap.addActionListener(new ActionListener() {
@@ -77,14 +77,14 @@ public class IrcToolkitMenu extends JMenuBar {
         });
         fileMenu.add(newMap);
 
-        JMenuItem loadFromFile = new JMenuItem("¶ÁÈ¡µØÍ¼", KeyEvent.VK_F);
+        JMenuItem loadFromFile = new JMenuItem("è¯»å–åœ°å›¾", KeyEvent.VK_F);
         loadFromFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,
                 ActionEvent.CTRL_MASK));
         loadFromFile.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                int result = fileChooser.showDialog(frame, "¶ÁÈ¡µØÍ¼");
+                int result = fileChooser.showDialog(frame, "è¯»å–åœ°å›¾");
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
                     ToolkitEngine.getEngine().queueCommand(
@@ -94,7 +94,7 @@ public class IrcToolkitMenu extends JMenuBar {
         });
         fileMenu.add(loadFromFile);
 
-        JMenuItem SaveToFile = new JMenuItem("±£´æµØÍ¼", KeyEvent.VK_S);
+        JMenuItem SaveToFile = new JMenuItem("ä¿å­˜åœ°å›¾", KeyEvent.VK_S);
         SaveToFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 ActionEvent.CTRL_MASK));
         SaveToFile.addActionListener(new ActionListener() {
@@ -129,7 +129,7 @@ public class IrcToolkitMenu extends JMenuBar {
 
         fileMenu.addSeparator();
 
-        JMenuItem undo = new JMenuItem("³·Ïú²Ù×÷", KeyEvent.VK_U);
+        JMenuItem undo = new JMenuItem("æ’¤é”€æ“ä½œ", KeyEvent.VK_U);
         undo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
                 ActionEvent.CTRL_MASK));
         undo.addActionListener(new ActionListener() {
@@ -143,9 +143,9 @@ public class IrcToolkitMenu extends JMenuBar {
 
         this.add(fileMenu);
 
-        JMenu mapGenMenu = new JMenu("Ëæ»úµØÍ¼");
+        JMenu mapGenMenu = new JMenu("éšæœºåœ°å›¾");
 
-        JMenuItem generateMap = new JMenuItem("Ëæ»úÉú³ÉµØ³Ç",
+        JMenuItem generateMap = new JMenuItem("éšæœºç”Ÿæˆåœ°åŸ",
                 KeyEvent.VK_R);
         generateMap.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
                 ActionEvent.ALT_MASK));
@@ -162,7 +162,7 @@ public class IrcToolkitMenu extends JMenuBar {
 
         JMenu ircMenu = new JMenu("IRC");
 
-        JMenuItem connectToIrc = new JMenuItem("Á¬½ÓÖÁIRC", KeyEvent.VK_C);
+        JMenuItem connectToIrc = new JMenuItem("è¿æ¥è‡³IRC", KeyEvent.VK_C);
         connectToIrc.addActionListener(new ActionListener() {
 
             @Override
@@ -170,7 +170,7 @@ public class IrcToolkitMenu extends JMenuBar {
                 try {
                     String result = JOptionPane
                             .showInputDialog(
-                                    "ÇëÊäÈëÖ÷»úµØÖ·(¸ñÊ½Îª\"Ö÷»úÃû:¶Ë¿ÚºÅ\"£¬ÀıÈç\"irc.ourirc.com:8080\")",
+                                    "è¯·è¾“å…¥ä¸»æœºåœ°å€(æ ¼å¼ä¸º\"ä¸»æœºå:ç«¯å£å·\"ï¼Œä¾‹å¦‚\"irc.ourirc.com:8080\")",
                                     IrcClient.getInstance().getServer() + ":"
                                             + IrcClient.getInstance().getPort());
                     if (result != null && !result.isEmpty()) {
@@ -194,27 +194,27 @@ public class IrcToolkitMenu extends JMenuBar {
                     }
                 } catch (NickAlreadyInUseException e1) {
                     ToolkitEngine.getEngine().fireErrorMsgWindow(
-                            "DM ToolkitµÄêÇ³Æ\""
+                            "DM Toolkitçš„æ˜µç§°\""
                                     + IrcClient.getInstance().getNick()
-                                    + "\"ÒÑ¾­±»Õ¼ÓÃÁË¡£");
+                                    + "\"å·²ç»è¢«å ç”¨äº†ã€‚");
                 } catch (IOException e1) {
                     ToolkitEngine.getEngine()
-                            .fireErrorMsgWindow("ÎŞ·¨Á¬½Óµ½IRC·şÎñÆ÷¡£");
+                            .fireErrorMsgWindow("æ— æ³•è¿æ¥åˆ°IRCæœåŠ¡å™¨ã€‚");
                 } catch (IrcException e1) {
                     ToolkitEngine.getEngine()
-                            .fireErrorMsgWindow("ÎŞ·¨Á¬½Óµ½IRC·şÎñÆ÷¡£");
+                            .fireErrorMsgWindow("æ— æ³•è¿æ¥åˆ°IRCæœåŠ¡å™¨ã€‚");
                 }
             }
         });
         ircMenu.add(connectToIrc);
 
-        JMenuItem changeNick = new JMenuItem("¸ü¸ÄêÇ³Æ", KeyEvent.VK_N);
+        JMenuItem changeNick = new JMenuItem("æ›´æ”¹æ˜µç§°", KeyEvent.VK_N);
         changeNick.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nick = IrcClient.getInstance().getNickname();
-                String result = JOptionPane.showInputDialog("ÇëÊäÈëĞÂµÄêÇ³Æ", nick);
+                String result = JOptionPane.showInputDialog("è¯·è¾“å…¥æ–°çš„æ˜µç§°", nick);
                 if (result != null && !result.isEmpty()) {
                     log.debug("changing nick from " + nick + " to " + result);
                     IrcClient.getInstance().setNickname(result);

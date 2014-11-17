@@ -28,9 +28,9 @@ public class ModifyXpCommand extends UndoableTopicCommand {
     public void doProcess() throws ToolkitCommandException {
         StringBuilder sb = new StringBuilder();
         if (value > 0) {
-            sb.append("发放xp|");
+            sb.append("鍙戞斁xp|");
         } else {
-            sb.append("减少xp|");
+            sb.append("鍑忓皯xp|");
         }
         if (pcs != null && pcs.length > 0) {
             boolean first = true;
@@ -50,14 +50,14 @@ public class ModifyXpCommand extends UndoableTopicCommand {
             for (PC pc : getGame().getPcs().values()) {
                 pc.setXp(pc.getXp() + value);
             }
-            sb.append("所有pc");
+            sb.append("鎵�鏈塸c");
         }
         if (value > 0) {
-            sb.append("获得");
+            sb.append("鑾峰緱");
         } else {
-            sb.append("减少");
+            sb.append("鍑忓皯");
         }
-        sb.append(Math.abs(value)).append("点xp");
+        sb.append(Math.abs(value)).append("鐐箈p");
 
         LogCommand logCommand = new LogCommand(new Object[] { sb.toString() });
         logCommand.setCaller(caller);

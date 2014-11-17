@@ -331,9 +331,9 @@ public class D6CombinationDistribution {
     }
 
     private static String buildRow(String key, List<String> results) {
-        StringBuilder sb = new StringBuilder(wrapWith(key + "¡¡", "td"));
+        StringBuilder sb = new StringBuilder(wrapWith(key + "ã€€", "td"));
         for (String value : results) {
-            sb.append(wrapWith(value + "¡¡", "td"));
+            sb.append(wrapWith(value + "ã€€", "td"));
         }
         return wrapWith(sb.toString(), "tr") + "\n";
     }

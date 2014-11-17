@@ -136,7 +136,7 @@ public class InvFilterParamComponent extends FilterParamComponent {
 
     @Override
     public Component getTitle() {
-        JLabel jLabel = new JLabel("±»Ñ¡ÖĞµÄÍ¼±ê½«¶ÔPCÒşĞÎ£¬Ê¹ÓÃctrl»òshiftÀ´Ñ¡Ôñ¶à¸öÍ¼±ê¡£");
+        JLabel jLabel = new JLabel("è¢«é€‰ä¸­çš„å›¾æ ‡å°†å¯¹PCéšå½¢ï¼Œä½¿ç”¨ctrlæˆ–shiftæ¥é€‰æ‹©å¤šä¸ªå›¾æ ‡ã€‚");
         jLabel.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel.setPreferredSize(StyleConstants.PARAM_TITLE_LABEL_SIZE);
         return jLabel;

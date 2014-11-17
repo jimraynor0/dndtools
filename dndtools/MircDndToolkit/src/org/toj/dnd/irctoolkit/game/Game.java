@@ -339,11 +339,11 @@ public class Game {
 
     public String removeItem(Item item) {
         if (!items.containsKey(item.getName())) {
-            return "团队持有物品中没有[" + item.getName() + "]";
+            return "鍥㈤槦鎸佹湁鐗╁搧涓病鏈塠" + item.getName() + "]";
         }
         Item loot = items.get(item.getName());
         if (loot.getCharges() < item.getCharges()) {
-            return "团队持有的物品[" + item.getName() + "]数量只有" + loot.getCharges();
+            return "鍥㈤槦鎸佹湁鐨勭墿鍝乕" + item.getName() + "]鏁伴噺鍙湁" + loot.getCharges();
         }
         loot.decreaseCharge(item.getCharges());
         if (loot.getCharges() == 0) {

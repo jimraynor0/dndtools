@@ -45,13 +45,13 @@ public class MapModelPane extends JPanel {
 
     private Logger log = Logger.getLogger(this.getClass());
 
-    private static final String NEW_MODEL = "新建地图符号";
-    private static final String DELETE_MODEL = "删除地图符号";
-    private static final String CANCEL_MODEL_SELECTION = "取消符号选择";
-    private static final String LOAD_DEFAULT_MODELS = "载入默认符号";
-    private static final String EDIT_MODE_ERASER = "擦除模式";
-    private static final String EDIT_MODE_DRAW = "绘图模式";
-    private static final String EDIT_MODE_MOVE = "拖动模式";
+    private static final String NEW_MODEL = "鏂板缓鍦板浘绗﹀彿";
+    private static final String DELETE_MODEL = "鍒犻櫎鍦板浘绗﹀彿";
+    private static final String CANCEL_MODEL_SELECTION = "鍙栨秷绗﹀彿閫夋嫨";
+    private static final String LOAD_DEFAULT_MODELS = "杞藉叆榛樿绗﹀彿";
+    private static final String EDIT_MODE_ERASER = "鎿﹂櫎妯″紡";
+    private static final String EDIT_MODE_DRAW = "缁樺浘妯″紡";
+    private static final String EDIT_MODE_MOVE = "鎷栧姩妯″紡";
     private static final String[] EDIT_MODES = { EDIT_MODE_DRAW,
             EDIT_MODE_MOVE, EDIT_MODE_ERASER };
 

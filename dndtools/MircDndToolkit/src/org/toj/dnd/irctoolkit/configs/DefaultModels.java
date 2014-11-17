@@ -23,8 +23,8 @@ public class DefaultModels {
         if (!DEF_MODEL_FILE.isFile()) {
             JOptionPane
                     .showMessageDialog(null,
-                            "ÕÒ²»µ½ÅäÖÃÎÄ¼ş" + DEF_MODEL_FILE.getAbsolutePath()
-                                    + "£¬ÎŞ·¨ÔØÈëÔ¤ÉèÍ¼Àı¡£",
+                            "æ‰¾ä¸åˆ°é…ç½®æ–‡ä»¶" + DEF_MODEL_FILE.getAbsolutePath()
+                                    + "ï¼Œæ— æ³•è½½å…¥é¢„è®¾å›¾ä¾‹ã€‚",
                             ToolkitEngine.ERR_MSG_TITLE,
                             JOptionPane.ERROR_MESSAGE);
             return result;
@@ -40,8 +40,8 @@ public class DefaultModels {
             }
         } catch (DocumentException e) {
             JOptionPane.showMessageDialog(null,
-                    "¶ÁÈ¡ÅäÖÃÎÄ¼ş" + DEF_MODEL_FILE.getAbsolutePath()
-                            + "Ê§°Ü£¬ÎŞ·¨ÔØÈëÔ¤ÉèÍ¼Àı¡£", ToolkitEngine.ERR_MSG_TITLE,
+                    "è¯»å–é…ç½®æ–‡ä»¶" + DEF_MODEL_FILE.getAbsolutePath()
+                            + "å¤±è´¥ï¼Œæ— æ³•è½½å…¥é¢„è®¾å›¾ä¾‹ã€‚", ToolkitEngine.ERR_MSG_TITLE,
                     JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }

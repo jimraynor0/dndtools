@@ -25,7 +25,7 @@ public class MapCellRenderer extends JLabel implements TableCellRenderer {
     private Map<Integer, MatteBorder> borderCache = new HashMap<Integer, MatteBorder>();
 
     private static final MapGridCell EMPTY_CELL = new MapGridCell(Color.BLACK,
-            Color.WHITE, "¡¡");
+            Color.WHITE, "ã€€");
 
     public MapCellRenderer() {
         super();

@@ -44,7 +44,7 @@ public class ListItemCommand extends UndoableTopicCommand {
     protected String buildItemsString(String name, Map<String, Item> items) {
         StringBuilder sb = new StringBuilder(name);
         if (items.isEmpty()) {
-            sb.append("Ã»ÓĞ¿ÉÓÃµÄÎïÆ·¡£");
+            sb.append("æ²¡æœ‰å¯ç”¨çš„ç‰©å“ã€‚");
         } else {
             sb.append(": ");
             boolean first = true;
