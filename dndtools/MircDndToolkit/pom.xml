@@ -75,7 +75,7 @@
 				<executions>
 					<execution>
 						<id>copy-resources</id>
-						<phase>package</phase>
+						<phase>process-resources</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
@@ -84,15 +84,15 @@
 				          	<encoding>UTF-8</encoding>
 							<resources>
 								<resource>
-									<directory>resources</directory>
-									<filtering>true</filtering>
+									<directory>${basedir}/resources</directory>
+                                    <filtering>false</filtering>
 								</resource>
 							</resources>
 						</configuration>
 					</execution>
                     <execution>
                         <id>copy-bat</id>
-                        <phase>package</phase>
+						<phase>package</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
@@ -100,10 +100,10 @@
                             <outputDirectory>target</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>/</directory>
-                                    <filtering>true</filtering>
+                                    <directory>${basedir}</directory>
+                                    <filtering>false</filtering>
                                     <includes>
-                                        <include>*.bat</include>
+                                        <include>/*.bat</include>
                                     </includes>                                
                                 </resource>
                             </resources>
