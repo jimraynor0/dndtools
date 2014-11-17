@@ -1,106 +1,106 @@
-TopicBot����4e��irc���У���������Ƶ�����⣬��¼ս��״̬�ĳ�����������Ŀ����ϣ���ܹ���dm/pcά��ս��״̬�Ĳ���
+TopicBot是在4e的irc团中，用来控制频道标题，记录战斗状态的程序。制作它的目的是希望能够简化dm/pc维护战斗状态的操作
 
-TopicBotĿǰ֧�ֵĹ����У�ά���ȹ�˳�����ά�����ˡ���ʱ����ֵ״����ά��buff/debuff״�����ͼ�¼ap��surgeʹ�����
-TopicBot���������"."��".t "(".t"��һ���ո�)��ͷ����".end"����".t init 18 Jim"��������".t "��ͷ�������������ִ�к����Ƶ�����⡣��Щ����������"."����".t "������±���
-TopicBotĿǰ֧�ֵ������У�
+TopicBot目前支持的功能有：维护先攻顺序表，维护受伤、临时生命值状况，维护buff/debuff状况，和记录ap、surge使用情况
+TopicBot的命令均以"."或".t "(".t"加一个空格)开头，如".end"，或".t init 18 Jim"。其中以".t "开头的命令会在命令执行后更新频道标题。有些命令无论用"."还是".t "都会更新标题
+TopicBot目前支持的命令有：
 
-.take control��֪ͨTopicBot�������Ե�ǰƵ�������������һ��Ƶ����ʹ��TopicBot֮ǰ��������������TopicBot�����������������
+.take control：通知TopicBot接受来自当前频道的命令。必须在一个频道中使用TopicBot之前输入这个命令，否则TopicBot会忽略所有输入的命令。
 
-.release control��֪ͨTopicBotֹͣ�������Ե�ǰƵ�������
+.release control：通知TopicBot停止接受来自当前频道的命令。
 
-.charstat [�����б�]����ʾ�����״̬��ϸ������ָ����ʾһ�����������״̬�������ָ������������ʾ���������״̬���÷�������
-.charstat����ʾ��������״̬
-.charstat Jim ������ʾJim����������״̬
+.charstat [人物列表]：显示人物的状态明细。可以指定显示一个或多个人物的状态。如果不指定人物名则显示所有人物的状态。用法举例：
+.charstat：显示所有人物状态
+.charstat Jim 昆：显示Jim和昆的人物状态
 
-.init <�ȹ���ֵ> [����]���½�һ����������䰴�ȹ�ֵ�Ž��ж�˳����������ṩ��������ʹ������������������档�÷�������
-.init 10 Jim���½�һ����ΪJim������������ȹ�����Ϊ10���������ڱ���������������g1��g2���ȹ��ֱ���5��20����������������֮��������"g2, Jim, g1"
-.init 10������Hanbak�������������򽫻��½�����ΪHanbak���ҽ����ȹ�����Ϊ10
-ע�⣺Ҳ����ͨ��Ͷ��������������ʽΪ".r <Ͷ��> init [����]"���磺
-.r d+3 init������Hanbak�������������򽫻��½�����ΪHanbak���ҽ����ȹ�����ΪͶ���Ľ��
-.r d+3 init Hanbak�������½�����ΪHanbak���ҽ����ȹ�����ΪͶ���Ľ��
+.init <先攻数值> [人物]：新建一个人物，并将其按先攻值排进行动顺序表里。如果不提供人物名则使用输入命令的人名代替。用法举例：
+.init 10 Jim：新建一个名为Jim的人物，并将其先攻设置为10。假如现在标题中已有两个怪g1，g2，先攻分别是5和20，则输入这条命令之后标题会变成"g2, Jim, g1"
+.init 10：假如Hanbak输入了这个命令，则将会新建人物为Hanbak，且将其先攻设置为10
+注意：也可以通过投骰输入这个命令，格式为".r <投骰> init [人物]"例如：
+.r d+3 init：假如Hanbak输入了这个命令，则将会新建人物为Hanbak，且将其先攻设置为投骰的结果
+.r d+3 init Hanbak：将会新建人物为Hanbak，且将其先攻设置为投骰的结果
 
-.+ <�����б�>���½�һ������������������ӵ��ж�˳�����ĩβ���÷�������
-.+ g1 g2 g3 g4������g1��g4���ж�˳���ĩβ��
+.+ <人物列表>：新建一个或多个人物，并将其添加到行动顺序表的末尾。用法举例：
+.+ g1 g2 g3 g4：添加g1到g4至行动顺序表末尾。
 
-.- <�����б�>�����ж�˳�����ȥ��һ����������(ͨ����������ս��)���÷�������
-.- g1 g2 g3 g4�����ж�˳�����ȥ��g1��g4
+.- <人物列表>：从行动顺序表中去除一个或多个人物(通常代表脱离战斗)。用法举例：
+.- g1 g2 g3 g4：从行动顺序表中去除g1到g4
 
-.before [����1] <����2>�����ж�˳����н�����1�ƶ�������2֮ǰ����������1����ʡ�ԣ�ʡ��ʱ�������������������Ϊ����1���÷�������
-���統ǰ�ı���Ϊ"g1, Jim, g2"����.before g2, Jim��ʹ�����Ϊg1, g2, Jim
-���統ǰ�ı���Ϊ"g1, Jim, Han, g2"����Han����.before Jim��ʹ�����Ϊg1, Han, Jim, g2
+.before [人物1] <人物2>：在行动顺序表中将人物1移动到人物2之前。其中人物1可以省略，省略时将用输入命令的人名作为人物1。用法举例：
+假如当前的标题为"g1, Jim, g2"，则.before g2, Jim将使标题成为g1, g2, Jim
+假如当前的标题为"g1, Jim, Han, g2"，则Han输入.before Jim将使标题成为g1, Han, Jim, g2
 
-.after [����1] <����2>�����ж�˳����н�����1�ƶ�������2֮����������1����ʡ�ԣ�ʡ��ʱ�������������������Ϊ����1���÷�������
-���統ǰ�ı���Ϊ"g1, Jim, g2"����.after g1, Jim��ʹ�����ΪJim, g1, g2
-���統ǰ�ı���Ϊ"g1, Jim, Han, g2"����Han����.after g2��ʹ�����Ϊg1, Jim, g2, Han
+.after [人物1] <人物2>：在行动顺序表中将人物1移动到人物2之后。其中人物1可以省略，省略时将用输入命令的人名作为人物1。用法举例：
+假如当前的标题为"g1, Jim, g2"，则.after g1, Jim将使标题成为Jim, g1, g2
+假如当前的标题为"g1, Jim, Han, g2"，则Han输入.after g2将使标题成为g1, Jim, g2, Han
 
-.start���ӵ�һ�ֿ�ʼս����������Ϊ1����ǰ�ж�����Ϊ�ж�˳����ϵĵ�һ�����
+.start：从第一轮开始战斗。轮数置为1，当前行动者置为行动顺序表上的第一个人物。
 
-.surprise����ͻϮ�ۿ�ʼս������������ΪͻϮ����ǰ�ж�����Ϊ�ж�˳����ϵĵ�һ�����
+.surprise：从突袭论开始战斗。轮数设置为突袭，当前行动者置为行动顺序表上的第一个人物。
 
-.end������ǰ�ж����ƺ�һλ
-.pre������ǰ�ж���ǰ��һλ
+.end：将当前行动者移后一位
+.pre：将当前行动者前移一位
 
-.go <����> [����]������ǰ�ж�����Ϊָ�����������ʡ�ԣ���ָ���������ͬʱ����ǰ������Ϊָ��������0����ͻϮ�֡��÷�������
-.go Jim�������ֵ�Jim�ж���
-.go Jim 1����������Ϊ��һ�����ֵ�Jim�ж�
-ע�⣺ʹ��go�����������buff/debuff״̬����������Ҫ�ֶ�ȥ����ȥ����״̬���ֶ��۳�dot�˺��ȡ���˲�����ʹ��
+.go <人物> [轮数]：将当前行动者置为指定人物。轮数可省略，若指定轮数则会同时将当前轮数置为指定轮数。0代表突袭轮。用法举例：
+.go Jim：设置轮到Jim行动。
+.go Jim 1：设置轮数为第一轮且轮到Jim行动
+注意：使用go命令不会检查人物buff/debuff状态，即可能需要手动去除需去除的状态，手动扣除dot伤害等。因此不建议使用
 
-.save/sv <save��ֵ> <״̬> [����]��������save��ֵΪ�춨���ȥsaveָ����״̬���÷�������
-.save 11 slow|sv Jim���ɹ�����Jim���ϵ�slow|svЧ��
-.sv 8 immobilized|sv��������������������ϵ�immobilizedЧ��(��Ȼ��ʧ�ܵ�)
-ע�⣺Ҳ����ͨ��Ͷ��������������ʽΪ".r <Ͷ��> save/sv <״̬> [����]"�����磺
-.r d sv slow|sv����Ͷ�����������������slow|svЧ��
-.r d sv slow|sv g1����Ͷ�����������g1���ϵ�slow|svЧ��
+.save/sv <save数值> <状态> [人物]：尝试以save数值为检定结果去save指定的状态。用法举例：
+.save 11 slow|sv Jim：成功豁免Jim身上的slow|sv效果
+.sv 8 immobilized|sv：豁免输入命令的人身上的immobilized效果(当然会失败的)
+注意：也可以通过投骰输入这个命令，格式为".r <投骰> save/sv <状态> [人物]"。例如：
+.r d sv slow|sv：以投骰结果来豁免自身的slow|sv效果
+.r d sv slow|sv g1：以投骰结果来豁免g1身上的slow|sv效果
 
-.rename <����1> <����2>��������1�޸�Ϊ����2���÷�������
-.rename Jim JimRaynor���������е�Jim��ΪJimRaynor
+.rename <人名1> <人名2>：将人名1修改为人名2，用法举例：
+.rename Jim JimRaynor：将标题中的Jim改为JimRaynor
 
-.thp<��ֵ> [�����б�]��Ϊÿ��ָ������������ʱ����ֵ������ָ��������Ϊ����������ʱ����ֵ���÷�������
-.thp5 Jim ��  han��ΪJim������hanÿ������5����ʱ����ֵ
-.thp10��Ϊ�Լ�����10����ʱ����ֵ
-ע�⣺Ҳ����ͨ��Ͷ��������������ʽΪ".r <Ͷ��> thp [�����б�]"�����磺
-.r 1d6+2 thp Jim han ������ΪJim��han����ÿ��������ʱ����ֵ��������ΪͶ1d6+2�Ľ����ע�⣬����һ��Ͷ��ֻ����һ����������������˻�õ�ͬ����������ʱ����ֵ�����Ҫÿ���˻�ò�ͬ��������ʱ����ֵ�����Ϊÿ���˷ֱ�Ͷ����
-.r 1d6+2 thp����Ϊ�Լ�������ʱ����ֵ��������ΪͶ1d6+2�Ľ����
+.thp<数值> [人物列表]：为每个指定人物增加临时生命值。若不指定人物则为自身增加临时生命值。用法举例：
+.thp5 Jim 昆  han：为Jim、昆、han每人增加5点临时生命值
+.thp10：为自己增加10点临时生命值
+注意：也可以通过投骰输入这个命令，格式为".r <投骰> thp [人物列表]"，例如：
+.r 1d6+2 thp Jim han 昆：将为Jim、han、昆每人增加临时生命值，其数量为投1d6+2的结果。注意，由于一次投骰只会有一个结果，所以三个人会得到同样数量的临时生命值。如果要每个人获得不同数量的临时生命值则必须为每个人分别投骰。
+.r 1d6+2 thp：将为自己增加临时生命值，其数量为投1d6+2的结果。
 
-.ap [���ĸ���] [����]����¼ָ������������ָ��������ap����δָ�����ĸ�����Ĭ��Ϊ����1�㣬��δָ��������Ĭ��ָ����������ָ�����ĸ���Ϊ-1��ָ�apʹ������0���÷�������
-.ap����¼��������1��ap
-.ap han����¼han����1��ap
-.ap -1 Jim������Jim��apʹ������Ϊ0
+.ap [消耗个数] [人物]：记录指定人物消耗了指定数量的ap。若未指定消耗个数则默认为消耗1点，若未指定人物则默认指定自身。若指定消耗个数为-1则恢复ap使用数到0。用法举例：
+.ap：记录自身消耗1点ap
+.ap han：记录han消耗1点ap
+.ap -1 Jim：设置Jim的ap使用数量为0
 
 
-.surge [���ĸ���] [����]����¼ָ������������ָ��������surge����δָ�����ĸ�����Ĭ��Ϊ����1������δָ��������Ĭ��ָ����������ָ�����ĸ���Ϊ-1��ָ�surgeʹ������0���÷�������
-.surge����¼��������1��surge
-.surge han����¼han����1��surge
-.surge -1 Jim������Jim��surgeʹ������Ϊ0
+.surge [消耗个数] [人物]：记录指定人物消耗了指定数量的surge。若未指定消耗个数则默认为消耗1个，若未指定人物则默认指定自身。若指定消耗个数为-1则恢复surge使用数到0。用法举例：
+.surge：记录自身消耗1个surge
+.surge han：记录han消耗1个surge
+.surge -1 Jim：设置Jim的surge使用数量为0
 
-.+<��ֵ> [�����б�]��Ϊָ��һ��������������ָ��������hp����δָ�������������������÷�������
-.+5 Jim��Jim����5��hp
-.+5����������5��hp
-ע�⣺Ҳ����ͨ��Ͷ��������������ʽΪ".r <Ͷ��> + [����]"�����磺
-.r d6+11 + Jim������Jim�����Ƶ���������Ͷ�����
-.r d6+11 +�������Լ������Ƶ���������Ͷ�����
+.+<数值> [人物列表]：为指定一个或多个人物治疗指定数量的hp。若未指定人物则治疗自身。用法举例：
+.+5 Jim：Jim治疗5点hp
+.+5：自身治疗5点hp
+注意：也可以通过投骰输入这个命令，格式为".r <投骰> + [人物]"。例如：
+.r d6+11 + Jim：治疗Jim，治疗的数量等于投骰结果
+.r d6+11 +：治疗自己，治疗的数量等于投骰结果
 
-.-<��ֵ> [�����б�]����һ�������������ָ���������˺�����δָ���������˺��������÷�������
-.-5 Jim��Jim�ܵ�5���˺�
-.-5�������ܵ�5���˺�
-ע�⣺Ҳ����ͨ��Ͷ��������������ʽΪ".r <Ͷ��> - [�����б�]"�����磺
-.r 2d6+7 - g1 g2 g3����g1��g2��g3����˺����˺�����������Ͷ�����
-.r 3d12+11 -�����Լ�����˺����˺�����������Ͷ�����
+.-<数值> [人物列表]：对一个或多个人物造成指定数量的伤害。若未指定人物则伤害自身。用法举例：
+.-5 Jim：Jim受到5点伤害
+.-5：自身受到5点伤害
+注意：也可以通过投骰输入这个命令，格式为".r <投骰> - [人物列表]"。例如：
+.r 2d6+7 - g1 g2 g3：对g1、g2、g3造成伤害，伤害的数量等于投骰结果
+.r 3d12+11 -：对自己造成伤害，伤害的数量等于投骰结果
 
-+<״̬> [�����б�]��Ϊһ���������︽��ָ����״̬����δָ�������򸽼ӵ��������÷�������
-+slow Jim��ΪJim����slow
-+daze|sv��Ϊ��������daze�����������
-ע�⣺����״̬ʱ���¼����״̬���ڵ��ֺͻغϡ�����һ��Ҫ�ڵ���Ҫ���ӵ�״̬ȫ������֮����.end�������Զ�����ʱ�ͻᰴ��һ���ж����������������״̬�ˡ�
-ע�⣺״̬�ĸ�ʽΪ<״̬��>[|��������]����Ϊ״̬���ͽ������������֣���"|"�ָ������ʡ�Խ���������TopicBot�ᰴĬ�Ͻ���������������dot��ͷ��״̬Ĭ�Ͻ���״̬Ϊsave��������״̬Ĭ�Ͻ���״̬Ϊeont(End of Next Turn)��Ҳ����˵slow��slow|eont����ͬ�ģ�dot5��dot5|sv����ͬ�ġ�
-�ڻغϿ�ʼ�����ʱTopicBot���Զ�����״̬��Ŀǰ֧�ֵĽ��������У�
-��������Ϊsont�Ľ���һ�غϺ�ʩ���ߵ��ֿ�ʼʱ�Զ����
-��������Ϊsont�Ľ���һ�غϺ�ʩ���ߵ��ֽ���ʱ�Զ����
-��������Ϊsv�Ľ��ڴӱ����ӿ�ʼ֮�󣬱������ߵ�ÿ�ֽ���ʱ����Ͷsave
-״̬��Ϊdot?(����dot10)��״̬���ڴӱ����ӿ�ʼ֮�󣬱������ߵ�ÿ�ֿ�ʼʱ�Զ�����˺�
++<状态> [人物列表]：为一个或多个人物附加指定的状态。若未指定人物则附加到自身。用法举例：
++slow Jim：为Jim附加slow
++daze|sv：为自身附加daze并标明需豁免
+注意：附加状态时会记录附加状态所在的轮和回合。所以一定要在当轮要附加的状态全部加完之后再.end，否则自动结算时就会按下一个行动的人物的轮来结算状态了。
+注意：状态的格式为<状态名>[|结束条件]。分为状态名和结束条件两部分，以"|"分隔。如果省略结束条件则TopicBot会按默认结束条件处理。以dot开头的状态默认结束状态为save，其他的状态默认结束状态为eont(End of Next Turn)。也就是说slow和slow|eont是相同的，dot5和dot5|sv是相同的。
+在回合开始或结束时TopicBot会自动结算状态。目前支持的结算条件有：
+结束条件为sont的将在一回合后施法者的轮开始时自动解除
+结束条件为sont的将在一回合后施法者的轮结束时自动解除
+结束条件为sv的将在从被附加开始之后，被附加者的每轮结束时提醒投save
+状态名为dot?(例如dot10)的状态将在从被附加开始之后，被附加者的每轮开始时自动造成伤害
 
--<״̬> [�����б�]����һ�������������Ͻ��ָ����״̬����δָ�����������������÷�������
--slow Jim��ΪJim���slow
--daze|sv��Ϊ�������daze|sv
-ע�⣺���ʱҪ�ϸ��ձ����е�״̬����ʾ��ȫ����ָ��������-slow�ǲ��ܽ���Լ����ϵ�slow|sv�ģ�����д-slow|sv����
+-<状态> [人物列表]：从一个或多个人物身上解除指定的状态。若未指定人物则解除自身。用法举例：
+-slow Jim：为Jim解除slow
+-daze|sv：为自身解除daze|sv
+注意：解除时要严格按照标题中的状态所显示的全称来指定，比如-slow是不能解除自己身上的slow|sv的，必须写-slow|sv才行
 
-.undo��ȡ����һ�εĲ���
+.undo：取消上一次的操作
