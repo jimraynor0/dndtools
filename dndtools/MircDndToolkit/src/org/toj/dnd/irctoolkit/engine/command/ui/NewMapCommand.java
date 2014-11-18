@@ -1,4 +1,4 @@
-package org.toj.dnd.irctoolkit.engine.command.map;
+package org.toj.dnd.irctoolkit.engine.command.ui;
 
 import org.toj.dnd.irctoolkit.configs.DefaultModels;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;

@@ -1,4 +1,4 @@
-package org.toj.dnd.irctoolkit.engine.command.map;
+package org.toj.dnd.irctoolkit.engine.command.ui;
 
 import java.util.ArrayList;
 import java.util.List;

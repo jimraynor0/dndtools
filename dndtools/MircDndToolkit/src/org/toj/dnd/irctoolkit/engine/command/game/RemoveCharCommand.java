@@ -4,7 +4,7 @@ import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
-import org.toj.dnd.irctoolkit.engine.command.map.EraseObjectsForModelCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.EraseObjectsForModelCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
 @IrcCommand(command = "kill", args = { CommandSegment.LIST })

@@ -14,7 +14,7 @@ import javax.swing.TransferHandler;
 
 import org.toj.dnd.irctoolkit.engine.ReadonlyContext;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
-import org.toj.dnd.irctoolkit.engine.command.map.MoveMapObjectCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.MoveMapObjectCommand;
 
 public class MoveObjectTransferHandler extends TransferHandler {
 

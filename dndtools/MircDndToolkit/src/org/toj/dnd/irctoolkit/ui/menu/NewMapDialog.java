@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
-import org.toj.dnd.irctoolkit.engine.command.map.NewMapCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.NewMapCommand;
 import org.toj.dnd.irctoolkit.ui.StyleConstants;
 import org.toj.dnd.irctoolkit.util.AxisUtil;
 

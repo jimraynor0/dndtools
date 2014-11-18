@@ -14,8 +14,8 @@ import javax.swing.TransferHandler;
 
 import org.toj.dnd.irctoolkit.engine.ReadonlyContext;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
-import org.toj.dnd.irctoolkit.engine.command.map.CopyModelCommand;
-import org.toj.dnd.irctoolkit.engine.command.map.MoveModelCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.CopyModelCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.MoveModelCommand;
 import org.toj.dnd.irctoolkit.map.MapModel;
 
 public class MapModelTransferHandler extends TransferHandler {

@@ -1,4 +1,4 @@
-package org.toj.dnd.irctoolkit.engine.command.map;
+package org.toj.dnd.irctoolkit.engine.command.ui;
 
 import java.util.LinkedList;
 
@@ -6,12 +6,12 @@ import org.toj.dnd.irctoolkit.engine.command.MapCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.map.MapModel;
 
-public class CopyModelCommand extends MapCommand {
+public class MoveModelCommand extends MapCommand {
 
     private int[] srcRows;
     private int destIndex;
 
-    public CopyModelCommand(int[] srcRows, int destIndex) {
+    public MoveModelCommand(int[] srcRows, int destIndex) {
         this.srcRows = srcRows;
         this.destIndex = destIndex;
     }
@@ -23,6 +23,12 @@ public class CopyModelCommand extends MapCommand {
             toBeAdded.add(context.getModelList().get(i));
         }
         context.getModelList().addAll(destIndex, toBeAdded);
+
+        for (int i = srcRows.length - 1; i >= 0; i--) {
+            srcRows[i] = srcRows[i] < destIndex ? srcRows[i] : srcRows[i]
+                    + srcRows.length;
+            context.getModelList().remove(srcRows[i]);
+        }
     }
 
     @Override

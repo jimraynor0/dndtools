@@ -18,7 +18,7 @@ import javax.swing.ScrollPaneConstants;
 
 import org.toj.dnd.irctoolkit.engine.ReadonlyContext;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
-import org.toj.dnd.irctoolkit.engine.command.map.RemoveFilterCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.RemoveFilterCommand;
 import org.toj.dnd.irctoolkit.ui.StyleConstants;
 import org.toj.dnd.irctoolkit.ui.map.data.MapFilterListWrapper;
 

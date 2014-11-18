@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.apache.log4j.Logger;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
-import org.toj.dnd.irctoolkit.engine.command.map.AddOrUpdateFilterCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.AddOrUpdateFilterCommand;
 import org.toj.dnd.irctoolkit.filter.MapFilter;
 import org.toj.dnd.irctoolkit.ui.map.filterpane.params.FilterParamComponent;
 

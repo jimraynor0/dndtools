@@ -14,8 +14,8 @@ import javax.swing.TransferHandler;
 
 import org.toj.dnd.irctoolkit.engine.ReadonlyContext;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
-import org.toj.dnd.irctoolkit.engine.command.map.CopyFilterCommand;
-import org.toj.dnd.irctoolkit.engine.command.map.MoveFilterCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.CopyFilterCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.MoveFilterCommand;
 import org.toj.dnd.irctoolkit.filter.MapFilter;
 
 public class MapFilterTransferHandler extends TransferHandler {

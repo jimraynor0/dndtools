@@ -21,7 +21,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
-import org.toj.dnd.irctoolkit.engine.command.map.AddOrUpdateModelCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.AddOrUpdateModelCommand;
 import org.toj.dnd.irctoolkit.map.MapModel;
 import org.toj.dnd.irctoolkit.token.Color;
 import org.toj.dnd.irctoolkit.ui.StyleConstants;

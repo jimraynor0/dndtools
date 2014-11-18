@@ -1,4 +1,4 @@
-package org.toj.dnd.irctoolkit.engine.command.map;
+package org.toj.dnd.irctoolkit.engine.command.ui;
 
 import org.apache.log4j.Logger;
 import org.toj.dnd.irctoolkit.engine.command.MapCommand;

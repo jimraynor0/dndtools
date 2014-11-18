@@ -91,4 +91,10 @@ public class StyleConstants {
             INPUT_HEIGHT);
     public static final Dimension TEXT_PARAM_INPUT_SIZE = new Dimension(298,
             INPUT_HEIGHT);
+
+    /* ---------------------- console pane ---------------------- */
+    public static final Dimension CONSOLE_DIALOG_SIZE = new Dimension(400, 445);
+    public static final Dimension CONSOLE_LOG_SIZE = new Dimension(400, 400);
+    public static final Dimension CONSOLE_INPUT_SIZE = new Dimension(400,
+            INPUT_HEIGHT);
 }

@@ -7,8 +7,8 @@ import javax.swing.event.ListSelectionListener;
 
 import org.toj.dnd.irctoolkit.engine.ReadonlyContext;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
-import org.toj.dnd.irctoolkit.engine.command.map.EraseWithinAreaCommand;
-import org.toj.dnd.irctoolkit.engine.command.map.FillAreaWithCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.EraseWithinAreaCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.FillAreaWithCommand;
 import org.toj.dnd.irctoolkit.engine.observers.PcViewObserver;
 import org.toj.dnd.irctoolkit.map.MapModel;
 import org.toj.dnd.irctoolkit.ui.map.data.MapViewWrapper;

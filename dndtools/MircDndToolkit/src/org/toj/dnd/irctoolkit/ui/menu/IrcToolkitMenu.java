@@ -19,12 +19,13 @@ import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
 import org.toj.dnd.irctoolkit.configs.GlobalConfigs;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
-import org.toj.dnd.irctoolkit.engine.command.map.GenerateRandomMapCommand;
-import org.toj.dnd.irctoolkit.engine.command.map.LoadMapFromFileCommand;
-import org.toj.dnd.irctoolkit.engine.command.map.MapUndoCommand;
-import org.toj.dnd.irctoolkit.engine.command.map.SaveMapToFileCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.GenerateRandomMapCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.LoadMapFromFileCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.MapUndoCommand;
+import org.toj.dnd.irctoolkit.engine.command.ui.SaveMapToFileCommand;
 import org.toj.dnd.irctoolkit.io.pircbot.IrcClient;
 import org.toj.dnd.irctoolkit.ui.MainFrame;
+import org.toj.dnd.irctoolkit.ui.console.ConsolePane;
 
 public class IrcToolkitMenu extends JMenuBar {
 
@@ -145,8 +146,7 @@ public class IrcToolkitMenu extends JMenuBar {
 
         JMenu mapGenMenu = new JMenu("随机地图");
 
-        JMenuItem generateMap = new JMenuItem("随机生成地城",
-                KeyEvent.VK_R);
+        JMenuItem generateMap = new JMenuItem("随机生成地城", KeyEvent.VK_R);
         generateMap.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
                 ActionEvent.ALT_MASK));
         generateMap.addActionListener(new ActionListener() {
@@ -228,5 +228,18 @@ public class IrcToolkitMenu extends JMenuBar {
         ircMenu.add(changeNick);
 
         this.add(ircMenu);
+
+        JMenu windowMenu = new JMenu("窗口");
+        JMenuItem openConsole = new JMenuItem("控制台", KeyEvent.VK_C);
+        openConsole.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ConsolePane.getInstance().adjustPosition();
+                ConsolePane.getInstance().setVisible(true);
+            }
+        });
+        windowMenu.add(openConsole);
+        this.add(windowMenu);
     }
 }
