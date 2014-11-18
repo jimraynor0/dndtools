@@ -72,9 +72,19 @@ public class IrcClient extends PircBot {
     @Override
     protected void onMessage(String channel, String sender, String login,
             String hostname, String msg) {
-        String cmd = Colors.removeFormattingAndColors(msg);
+        queueCommand(channel, sender, msg);
+    }
+
+    @Override
+    protected void onPrivateMessage(String sender, String login,
+            String hostname, String msg) {
+        queueCommand(sender, sender, msg);
+    }
+
+	private void queueCommand(String channel, String sender, String msg) {
+		String cmd = Colors.removeFormattingAndColors(msg);
         if (log.isDebugEnabled()) {
-            log.debug(sender + " sent public message in " + channel + ": "
+            log.debug(sender + " sent message in " + channel + ": "
                     + cmd);
         }
         if (cmd.startsWith(".") || sender.equals("Dicebot")
@@ -102,44 +112,10 @@ public class IrcClient extends PircBot {
                 log.warn("Exception while parsing cmd: ", e);
             }
         }
-    }
+	}
 
     private Game getGame() {
         return ToolkitEngine.getEngine().getContext().getGame();
-    }
-
-    @Override
-    protected void onPrivateMessage(String sender, String login,
-            String hostname, String msg) {
-        String cmd = Colors.removeFormattingAndColors(msg);
-        if (log.isDebugEnabled()) {
-            log.debug(sender + " sent private message: " + cmd);
-        }
-        if (cmd.startsWith(".") || sender.equals("Dicebot")
-                || sender.equals("Oicebot")) {
-            if (log.isDebugEnabled()) {
-                log.debug("Command received: " + cmd);
-            }
-            String actor = sender;
-            if (getGame() != null && getGame().hasAliases(sender)) {
-                actor = getGame().mapAlias(sender);
-                if (log.isDebugEnabled()) {
-                    log.debug("alias mapped: " + sender + " -> " + actor);
-                }
-            }
-            try {
-                Command c = IrcCommandFactory.buildCommand(
-                        new StringBuilder(cmd).append(" ").append(sender)
-                                .append(" ").append(actor).toString(), null, 0);
-                if (c == null) {
-                    log.warn("Command dropped: invalid command.");
-                } else {
-                    ToolkitEngine.getEngine().queueCommand(c);
-                }
-            } catch (Exception e) {
-                log.warn("Exception while parsing cmd: ", e);
-            }
-        }
     }
 
     @Override
@@ -174,10 +150,15 @@ public class IrcClient extends PircBot {
     public void processOutgoingMsgs(List<OutgoingMsg> msgs) {
         if (msgs != null) {
             for (OutgoingMsg msg : msgs) {
+            	if (msg.getWriteTo().equals(OutgoingMsg.WRITE_TO_TOPIC)) {
+                    this.topicCache = msg.getContent();
+                }
+            	// skip msg from console command
+            	if ("CONSOLE".equals(msg.getChan())) {
+            		continue;
+            	}
                 if (msg.getWriteTo().equals(OutgoingMsg.WRITE_TO_MSG)) {
                     super.sendMessage(msg.getChan(), msg.getContent());
-                } else if (msg.getWriteTo().equals(OutgoingMsg.WRITE_TO_TOPIC)) {
-                    this.topicCache = msg.getContent();
                 } else if (msg.getWriteTo().equals(
                         OutgoingMsg.REFRESH_TOPIC_NOTICE)) {
                     super.setTopic(msg.getChan(), topicCache);

@@ -15,6 +15,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
+import org.apache.log4j.Logger;
+import org.jibble.pircbot.Colors;
+import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
+import org.toj.dnd.irctoolkit.engine.command.Command;
+import org.toj.dnd.irctoolkit.engine.command.IrcCommandFactory;
+import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 import org.toj.dnd.irctoolkit.ui.StyleConstants;
 
@@ -26,6 +32,8 @@ public class ConsolePane extends JDialog {
     public static ConsolePane getInstance() {
         return instance;
     }
+
+    private Logger log = Logger.getLogger(this.getClass());
 
     private JTextArea taLog;
     private JTextField tfInput;
@@ -45,6 +53,7 @@ public class ConsolePane extends JDialog {
     private JComponent createConsoleLog() {
         taLog = new JTextArea();
         taLog.setLineWrap(true);
+        taLog.setEditable(false);
 
         JScrollPane container = new JScrollPane(taLog);
         container
@@ -62,11 +71,37 @@ public class ConsolePane extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 append(tfInput.getText());
+                queueCommand(tfInput.getText());
                 tfInput.setText("");
             }
         });
         tfInput.requestFocus();
         return tfInput;
+    }
+
+	private void queueCommand(String cmd) {
+        if (cmd.startsWith(".")) {
+            if (log.isDebugEnabled()) {
+                log.debug("Command received from console: " + cmd);
+            }
+            String actor = "DM";
+            try {
+                Command c = IrcCommandFactory.buildCommand(
+                        new StringBuilder(cmd).append(" ").append("CONSOLE")
+                                .append(" ").append(actor).toString(), null, 0);
+                if (c == null) {
+                    log.warn("Command dropped: invalid command.");
+                } else {
+                    ToolkitEngine.getEngine().queueCommand(c);
+                }
+            } catch (Exception e) {
+                log.warn("Exception while parsing cmd: ", e);
+            }
+        }
+	}
+
+    private Game getGame() {
+        return ToolkitEngine.getEngine().getContext().getGame();
     }
 
     public void adjustPosition() {
@@ -105,6 +140,6 @@ public class ConsolePane extends JDialog {
     }
 
     private void append(String msg) {
-        taLog.append(msg + "\r\n");
+        taLog.append(Colors.removeFormattingAndColors(msg) + "\r\n");
     }
 }
