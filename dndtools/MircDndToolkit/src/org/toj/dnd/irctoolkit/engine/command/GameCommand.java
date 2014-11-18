@@ -66,19 +66,14 @@ public abstract class GameCommand extends Command {
                 OutgoingMsg.WRITE_TO_MSG, incomingAddr, incomingPort));
     }
 
-    protected void sendMsgToDefaultChan(String content) {
-        msgs.add(new OutgoingMsg(getGame().getOutputChannel(), caller, content,
-                OutgoingMsg.WRITE_TO_MSG, incomingAddr, incomingPort));
-    }
-
     protected void sendTopic(String content) {
-        msgs.add(new OutgoingMsg(getGame().getOutputChannel(), caller, content,
+        msgs.add(new OutgoingMsg(chan, caller, content,
                 OutgoingMsg.WRITE_TO_TOPIC, incomingAddr, incomingPort));
     }
 
     protected void refreshTopic() {
         sendTopic(getGame().generateTopic());
-        msgs.add(new OutgoingMsg(getGame().getOutputChannel(), caller, null,
+        msgs.add(new OutgoingMsg(chan, caller, null,
                 OutgoingMsg.REFRESH_TOPIC_NOTICE, incomingAddr, incomingPort));
     }
 

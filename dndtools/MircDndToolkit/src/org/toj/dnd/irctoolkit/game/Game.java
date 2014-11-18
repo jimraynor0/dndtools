@@ -18,7 +18,6 @@ public class Game {
     private String ruleSet;
     private String dm;
     private String name;
-    private String outputChan;
     private Map<String, PC> pcs;
     private Battle battle;
     private Map<String, String> aliases;
@@ -40,7 +39,6 @@ public class Game {
     public Game(Element e) {
         this();
         this.name = e.elementTextTrim("name");
-        this.outputChan = e.elementTextTrim("chan");
         if (e.element("dm") != null) {
             dm = e.elementTextTrim("dm");
         }
@@ -78,7 +76,6 @@ public class Game {
     public Element toXmlElement() {
         Element e = DocumentHelper.createElement("game");
         e.add(XmlUtil.textElement("name", name));
-        e.add(XmlUtil.textElement("chan", outputChan));
         if (dm != null && !dm.isEmpty()) {
             e.add(XmlUtil.textElement("dm", dm));
         }
@@ -303,14 +300,6 @@ public class Game {
 
     public Map<String, NPC> getNpcs() {
         return inBattle() ? new HashMap<String, NPC>() : getBattle().getNpcs();
-    }
-
-    public String getOutputChannel() {
-        return outputChan;
-    }
-
-    public void setOutputChannel(String defaultOutputChannel) {
-        this.outputChan = defaultOutputChannel;
     }
 
     public void applyExtendedRest() {

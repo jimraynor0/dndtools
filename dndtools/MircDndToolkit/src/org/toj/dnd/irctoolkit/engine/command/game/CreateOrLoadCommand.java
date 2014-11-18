@@ -36,12 +36,10 @@ public class CreateOrLoadCommand extends GameCommand {
         if (game == null) {
             game = GameStore.createGame(name);
             context.setGame(game);
-            game.setOutputChannel(this.chan);
             sendMsg("Game created.");
             log.debug("Game created: " + name);
         } else {
             context.setGame(game);
-            game.setOutputChannel(this.chan);
             sendTopic(game.generateTopic());
             refreshTopic();
             sendMsg("Game loaded.");

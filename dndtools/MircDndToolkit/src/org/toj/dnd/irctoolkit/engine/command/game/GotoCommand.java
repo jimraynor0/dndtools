@@ -35,9 +35,9 @@ public class GotoCommand extends UndoableTopicCommand {
         refreshTopic();
         List<String> stateMsgs = getGame().getBattle().getEventResultBuffer();
         for (String msg : stateMsgs) {
-            sendMsgToDefaultChan(msg);
+            sendMsg(msg);
         }
-        sendMsgToDefaultChan("轮到"
+        sendMsg("轮到"
                 + getGame().getBattle().getCurrent().getName() + "行动了");
     }
 }
