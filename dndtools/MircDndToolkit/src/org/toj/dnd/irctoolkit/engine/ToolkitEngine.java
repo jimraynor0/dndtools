@@ -24,6 +24,7 @@ import org.toj.dnd.irctoolkit.engine.observers.PcViewObserver;
 import org.toj.dnd.irctoolkit.io.pircbot.IrcClient;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 import org.toj.dnd.irctoolkit.ui.MainFrame;
+import org.toj.dnd.irctoolkit.ui.console.ConsolePane;
 
 public class ToolkitEngine extends Thread {
 
@@ -64,12 +65,17 @@ public class ToolkitEngine extends Thread {
                     context.getHistory().pushCmd(cmd);
                 }
                 List<OutgoingMsg> msgs = cmd.execute();
-                if (cmd.isProcessResponse()) {
-                    IrcClient.getInstance().processOutgoingMsgs(msgs);
-                }
+                processOutgoingMsg(cmd, msgs);
             } catch (Exception e) {
                 log.error("error during execution: ", e);
             }
+        }
+    }
+
+    private void processOutgoingMsg(Command cmd, List<OutgoingMsg> msgs) {
+        if (cmd.isProcessResponse()) {
+            ConsolePane.getInstance().processOutgoingMsgs(msgs);
+            IrcClient.getInstance().processOutgoingMsgs(msgs);
         }
     }
 

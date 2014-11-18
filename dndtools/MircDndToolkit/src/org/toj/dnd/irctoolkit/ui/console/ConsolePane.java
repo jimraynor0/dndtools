@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -14,6 +15,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
+import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 import org.toj.dnd.irctoolkit.ui.StyleConstants;
 
 public class ConsolePane extends JDialog {
@@ -27,6 +29,8 @@ public class ConsolePane extends JDialog {
 
     private JTextArea taLog;
     private JTextField tfInput;
+
+    private String topicCache;
 
     public ConsolePane() {
         this.setTitle("控制台");
@@ -57,7 +61,7 @@ public class ConsolePane extends JDialog {
         tfInput.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                taLog.append(tfInput.getText() + "\r\n");
+                append(tfInput.getText());
                 tfInput.setText("");
             }
         });
@@ -83,5 +87,24 @@ public class ConsolePane extends JDialog {
         bounds.width = StyleConstants.CONSOLE_DIALOG_SIZE.width;
         bounds.height = StyleConstants.CONSOLE_DIALOG_SIZE.height;
         return bounds;
+    }
+
+    public void processOutgoingMsgs(List<OutgoingMsg> msgs) {
+        if (msgs != null) {
+            for (OutgoingMsg msg : msgs) {
+                if (msg.getWriteTo().equals(OutgoingMsg.WRITE_TO_MSG)) {
+                    append(msg.getContent());
+                } else if (msg.getWriteTo().equals(OutgoingMsg.WRITE_TO_TOPIC)) {
+                    this.topicCache = msg.getContent();
+                } else if (msg.getWriteTo().equals(
+                        OutgoingMsg.REFRESH_TOPIC_NOTICE)) {
+                    append("标题更新: " + topicCache);
+                }
+            }
+        }
+    }
+
+    private void append(String msg) {
+        taLog.append(msg + "\r\n");
     }
 }

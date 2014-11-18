@@ -172,14 +172,16 @@ public class IrcClient extends PircBot {
     }
 
     public void processOutgoingMsgs(List<OutgoingMsg> msgs) {
-        for (OutgoingMsg msg : msgs) {
-            if (msg.getWriteTo().equals(OutgoingMsg.WRITE_TO_MSG)) {
-                super.sendMessage(msg.getChan(), msg.getContent());
-            } else if (msg.getWriteTo().equals(OutgoingMsg.WRITE_TO_TOPIC)) {
-                this.topicCache = msg.getContent();
-            } else if (msg.getWriteTo()
-                    .equals(OutgoingMsg.REFRESH_TOPIC_NOTICE)) {
-                super.setTopic(msg.getChan(), topicCache);
+        if (msgs != null) {
+            for (OutgoingMsg msg : msgs) {
+                if (msg.getWriteTo().equals(OutgoingMsg.WRITE_TO_MSG)) {
+                    super.sendMessage(msg.getChan(), msg.getContent());
+                } else if (msg.getWriteTo().equals(OutgoingMsg.WRITE_TO_TOPIC)) {
+                    this.topicCache = msg.getContent();
+                } else if (msg.getWriteTo().equals(
+                        OutgoingMsg.REFRESH_TOPIC_NOTICE)) {
+                    super.setTopic(msg.getChan(), topicCache);
+                }
             }
         }
     }
