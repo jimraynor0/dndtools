@@ -24,7 +24,7 @@ public class MapGenConfigs {
     public static final String CONF_DOOR_WIDTH_MAX = "door.maxwidth";
 
     private static final File CONFIG_FILE = new File(
-            "./resources/MapGenConfigs.properties");
+            "./config/MapGenConfigs.properties");
 
     private Properties props;
 

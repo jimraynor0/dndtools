@@ -74,17 +74,16 @@
 				<version>2.7</version>
 				<executions>
 					<execution>
-						<id>copy-resources</id>
+						<id>copy-config</id>
 						<phase>process-resources</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>target/resources</outputDirectory>
-				          	<encoding>UTF-8</encoding>
+							<outputDirectory>target/config</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${basedir}/resources</directory>
+									<directory>${basedir}/config</directory>
                                     <filtering>false</filtering>
 								</resource>
 							</resources>

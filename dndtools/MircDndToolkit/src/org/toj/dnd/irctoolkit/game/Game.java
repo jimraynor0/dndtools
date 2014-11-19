@@ -134,7 +134,8 @@ public class Game {
 
     public void addAlias(String alias, String phrase) {
         // ensure that: only 1 alias is mapped to any given phrase
-        // if alias itself is the value of an alias, then find the original alias
+        // if alias itself is the value of an alias, then find the original
+        // alias
         for (String key : aliases.keySet()) {
             if (alias.equals(aliases.get(key))) {
                 alias = key;

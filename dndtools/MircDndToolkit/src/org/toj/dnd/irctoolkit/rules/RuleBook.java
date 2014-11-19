@@ -14,7 +14,7 @@ import org.dom4j.io.SAXReader;
 import org.toj.dnd.irctoolkit.util.AbbreviationUtil;
 
 public class RuleBook {
-    private static final File RULE_FILE = new File("./resources/rules.xml");
+    private static final File RULE_FILE = new File("./config/rules.xml");
     private static RuleBook INSTANCE;
 
     public static RuleBook getRuleBook() {

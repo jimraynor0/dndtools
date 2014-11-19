@@ -16,7 +16,7 @@ import org.toj.dnd.irctoolkit.map.MapModel;
 public class DefaultModels {
     private static final String ENCODING_UTF_8 = "UTF-8";
     private static final File DEF_MODEL_FILE = new File(
-            "./resources/DefaultModels.xml");
+            "./config/DefaultModels.xml");
 
     public List<MapModel> loadDefaultModels() {
         ArrayList<MapModel> result = new ArrayList<MapModel>();

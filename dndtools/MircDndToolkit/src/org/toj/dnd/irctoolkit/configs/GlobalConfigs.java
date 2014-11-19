@@ -24,7 +24,8 @@ public class GlobalConfigs {
     public static final String CONF_LAST_ENCOUNTER = "last.encounter";
 
     private static final File CONFIG_FILE = new File(
-            "./resources/GlobalConfigs.properties");
+            "./config/GlobalConfigs.properties");
+    private static final String DEFAULT_CONFIG_FILE = "/GlobalConfigs.properties";
     private static GlobalConfigs INSTANCE;
 
     public static GlobalConfigs getConfigs() {
@@ -47,23 +48,37 @@ public class GlobalConfigs {
 
     private GlobalConfigs() {
         props = new Properties();
-        if (!CONFIG_FILE.isFile()) {
-            JOptionPane.showMessageDialog(null,
-                    "找不到配置文件" + CONFIG_FILE.getAbsolutePath() + "，启动失败。",
-                    ToolkitEngine.ERR_MSG_TITLE, JOptionPane.ERROR_MESSAGE);
-            System.exit(1);
+        if (CONFIG_FILE.isFile()) {
+            try {
+                InputStream is = new FileInputStream(CONFIG_FILE);
+                props.load(is);
+                is.close();
+                return;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                InputStream is = this.getClass().getResourceAsStream(
+                        DEFAULT_CONFIG_FILE);
+                props.load(is);
+                is.close();
+                return;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        try {
-            InputStream is = new FileInputStream(CONFIG_FILE);
-            props.load(is);
-            is.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        JOptionPane.showMessageDialog(null,
+                "找不到配置文件" + CONFIG_FILE.getAbsolutePath() + "，启动失败。",
+                ToolkitEngine.ERR_MSG_TITLE, JOptionPane.ERROR_MESSAGE);
+        System.exit(1);
     }
 
     private void save() {
         try {
+            if (!CONFIG_FILE.exists()) {
+                CONFIG_FILE.createNewFile();
+            }
             OutputStream os = new FileOutputStream(CONFIG_FILE);
             props.store(os, null);
             os.flush();

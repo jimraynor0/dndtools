@@ -5,4 +5,5 @@
 /doc
 /lib.bak
 /target
+/config/GlobalConfigs.properties
 *.bak
