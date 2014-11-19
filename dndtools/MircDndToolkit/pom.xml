@@ -84,6 +84,7 @@
 							<resources>
 								<resource>
 									<directory>${basedir}/config</directory>
+									<exclude>GlobalConfigs.properties</exclude>
                                     <filtering>false</filtering>
 								</resource>
 							</resources>
