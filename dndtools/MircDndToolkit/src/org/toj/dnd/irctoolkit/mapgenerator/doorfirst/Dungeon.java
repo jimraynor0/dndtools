@@ -1,4 +1,4 @@
-package org.toj.dnd.irctoolkit.mapgenerator;
+package org.toj.dnd.irctoolkit.mapgenerator.doorfirst;
 
 import java.awt.Point;
 import java.util.LinkedList;

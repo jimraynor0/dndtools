@@ -24,6 +24,7 @@ import org.toj.dnd.irctoolkit.engine.command.ui.LoadMapFromFileCommand;
 import org.toj.dnd.irctoolkit.engine.command.ui.MapUndoCommand;
 import org.toj.dnd.irctoolkit.engine.command.ui.SaveMapToFileCommand;
 import org.toj.dnd.irctoolkit.io.pircbot.IrcClient;
+import org.toj.dnd.irctoolkit.mapgenerator.doorfirst.DoorFirstDungeonGenerator;
 import org.toj.dnd.irctoolkit.ui.MainFrame;
 import org.toj.dnd.irctoolkit.ui.console.ConsolePane;
 
@@ -154,7 +155,8 @@ public class IrcToolkitMenu extends JMenuBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ToolkitEngine.getEngine().queueCommand(
-                        new GenerateRandomMapCommand());
+                        new GenerateRandomMapCommand(
+                                new DoorFirstDungeonGenerator()));
             }
         });
         mapGenMenu.add(generateMap);
