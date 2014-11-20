@@ -3,8 +3,6 @@ package org.toj.dnd.irctoolkit.ui.map.modelpane;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 
-import org.toj.dnd.irctoolkit.ui.StyleConstants;
-
 public class ColorTypeRadioGroup extends ButtonGroup {
 
     private static final long serialVersionUID = 890748691867041619L;
