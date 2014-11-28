@@ -6,12 +6,10 @@ import java.util.List;
 
 import org.toj.dnd.irctoolkit.configs.DefaultModels;
 import org.toj.dnd.irctoolkit.map.MapGrid;
+import org.toj.dnd.irctoolkit.mapgenerator.DungeonGenerator;
 import org.toj.dnd.irctoolkit.util.RandomUtil;
 
 public class Dungeon {
-
-    private static final String WALL_ID = "default.wall";
-    private static final String DOOR_ID = "default.doorclosed";
 
     private int width;
     private int height;
@@ -87,7 +85,7 @@ public class Dungeon {
     private void paint(Door door, MapGrid map) {
         for (Point p : door.getSquares()) {
             map.drawObjectsOntoGrid(new int[] { p.x }, new int[] { p.y }, map
-                    .getModelList().findModelById(DOOR_ID));
+                    .getModelList().findModelById(DungeonGenerator.DOOR_ID));
         }
     }
 
@@ -99,20 +97,20 @@ public class Dungeon {
         Point bottomRight = corners.get(3);
         for (int i = topLeft.x; i <= topRight.x; i++) {
             map.drawObjectsOntoGrid(new int[] { i }, new int[] { topLeft.y },
-                    map.getModelList().findModelById(WALL_ID));
+                    map.getModelList().findModelById(DungeonGenerator.WALL_ID));
         }
         for (int i = bottomLeft.x; i <= bottomRight.x; i++) {
             map.drawObjectsOntoGrid(new int[] { i },
                     new int[] { bottomLeft.y }, map.getModelList()
-                            .findModelById(WALL_ID));
+                            .findModelById(DungeonGenerator.WALL_ID));
         }
         for (int i = topLeft.y; i <= bottomLeft.y; i++) {
             map.drawObjectsOntoGrid(new int[] { topLeft.x }, new int[] { i },
-                    map.getModelList().findModelById(WALL_ID));
+                    map.getModelList().findModelById(DungeonGenerator.WALL_ID));
         }
         for (int i = topRight.y; i <= bottomRight.y; i++) {
             map.drawObjectsOntoGrid(new int[] { topRight.x }, new int[] { i },
-                    map.getModelList().findModelById(WALL_ID));
+                    map.getModelList().findModelById(DungeonGenerator.WALL_ID));
         }
     }
 

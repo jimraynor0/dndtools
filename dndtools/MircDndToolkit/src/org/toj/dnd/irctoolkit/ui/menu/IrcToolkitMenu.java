@@ -24,6 +24,8 @@ import org.toj.dnd.irctoolkit.engine.command.ui.LoadMapFromFileCommand;
 import org.toj.dnd.irctoolkit.engine.command.ui.MapUndoCommand;
 import org.toj.dnd.irctoolkit.engine.command.ui.SaveMapToFileCommand;
 import org.toj.dnd.irctoolkit.io.pircbot.IrcClient;
+import org.toj.dnd.irctoolkit.mapgenerator.ca.CelullarAutomationCaveGenerator;
+import org.toj.dnd.irctoolkit.mapgenerator.dla.DiffusionLimitedAggregationCaveGenerator;
 import org.toj.dnd.irctoolkit.mapgenerator.doorfirst.DoorFirstDungeonGenerator;
 import org.toj.dnd.irctoolkit.ui.MainFrame;
 import org.toj.dnd.irctoolkit.ui.console.ConsolePane;
@@ -147,10 +149,10 @@ public class IrcToolkitMenu extends JMenuBar {
 
         JMenu mapGenMenu = new JMenu("随机地图");
 
-        JMenuItem generateMap = new JMenuItem("随机生成地城", KeyEvent.VK_R);
-        generateMap.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
+        JMenuItem generateDungeon = new JMenuItem("随机生成地城", KeyEvent.VK_D);
+        generateDungeon.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D,
                 ActionEvent.ALT_MASK));
-        generateMap.addActionListener(new ActionListener() {
+        generateDungeon.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -159,7 +161,37 @@ public class IrcToolkitMenu extends JMenuBar {
                                 new DoorFirstDungeonGenerator()));
             }
         });
-        mapGenMenu.add(generateMap);
+        mapGenMenu.add(generateDungeon);
+
+        JMenuItem generateNaturalCave = new JMenuItem("随机生成平滑洞穴", KeyEvent.VK_C);
+        generateNaturalCave.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_C, ActionEvent.ALT_MASK));
+        generateNaturalCave.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ToolkitEngine.getEngine().queueCommand(
+                        new GenerateRandomMapCommand(
+                                new CelullarAutomationCaveGenerator()));
+            }
+        });
+        mapGenMenu.add(generateNaturalCave);
+
+        JMenuItem generateRuggedCave = new JMenuItem("随机生成崎岖洞穴", KeyEvent.VK_R);
+        generateRuggedCave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
+                ActionEvent.ALT_MASK));
+        generateRuggedCave.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ToolkitEngine
+                        .getEngine()
+                        .queueCommand(
+                                new GenerateRandomMapCommand(
+                                        new DiffusionLimitedAggregationCaveGenerator()));
+            }
+        });
+        mapGenMenu.add(generateRuggedCave);
         this.add(mapGenMenu);
 
         JMenu ircMenu = new JMenu("IRC");

@@ -23,6 +23,13 @@ public class MapGenConfigs {
     public static final String CONF_DOOR_WIDTH_MIN = "door.minwidth";
     public static final String CONF_DOOR_WIDTH_MAX = "door.maxwidth";
 
+    public static final String CA_MAP_WIDTH = "ca.map.width";
+    public static final String CA_MAP_HEIGHT = "ca.map.height";
+
+    public static final String DLA_MAP_WIDTH = "dla.map.width";
+    public static final String DLA_MAP_HEIGHT = "dla.map.height";
+    public static final String DLA_EMPTY_TILE_TOTAL = "dla.empty.tile.total";
+
     private static final File CONFIG_FILE = new File(
             "./config/MapGenConfigs.properties");
 

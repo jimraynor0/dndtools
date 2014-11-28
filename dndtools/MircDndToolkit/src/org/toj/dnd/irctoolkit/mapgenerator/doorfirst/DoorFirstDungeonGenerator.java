@@ -9,7 +9,7 @@ import org.toj.dnd.irctoolkit.map.MapGrid;
 import org.toj.dnd.irctoolkit.mapgenerator.DungeonGenerator;
 import org.toj.dnd.irctoolkit.util.RandomUtil;
 
-public class DoorFirstDungeonGenerator implements DungeonGenerator {
+public class DoorFirstDungeonGenerator extends DungeonGenerator {
 
     private static final String INITIAL_ROOM_PLACING_FAILED = "initial room placing failed.";
     private static final int MAX_ATTEMPTS = 1000;
@@ -31,9 +31,8 @@ public class DoorFirstDungeonGenerator implements DungeonGenerator {
     }
 
     public MapGrid generateDungeon() {
-        int width = Integer.parseInt(config.get(MapGenConfigs.CONF_MAP_WIDTH));
-        int height = Integer
-                .parseInt(config.get(MapGenConfigs.CONF_MAP_HEIGHT));
+        width = Integer.parseInt(config.get(MapGenConfigs.CONF_MAP_WIDTH));
+        height = Integer.parseInt(config.get(MapGenConfigs.CONF_MAP_HEIGHT));
         int roomCount = Integer.parseInt(config
                 .get(MapGenConfigs.CONF_ROOM_COUNT));
         Dungeon dungeon = new Dungeon(width, height);

@@ -1,22 +1,27 @@
 package org.toj.dnd.irctoolkit.mapgenerator.ca;
 
+import org.toj.dnd.irctoolkit.configs.MapGenConfigs;
 import org.toj.dnd.irctoolkit.map.MapGrid;
+import org.toj.dnd.irctoolkit.map.MapModel;
+import org.toj.dnd.irctoolkit.map.MapObject;
 import org.toj.dnd.irctoolkit.mapgenerator.DungeonGenerator;
 
-public class CelullarAutomationCaveGenerator implements DungeonGenerator {
+public class CelullarAutomationCaveGenerator extends DungeonGenerator {
 
     private double chanceToStartAlive = 0.4d;
 
-    private int width = 50;
-    private int height = 50;
     private int birthLimit = 3;
     private int deathLimit = 4;
     private int iteration = 2;
 
-    private boolean[][] dungeon = new boolean[width][height];
+    private boolean[][] dungeon;
 
     @Override
     public MapGrid generateDungeon() {
+        MapGenConfigs config = new MapGenConfigs();
+        width = config.getInt(MapGenConfigs.CA_MAP_WIDTH);
+        height = config.getInt(MapGenConfigs.CA_MAP_HEIGHT);
+        dungeon = new boolean[width][height];
         doGenerateDungeon();
         return paint();
     }
@@ -92,7 +97,17 @@ public class CelullarAutomationCaveGenerator implements DungeonGenerator {
     }
 
     private MapGrid paint() {
-        return null;
+        MapGrid map = createNewMapGrid();
+        MapModel wallModel = map.getModelList().findModelById(
+                DungeonGenerator.WALL_ID);
+        for (int x = 0; x < dungeon.length; x++) {
+            for (int y = 0; y < dungeon[0].length; y++) {
+                if (dungeon[x][y]) {
+                    map.drawObject(new MapObject(x, y, wallModel));
+                }
+            }
+        }
+        return map;
     }
 
     public static void main(String[] args) {
