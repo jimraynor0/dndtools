@@ -30,6 +30,9 @@ public class MapGenConfigs {
     public static final String DLA_MAP_HEIGHT = "dla.map.height";
     public static final String DLA_EMPTY_TILE_TOTAL = "dla.empty.tile.total";
 
+    public static final String CRW_MAP_BRANCH_LENGTH = "crawler.map.branch.length";
+    public static final String CRW_MAP_BRANCH_NUMBER = "crawler.map.branch.number";
+
     private static final File CONFIG_FILE = new File(
             "./config/MapGenConfigs.properties");
 
