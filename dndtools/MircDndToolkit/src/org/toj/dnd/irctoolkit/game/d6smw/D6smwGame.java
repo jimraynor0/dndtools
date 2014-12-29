@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.toj.dnd.irctoolkit.engine.command.game.d6smw.Mech;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.game.dnd3r.PC;
+import org.toj.dnd.irctoolkit.util.XmlUtil;
 
 public class D6smwGame extends Game {
     private Map<String, Mech> mechs = new HashMap<String, Mech>();
@@ -27,7 +29,7 @@ public class D6smwGame extends Game {
             while (i.hasNext()) {
                 Element alias = i.next();
                 getAliases().put(alias.attributeValue("abbr"),
-                        alias.attributeValue("text"));
+                    alias.attributeValue("text"));
             }
         }
 
@@ -43,8 +45,26 @@ public class D6smwGame extends Game {
 
     @Override
     public Element toXmlElement() {
-        // TODO Auto-generated method stub
-        return null;
+        Element e = DocumentHelper.createElement("game");
+        e.add(XmlUtil.textElement("name", getName()));
+        e.add(XmlUtil.textElement("ruleSet", getRuleSet()));
+        if (!StringUtils.isEmpty(getDm())) {
+            e.add(XmlUtil.textElement("dm", getDm()));
+        }
+
+        e.addElement("mechs");
+        for (String key : mechs.keySet()) {
+            e.element("mechs").add(mechs.get(key).toXmlElement());
+        }
+        if (getAliases() != null && !getAliases().isEmpty()) {
+            e.addElement("aliases");
+            for (String key : getAliases().keySet()) {
+                Element alias = e.element("aliases").addElement("alias");
+                alias.addAttribute("abbr", key);
+                alias.addAttribute("text", getAliases().get(key));
+            }
+        }
+        return e;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package org.toj.dnd.irctoolkit.engine.command.game.d6smw;
+package org.toj.dnd.irctoolkit.game.d6smw;
 
 public class TimePoint {
     public int round;
@@ -17,5 +17,16 @@ public class TimePoint {
             return false;
         }
         return init > tp.init;
+    }
+
+    public int getRoundsUntil(TimePoint tp) {
+        if (!before(tp)) {
+            return 0;
+        }
+        int rounds = tp.round - round;
+        if (init > tp.init) {
+            rounds++;
+        }
+        return rounds;
     }
 }
