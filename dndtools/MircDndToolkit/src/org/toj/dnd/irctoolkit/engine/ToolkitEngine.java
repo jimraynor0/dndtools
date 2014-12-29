@@ -28,7 +28,7 @@ import org.toj.dnd.irctoolkit.ui.console.ConsolePane;
 
 public class ToolkitEngine extends Thread {
 
-    public static final String MAIN_FRAME_TITLE = "Jim's D&D 4E Toolkit";
+    public static final String MAIN_FRAME_TITLE = "Jim's mirc Toolkit";
     public static final String ERR_MSG_TITLE = "好吧，我败了……";
     private static ToolkitEngine INSTANCE;
 

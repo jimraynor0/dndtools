@@ -11,8 +11,8 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.reflections.Reflections;
 import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
-import org.toj.dnd.irctoolkit.engine.command.game.DamageCommand;
-import org.toj.dnd.irctoolkit.engine.command.game.HealCommand;
+import org.toj.dnd.irctoolkit.engine.command.game.dnd3r.DamageCommand;
+import org.toj.dnd.irctoolkit.engine.command.game.dnd3r.HealCommand;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.io.pircbot.IrcClient;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
@@ -21,24 +21,34 @@ public class IrcCommandFactory {
 
     private static Logger log = Logger.getLogger(IrcCommandFactory.class);
 
+    private static List<Class<? extends GameCommand>> commonCmdClasses = new ArrayList<Class<? extends GameCommand>>();
     private static List<Class<? extends GameCommand>> cmdClasses = new ArrayList<Class<? extends GameCommand>>();
 
     static {
         Reflections reflections = new Reflections(
-                "org.toj.dnd.irctoolkit.engine.command");
-        addToCmdClasses(reflections.getSubTypesOf(GameCommand.class));
+                "org.toj.dnd.irctoolkit.engine.command.common");
+        addCmdClasses(reflections.getSubTypesOf(GameCommand.class), commonCmdClasses);
+        cmdClasses.addAll(commonCmdClasses);
     }
 
-    private static void addToCmdClasses(Set<Class<? extends GameCommand>> cmds) {
+    public static void loadGameCommands(Game game) {
+        cmdClasses.clear();
+        Reflections reflections = new Reflections(
+            game.getGameCommandPackage());
+        addCmdClasses(reflections.getSubTypesOf(GameCommand.class), cmdClasses);
+        cmdClasses.addAll(commonCmdClasses);
+    }
+
+    private static void addCmdClasses(Set<Class<? extends GameCommand>> cmds, List<Class<? extends GameCommand>> classes) {
         // make sure heal and damage is at the top, otherwise addstate/removestate command will take over all .+/.- commands.
-        cmdClasses.add(HealCommand.class);
-        cmdClasses.add(DamageCommand.class);
+        classes.add(HealCommand.class);
+        classes.add(DamageCommand.class);
         for (Class<? extends GameCommand> c : cmds) {
-            if (cmdClasses.contains(c)) {
+            if (classes.contains(c)) {
                 continue;
             }
             if (c.isAnnotationPresent(IrcCommand.class)) {
-                cmdClasses.add(c);
+                classes.add(c);
             }
         }
     }

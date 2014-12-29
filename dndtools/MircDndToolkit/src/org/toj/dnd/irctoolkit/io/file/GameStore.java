@@ -21,7 +21,9 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 import org.toj.dnd.irctoolkit.game.Game;
-import org.toj.dnd.irctoolkit.game.encounter.Encounter;
+import org.toj.dnd.irctoolkit.game.d6smw.D6smwGame;
+import org.toj.dnd.irctoolkit.game.dnd3r.Dnd3rGame;
+import org.toj.dnd.irctoolkit.game.dnd3r.encounter.Encounter;
 import org.toj.dnd.irctoolkit.map.MapGrid;
 
 public class GameStore {
@@ -29,24 +31,22 @@ public class GameStore {
 
     private static String getGameDir(String name) {
         return new StringBuilder("savegames").append(File.separator)
-                .append(name).toString();
+            .append(name).toString();
     }
 
     private static String getGameFile(String name) {
         return new StringBuilder("savegames").append(File.separator)
-                .append(name).append(File.separator).append("game.xml")
-                .toString();
+            .append(name).append(File.separator).append("game.xml").toString();
     }
 
     private static String getLogFile(String name) {
         return new StringBuilder("savegames").append(File.separator)
-                .append(name).append(File.separator).append("logs.xml")
-                .toString();
+            .append(name).append(File.separator).append("logs.xml").toString();
     }
 
     private static String getEncounterFile(String name) {
         return new StringBuilder("encounters").append(File.separator)
-                .append(name).append(".encounter").toString();
+            .append(name).append(".encounter").toString();
     }
 
     // private static String getDmNoteFile(String name) {
@@ -80,8 +80,8 @@ public class GameStore {
         OutputFormat outFormat = OutputFormat.createPrettyPrint();
         outFormat.setEncoding(ENCODING_UTF_8);
 
-        XMLWriter writer = new XMLWriter(new FileOutputStream(mapFile),
-                outFormat);
+        XMLWriter writer =
+            new XMLWriter(new FileOutputStream(mapFile), outFormat);
         writer.write(doc);
         writer.close();
     }
@@ -101,12 +101,19 @@ public class GameStore {
         }
     }
 
-    public static Game loadGame(Element gameElement) {
-        return new Game(gameElement);
+    public static Game loadGame(Element e) {
+        String ruleSet = e.elementTextTrim("ruleSet");
+        if ("d6smw".equalsIgnoreCase(ruleSet)) {
+            return new D6smwGame(e);
+        }
+        return new Dnd3rGame(e);
     }
 
-    public static Game createGame(String name) {
-        return new Game(name);
+    public static Game createGame(String name, String ruleSet) {
+        if ("d6smw".equalsIgnoreCase(ruleSet)) {
+            return new D6smwGame(name);
+        }
+        return new Dnd3rGame(name);
     }
 
     public static void save(Game game) throws IOException {
@@ -121,8 +128,9 @@ public class GameStore {
         OutputFormat outFormat = OutputFormat.createPrettyPrint();
         outFormat.setEncoding(ENCODING_UTF_8);
 
-        XMLWriter writer = new XMLWriter(new FileOutputStream(
-                getGameFile(game.getName())), outFormat);
+        XMLWriter writer =
+            new XMLWriter(new FileOutputStream(getGameFile(game.getName())),
+                outFormat);
 
         writer.write(doc);
         writer.close();
@@ -148,8 +156,8 @@ public class GameStore {
         try {
             log.createNewFile();
             FileOutputStream fos = new FileOutputStream(log);
-            OutputStreamWriter writer = new OutputStreamWriter(fos,
-                    ENCODING_UTF_8);
+            OutputStreamWriter writer =
+                new OutputStreamWriter(fos, ENCODING_UTF_8);
             for (String line : lines) {
                 writer.write(line);
                 writer.write("\r\n");

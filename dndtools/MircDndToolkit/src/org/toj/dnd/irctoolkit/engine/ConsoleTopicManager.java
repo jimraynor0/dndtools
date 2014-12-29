@@ -3,7 +3,7 @@ package org.toj.dnd.irctoolkit.engine;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
-import org.toj.dnd.irctoolkit.game.battle.Battle;
+import org.toj.dnd.irctoolkit.game.dnd3r.battle.Battle;
 import org.toj.dnd.irctoolkit.io.clipboard.ClipboardAccessor;
 
 public class ConsoleTopicManager {
