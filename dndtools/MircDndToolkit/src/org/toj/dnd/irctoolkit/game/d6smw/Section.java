@@ -14,8 +14,7 @@ public class Section {
     private int hp;
     private int currentMaxHp;
     private int maxHp;
-    private Map<String, Equipment> equipments =
-        new HashMap<String, Equipment>();
+    private Map<String, Equipment> equipments = new HashMap<String, Equipment>();
 
     public Section(Element e) {
         name = e.elementTextTrim("name");
@@ -36,18 +35,22 @@ public class Section {
             hp = currentMaxHp;
         }
 
-        Iterator<Element> i = e.element("equipments").elementIterator();
-        while (i.hasNext()) {
-            Element eqElement = i.next();
-            Equipment eq = new Equipment(eqElement);
-            equipments.put(eq.getName(), eq);
+        if (e.element("equipments") != null) {
+            Iterator<Element> i = e.element("equipments").elementIterator();
+            while (i.hasNext()) {
+                Element eqElement = i.next();
+                Equipment eq = new Equipment(eqElement);
+                equipments.put(eq.getName(), eq);
+            }
         }
 
-        i = e.element("weapons").elementIterator();
-        while (i.hasNext()) {
-            Element wElement = i.next();
-            Weapon w = new Weapon(wElement);
-            equipments.put(w.getName(), w);
+        if (e.element("weapons") != null) {
+            Iterator<Element> i = e.element("weapons").elementIterator();
+            while (i.hasNext()) {
+                Element wElement = i.next();
+                Weapon w = new Weapon(wElement);
+                equipments.put(w.getName(), w);
+            }
         }
     }
 
@@ -92,7 +95,7 @@ public class Section {
         }
     }
 
-    public void fastRepair(int repair) {
+    public void quickRepair(int repair) {
         hp += repair;
         if (hp > currentMaxHp) {
             hp = currentMaxHp;
@@ -103,6 +106,23 @@ public class Section {
     public void completeRepair() {
         hp = maxHp;
         currentMaxHp = maxHp;
+    }
+
+    public String toFullStatString(TimePoint current) {
+        StringBuilder sb = new StringBuilder(name);
+        sb.append("(").append(hp).append("/").append(currentMaxHp).append("/")
+                .append(maxHp).append(")");
+        sb.append(" - ");
+        boolean first = true;
+        for (Equipment eq : equipments.values()) {
+            if (first) {
+                first = false;
+            } else {
+                sb.append(", ");
+            }
+            sb.append(eq.toFullStatString(current));
+        }
+        return sb.toString();
     }
 
     public String getName() {

@@ -344,7 +344,6 @@ public class Battle implements Cloneable {
             }
         }
         return sb.toString();
-        // return chars.toString().substring(1, chars.toString().length() - 1);
     }
 
     public void restoreOrder() {

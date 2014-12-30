@@ -26,34 +26,44 @@ public class IrcCommandFactory {
 
     static {
         Reflections reflections = new Reflections(
-                "org.toj.dnd.irctoolkit.engine.command.common");
-        addCmdClasses(reflections.getSubTypesOf(GameCommand.class), commonCmdClasses);
+                "org.toj.dnd.irctoolkit.engine.command.game.common");
+        addCmdClasses(reflections.getTypesAnnotatedWith(IrcCommand.class),
+                commonCmdClasses);
+        reflections = new Reflections(
+                "org.toj.dnd.irctoolkit.engine.command.ui");
+        addCmdClasses(reflections.getTypesAnnotatedWith(IrcCommand.class),
+                commonCmdClasses);
+
         cmdClasses.addAll(commonCmdClasses);
     }
 
     public static void loadGameCommands(Game game) {
         cmdClasses.clear();
-        Reflections reflections = new Reflections(
-            game.getGameCommandPackage());
-        addCmdClasses(reflections.getSubTypesOf(GameCommand.class), cmdClasses);
+        Reflections reflections = new Reflections(game.getGameCommandPackage());
+        addCmdClasses(reflections.getTypesAnnotatedWith(IrcCommand.class), cmdClasses);
         cmdClasses.addAll(commonCmdClasses);
     }
 
-    private static void addCmdClasses(Set<Class<? extends GameCommand>> cmds, List<Class<? extends GameCommand>> classes) {
-        // make sure heal and damage is at the top, otherwise addstate/removestate command will take over all .+/.- commands.
-        classes.add(HealCommand.class);
-        classes.add(DamageCommand.class);
-        for (Class<? extends GameCommand> c : cmds) {
+    private static void addCmdClasses(Set<Class<?>> cmds,
+            List<Class<? extends GameCommand>> classes) {
+        // hack! make sure heal and damage is at the top, otherwise
+        // addstate/removestate command will take over all .+/.- commands.
+        if (cmds.contains(HealCommand.class)) {
+            classes.add(HealCommand.class);
+        }
+        if (cmds.contains(DamageCommand.class)) {
+            classes.add(DamageCommand.class);
+        }
+        for (Class<?> c : cmds) {
             if (classes.contains(c)) {
                 continue;
             }
-            if (c.isAnnotationPresent(IrcCommand.class)) {
-                classes.add(c);
-            }
+            classes.add((Class<? extends GameCommand>) c);
         }
     }
 
-    private static final String[] SPECIAL_COMMANDS = { "+", "-", "thp", "nonlethal", "nl" };
+    private static final String[] SPECIAL_COMMANDS = { "+", "-", "thp",
+            "nonlethal", "nl" };
 
     public static Command buildCommand(String cmdStr, InetAddress addr, int port) {
         boolean forceUpdateTopic = false;
@@ -203,12 +213,9 @@ public class IrcCommandFactory {
             if (anno != null && getInterpreter(anno).matches(parts)) {
                 try {
                     log.debug("matches command: " + c.getName());
-                    return c
-                            .getConstructor(Object[].class)
-                            .newInstance(
-                                    new Object[] { getInterpreter(anno)
-                                            .sortArgs(
-                                                    getTheRestOfTheParams(parts)) });
+                    return c.getConstructor(Object[].class).newInstance(
+                            new Object[] { getInterpreter(anno).sortArgs(
+                                    getTheRestOfTheParams(parts)) });
                 } catch (Exception e) {
                     log.error(e, e);
                 }

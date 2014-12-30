@@ -2,35 +2,45 @@ package org.toj.dnd.irctoolkit.game.d6smw;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
-import org.dom4j.Attribute;
+import org.apache.commons.lang.StringUtils;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.toj.dnd.irctoolkit.game.dnd3r.battle.State;
+import org.toj.dnd.irctoolkit.token.Color;
+import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
 import org.toj.dnd.irctoolkit.util.XmlUtil;
 
 public class Mech {
     private String name;
     private String model;
+    private int init;
     private int heat;
     private int heatSink;
+    private int maxHeat;
     private int speed;
     private String direction;
     private Map<String, Section> sections = new HashMap<String, Section>();
-    private Map<String, Equipment> equipments =
-        new HashMap<String, Equipment>();
+    private Map<String, Equipment> equipments = new HashMap<String, Equipment>();
     private Map<String, Ammo> ammoTrackers = new HashMap<String, Ammo>();
 
     public Mech(Element e) {
         name = e.elementTextTrim("name");
         model = e.elementTextTrim("model");
+        if (e.element("init") != null) {
+            init = Integer.parseInt(e.elementTextTrim("init"));
+        } else {
+            init = 0;
+        }
         if (e.element("heat") != null) {
             heat = Integer.parseInt(e.elementTextTrim("heat"));
         } else {
             heat = 0;
         }
         heatSink = Integer.parseInt(e.elementTextTrim("heatSink"));
+        maxHeat = Integer.parseInt(e.elementTextTrim("maxHeat"));
 
         if (e.element("speed") != null) {
             speed = Integer.parseInt(e.elementTextTrim("speed"));
@@ -60,7 +70,7 @@ public class Mech {
                 equipments.put(eq.getName(), eq);
                 if (eq instanceof Weapon) {
                     ((Weapon) eq).setAmmo(ammoTrackers.get(((Weapon) eq)
-                        .getAmmoType()));
+                            .getAmmoType()));
                 }
             }
         }
@@ -72,8 +82,11 @@ public class Mech {
         e.add(XmlUtil.textElement("model", model));
         e.add(XmlUtil.textElement("heat", String.valueOf(heat)));
         e.add(XmlUtil.textElement("heatSink", String.valueOf(heatSink)));
+        e.add(XmlUtil.textElement("maxHeat", String.valueOf(maxHeat)));
         e.add(XmlUtil.textElement("speed", String.valueOf(speed)));
-        e.add(XmlUtil.textElement("direction", direction));
+        if (!StringUtils.isEmpty(direction)) {
+            e.add(XmlUtil.textElement("direction", direction));
+        }
 
         Element secElement = e.addElement("sections");
         for (Section section : sections.values()) {
@@ -89,8 +102,14 @@ public class Mech {
     }
 
     public String activateEquipment(String equipment, TimePoint activatingOn) {
-        String activateResult =
-            equipments.get(equipment).activate(activatingOn);
+        if (!equipments.containsKey(equipment)) {
+            return equipment + "不存在。";
+        }
+        if (isOverHeated()) {
+            return "无法启动" + equipment + "，机甲过热。";
+        }
+        String activateResult = equipments.get(equipment)
+                .activate(activatingOn);
         if (activateResult == null) {
             heat += equipments.get(equipment).getHeat();
         }
@@ -102,7 +121,7 @@ public class Mech {
     }
 
     public void quickRepair(int repair, String section) {
-        sections.get(section).fastRepair(repair);
+        sections.get(section).quickRepair(repair);
     }
 
     public void completeRepair() {
@@ -113,6 +132,82 @@ public class Mech {
 
     public void repairEquipment(String equipment) {
         equipments.get(equipment).active();
+    }
+
+    public boolean isOverHeated() {
+        return heat > maxHeat;
+    }
+
+    public void sinkHeat(int times) {
+        heat -= heatSink * times;
+        if (heat < 0) {
+            heat = 0;
+        }
+    }
+
+    public void endBattle() {
+        init = 0;
+        heat = 0;
+        speed = 0;
+        direction = null;
+        for (Equipment eq : equipments.values()) {
+            eq.setReadyOn(null);
+        }
+    }
+
+    public List<String> toFullStatString(TimePoint current) {
+        List<String> stat = new LinkedList<String>();
+        StringBuilder sb = new StringBuilder("PC: ").append(name);
+        sb.append(", 机甲型号: ").append(model);
+        if (heat > 0) {
+            sb.append(", 热量: ").append(heat).append("/").append(maxHeat);
+        }
+        if (direction != null) {
+            sb.append(", 速度/方向: ").append(speed).append("/").append(direction);
+        }
+        stat.add(sb.toString());
+
+        for (Section sec : sections.values()) {
+            stat.add(sec.toFullStatString(current));
+        }
+        if (ammoTrackers != null && !ammoTrackers.isEmpty()) {
+            sb = new StringBuilder();
+            for (Ammo ammo : ammoTrackers.values()) {
+                if (sb.length() == 0) {
+                    sb.append("弹药: ");
+                } else {
+                    sb.append(", ");
+                }
+                sb.append(ammo.getType()).append("(").append(ammo.getRounds())
+                        .append(")");
+            }
+            stat.add(sb.toString());
+        }
+        return stat;
+    }
+
+    public String toTopicString(boolean onTurn) {
+        StringBuilder sb = new StringBuilder();
+        if (onTurn) {
+            sb.append(IrcColoringUtil.paint(name, Color.RED.getCode()));
+        } else {
+            sb.append(name);
+        }
+        sb.append(getHpExpression());
+        return sb.toString();
+    }
+
+    private String getHpExpression() {
+        StringBuilder sb = new StringBuilder();
+        for (Section sec : sections.values()) {
+            if (sb.length() == 0) {
+                sb.append("(");
+            } else {
+                sb.append(", ");
+            }
+            sb.append(sec.getName()).append("=").append(sec.getHp());
+        }
+        return sb.append(")").toString();
     }
 
     public String getName() {
@@ -145,6 +240,14 @@ public class Mech {
 
     public void setHeatSink(int heatSink) {
         this.heatSink = heatSink;
+    }
+
+    public int getMaxHeat() {
+        return maxHeat;
+    }
+
+    public void setMaxHeat(int maxHeat) {
+        this.maxHeat = maxHeat;
     }
 
     public Map<String, Section> getSections() {
@@ -185,5 +288,13 @@ public class Mech {
 
     public void setAmmoTrackers(Map<String, Ammo> ammoTrackers) {
         this.ammoTrackers = ammoTrackers;
+    }
+
+    public int getInit() {
+        return init;
+    }
+
+    public void setInit(int init) {
+        this.init = init;
     }
 }

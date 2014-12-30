@@ -12,7 +12,7 @@ import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 
-@IrcCommand(command = "startgame", args = { CommandSegment.STRING, CommandSegment.NULLABLE_STRING })
+@IrcCommand(command = "startgame", args = { CommandSegment.NULLABLE_STRING, CommandSegment.STRING })
 public class CreateOrLoadCommand extends GameCommand {
 
     private Logger log = Logger.getLogger(this.getClass());
@@ -20,8 +20,10 @@ public class CreateOrLoadCommand extends GameCommand {
     private String ruleSet;
 
     public CreateOrLoadCommand(Object[] args) {
-        this((String) args[0]);
-        if (args.length == 2) {
+        if (args[0] == null) {
+            name = (String) args[1];
+        } else {
+            name = (String) args[0];
             ruleSet = (String) args[1];
         }
     }

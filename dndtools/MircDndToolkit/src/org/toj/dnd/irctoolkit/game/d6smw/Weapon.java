@@ -16,8 +16,9 @@ public class Weapon extends Equipment {
 
     public Element toXmlElement() {
         Element e = super.toXmlElement();
-        e.add(XmlUtil.textElement("ammoType", ammoType));
-
+        if (ammoType != null) {
+            e.add(XmlUtil.textElement("ammoType", ammoType));
+        }
         return e;
     }
 
@@ -27,7 +28,7 @@ public class Weapon extends Equipment {
 
     public String fire(TimePoint firingOn) {
         if (ammo != null) {
-            if (ammo.hasAmmo()) {
+            if (!ammo.hasAmmo()) {
                 return getName() + "的弹药已耗尽，无法射击。";
             }
             ammo.load();
@@ -49,5 +50,9 @@ public class Weapon extends Equipment {
 
     public void setAmmo(Ammo ammo) {
         this.ammo = ammo;
+    }
+
+    protected String getType() {
+        return "weapon";
     }
 }

@@ -2,10 +2,13 @@ package org.toj.dnd.irctoolkit.game.d6smw;
 
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.toj.dnd.irctoolkit.token.Color;
+import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
 import org.toj.dnd.irctoolkit.util.XmlUtil;
 
 public class Equipment {
     private String name;
+    private String model;
     private int cd;
     private TimePoint readyOn;
     private int heat;
@@ -13,6 +16,7 @@ public class Equipment {
 
     public Equipment(Element e) {
         name = e.elementTextTrim("name");
+        model = e.elementTextTrim("model");
         if (e.element("cd") != null) {
             cd = Integer.parseInt(e.elementTextTrim("cd"));
         } else {
@@ -37,11 +41,14 @@ public class Equipment {
     }
 
     public Element toXmlElement() {
-        Element e = DocumentHelper.createElement("section");
+        Element e = DocumentHelper.createElement(getType());
         e.add(XmlUtil.textElement("name", name));
+        e.add(XmlUtil.textElement("model", model));
         e.add(XmlUtil.textElement("cd", String.valueOf(cd)));
-        e.add(XmlUtil.textElement("readyOnRound", String.valueOf(readyOn.round)));
-        e.add(XmlUtil.textElement("readyOnInit", String.valueOf(readyOn.init)));
+        if (readyOn != null) {
+            e.add(XmlUtil.textElement("readyOnRound", String.valueOf(readyOn.round)));
+            e.add(XmlUtil.textElement("readyOnInit", String.valueOf(readyOn.init)));
+        }
         e.add(XmlUtil.textElement("heat", String.valueOf(heat)));
         e.add(XmlUtil.textElement("active", String.valueOf(active)));
 
@@ -52,12 +59,24 @@ public class Equipment {
         if (!active) {
             return name + "已经损坏.";
         }
-        if (readyOn.before(activatingOn)) {
+        if (readyOn != null && !readyOn.before(activatingOn)) {
             return name + "还在CD中.";
         }
         this.readyOn =
             new TimePoint(activatingOn.round + cd, activatingOn.init);
         return null;
+    }
+
+    public String toFullStatString(TimePoint current) {
+        String nameModelStr = name + "(" + model + ")";
+        if (!isActive()) {
+            nameModelStr = IrcColoringUtil.paint(nameModelStr, Color.RED.getCode());
+        }
+        if (current == null || readyOn == null || readyOn.before(current)) {
+            return nameModelStr;
+        } else {
+            return nameModelStr + " 剩余" + current.getRoundsUntil(readyOn) + "回合CD";
+        }
     }
 
     public boolean isActive() {
@@ -96,11 +115,23 @@ public class Equipment {
         this.readyOn = readyOn;
     }
 
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
     public int getHeat() {
         return heat;
     }
 
     public void setHeat(int heat) {
         this.heat = heat;
+    }
+
+    protected String getType() {
+        return "equipment";
     }
 }
