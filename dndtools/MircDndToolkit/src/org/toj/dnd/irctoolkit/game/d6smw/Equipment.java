@@ -59,7 +59,7 @@ public class Equipment {
         if (!active) {
             return name + "已经损坏.";
         }
-        if (readyOn != null && !readyOn.before(activatingOn)) {
+        if (readyOn != null && readyOn.after(activatingOn)) {
             return name + "还在CD中.";
         }
         this.readyOn =
@@ -72,7 +72,7 @@ public class Equipment {
         if (!isActive()) {
             nameModelStr = IrcColoringUtil.paint(nameModelStr, Color.RED.getCode());
         }
-        if (current == null || readyOn == null || readyOn.before(current)) {
+        if (current == null || readyOn == null || !readyOn.after(current)) {
             return nameModelStr;
         } else {
             return nameModelStr + " 剩余" + current.getRoundsUntil(readyOn) + "回合CD";

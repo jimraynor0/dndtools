@@ -14,6 +14,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.game.dnd3r.battle.event.InitiativePassesEvent;
+import org.toj.dnd.irctoolkit.util.AbbreviationUtil;
 import org.toj.dnd.irctoolkit.util.XmlUtil;
 
 public class D6smwGame extends Game {
@@ -131,8 +132,18 @@ public class D6smwGame extends Game {
         return sb.toString();
     }
 
-    public Mech getMech(String m) {
-        return mechs.get(m);
+    public Mech getMech(String name) {
+        if (mechs.containsKey(name)) {
+            return mechs.get(name);
+        } else {
+            for (String pcName : mechs.keySet()) {
+                if (AbbreviationUtil.isPrefixAbbre(name, pcName)) {
+                    return mechs.get(pcName);
+                }
+            }
+        }
+
+        return null;
     }
 
     public void addMechToBattle(Mech m, int init) {

@@ -1,7 +1,5 @@
 package org.toj.dnd.irctoolkit.engine.command.game.d6smw;
 
-import java.util.List;
-
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 

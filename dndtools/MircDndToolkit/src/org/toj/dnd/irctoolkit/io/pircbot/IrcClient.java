@@ -31,24 +31,27 @@ public class IrcClient extends PircBot {
         this.setMessageDelay(10);
         this.setVerbose(false);
         this.setName(GlobalConfigs.getConfigs().get(
-                GlobalConfigs.CONF_IRC_NICKNAME));
+            GlobalConfigs.CONF_IRC_NICKNAME));
     }
 
     public void connect() throws NickAlreadyInUseException, IOException,
-            IrcException {
-        String host = GlobalConfigs.getConfigs().get(
-                GlobalConfigs.CONF_IRC_SERV_HOST);
+        IrcException {
+        String host =
+            GlobalConfigs.getConfigs().get(GlobalConfigs.CONF_IRC_SERV_HOST);
         if (host == null) {
             host = IRC_SERVER_HOST;
         }
-        String portStr = GlobalConfigs.getConfigs().get(
-                GlobalConfigs.CONF_IRC_SERV_PORT);
+        String portStr =
+            GlobalConfigs.getConfigs().get(GlobalConfigs.CONF_IRC_SERV_PORT);
         int port = -1;
         try {
             port = Integer.parseInt(portStr);
         } catch (Exception e) {
             // remain -1
         }
+        String encoding =
+            GlobalConfigs.getConfigs().get(GlobalConfigs.CONF_IRC_ENCODING);
+        this.setEncoding(encoding == null ? "GBK" : encoding);
         try {
             if (port >= 0) {
                 log.debug("connecting to " + host + ":" + port);
@@ -59,7 +62,7 @@ public class IrcClient extends PircBot {
             }
         } catch (NickAlreadyInUseException e) {
             this.setName(GlobalConfigs.getConfigs().get(
-                    GlobalConfigs.CONF_IRC_NICKNAME_ALT));
+                GlobalConfigs.CONF_IRC_NICKNAME_ALT));
             if (port >= 0) {
                 this.connect(host, port);
             } else {
@@ -71,24 +74,23 @@ public class IrcClient extends PircBot {
 
     @Override
     protected void onMessage(String channel, String sender, String login,
-            String hostname, String msg) {
+        String hostname, String msg) {
         queueCommand(channel, sender, msg);
     }
 
     @Override
     protected void onPrivateMessage(String sender, String login,
-            String hostname, String msg) {
+        String hostname, String msg) {
         queueCommand(sender, sender, msg);
     }
 
-	private void queueCommand(String channel, String sender, String msg) {
-		String cmd = Colors.removeFormattingAndColors(msg);
+    private void queueCommand(String channel, String sender, String msg) {
+        String cmd = Colors.removeFormattingAndColors(msg);
         if (log.isDebugEnabled()) {
-            log.debug(sender + " sent message in " + channel + ": "
-                    + cmd);
+            log.debug(sender + " sent message in " + channel + ": " + cmd);
         }
         if (cmd.startsWith(".") || sender.equals("Dicebot")
-                || sender.equals("Oicebot")) {
+            || sender.equals("Oicebot")) {
             if (log.isDebugEnabled()) {
                 log.debug("Command received: " + cmd);
             }
@@ -100,9 +102,10 @@ public class IrcClient extends PircBot {
                 }
             }
             try {
-                Command c = IrcCommandFactory.buildCommand(
-                        new StringBuilder(cmd).append(" ").append(channel)
-                                .append(" ").append(actor).toString(), null, 0);
+                Command c =
+                    IrcCommandFactory.buildCommand(new StringBuilder(cmd)
+                        .append(" ").append(channel).append(" ").append(actor)
+                        .toString(), null, 0);
                 if (c == null) {
                     log.warn("Command dropped: invalid command.");
                 } else {
@@ -112,7 +115,7 @@ public class IrcClient extends PircBot {
                 log.warn("Exception while parsing cmd: ", e);
             }
         }
-	}
+    }
 
     private Game getGame() {
         return ToolkitEngine.getEngine().getContext().getGame();
@@ -120,47 +123,47 @@ public class IrcClient extends PircBot {
 
     @Override
     protected void onNotice(String sourceNick, String sourceLogin,
-            String sourceHostname, String target, String notice) {
+        String sourceHostname, String target, String notice) {
         log.debug(sourceNick + " sent a notice: " + notice);
     }
 
     @Override
     protected void onNickChange(String oldNick, String login, String hostname,
-            String newNick) {
+        String newNick) {
         log.debug(oldNick + " changed his/her nick to " + newNick);
     }
 
     @Override
     protected void onInvite(String targetNick, String sourceNick,
-            String sourceLogin, String sourceHostname, String channel) {
+        String sourceLogin, String sourceHostname, String channel) {
         super.joinChannel(channel);
         super.sendAction(channel, this.getName() + "奉" + Colors.RED
-                + sourceNick + Colors.PURPLE + "的召唤而来");
+            + sourceNick + Colors.PURPLE + "的召唤而来");
     }
 
     @Override
     protected void onAction(String sender, String login, String hostname,
-            String target, String action) {
+        String target, String action) {
         if (("dismiss " + this.getName()).equalsIgnoreCase(action)) {
             super.partChannel(target, Colors.PURPLE + sender
-                    + Colors.DARK_GREEN + "，我还会回来的！");
+                + Colors.DARK_GREEN + "，我还会回来的！");
         }
     }
 
     public void processOutgoingMsgs(List<OutgoingMsg> msgs) {
         if (msgs != null) {
             for (OutgoingMsg msg : msgs) {
-            	if (msg.getWriteTo().equals(OutgoingMsg.WRITE_TO_TOPIC)) {
+                if (msg.getWriteTo().equals(OutgoingMsg.WRITE_TO_TOPIC)) {
                     this.topicCache = msg.getContent();
                 }
-            	// skip msg from console command
-            	if ("CONSOLE".equals(msg.getChan())) {
-            		continue;
-            	}
+                // skip msg from console command
+                if ("CONSOLE".equals(msg.getChan())) {
+                    continue;
+                }
                 if (msg.getWriteTo().equals(OutgoingMsg.WRITE_TO_MSG)) {
                     super.sendMessage(msg.getChan(), msg.getContent());
                 } else if (msg.getWriteTo().equals(
-                        OutgoingMsg.REFRESH_TOPIC_NOTICE)) {
+                    OutgoingMsg.REFRESH_TOPIC_NOTICE)) {
                     super.setTopic(msg.getChan(), topicCache);
                 }
             }

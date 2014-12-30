@@ -18,6 +18,7 @@ public class GlobalConfigs {
     public static final String CONF_IRC_SERV_PASSWORD = "irc.server.password";
     public static final String CONF_IRC_NICKNAME = "irc.nickname";
     public static final String CONF_IRC_NICKNAME_ALT = "irc.nickname.alt";
+    public static final String CONF_IRC_ENCODING = "irc.server.encoding";
 
     public static final String CONF_LAST_GAME = "last.game";
     public static final String CONF_LAST_MAP = "last.map";
