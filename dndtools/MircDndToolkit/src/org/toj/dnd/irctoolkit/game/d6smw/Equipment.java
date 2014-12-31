@@ -22,9 +22,9 @@ public class Equipment {
         } else {
             cd = 0;
         }
-        if (e.element("readyOn") != null) {
-            readyOn =
-                new TimePoint(Integer.parseInt(e
+        if (e.element("readyOnRound") != null
+                && e.element("readyOnInit") != null) {
+            readyOn = new TimePoint(Integer.parseInt(e
                     .elementTextTrim("readyOnRound")), Integer.parseInt(e
                     .elementTextTrim("readyOnInit")));
         }
@@ -46,8 +46,10 @@ public class Equipment {
         e.add(XmlUtil.textElement("model", model));
         e.add(XmlUtil.textElement("cd", String.valueOf(cd)));
         if (readyOn != null) {
-            e.add(XmlUtil.textElement("readyOnRound", String.valueOf(readyOn.round)));
-            e.add(XmlUtil.textElement("readyOnInit", String.valueOf(readyOn.init)));
+            e.add(XmlUtil.textElement("readyOnRound",
+                    String.valueOf(readyOn.round)));
+            e.add(XmlUtil.textElement("readyOnInit",
+                    String.valueOf(readyOn.init)));
         }
         e.add(XmlUtil.textElement("heat", String.valueOf(heat)));
         e.add(XmlUtil.textElement("active", String.valueOf(active)));
@@ -62,21 +64,41 @@ public class Equipment {
         if (readyOn != null && readyOn.after(activatingOn)) {
             return name + "还在CD中.";
         }
-        this.readyOn =
-            new TimePoint(activatingOn.round + cd, activatingOn.init);
+        this.readyOn = new TimePoint(activatingOn.round + cd, activatingOn.init);
         return null;
+    }
+
+    public String toStatString(TimePoint current) {
+        if (!isActive()) {
+            return IrcColoringUtil.paint(name, Color.RED.getCode());
+        }
+        if (!isOnCd(current)) {
+            return name;
+        } else {
+            return IrcColoringUtil.paint(
+                    name + "(CD " + current.getRoundsUntil(readyOn) + ")",
+                    Color.ORANGE.getCode());
+        }
     }
 
     public String toFullStatString(TimePoint current) {
         String nameModelStr = name + "(" + model + ")";
         if (!isActive()) {
-            nameModelStr = IrcColoringUtil.paint(nameModelStr, Color.RED.getCode());
+            nameModelStr = IrcColoringUtil.paint(nameModelStr,
+                    Color.RED.getCode());
         }
-        if (current == null || readyOn == null || !readyOn.after(current)) {
+        if (!isOnCd(current)) {
             return nameModelStr;
         } else {
-            return nameModelStr + " 剩余" + current.getRoundsUntil(readyOn) + "回合CD";
+            return nameModelStr
+                    + IrcColoringUtil.paint(
+                            " 剩余" + current.getRoundsUntil(readyOn) + "回合CD",
+                            Color.NAVY.getCode());
         }
+    }
+
+    public boolean isOnCd(TimePoint current) {
+        return current != null && readyOn != null && readyOn.after(current);
     }
 
     public boolean isActive() {

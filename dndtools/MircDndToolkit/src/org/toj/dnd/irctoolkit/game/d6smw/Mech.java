@@ -1,5 +1,7 @@
 package org.toj.dnd.irctoolkit.game.d6smw;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -89,8 +91,8 @@ public class Mech {
         }
 
         Element secElement = e.addElement("sections");
-        for (Section section : sections.values()) {
-            secElement.add(section.toXmlElement());
+        for (String sec : Section.SECTIONS) {
+            secElement.add(sections.get(sec).toXmlElement());
         }
 
         Element ammoElement = e.addElement("ammoTrackers");
@@ -160,16 +162,29 @@ public class Mech {
         StringBuilder sb = new StringBuilder("PC: ").append(name);
         sb.append(", 机甲型号: ").append(model);
         if (heat > 0) {
-            sb.append(", 热量: ").append(heat).append("/").append(maxHeat);
+            if (heat > maxHeat) {
+                sb.append(", ").append(
+                        IrcColoringUtil.paint("热量: " + heat + "/" + maxHeat
+                                + "(过热)", Color.RED.getCode()));
+            } else {
+                sb.append(", 热量: ").append(heat).append("/").append(maxHeat);
+            }
         }
         if (direction != null) {
             sb.append(", 速度/方向: ").append(speed).append("/").append(direction);
         }
         stat.add(sb.toString());
 
-        for (Section sec : sections.values()) {
-            stat.add(sec.toFullStatString(current));
+        for (String sec : Section.SECTIONS) {
+            stat.add(sections.get(sec).toFullStatString(current));
         }
+
+        /*
+         * List<String> eqNames = new ArrayList<String>(equipments.keySet());
+         * Collections.sort(eqNames); for (String eq : eqNames) {
+         * stat.add(equipments.get(eq).toFullStatString(current)); }
+         */
+
         if (ammoTrackers != null && !ammoTrackers.isEmpty()) {
             sb = new StringBuilder();
             for (Ammo ammo : ammoTrackers.values()) {
@@ -178,11 +193,17 @@ public class Mech {
                 } else {
                     sb.append(", ");
                 }
-                sb.append(ammo.getType()).append("(").append(ammo.getRounds())
-                        .append(")");
+                if (ammo.hasAmmo()) {
+                    sb.append(ammo.getType()).append("(")
+                            .append(ammo.getRounds()).append(")");
+                } else {
+                    sb.append(IrcColoringUtil.paint(ammo.getType() + "("
+                            + +ammo.getRounds() + ")", Color.RED.getCode()));
+                }
             }
             stat.add(sb.toString());
         }
+        stat.add("");
         return stat;
     }
 
@@ -199,13 +220,13 @@ public class Mech {
 
     private String getHpExpression() {
         StringBuilder sb = new StringBuilder();
-        for (Section sec : sections.values()) {
+        for (String sec : Section.SECTIONS) {
             if (sb.length() == 0) {
                 sb.append("(");
             } else {
-                sb.append(", ");
+                sb.append("/");
             }
-            sb.append(sec.getName()).append("=").append(sec.getHp());
+            sb.append(sections.get(sec).getHp());
         }
         return sb.append(")").toString();
     }

@@ -24,6 +24,11 @@ public class EndCommand extends D6smwGameCommand {
         getGame().end();
         sendTopic(getGame().generateTopic());
         refreshTopic();
-        sendMsg("轮到" + IrcColoringUtil.paint(getGame().getCurrent().getName(), Color.PURPLE.getCode()) + "行动了");
+        sendMsg("轮到"
+                + IrcColoringUtil.paint(getGame().getCurrent().getName(),
+                        Color.PURPLE.getCode()) + "行动了");
+        for (String line : getGame().generateStatString(getGame().getCurrent())) {
+            sendMsg(line);
+        }
     }
 }

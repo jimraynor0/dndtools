@@ -1,14 +1,21 @@
 package org.toj.dnd.irctoolkit.game.d6smw;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.toj.dnd.irctoolkit.token.Color;
+import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
 import org.toj.dnd.irctoolkit.util.XmlUtil;
 
 public class Section {
+    public static final List<String> SECTIONS = Arrays.asList("胸腹", "左臂", "右臂",
+            "腿");
+
     private String name;
     private int armor;
     private int hp;
@@ -112,15 +119,21 @@ public class Section {
         StringBuilder sb = new StringBuilder(name);
         sb.append("(").append(hp).append("/").append(currentMaxHp).append("/")
                 .append(maxHp).append(")");
-        sb.append(" - ");
-        boolean first = true;
-        for (Equipment eq : equipments.values()) {
-            if (first) {
-                first = false;
-            } else {
-                sb.append(", ");
+        if (hp == 0) {
+            sb = new StringBuilder(IrcColoringUtil.paint(sb.toString(),
+                    Color.RED.getCode()));
+        }
+        if (equipments != null && !equipments.isEmpty()) {
+            sb.append(" - ");
+            boolean first = true;
+            for (Equipment eq : equipments.values()) {
+                if (first) {
+                    first = false;
+                } else {
+                    sb.append(", ");
+                }
+                sb.append(eq.toStatString(current));
             }
-            sb.append(eq.toFullStatString(current));
         }
         return sb.toString();
     }
