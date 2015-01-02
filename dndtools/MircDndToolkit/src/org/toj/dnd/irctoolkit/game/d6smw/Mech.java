@@ -1,7 +1,5 @@
 package org.toj.dnd.irctoolkit.game.d6smw;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -15,27 +13,16 @@ import org.toj.dnd.irctoolkit.token.Color;
 import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
 import org.toj.dnd.irctoolkit.util.XmlUtil;
 
-public class Mech {
-    private String name;
-    private String model;
-    private int init;
+public class Mech extends Unit {
     private int heat;
     private int heatSink;
     private int maxHeat;
-    private int speed;
-    private String direction;
     private Map<String, Section> sections = new HashMap<String, Section>();
     private Map<String, Equipment> equipments = new HashMap<String, Equipment>();
     private Map<String, Ammo> ammoTrackers = new HashMap<String, Ammo>();
 
     public Mech(Element e) {
-        name = e.elementTextTrim("name");
-        model = e.elementTextTrim("model");
-        if (e.element("init") != null) {
-            init = Integer.parseInt(e.elementTextTrim("init"));
-        } else {
-            init = 0;
-        }
+        super(e);
         if (e.element("heat") != null) {
             heat = Integer.parseInt(e.elementTextTrim("heat"));
         } else {
@@ -43,16 +30,6 @@ public class Mech {
         }
         heatSink = Integer.parseInt(e.elementTextTrim("heatSink"));
         maxHeat = Integer.parseInt(e.elementTextTrim("maxHeat"));
-
-        if (e.element("speed") != null) {
-            speed = Integer.parseInt(e.elementTextTrim("speed"));
-        } else {
-            speed = 0;
-        }
-
-        if (e.element("direction") != null) {
-            direction = e.elementTextTrim("direction");
-        }
 
         if (e.element("ammoTrackers") != null) {
             Iterator<Element> i = e.element("ammoTrackers").elementIterator();
@@ -70,7 +47,9 @@ public class Mech {
             sections.put(sec.getName(), sec);
             for (Equipment eq : sec.getEquipments().values()) {
                 equipments.put(eq.getName(), eq);
-                if (eq instanceof Weapon) {
+                if (eq instanceof Weapon) { // TODO Auto-generated constructor
+                                            // stub
+
                     ((Weapon) eq).setAmmo(ammoTrackers.get(((Weapon) eq)
                             .getAmmoType()));
                 }
@@ -79,16 +58,11 @@ public class Mech {
     }
 
     public Element toXmlElement() {
-        Element e = DocumentHelper.createElement("mech");
-        e.add(XmlUtil.textElement("name", name));
-        e.add(XmlUtil.textElement("model", model));
+        Element e = super.toXmlElement();
+
         e.add(XmlUtil.textElement("heat", String.valueOf(heat)));
         e.add(XmlUtil.textElement("heatSink", String.valueOf(heatSink)));
         e.add(XmlUtil.textElement("maxHeat", String.valueOf(maxHeat)));
-        e.add(XmlUtil.textElement("speed", String.valueOf(speed)));
-        if (!StringUtils.isEmpty(direction)) {
-            e.add(XmlUtil.textElement("direction", direction));
-        }
 
         Element secElement = e.addElement("sections");
         for (String sec : Section.SECTIONS) {
@@ -147,11 +121,15 @@ public class Mech {
         }
     }
 
+    public boolean hasHeat() {
+        return true;
+    }
+
     public void endBattle() {
-        init = 0;
+        setInit(0);
+        setSpeed(0);
+        setDirection(null);
         heat = 0;
-        speed = 0;
-        direction = null;
         for (Equipment eq : equipments.values()) {
             eq.setReadyOn(null);
         }
@@ -159,8 +137,8 @@ public class Mech {
 
     public List<String> toFullStatString(TimePoint current) {
         List<String> stat = new LinkedList<String>();
-        StringBuilder sb = new StringBuilder("PC: ").append(name);
-        sb.append(", 机甲型号: ").append(model);
+        StringBuilder sb = new StringBuilder("驾驶员: ").append(getName());
+        sb.append(", 机甲型号: ").append(getModel());
         if (heat > 0) {
             if (heat > maxHeat) {
                 sb.append(", ").append(
@@ -170,20 +148,15 @@ public class Mech {
                 sb.append(", 热量: ").append(heat).append("/").append(maxHeat);
             }
         }
-        if (direction != null) {
-            sb.append(", 速度/方向: ").append(speed).append("/").append(direction);
+        if (getDirection() != null) {
+            sb.append(", 速度/方向: ").append(getSpeed()).append("/")
+                    .append(getDirection());
         }
         stat.add(sb.toString());
 
         for (String sec : Section.SECTIONS) {
             stat.add(sections.get(sec).toFullStatString(current));
         }
-
-        /*
-         * List<String> eqNames = new ArrayList<String>(equipments.keySet());
-         * Collections.sort(eqNames); for (String eq : eqNames) {
-         * stat.add(equipments.get(eq).toFullStatString(current)); }
-         */
 
         if (ammoTrackers != null && !ammoTrackers.isEmpty()) {
             sb = new StringBuilder();
@@ -207,18 +180,7 @@ public class Mech {
         return stat;
     }
 
-    public String toTopicString(boolean onTurn) {
-        StringBuilder sb = new StringBuilder();
-        if (onTurn) {
-            sb.append(IrcColoringUtil.paint(name, Color.RED.getCode()));
-        } else {
-            sb.append(name);
-        }
-        sb.append(getHpExpression());
-        return sb.toString();
-    }
-
-    private String getHpExpression() {
+    public String getHpExpression() {
         StringBuilder sb = new StringBuilder();
         for (String sec : Section.SECTIONS) {
             if (sb.length() == 0) {
@@ -229,22 +191,6 @@ public class Mech {
             sb.append(sections.get(sec).getHp());
         }
         return sb.append(")").toString();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
     }
 
     public int getHeat() {
@@ -287,35 +233,11 @@ public class Mech {
         this.equipments = equipments;
     }
 
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
-
     public Map<String, Ammo> getAmmoTrackers() {
         return ammoTrackers;
     }
 
     public void setAmmoTrackers(Map<String, Ammo> ammoTrackers) {
         this.ammoTrackers = ammoTrackers;
-    }
-
-    public int getInit() {
-        return init;
-    }
-
-    public void setInit(int init) {
-        this.init = init;
     }
 }

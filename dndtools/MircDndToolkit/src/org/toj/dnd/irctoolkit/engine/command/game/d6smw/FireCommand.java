@@ -41,7 +41,7 @@ public class FireCommand extends D6smwGameCommand {
             mech = getGame().getMech(name);
         }
         for (String eq : equipments) {
-            String result = getGame().activateEquipment(mech, eq);
+            String result = getGame().getBattle().activateEquipment(mech, eq);
             if (!StringUtils.isEmpty(result)) {
                 sendMsg(result);
             } else {

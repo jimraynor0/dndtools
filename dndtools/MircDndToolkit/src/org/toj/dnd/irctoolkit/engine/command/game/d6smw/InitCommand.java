@@ -3,6 +3,7 @@ package org.toj.dnd.irctoolkit.engine.command.game.d6smw;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
+import org.toj.dnd.irctoolkit.game.d6smw.Unit;
 
 @IrcCommand(command = "init", args = { CommandSegment.INT,
         CommandSegment.NULLABLE_LIST })
@@ -30,7 +31,11 @@ public class InitCommand extends D6smwGameCommand {
         }
 
         for (String ch : charName) {
-            getGame().addMechToBattle(getGame().getMech(ch), init);
+            if (getGame().getMech(ch) != null) {
+                getGame().getBattle().join(getGame().getMech(ch), init);
+            } else {
+                getGame().getBattle().join(new Unit(ch), init);
+            }
         }
         sendTopic(getGame().generateTopic());
         if (topicRefreshNeeded) {

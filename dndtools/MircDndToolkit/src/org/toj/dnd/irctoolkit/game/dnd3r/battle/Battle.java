@@ -105,18 +105,6 @@ public class Battle implements Cloneable {
         if (this.encounter != null) {
             e.add(XmlUtil.textElement("elementSettings", encounter.name));
         }
-        if (this.combatants != null && !this.combatants.isEmpty()) {
-            Element combatants = e.addElement("combatants");
-            for (Combatant ch : this.combatants) {
-                if (ch instanceof PC) {
-                    Element ec = combatants.addElement("combatant");
-                    ec.add(XmlUtil.textElement("isPC", "true"));
-                    ec.add(XmlUtil.textElement("name", ch.getName()));
-                } else {
-                    combatants.add(ch.toXmlElement());
-                }
-            }
-        }
         return e;
     }
 

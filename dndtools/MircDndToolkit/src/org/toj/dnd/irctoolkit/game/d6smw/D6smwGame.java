@@ -19,9 +19,7 @@ import org.toj.dnd.irctoolkit.util.XmlUtil;
 
 public class D6smwGame extends Game {
     private Map<String, Mech> mechs = new HashMap<String, Mech>();
-    private LinkedList<Mech> mechsInBattle = new LinkedList<Mech>();
-    private Mech current;
-    private int round = -1;
+    private Battle battle;
 
     public D6smwGame(String name) {
         setName(name);
@@ -50,6 +48,10 @@ public class D6smwGame extends Game {
                 this.mechs.put(m.getName(), m);
             }
         }
+
+        if (e.element("battle") != null) {
+            battle = new Battle(e.element("battle"), mechs);
+        }
     }
 
     @Override
@@ -59,6 +61,9 @@ public class D6smwGame extends Game {
         e.add(XmlUtil.textElement("ruleSet", getRuleSet()));
         if (!StringUtils.isEmpty(getDm())) {
             e.add(XmlUtil.textElement("dm", getDm()));
+        }
+        if (battle != null) {
+            e.add(battle.toXmlElement());
         }
 
         e.addElement("mechs");
@@ -78,8 +83,8 @@ public class D6smwGame extends Game {
 
     @Override
     public String generateTopic() {
-        if (!mechsInBattle.isEmpty()) {
-            return generateBattleTopic();
+        if (inBattle()) {
+            return battle.generateTopic();
         }
 
         if (mechs.isEmpty()) {
@@ -119,17 +124,11 @@ public class D6smwGame extends Game {
         return stats;
     }
 
-    private String generateBattleTopic() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("r").append(round).append(": ");
-
-        for (Mech m : mechsInBattle) {
-            if (!m.equals(mechsInBattle.getFirst())) {
-                sb.append(", ");
-            }
-            sb.append(m.toTopicString(m.equals(current)));
+    private TimePoint getCurrentTimePoint() {
+        if (inBattle()) {
+            return battle.getCurrentTimePoint();
         }
-        return sb.toString();
+        return null;
     }
 
     public Mech getMech(String name) {
@@ -146,110 +145,23 @@ public class D6smwGame extends Game {
         return null;
     }
 
-    public void addMechToBattle(Mech m, int init) {
-        m.setInit(init);
-        mechsInBattle.add(m);
-        sortMechsInBattle();
-    }
-
-    private void sortMechsInBattle() {
-        Collections.sort(mechsInBattle, new Comparator<Mech>() {
-            @Override
-            public int compare(Mech m1, Mech m2) {
-                return m2.getInit() - m1.getInit();
-            }
-        });
-    }
-
-    public void removeMechFromBattle(Mech mech) {
-        if (current == mech) {
-            end();
-        }
-        mechsInBattle.remove(mech);
-    }
-
     public void endBattle() {
-        for (Mech mech : mechsInBattle) {
+        for (Mech mech : mechs.values()) {
             mech.endBattle();
         }
-        mechsInBattle.clear();
-        round = 0;
-        current = null;
+        battle = null;
     }
 
     public boolean inBattle() {
-        return mechsInBattle != null && !mechsInBattle.isEmpty();
+        return battle != null;
     }
 
     public void startBattle() {
-        round = 1;
-    }
-
-    public void end() {
-        if (current == null || mechsInBattle == null || mechsInBattle.isEmpty()) {
-            return;
-        }
-        if (current == mechsInBattle.getLast()) {
-            this.go(mechsInBattle.getFirst(), round + 1);
-        } else {
-            this.go(mechsInBattle.get(mechsInBattle.indexOf(current) + 1),
-                    round);
-        }
-    }
-
-    public void go(Mech m, int round) {
-        // fire battle event
-        if (round >= 0 && m != null && current != null) {
-            fireInitiativeChange(round, m.getInit());
-        }
-        this.round = round;
-        if (round < 0) {
-            current = null;
-        } else {
-            current = m;
-        }
-    }
-
-    private void fireInitiativeChange(int newRound, double newInit) {
-        int oldRound = round;
-        double oldInit = current.getInit();
-        for (Mech m : mechsInBattle) {
-            m.sinkHeat(calcInitPassesTimes(new InitiativePassesEvent(oldRound,
-                    oldInit, newRound, newInit), m.getInit()));
-        }
-    }
-
-    private int calcInitPassesTimes(InitiativePassesEvent e, int init) {
-        int triggeredTimes = e.getRound() - e.getCurrentRound();
-
-        if (e.getCurrentInit() > init && e.getInit() <= init) {
-            triggeredTimes++;
-        }
-        if (e.getCurrentInit() <= init && e.getInit() > init) {
-            triggeredTimes--;
-        }
-
-        return triggeredTimes;
-    }
-
-    private TimePoint getCurrentTimePoint() {
-        TimePoint currentTp = null;
-        if (round > 0 && current != null) {
-            currentTp = new TimePoint(round, current.getInit());
-        }
-        return currentTp;
-    }
-
-    public void damage(String name, String section, int value) {
-        getMech(name).damage(value, section);
+        battle = new Battle();
     }
 
     public void repair(String name, String section, int value) {
         getMech(name).quickRepair(value, section);
-    }
-
-    public String activateEquipment(Mech mech, String eq) {
-        return mech.activateEquipment(eq, getCurrentTimePoint());
     }
 
     @Override
@@ -262,22 +174,6 @@ public class D6smwGame extends Game {
         return "org.toj.dnd.irctoolkit.engine.command.game.d6smw";
     }
 
-    public Mech getCurrent() {
-        return current;
-    }
-
-    public void setCurrent(Mech current) {
-        this.current = current;
-    }
-
-    public int getRound() {
-        return round;
-    }
-
-    public void setRound(int round) {
-        this.round = round;
-    }
-
     public Map<String, Mech> getMechs() {
         return mechs;
     }
@@ -286,11 +182,11 @@ public class D6smwGame extends Game {
         this.mechs = mechs;
     }
 
-    public LinkedList<Mech> getMechsInBattle() {
-        return mechsInBattle;
+    public Battle getBattle() {
+        return battle;
     }
 
-    public void setMechsInBattle(LinkedList<Mech> mechsInBattle) {
-        this.mechsInBattle = mechsInBattle;
+    public void setBattle(Battle battle) {
+        this.battle = battle;
     }
 }
