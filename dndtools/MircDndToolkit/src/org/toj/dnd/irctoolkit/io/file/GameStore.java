@@ -7,11 +7,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -24,6 +31,7 @@ import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.game.d6smw.D6smwGame;
 import org.toj.dnd.irctoolkit.game.dnd3r.Dnd3rGame;
 import org.toj.dnd.irctoolkit.game.dnd3r.encounter.Encounter;
+import org.toj.dnd.irctoolkit.game.draca.DracaGame;
 import org.toj.dnd.irctoolkit.map.MapGrid;
 
 public class GameStore {
@@ -31,22 +39,24 @@ public class GameStore {
 
     private static String getGameDir(String name) {
         return new StringBuilder("savegames").append(File.separator)
-            .append(name).toString();
+                .append(name).toString();
     }
 
     private static String getGameFile(String name) {
         return new StringBuilder("savegames").append(File.separator)
-            .append(name).append(File.separator).append("game.xml").toString();
+                .append(name).append(File.separator).append("game.xml")
+                .toString();
     }
 
     private static String getLogFile(String name) {
         return new StringBuilder("savegames").append(File.separator)
-            .append(name).append(File.separator).append("logs.xml").toString();
+                .append(name).append(File.separator).append("logs.xml")
+                .toString();
     }
 
     private static String getEncounterFile(String name) {
         return new StringBuilder("encounters").append(File.separator)
-            .append(name).append(".encounter").toString();
+                .append(name).append(".encounter").toString();
     }
 
     // private static String getDmNoteFile(String name) {
@@ -80,8 +90,8 @@ public class GameStore {
         OutputFormat outFormat = OutputFormat.createPrettyPrint();
         outFormat.setEncoding(ENCODING_UTF_8);
 
-        XMLWriter writer =
-            new XMLWriter(new FileOutputStream(mapFile), outFormat);
+        XMLWriter writer = new XMLWriter(new FileOutputStream(mapFile),
+                outFormat);
         writer.write(doc);
         writer.close();
     }
@@ -92,48 +102,67 @@ public class GameStore {
             return null;
         }
         try {
-            SAXReader reader = new SAXReader();
-            reader.setEncoding(ENCODING_UTF_8);
-            Document document = reader.read(gameFile);
-            return loadGame(document.getRootElement());
-        } catch (DocumentException e) {
+            JAXBContext jaxbContext = JAXBContext.newInstance(Game.class,
+                    DracaGame.class);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+            return (Game) unmarshaller.unmarshal(gameFile);
+        } catch (JAXBException e) {
             throw new IOException(e);
         }
     }
 
-    public static Game loadGame(Element e) {
-        String ruleSet = e.elementTextTrim("ruleSet");
-        if ("d6smw".equalsIgnoreCase(ruleSet)) {
-            return new D6smwGame(e);
+    public static Game loadSnapshot(Object snapshot) {
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(Game.class);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+            StringReader sr = new StringReader((String) snapshot);
+            return (Game) unmarshaller.unmarshal(sr);
+        } catch (JAXBException e) {
+            // should never happen;
         }
-        return new Dnd3rGame(e);
+        return null;
     }
 
     public static Game createGame(String name, String ruleSet) {
         if ("d6smw".equalsIgnoreCase(ruleSet)) {
             return new D6smwGame(name);
         }
+        if ("draca".equalsIgnoreCase(ruleSet)) {
+            return new DracaGame(name);
+        }
         return new Dnd3rGame(name);
     }
 
-    public static void save(Game game) throws IOException {
+    public static void save(Game game) throws IOException, JAXBException {
         File gameDir = new File(getGameDir(game.getName()));
         if (!gameDir.isDirectory()) {
             gameDir.mkdirs();
         }
 
-        Document doc = DocumentHelper.createDocument();
-        doc.setRootElement(game.toXmlElement());
+        JAXBContext context = JAXBContext.newInstance(Game.class,
+                game.getClass());
+        Marshaller m = context.createMarshaller();
+        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
-        OutputFormat outFormat = OutputFormat.createPrettyPrint();
-        outFormat.setEncoding(ENCODING_UTF_8);
+        // Write to File
+        m.marshal(game, new File(getGameFile(game.getName())));
+    }
 
-        XMLWriter writer =
-            new XMLWriter(new FileOutputStream(getGameFile(game.getName())),
-                outFormat);
+    public static Object getSnapshot(Game game) {
+        try {
+            JAXBContext context = JAXBContext.newInstance(Game.class,
+                    game.getClass());
+            Marshaller m = context.createMarshaller();
 
-        writer.write(doc);
-        writer.close();
+            java.io.StringWriter sw = new StringWriter();
+            m.marshal(game, sw);
+            return sw.toString();
+        } catch (JAXBException e) {
+            // should never happen;
+        }
+        return "";
     }
 
     public static List<String> listSavedGames() {
@@ -156,8 +185,8 @@ public class GameStore {
         try {
             log.createNewFile();
             FileOutputStream fos = new FileOutputStream(log);
-            OutputStreamWriter writer =
-                new OutputStreamWriter(fos, ENCODING_UTF_8);
+            OutputStreamWriter writer = new OutputStreamWriter(fos,
+                    ENCODING_UTF_8);
             for (String line : lines) {
                 writer.write(line);
                 writer.write("\r\n");

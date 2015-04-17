@@ -3,8 +3,9 @@ package org.toj.dnd.irctoolkit.engine.command;
 import java.io.IOException;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
+
 import org.apache.log4j.Logger;
-import org.dom4j.Element;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
@@ -14,12 +15,14 @@ public abstract class UndoableTopicCommand extends GameCommand {
 
     @Override
     public List<OutgoingMsg> execute() throws ToolkitCommandException {
-        Element snapshot = getGame().toXmlElement();
+        Object snapshot = GameStore.getSnapshot(getGame());
         context.getHistory().saveGameSnapshot(snapshot);
         doProcess();
         try {
             GameStore.save(getGame());
         } catch (IOException e) {
+            log.error("saving game failed", e);
+        } catch (JAXBException e) {
             log.error("saving game failed", e);
         }
         return this.msgs;
@@ -32,8 +35,8 @@ public abstract class UndoableTopicCommand extends GameCommand {
 
     @Override
     public void undo() throws ToolkitCommandException {
-        Element last = context.getHistory().retrievePreviousGame();
-        context.setGame(GameStore.loadGame(last));
+        Object last = context.getHistory().retrievePreviousGame();
+        context.setGame(GameStore.loadSnapshot(last));
     }
 
     protected abstract void doProcess() throws ToolkitCommandException;

@@ -28,11 +28,6 @@ public class CreateOrLoadCommand extends GameCommand {
         }
     }
 
-    public CreateOrLoadCommand(String name) {
-        this.name = name;
-        this.ruleSet = "dnd3r";
-    }
-
     @Override
     public List<OutgoingMsg> execute() {
         Game game = null;

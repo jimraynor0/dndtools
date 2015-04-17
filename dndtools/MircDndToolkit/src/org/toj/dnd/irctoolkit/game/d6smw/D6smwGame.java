@@ -2,83 +2,26 @@ package org.toj.dnd.irctoolkit.game.d6smw;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.toj.dnd.irctoolkit.game.Game;
-import org.toj.dnd.irctoolkit.game.dnd3r.battle.event.InitiativePassesEvent;
-import org.toj.dnd.irctoolkit.util.AbbreviationUtil;
-import org.toj.dnd.irctoolkit.util.XmlUtil;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.toj.dnd.irctoolkit.game.Game;
+import org.toj.dnd.irctoolkit.util.AbbreviationUtil;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class D6smwGame extends Game {
     private Map<String, Mech> mechs = new HashMap<String, Mech>();
     private Battle battle;
 
     public D6smwGame(String name) {
         setName(name);
-    }
-
-    public D6smwGame(Element e) {
-        setName(e.elementTextTrim("name"));
-        if (e.element("dm") != null) {
-            setDm(e.elementTextTrim("dm"));
-        }
-
-        if (e.element("aliases") != null) {
-            Iterator<Element> i = e.element("aliases").elementIterator();
-            while (i.hasNext()) {
-                Element alias = i.next();
-                getAliases().put(alias.attributeValue("abbr"),
-                        alias.attributeValue("text"));
-            }
-        }
-
-        if (e.element("mechs") != null) {
-            Iterator<Element> i = e.element("mechs").elementIterator();
-            while (i.hasNext()) {
-                Element mechElement = i.next();
-                Mech m = new Mech(mechElement);
-                this.mechs.put(m.getName(), m);
-            }
-        }
-
-        if (e.element("battle") != null) {
-            battle = new Battle(e.element("battle"), mechs);
-        }
-    }
-
-    @Override
-    public Element toXmlElement() {
-        Element e = DocumentHelper.createElement("game");
-        e.add(XmlUtil.textElement("name", getName()));
-        e.add(XmlUtil.textElement("ruleSet", getRuleSet()));
-        if (!StringUtils.isEmpty(getDm())) {
-            e.add(XmlUtil.textElement("dm", getDm()));
-        }
-        if (battle != null) {
-            e.add(battle.toXmlElement());
-        }
-
-        e.addElement("mechs");
-        for (String key : mechs.keySet()) {
-            e.element("mechs").add(mechs.get(key).toXmlElement());
-        }
-        if (getAliases() != null && !getAliases().isEmpty()) {
-            e.addElement("aliases");
-            for (String key : getAliases().keySet()) {
-                Element alias = e.element("aliases").addElement("alias");
-                alias.addAttribute("abbr", key);
-                alias.addAttribute("text", getAliases().get(key));
-            }
-        }
-        return e;
     }
 
     @Override

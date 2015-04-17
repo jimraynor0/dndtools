@@ -3,8 +3,10 @@ package org.toj.dnd.irctoolkit.game;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.dom4j.Element;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Game {
 
     private String dm;
@@ -58,8 +60,6 @@ public abstract class Game {
     public boolean isDm(String caller) {
         return dm == null || dm.isEmpty() || dm.equals(caller);
     }
-
-    public abstract Element toXmlElement();
 
     public abstract String getRuleSet();
 
