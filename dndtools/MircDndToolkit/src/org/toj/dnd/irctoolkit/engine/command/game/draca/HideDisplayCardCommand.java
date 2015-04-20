@@ -8,7 +8,7 @@ import org.toj.dnd.irctoolkit.game.draca.DracaGame;
 import org.toj.dnd.irctoolkit.game.draca.Zone;
 
 @IrcCommand(command = "hide", args = { CommandSegment.STRING })
-public class HideDisplayCardCommand extends DracaGameCommand {
+public class HideDisplayCardCommand extends UndoableDracaGameCommand {
 
     private String card;
 

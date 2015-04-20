@@ -8,7 +8,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
 @IrcCommand(command = "draw", args = { CommandSegment.NULLABLE_INT })
-public class DrawCardCommand extends DracaGameCommand {
+public class DrawCardCommand extends UndoableDracaGameCommand {
 
     private int amount = 1;
 

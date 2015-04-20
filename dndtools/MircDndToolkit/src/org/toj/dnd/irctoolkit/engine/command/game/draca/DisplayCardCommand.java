@@ -8,7 +8,7 @@ import org.toj.dnd.irctoolkit.game.draca.DracaGame;
 import org.toj.dnd.irctoolkit.game.draca.Zone;
 
 @IrcCommand(command = "show", args = { CommandSegment.STRING })
-public class DisplayCardCommand extends DracaGameCommand {
+public class DisplayCardCommand extends UndoableDracaGameCommand {
 
     private String card;
 

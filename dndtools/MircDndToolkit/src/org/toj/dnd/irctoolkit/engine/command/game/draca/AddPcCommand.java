@@ -5,7 +5,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
 @IrcCommand(command = "addpc", args = { CommandSegment.NULLABLE_LIST })
-public class AddPcCommand extends DracaGameCommand {
+public class AddPcCommand extends UndoableDracaGameCommand {
 
     private String[] charNames;
 

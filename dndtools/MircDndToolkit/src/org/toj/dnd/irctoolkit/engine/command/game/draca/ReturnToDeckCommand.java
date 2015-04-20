@@ -9,7 +9,7 @@ import org.toj.dnd.irctoolkit.game.draca.DracaGame;
 import org.toj.dnd.irctoolkit.game.draca.Zone;
 
 @IrcCommand(command = "putback", args = { CommandSegment.STRING })
-public class ReturnToDeckCommand extends DracaGameCommand {
+public class ReturnToDeckCommand extends UndoableDracaGameCommand {
 
     private String card;
 

@@ -5,7 +5,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
 @IrcCommand(command = "addcard", args = { CommandSegment.INT, CommandSegment.STRING, CommandSegment.NULLABLE_LIST })
-public class AddCardsCommand extends DracaGameCommand {
+public class AddCardsCommand extends UndoableDracaGameCommand {
 
     private int amount;
     private String name;

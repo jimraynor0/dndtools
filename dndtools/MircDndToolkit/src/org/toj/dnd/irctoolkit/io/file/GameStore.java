@@ -38,25 +38,21 @@ public class GameStore {
     private static final String ENCODING_UTF_8 = "UTF-8";
 
     private static String getGameDir(String name) {
-        return new StringBuilder("savegames").append(File.separator)
-                .append(name).toString();
+        return new StringBuilder("savegames").append(File.separator).append(name).toString();
     }
 
     private static String getGameFile(String name) {
-        return new StringBuilder("savegames").append(File.separator)
-                .append(name).append(File.separator).append("game.xml")
-                .toString();
+        return new StringBuilder("savegames").append(File.separator).append(name).append(File.separator)
+                .append("game.xml").toString();
     }
 
     private static String getLogFile(String name) {
-        return new StringBuilder("savegames").append(File.separator)
-                .append(name).append(File.separator).append("logs.xml")
-                .toString();
+        return new StringBuilder("savegames").append(File.separator).append(name).append(File.separator)
+                .append("logs.xml").toString();
     }
 
     private static String getEncounterFile(String name) {
-        return new StringBuilder("encounters").append(File.separator)
-                .append(name).append(".encounter").toString();
+        return new StringBuilder("encounters").append(File.separator).append(name).append(".encounter").toString();
     }
 
     // private static String getDmNoteFile(String name) {
@@ -90,8 +86,7 @@ public class GameStore {
         OutputFormat outFormat = OutputFormat.createPrettyPrint();
         outFormat.setEncoding(ENCODING_UTF_8);
 
-        XMLWriter writer = new XMLWriter(new FileOutputStream(mapFile),
-                outFormat);
+        XMLWriter writer = new XMLWriter(new FileOutputStream(mapFile), outFormat);
         writer.write(doc);
         writer.close();
     }
@@ -102,8 +97,7 @@ public class GameStore {
             return null;
         }
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Game.class,
-                    DracaGame.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Game.class, DracaGame.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
             return (Game) unmarshaller.unmarshal(gameFile);
@@ -114,7 +108,7 @@ public class GameStore {
 
     public static Game loadSnapshot(Object snapshot) {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Game.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Game.class, DracaGame.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
             StringReader sr = new StringReader((String) snapshot);
@@ -141,8 +135,7 @@ public class GameStore {
             gameDir.mkdirs();
         }
 
-        JAXBContext context = JAXBContext.newInstance(Game.class,
-                game.getClass());
+        JAXBContext context = JAXBContext.newInstance(Game.class, game.getClass());
         Marshaller m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
@@ -152,8 +145,7 @@ public class GameStore {
 
     public static Object getSnapshot(Game game) {
         try {
-            JAXBContext context = JAXBContext.newInstance(Game.class,
-                    game.getClass());
+            JAXBContext context = JAXBContext.newInstance(Game.class, game.getClass());
             Marshaller m = context.createMarshaller();
 
             java.io.StringWriter sw = new StringWriter();
@@ -185,8 +177,7 @@ public class GameStore {
         try {
             log.createNewFile();
             FileOutputStream fos = new FileOutputStream(log);
-            OutputStreamWriter writer = new OutputStreamWriter(fos,
-                    ENCODING_UTF_8);
+            OutputStreamWriter writer = new OutputStreamWriter(fos, ENCODING_UTF_8);
             for (String line : lines) {
                 writer.write(line);
                 writer.write("\r\n");
