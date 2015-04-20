@@ -7,4 +7,8 @@ public abstract class DracaGameCommand extends UndoableTopicCommand {
     protected DracaGame getGame() {
         return (DracaGame) super.getGame();
     }
+
+    protected String getPcZoneName(String pc, String zone) {
+        return zone + "@" + pc;
+    }
 }

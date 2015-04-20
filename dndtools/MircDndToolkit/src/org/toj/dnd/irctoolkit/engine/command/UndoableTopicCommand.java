@@ -6,6 +6,7 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 
 import org.apache.log4j.Logger;
+import org.toj.dnd.irctoolkit.engine.ToolkitWarningException;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
@@ -14,7 +15,7 @@ public abstract class UndoableTopicCommand extends GameCommand {
     private Logger log = Logger.getLogger(this.getClass());
 
     @Override
-    public List<OutgoingMsg> execute() throws ToolkitCommandException {
+    public List<OutgoingMsg> execute() throws ToolkitCommandException, ToolkitWarningException {
         Object snapshot = GameStore.getSnapshot(getGame());
         context.getHistory().saveGameSnapshot(snapshot);
         doProcess();
@@ -39,5 +40,5 @@ public abstract class UndoableTopicCommand extends GameCommand {
         context.setGame(GameStore.loadSnapshot(last));
     }
 
-    protected abstract void doProcess() throws ToolkitCommandException;
+    protected abstract void doProcess() throws ToolkitCommandException, ToolkitWarningException;
 }

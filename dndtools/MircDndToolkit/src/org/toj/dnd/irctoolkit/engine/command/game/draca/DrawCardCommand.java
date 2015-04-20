@@ -1,5 +1,9 @@
 package org.toj.dnd.irctoolkit.engine.command.game.draca;
 
+import java.util.Collections;
+import java.util.List;
+
+import org.toj.dnd.irctoolkit.engine.ToolkitWarningException;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
@@ -16,7 +20,14 @@ public class DrawCardCommand extends DracaGameCommand {
     }
 
     @Override
-    public void doProcess() throws ToolkitCommandException {
-        sendMsg(getGame().draw(caller, amount));
+    public void doProcess() throws ToolkitCommandException,
+            ToolkitWarningException {
+        List<String> cards = getGame().draw(caller, amount);
+        sendMsg(caller + "抓了" + amount + "张牌，牌库还剩下"
+                + getGame().getDeck().size() + "张牌");
+        whisper(caller, "你抓到了" + cards);
+        List<String> hand = getGame().getPcHand(caller).getCards();
+        Collections.sort(hand);
+        whisper(caller, "你的手牌: " + hand);
     }
 }

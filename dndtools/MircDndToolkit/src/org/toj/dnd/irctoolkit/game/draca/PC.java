@@ -36,4 +36,8 @@ public class PC {
         }
         return this.pcZones.get(zone);
     }
+
+    public Map<String, Zone> getPcZones() {
+        return pcZones;
+    }
 }

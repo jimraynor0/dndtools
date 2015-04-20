@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.toj.dnd.irctoolkit.engine.ToolkitContext;
+import org.toj.dnd.irctoolkit.engine.ToolkitWarningException;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
@@ -17,7 +18,7 @@ public abstract class Command {
         Command.context = context;
     }
 
-    public abstract List<OutgoingMsg> execute() throws ToolkitCommandException;
+    public abstract List<OutgoingMsg> execute() throws ToolkitCommandException, ToolkitWarningException;
 
     public abstract boolean updatesTopic();
 

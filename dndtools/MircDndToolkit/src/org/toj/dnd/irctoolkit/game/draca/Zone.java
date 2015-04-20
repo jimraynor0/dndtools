@@ -90,4 +90,8 @@ public class Zone implements Iterable<String> {
     public void shuffle() {
         Collections.shuffle(cards);
     }
+
+    public List<String> getCards() {
+        return cards;
+    }
 }
