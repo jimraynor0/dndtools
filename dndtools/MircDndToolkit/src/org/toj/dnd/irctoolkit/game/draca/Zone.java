@@ -94,4 +94,14 @@ public class Zone implements Iterable<String> {
     public List<String> getCards() {
         return cards;
     }
+
+    public String toText() {
+        if (cards.isEmpty()) {
+            return "空的";
+        }
+        List<String> clone = new ArrayList<>(cards.size());
+        clone.addAll(cards);
+        Collections.sort(clone);
+        return clone.toString();
+    }
 }
