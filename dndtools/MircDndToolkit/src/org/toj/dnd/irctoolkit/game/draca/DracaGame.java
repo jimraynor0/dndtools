@@ -15,6 +15,7 @@ import org.toj.dnd.irctoolkit.game.Game;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DracaGame extends Game {
+    public static final String CARD_DOESNOT_EXIST_IN_ZONE = "card doesnot exist in zone.";
     private Library lib;
     private Map<String, Zone> zones;
     private Map<String, PC> pcs;
@@ -42,19 +43,16 @@ public class DracaGame extends Game {
         getDeck().shuffle();
     }
 
-    public void move(String card, String fromZone, String toZone) {
+    public void move(String card, String fromZone, String toZone) throws ToolkitWarningException {
         Zone from = getZone(fromZone);
         Zone to = getZone(toZone);
-        if (from == null) {
-            throw new RuntimeException("Zone " + fromZone + " does not exist.");
-        }
-        if (to == null) {
-            throw new RuntimeException("Zone " + toZone + " does not exist.");
-        }
         move(card, from, to);
     }
 
-    private void move(String card, Zone from, Zone to) {
+    private void move(String card, Zone from, Zone to) throws ToolkitWarningException {
+        if (!from.contains(card)) {
+            throw new ToolkitWarningException(CARD_DOESNOT_EXIST_IN_ZONE);
+        }
         from.remove(card);
         to.add(card);
     }
