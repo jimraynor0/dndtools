@@ -27,6 +27,7 @@ public class ShowBoardCommand extends DracaGameCommand {
             }
             sendMsg(sb.toString());
         }
+        sendMsg("牌库: " + getGame().getZone(Zone.DECK).getCards().size() + "张");
         sendMsg("弃牌堆: " + getGame().getZone(Zone.DISCARD).getCards().toString());
         return msgs;
     }
