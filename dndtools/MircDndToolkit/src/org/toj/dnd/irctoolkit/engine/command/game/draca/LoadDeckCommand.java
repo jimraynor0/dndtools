@@ -23,7 +23,7 @@ public class LoadDeckCommand extends UndoableDracaGameCommand {
     @Override
     public void doProcess() throws ToolkitCommandException, ToolkitWarningException {
         if (!isFromDm()) {
-            sendMsg("只有DM可以重置牌库。");
+            sendMsg("只有DM可以读取牌库。");
             return;
         }
         File file = GameStore.loadResourceFile(getGame().getName(), fileName);
@@ -41,14 +41,15 @@ public class LoadDeckCommand extends UndoableDracaGameCommand {
                 }
                 int amount;
                 try {
-                    amount = Integer.parseInt(params[0]);
+                    amount = Integer.parseInt(params[0].trim());
                 } catch (NumberFormatException e) {
                     sendMsg("[" + line + "]不符合格式，跳过。");
                     continue;
                 }
-                getGame().addCards(params[1], params.length == 3 ? params[2] : null, amount);
+                getGame().addCards(params[1].trim(), params.length == 3 ? params[2].trim() : null, amount);
             }
             reader.close();
+            sendMsg("读取牌库完毕，牌库现有" + getGame().getDeck().size() + "张牌");
         } catch (IOException e) {
             throw new ToolkitWarningException("读取文件出错，请重试。");
         }
