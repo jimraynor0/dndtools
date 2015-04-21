@@ -55,12 +55,6 @@ public class GameStore {
         return new StringBuilder("encounters").append(File.separator).append(name).append(".encounter").toString();
     }
 
-    // private static String getDmNoteFile(String name) {
-    // return new StringBuilder("savegames").append(File.separator)
-    // .append(name).append(File.separator).append("dmNote.xml")
-    // .toString();
-    // }
-
     public static MapGrid loadMap(File gameFile) throws IOException {
         if (!gameFile.exists()) {
             return null;
@@ -229,5 +223,9 @@ public class GameStore {
 
     public static Encounter loadEncounter(Element e) {
         return new Encounter(e);
+    }
+
+    public static File loadResourceFile(String game, String fileName) {
+        return new File(getGameDir(game) + File.separator + fileName);
     }
 }
