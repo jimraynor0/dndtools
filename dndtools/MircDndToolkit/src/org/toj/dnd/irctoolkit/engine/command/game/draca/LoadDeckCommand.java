@@ -31,6 +31,7 @@ public class LoadDeckCommand extends UndoableDracaGameCommand {
             sendMsg("文件" + file.getAbsolutePath() + "不存在。");
         }
         try {
+            getGame().getDeck().clear();
             BufferedReader reader = FileIoUtils.getReader(file);
             String line = null;
             while ((line = reader.readLine()) != null) {
