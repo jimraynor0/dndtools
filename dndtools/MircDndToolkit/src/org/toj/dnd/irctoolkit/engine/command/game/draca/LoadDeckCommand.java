@@ -22,6 +22,10 @@ public class LoadDeckCommand extends UndoableDracaGameCommand {
 
     @Override
     public void doProcess() throws ToolkitCommandException, ToolkitWarningException {
+        if (!isFromDm()) {
+            sendMsg("只有DM可以重置牌库。");
+            return;
+        }
         File file = GameStore.loadResourceFile(getGame().getName(), fileName);
         if (!file.isFile()) {
             sendMsg("文件" + file.getAbsolutePath() + "不存在。");
