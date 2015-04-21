@@ -3,6 +3,8 @@ package org.toj.dnd.irctoolkit.engine.command.game.common;
 import java.io.IOException;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
+
 import org.apache.log4j.Logger;
 import org.toj.dnd.irctoolkit.engine.command.GameCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
@@ -41,6 +43,14 @@ public class CreateOrLoadCommand extends GameCommand {
             context.setGame(game);
             sendMsg("Game created.");
             log.debug("Game created: " + name);
+            try {
+                GameStore.save(getGame());
+            } catch (IOException e) {
+                log.error("saving game failed", e);
+            } catch (JAXBException e) {
+                log.error("saving game failed", e);
+            }
+
         } else {
             context.setGame(game);
             sendTopic(game.generateTopic());
