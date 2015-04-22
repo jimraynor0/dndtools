@@ -112,6 +112,22 @@ public class DracaGame extends Game {
         this.pcs.put(ch, new PC(ch));
     }
 
+    public void removePc(String pc) {
+        this.pcs.remove(pc);
+    }
+
+    public void renamePc(String oldName, String newName) throws ToolkitWarningException {
+        if (!pcs.containsKey(oldName)) {
+            throw new ToolkitWarningException("PC[" + oldName + "]不存在");
+        }
+        if (pcs.containsKey(newName)) {
+            throw new ToolkitWarningException("已经存在一位名为[" + newName + "]的PC");
+        }
+        PC pc = pcs.remove(oldName);
+        pc.setName(newName);
+        pcs.put(newName, pc);
+    }
+
     @Override
     public String getRuleSet() {
         return "draca";
