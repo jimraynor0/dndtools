@@ -57,16 +57,28 @@ public class DracaGame extends Game {
         to.add(card);
     }
 
-    public List<String> draw(String pc, int amount)
-            throws ToolkitWarningException {
+    public List<String> draw(String pc, int amount) throws ToolkitWarningException {
         if (getDeck().size() < amount) {
-            throw new ToolkitWarningException("没法抓了，牌库只剩下" + getDeck().size()
-                    + "张牌了。");
+            throw new ToolkitWarningException("没法抓了，牌库只剩下" + getDeck().size() + "张牌了。");
         } else {
             List<String> drawn = new ArrayList<>(amount);
             for (int i = 0; i < amount; i++) {
                 String card = getDeck().get(0);
                 move(card, getDeck(), pcs.get(pc).getZone(Zone.HAND));
+                drawn.add(card);
+            }
+            return drawn;
+        }
+    }
+
+    public List<String> playTopDeck(int amount) throws ToolkitWarningException {
+        if (getDeck().size() < amount) {
+            throw new ToolkitWarningException("没法从牌库顶取" + amount + "张牌，牌库只剩下" + getDeck().size() + "张牌了。");
+        } else {
+            List<String> drawn = new ArrayList<>(amount);
+            for (int i = 0; i < amount; i++) {
+                String card = getDeck().get(0);
+                move(card, getDeck(), getDiscard());
                 drawn.add(card);
             }
             return drawn;
