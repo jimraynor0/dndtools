@@ -17,6 +17,7 @@ public class ActAsCommand extends UndoableTopicCommand {
     public void doProcess() throws ToolkitCommandException {
         if (actAs.equals("DM")) {
             getGame().setDm(caller);
+            sendMsg("游戏主持人已被设置为：" + caller);
         } else {
             getGame().addAlias(caller, actAs);
         }

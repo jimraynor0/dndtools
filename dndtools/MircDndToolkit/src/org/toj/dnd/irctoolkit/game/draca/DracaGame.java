@@ -138,6 +138,9 @@ public class DracaGame extends Game {
         PC pc = pcs.remove(oldName);
         pc.setName(newName);
         pcs.put(newName, pc);
+        if (oldName.equals(getDm())) {
+            setDm(newName);
+        }
     }
 
     @Override
