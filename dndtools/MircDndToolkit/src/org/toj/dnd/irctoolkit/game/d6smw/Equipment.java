@@ -1,11 +1,14 @@
 package org.toj.dnd.irctoolkit.game.d6smw;
 
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
 import org.toj.dnd.irctoolkit.token.Color;
 import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
-import org.toj.dnd.irctoolkit.util.XmlUtil;
 
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Equipment {
     private String name;
     private String model;
@@ -13,49 +16,6 @@ public class Equipment {
     private TimePoint readyOn;
     private int heat;
     private boolean active;
-
-    public Equipment(Element e) {
-        name = e.elementTextTrim("name");
-        model = e.elementTextTrim("model");
-        if (e.element("cd") != null) {
-            cd = Integer.parseInt(e.elementTextTrim("cd"));
-        } else {
-            cd = 0;
-        }
-        if (e.element("readyOnRound") != null
-                && e.element("readyOnInit") != null) {
-            readyOn = new TimePoint(Integer.parseInt(e
-                    .elementTextTrim("readyOnRound")), Integer.parseInt(e
-                    .elementTextTrim("readyOnInit")));
-        }
-        if (e.element("heat") != null) {
-            heat = Integer.parseInt(e.elementTextTrim("heat"));
-        } else {
-            heat = 0;
-        }
-        if (e.element("active") != null) {
-            active = Boolean.parseBoolean(e.elementTextTrim("active"));
-        } else {
-            active = true;
-        }
-    }
-
-    public Element toXmlElement() {
-        Element e = DocumentHelper.createElement(getType());
-        e.add(XmlUtil.textElement("name", name));
-        e.add(XmlUtil.textElement("model", model));
-        e.add(XmlUtil.textElement("cd", String.valueOf(cd)));
-        if (readyOn != null) {
-            e.add(XmlUtil.textElement("readyOnRound",
-                    String.valueOf(readyOn.round)));
-            e.add(XmlUtil.textElement("readyOnInit",
-                    String.valueOf(readyOn.init)));
-        }
-        e.add(XmlUtil.textElement("heat", String.valueOf(heat)));
-        e.add(XmlUtil.textElement("active", String.valueOf(active)));
-
-        return e;
-    }
 
     public String activate(TimePoint activatingOn) {
         if (!active) {

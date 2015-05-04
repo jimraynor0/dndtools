@@ -10,8 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.game.dnd3r.battle.Battle;
 import org.toj.dnd.irctoolkit.game.dnd3r.battle.State;
-import org.toj.dnd.irctoolkit.game.dnd3r.encounter.Encounter;
-import org.toj.dnd.irctoolkit.game.dnd3r.encounter.NPC;
 import org.toj.dnd.irctoolkit.util.AbbreviationUtil;
 
 @XmlRootElement
@@ -86,12 +84,6 @@ public class Dnd3rGame extends Game {
     public void startBattle() {
         if (!inBattle()) {
             this.battle = new Battle();
-        }
-    }
-
-    public void startEncounter(Encounter encounter) {
-        if (!inBattle()) {
-            this.battle = new Battle(encounter);
         }
     }
 
@@ -194,10 +186,6 @@ public class Dnd3rGame extends Game {
 
     public Map<String, PC> getPcs() {
         return pcs;
-    }
-
-    public Map<String, NPC> getNpcs() {
-        return inBattle() ? new HashMap<String, NPC>() : getBattle().getNpcs();
     }
 
     public void applyExtendedRest() {

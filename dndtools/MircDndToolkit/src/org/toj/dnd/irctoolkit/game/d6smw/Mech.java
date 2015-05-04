@@ -1,18 +1,19 @@
 package org.toj.dnd.irctoolkit.game.d6smw;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
 import org.toj.dnd.irctoolkit.token.Color;
 import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
-import org.toj.dnd.irctoolkit.util.XmlUtil;
 
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Mech extends Unit {
     private int heat;
     private int heatSink;
@@ -20,62 +21,6 @@ public class Mech extends Unit {
     private Map<String, Section> sections = new HashMap<String, Section>();
     private Map<String, Equipment> equipments = new HashMap<String, Equipment>();
     private Map<String, Ammo> ammoTrackers = new HashMap<String, Ammo>();
-
-    public Mech(Element e) {
-        super(e);
-        if (e.element("heat") != null) {
-            heat = Integer.parseInt(e.elementTextTrim("heat"));
-        } else {
-            heat = 0;
-        }
-        heatSink = Integer.parseInt(e.elementTextTrim("heatSink"));
-        maxHeat = Integer.parseInt(e.elementTextTrim("maxHeat"));
-
-        if (e.element("ammoTrackers") != null) {
-            Iterator<Element> i = e.element("ammoTrackers").elementIterator();
-            while (i.hasNext()) {
-                Element ammoElement = i.next();
-                Ammo a = new Ammo(ammoElement);
-                ammoTrackers.put(a.getType(), a);
-            }
-        }
-
-        Iterator<Element> i = e.element("sections").elementIterator();
-        while (i.hasNext()) {
-            Element secElement = i.next();
-            Section sec = new Section(secElement);
-            sections.put(sec.getName(), sec);
-            for (Equipment eq : sec.getEquipments().values()) {
-                equipments.put(eq.getName(), eq);
-                if (eq instanceof Weapon) { // TODO Auto-generated constructor
-                                            // stub
-
-                    ((Weapon) eq).setAmmo(ammoTrackers.get(((Weapon) eq)
-                            .getAmmoType()));
-                }
-            }
-        }
-    }
-
-    public Element toXmlElement() {
-        Element e = super.toXmlElement();
-
-        e.add(XmlUtil.textElement("heat", String.valueOf(heat)));
-        e.add(XmlUtil.textElement("heatSink", String.valueOf(heatSink)));
-        e.add(XmlUtil.textElement("maxHeat", String.valueOf(maxHeat)));
-
-        Element secElement = e.addElement("sections");
-        for (String sec : Section.SECTIONS) {
-            secElement.add(sections.get(sec).toXmlElement());
-        }
-
-        Element ammoElement = e.addElement("ammoTrackers");
-        for (Ammo ammo : ammoTrackers.values()) {
-            ammoElement.add(ammo.toXmlElement());
-        }
-
-        return e;
-    }
 
     public String activateEquipment(String equipment, TimePoint activatingOn) {
         if (!equipments.containsKey(equipment)) {

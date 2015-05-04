@@ -1,12 +1,14 @@
 package org.toj.dnd.irctoolkit.game.d6smw;
 
-import org.apache.commons.lang.StringUtils;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
 import org.toj.dnd.irctoolkit.token.Color;
 import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
-import org.toj.dnd.irctoolkit.util.XmlUtil;
 
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Unit {
     private int init;
     private String name;
@@ -26,37 +28,6 @@ public class Unit {
     public Unit(String name, int init) {
         this(name);
         this.init = init;
-    }
-
-    public Unit(Element e) {
-        name = e.elementTextTrim("name");
-        model = e.elementTextTrim("model");
-        if (e.element("init") != null) {
-            init = Integer.parseInt(e.elementTextTrim("init"));
-        } else {
-            init = 0;
-        }
-        if (e.element("speed") != null) {
-            speed = Integer.parseInt(e.elementTextTrim("speed"));
-        } else {
-            speed = 0;
-        }
-
-        if (e.element("direction") != null) {
-            direction = e.elementTextTrim("direction");
-        }
-    }
-
-    public Element toXmlElement() {
-        Element e = DocumentHelper.createElement("mech");
-        e.add(XmlUtil.textElement("name", name));
-        e.add(XmlUtil.textElement("model", model));
-        e.add(XmlUtil.textElement("init", init));
-        if (!StringUtils.isEmpty(direction)) {
-            e.add(XmlUtil.textElement("direction", direction));
-        }
-        e.add(XmlUtil.textElement("speed", String.valueOf(speed)));
-        return e;
     }
 
     public String toTopicString(boolean onTurn) {

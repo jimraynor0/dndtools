@@ -6,11 +6,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
 import org.dom4j.Element;
 import org.toj.dnd.irctoolkit.game.dnd3r.battle.Combatant;
 import org.toj.dnd.irctoolkit.game.dnd3r.battle.State;
 import org.toj.dnd.irctoolkit.util.XmlUtil;
 
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PC extends Combatant {
 
     private int xp;

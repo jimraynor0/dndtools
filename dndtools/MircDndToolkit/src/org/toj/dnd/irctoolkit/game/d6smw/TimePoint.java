@@ -1,5 +1,11 @@
 package org.toj.dnd.irctoolkit.game.d6smw;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TimePoint {
     public int round;
     public int init;

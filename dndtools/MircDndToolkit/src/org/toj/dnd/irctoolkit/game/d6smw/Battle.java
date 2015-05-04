@@ -2,73 +2,23 @@ package org.toj.dnd.irctoolkit.game.d6smw;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
 
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.toj.dnd.irctoolkit.game.dnd3r.PC;
-import org.toj.dnd.irctoolkit.game.dnd3r.battle.Combatant;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
 import org.toj.dnd.irctoolkit.game.dnd3r.battle.event.InitiativePassesEvent;
-import org.toj.dnd.irctoolkit.game.dnd3r.encounter.NPC;
-import org.toj.dnd.irctoolkit.token.Color;
 import org.toj.dnd.irctoolkit.util.AbbreviationUtil;
-import org.toj.dnd.irctoolkit.util.XmlUtil;
 
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Battle {
     private LinkedList<Unit> initArray = new LinkedList<Unit>();
     private Unit current;
     private int round = -1;
 
     public Battle() {
-
-    }
-
-    public Battle(Element e, Map<String, Mech> mechs) {
-        this.round = Integer.valueOf(e.elementTextTrim("round"));
-
-        if (e.element("initArray") != null) {
-            Iterator<Element> i = e.element("initArray").elementIterator();
-            while (i.hasNext()) {
-                Element u = i.next();
-                if (u.element("isMech") != null
-                        && u.elementTextTrim("isMech").equals("true")) {
-                    initArray.add(mechs.get(u.elementTextTrim("name")));
-                } else {
-                    initArray.add(new Unit(u));
-                }
-            }
-        }
-
-        if (e.element("current") != null) {
-            this.current = initArray.get(Integer.parseInt(e
-                    .elementTextTrim("current")));
-        }
-    }
-
-    public Element toXmlElement() {
-        Element e = DocumentHelper.createElement("battle");
-        e.add(XmlUtil.textElement("round", String.valueOf(round)));
-
-        if (this.initArray != null && !this.initArray.isEmpty()) {
-            Element combatants = e.addElement("initArray");
-            for (Unit u : this.initArray) {
-                if (u instanceof Mech) {
-                    Element ec = combatants.addElement("combatant");
-                    ec.add(XmlUtil.textElement("isMech", "true"));
-                    ec.add(XmlUtil.textElement("name", u.getName()));
-                } else {
-                    combatants.add(u.toXmlElement());
-                }
-            }
-        }
-        if (current != null) {
-            e.add(XmlUtil.textElement("current",
-                    String.valueOf(initArray.indexOf(current))));
-        }
-
-        return e;
     }
 
     public void join(Unit u, int init) {

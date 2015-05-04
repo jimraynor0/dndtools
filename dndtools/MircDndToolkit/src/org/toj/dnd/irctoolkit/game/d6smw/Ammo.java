@@ -1,24 +1,14 @@
 package org.toj.dnd.irctoolkit.game.d6smw;
 
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.toj.dnd.irctoolkit.util.XmlUtil;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Ammo {
     public String type;
     public int rounds;
-
-    public Ammo(Element e) {
-        type = e.elementTextTrim("type");
-        rounds = Integer.parseInt(e.elementTextTrim("rounds"));
-    }
-
-    public Element toXmlElement() {
-        Element e = DocumentHelper.createElement("ammo");
-        e.add(XmlUtil.textElement("type", type));
-        e.add(XmlUtil.textElement("rounds", String.valueOf(rounds)));
-        return e;
-    }
 
     public boolean hasAmmo() {
         return rounds > 0;
