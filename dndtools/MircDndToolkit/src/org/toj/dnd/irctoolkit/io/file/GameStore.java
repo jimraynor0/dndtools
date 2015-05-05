@@ -102,7 +102,7 @@ public class GameStore {
         }
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Game.class,
-                    DracaGame.class);
+                    DracaGame.class, D6smwGame.class, Dnd3rGame.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
             return (Game) unmarshaller.unmarshal(gameFile);
@@ -114,7 +114,7 @@ public class GameStore {
     public static Game loadSnapshot(Object snapshot) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Game.class,
-                    DracaGame.class);
+                    DracaGame.class, D6smwGame.class, Dnd3rGame.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
             StringReader sr = new StringReader((String) snapshot);

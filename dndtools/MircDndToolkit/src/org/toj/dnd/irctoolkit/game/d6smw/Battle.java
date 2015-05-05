@@ -18,8 +18,7 @@ public class Battle {
     private Unit current;
     private int round = -1;
 
-    public Battle() {
-    }
+    public Battle() {}
 
     public void join(Unit u, int init) {
         u.setInit(init);

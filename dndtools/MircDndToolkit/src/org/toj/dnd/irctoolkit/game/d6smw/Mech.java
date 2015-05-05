@@ -12,8 +12,8 @@ import javax.xml.bind.annotation.XmlType;
 import org.toj.dnd.irctoolkit.token.Color;
 import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
 
-@XmlType
-@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType
+//@XmlAccessorType(XmlAccessType.FIELD)
 public class Mech extends Unit {
     private int heat;
     private int heatSink;

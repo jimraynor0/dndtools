@@ -17,9 +17,7 @@ public class Unit {
     private String direction;
     private int hp;
 
-    public Unit() {
-
-    }
+    public Unit() {}
 
     public Unit(String name) {
         this.name = name;

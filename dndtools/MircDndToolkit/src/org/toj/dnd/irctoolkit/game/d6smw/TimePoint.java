@@ -10,6 +10,8 @@ public class TimePoint {
     public int round;
     public int init;
 
+    public TimePoint() {}
+
     public TimePoint(int round, int init) {
         this.round = round;
         this.init = init;

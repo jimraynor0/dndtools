@@ -20,6 +20,9 @@ public class D6smwGame extends Game {
     private Map<String, Mech> mechs = new HashMap<String, Mech>();
     private Battle battle;
 
+    public D6smwGame() {
+    }
+
     public D6smwGame(String name) {
         setName(name);
     }
