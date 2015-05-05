@@ -32,7 +32,7 @@ public class LoadDeckCommand extends UndoableDracaGameCommand {
         }
         try {
             getGame().getDeck().clear();
-            BufferedReader reader = FileIoUtils.getReader(file);
+            BufferedReader reader = FileIoUtils.getReader(file, GameStore.getEncoding());
             String line = null;
             while ((line = reader.readLine()) != null) {
                 String[] params = line.split("\t");

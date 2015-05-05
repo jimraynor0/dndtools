@@ -15,6 +15,13 @@ public class FileIoUtils {
         return new OutputStreamWriter(new FileOutputStream(out));
     }
 
+    public static BufferedReader getReader(File wf, String encoding) throws IOException {
+        FileInputStream fis = new FileInputStream(wf);
+        InputStreamReader isr = new InputStreamReader(fis, encoding);
+        BufferedReader reader = new BufferedReader(isr);
+        return reader;
+    }
+
     public static BufferedReader getReader(File wf) throws IOException {
         FileInputStream fis = new FileInputStream(wf);
         InputStreamReader isr = new InputStreamReader(fis);

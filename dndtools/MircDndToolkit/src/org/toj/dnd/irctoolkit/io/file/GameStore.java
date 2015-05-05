@@ -27,6 +27,7 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import org.toj.dnd.irctoolkit.configs.GlobalConfigs;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.game.d6smw.D6smwGame;
 import org.toj.dnd.irctoolkit.game.dnd3r.Dnd3rGame;
@@ -34,7 +35,12 @@ import org.toj.dnd.irctoolkit.game.draca.DracaGame;
 import org.toj.dnd.irctoolkit.map.MapGrid;
 
 public class GameStore {
-    private static final String ENCODING_UTF_8 = "UTF-8";
+    private static final String DEFAULT_ENCODING = "UTF-8";
+
+    public static String getEncoding() {
+        String encoding = GlobalConfigs.getConfigs().get("file.encoding");
+        return encoding == null ? DEFAULT_ENCODING : encoding;
+    }
 
     private static String getGameDir(String name) {
         return new StringBuilder("savegames").append(File.separator)
@@ -64,7 +70,7 @@ public class GameStore {
         }
         try {
             SAXReader reader = new SAXReader();
-            reader.setEncoding(ENCODING_UTF_8);
+            reader.setEncoding(getEncoding());
             Document document = reader.read(gameFile);
             return loadMap(document.getRootElement());
         } catch (DocumentException e) {
@@ -81,7 +87,7 @@ public class GameStore {
         doc.setRootElement(map.toXmlElement());
 
         OutputFormat outFormat = OutputFormat.createPrettyPrint();
-        outFormat.setEncoding(ENCODING_UTF_8);
+        outFormat.setEncoding(getEncoding());
 
         XMLWriter writer = new XMLWriter(new FileOutputStream(mapFile),
                 outFormat);
@@ -139,6 +145,7 @@ public class GameStore {
                 game.getClass());
         Marshaller m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        m.setProperty(Marshaller.JAXB_ENCODING, getEncoding());
 
         // Write to File
         m.marshal(game, new File(getGameFile(game.getName())));
@@ -149,6 +156,7 @@ public class GameStore {
             JAXBContext context = JAXBContext.newInstance(Game.class,
                     game.getClass());
             Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_ENCODING, getEncoding());
 
             java.io.StringWriter sw = new StringWriter();
             m.marshal(game, sw);
@@ -180,7 +188,7 @@ public class GameStore {
             log.createNewFile();
             FileOutputStream fos = new FileOutputStream(log);
             OutputStreamWriter writer = new OutputStreamWriter(fos,
-                    ENCODING_UTF_8);
+                    getEncoding());
             for (String line : lines) {
                 writer.write(line);
                 writer.write("\r\n");
@@ -202,7 +210,7 @@ public class GameStore {
         List<String> lines = new LinkedList<String>();
         try {
             FileInputStream fis = new FileInputStream(log);
-            InputStreamReader isr = new InputStreamReader(fis, ENCODING_UTF_8);
+            InputStreamReader isr = new InputStreamReader(fis, getEncoding());
             BufferedReader reader = new BufferedReader(isr);
             String line = null;
             while ((line = reader.readLine()) != null) {
