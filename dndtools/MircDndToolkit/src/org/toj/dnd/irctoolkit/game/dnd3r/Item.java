@@ -4,15 +4,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-import org.dom4j.Element;
-
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Item extends LimitedResource {
 
-    public Item(Element e) {
-        super(e);
-    }
+    public Item() {}
 
     public Item(String name, int charges) {
         super(name, charges);
@@ -24,6 +20,6 @@ public class Item extends LimitedResource {
 
     @Override
     protected String getTypeName() {
-        return "spell";
+        return "item";
     }
 }

@@ -1,8 +1,7 @@
 package org.toj.dnd.irctoolkit.game.dnd3r;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,10 +9,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-import org.dom4j.Element;
 import org.toj.dnd.irctoolkit.game.dnd3r.battle.Combatant;
 import org.toj.dnd.irctoolkit.game.dnd3r.battle.State;
-import org.toj.dnd.irctoolkit.util.XmlUtil;
 
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -26,56 +23,18 @@ public class PC extends Combatant {
     private int maxPp;
     private int initMod;
     private Map<String, Item> items;
-    private Map<String, List<Spell>> spells;
+    private Map<String, LinkedList<Spell>> spells;
+
+    public PC() {
+        super();
+        this.items = new HashMap<String, Item>();
+        this.spells = new HashMap<String, LinkedList<Spell>>();
+    }
 
     public PC(String name) {
         super(name);
         this.items = new HashMap<String, Item>();
-        this.spells = new HashMap<String, List<Spell>>();
-    }
-
-    @SuppressWarnings("unchecked")
-    public PC(Element e) {
-        super(e);
-        this.xp = Integer.parseInt(e.elementTextTrim("xp"));
-        this.hp = Integer.parseInt(e.elementTextTrim("hp"));
-        this.maxHp = Integer.parseInt(e.elementTextTrim("maxHp"));
-        if (e.element("maxPp") != null) {
-            this.pp = Integer.parseInt(e.elementTextTrim("pp"));
-            this.maxPp = Integer.parseInt(e.elementTextTrim("maxPp"));
-        }
-        String initModSave = e.elementTextTrim("initMod");
-        if (initModSave != null) {
-            this.initMod = Integer.parseInt(initModSave);
-        }
-
-        this.items = new HashMap<String, Item>();
-        if (e.element("items") != null) {
-            Iterator<Element> i = e.element("items").elementIterator();
-            while (i.hasNext()) {
-                Item c = new Item(i.next());
-                this.items.put(c.getName(), c);
-            }
-        }
-
-        this.spells = new HashMap<String, List<Spell>>();
-        if (e.element("spells") != null) {
-            Iterator<Element> i = e.element("spells").elementIterator();
-            while (i.hasNext()) {
-                Element groupElement = i.next();
-
-                Iterator<Element> groups = groupElement.elementIterator();
-                List<Spell> spellGroup = new ArrayList<Spell>();
-                while (groups.hasNext()) {
-                    Spell c = new Spell(groups.next());
-                    spellGroup.add(c);
-                }
-                if (!spellGroup.isEmpty()) {
-                    this.spells.put(groupElement.attributeValue("name"),
-                            spellGroup);
-                }
-            }
-        }
+        this.spells = new HashMap<String, LinkedList<Spell>>();
     }
 
     @Override
@@ -141,39 +100,6 @@ public class PC extends Combatant {
             }
         }
         return sb.toString();
-    }
-
-    @Override
-    public Element toXmlElement() {
-        Element e = super.toXmlElement();
-        e.setName("pc");
-        e.add(XmlUtil.textElement("xp", String.valueOf(xp)));
-        e.add(XmlUtil.textElement("hp", String.valueOf(hp)));
-        e.add(XmlUtil.textElement("maxHp", String.valueOf(maxHp)));
-        if (isPsionic()) {
-            e.add(XmlUtil.textElement("pp", String.valueOf(pp)));
-            e.add(XmlUtil.textElement("maxPp", String.valueOf(maxPp)));
-        }
-        e.add(XmlUtil.textElement("initMod", String.valueOf(initMod)));
-
-        if (!items.isEmpty()) {
-            Element dps = e.addElement("items");
-            for (Item item : items.values()) {
-                dps.add(item.toXmlElement());
-            }
-        }
-
-        if (!spells.isEmpty()) {
-            Element dps = e.addElement("spells");
-            for (String groupName : spells.keySet()) {
-                Element groupEle = dps.addElement("group");
-                groupEle.addAttribute("name", groupName);
-                for (Spell spell : spells.get(groupName)) {
-                    groupEle.add(spell.toXmlElement());
-                }
-            }
-        }
-        return e;
     }
 
     public void setHp(int hp) {
@@ -243,7 +169,7 @@ public class PC extends Combatant {
         Spell prepared = findSpell(spell.getName());
         if (prepared == null) {
             if (!spells.containsKey(group)) {
-                spells.put(group, new ArrayList<Spell>());
+                spells.put(group, new LinkedList<Spell>());
             }
             spells.get(group).add(spell);
         } else {
@@ -304,11 +230,11 @@ public class PC extends Combatant {
         this.items = consumables;
     }
 
-    public Map<String, List<Spell>> getSpells() {
+    public Map<String, LinkedList<Spell>> getSpells() {
         return spells;
     }
 
-    public void setSpells(Map<String, List<Spell>> spells) {
+    public void setSpells(Map<String, LinkedList<Spell>> spells) {
         this.spells = spells;
     }
 }

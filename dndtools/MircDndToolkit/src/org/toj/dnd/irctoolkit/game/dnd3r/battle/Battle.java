@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
@@ -25,6 +26,14 @@ public class Battle implements Cloneable {
 
     public Battle() {
         this.combatants = new LinkedList<Combatant>();
+    }
+
+    public void afterUnmarshal(Unmarshaller u, Object parent) {
+        for (Combatant c : this.combatants) {
+            if (c.equals(current)) {
+                current = c;
+            }
+        }
     }
 
     public void addChar(String charName) {

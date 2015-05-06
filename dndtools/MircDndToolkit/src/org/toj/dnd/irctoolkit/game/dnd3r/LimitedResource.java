@@ -15,6 +15,8 @@ public abstract class LimitedResource {
     private String desc;
     private int charges;
 
+    public LimitedResource() {}
+
     public LimitedResource(String name, int charges) {
         this.name = name;
         this.charges = charges;
@@ -23,15 +25,6 @@ public abstract class LimitedResource {
     public LimitedResource(String name, String desc, int charges) {
         this(name, charges);
         this.desc = desc;
-    }
-
-    public LimitedResource(Element e) {
-        super();
-        this.name = e.elementTextTrim("name");
-        if (e.element("desc") != null) {
-            this.desc = e.elementTextTrim("desc");
-        }
-        this.charges = Integer.parseInt(e.elementTextTrim("charges"));
     }
 
     public String getName() {

@@ -46,7 +46,7 @@ public class ListSpellCommand extends Dnd3rGameCommand {
     }
 
     protected List<String> buildSpellsString(String name,
-            Map<String, List<Spell>> spells) {
+            Map<String, LinkedList<Spell>> spells) {
         List<String> msg = new ArrayList<String>();
         if (spells.isEmpty()) {
             msg.add(name + "没有准备法术");
