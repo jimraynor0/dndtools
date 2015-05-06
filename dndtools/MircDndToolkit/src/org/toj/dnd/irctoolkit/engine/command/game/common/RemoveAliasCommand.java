@@ -5,7 +5,7 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "removealias", args = { CommandSegment.STRING })
+@IrcCommand(command = "removealias", args = { CommandSegment.STRING }, summary = ".removealias 昵称 - 取消指定昵称与PC的映射关系。")
 public class RemoveAliasCommand extends UndoableTopicCommand {
     private String alias;
 

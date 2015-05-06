@@ -37,6 +37,10 @@ public class IrcCommandFactory {
         cmdClasses.addAll(commonCmdClasses);
     }
 
+    public static List<Class<? extends GameCommand>> getCmdClasses() {
+        return cmdClasses;
+    }
+
     public static void loadGameCommands(Game game) {
         cmdClasses.clear();
         Reflections reflections = new Reflections(game.getGameCommandPackage());
@@ -44,6 +48,7 @@ public class IrcCommandFactory {
         cmdClasses.addAll(commonCmdClasses);
     }
 
+    @SuppressWarnings("unchecked")
     private static void addCmdClasses(Set<Class<?>> cmds,
             List<Class<? extends GameCommand>> classes) {
         // hack! make sure heal and damage is at the top, otherwise

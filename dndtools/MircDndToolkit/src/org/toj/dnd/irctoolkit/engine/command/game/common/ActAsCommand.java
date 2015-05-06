@@ -5,7 +5,8 @@ import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "actas", args = { CommandSegment.STRING })
+@IrcCommand(command = "actas", args = { CommandSegment.STRING }, summary = ".actas <PC名/DM> - 将当前昵称映射到PC，或将当前昵称设置为DM。",
+        desc = "将当前昵称映射到某名PC之后，所有使用当前昵称发出的命令将视为由该PC发出。将当前昵称设置为DM将允许当前昵称使用DM专有的命令。")
 public class ActAsCommand extends UndoableTopicCommand {
     private String actAs;
 

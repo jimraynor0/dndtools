@@ -5,7 +5,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "rename", args = { CommandSegment.STRING, CommandSegment.STRING })
+@IrcCommand(command = "rename", args = { CommandSegment.STRING, CommandSegment.STRING }, summary = ".rename 旧名字 新名字 - 为PC更名。")
 public class RenamePcCommand extends UndoableDracaGameCommand {
 
     private String oldName;

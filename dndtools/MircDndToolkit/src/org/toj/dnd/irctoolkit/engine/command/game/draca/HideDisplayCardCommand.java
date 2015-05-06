@@ -7,7 +7,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.draca.DracaGame;
 import org.toj.dnd.irctoolkit.game.draca.Zone;
 
-@IrcCommand(command = "hide", args = { CommandSegment.STRING })
+@IrcCommand(command = "hide", args = { CommandSegment.STRING }, summary = ".hide 牌名 - 从展示区将指定的牌收回手里。")
 public class HideDisplayCardCommand extends UndoableDracaGameCommand {
 
     private String card;

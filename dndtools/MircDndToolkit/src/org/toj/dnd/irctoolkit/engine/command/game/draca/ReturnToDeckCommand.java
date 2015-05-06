@@ -8,7 +8,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.draca.DracaGame;
 import org.toj.dnd.irctoolkit.game.draca.Zone;
 
-@IrcCommand(command = "putback", args = { CommandSegment.STRING })
+@IrcCommand(command = "putback", args = { CommandSegment.STRING }, summary = ".putback 牌名 - 将指定手牌放回牌库并洗牌。")
 public class ReturnToDeckCommand extends UndoableDracaGameCommand {
 
     private String card;

@@ -4,7 +4,8 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "removepc", args = { CommandSegment.NULLABLE_LIST })
+@IrcCommand(command = "removepc", args = { CommandSegment.NULLABLE_LIST },
+        summary = ".removepc <PC名列表> - 从游戏中移除指定PC。可以一次移除多个PC，PC名之间用空格分隔。如果不提供PC名参数则默认移除当前昵称。")
 public class RemovePcCommand extends UndoableDracaGameCommand {
 
     private String[] charNames;

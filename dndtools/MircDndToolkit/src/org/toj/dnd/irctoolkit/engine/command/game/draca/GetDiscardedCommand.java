@@ -7,7 +7,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.draca.DracaGame;
 import org.toj.dnd.irctoolkit.game.draca.Zone;
 
-@IrcCommand(command = "getdiscarded", args = { CommandSegment.STRING })
+@IrcCommand(command = "getdiscarded", args = { CommandSegment.STRING }, summary = ".getdiscarded 牌名 - 从弃牌堆拿出指定的牌加入手牌。")
 public class GetDiscardedCommand extends UndoableDracaGameCommand {
 
     private String card;

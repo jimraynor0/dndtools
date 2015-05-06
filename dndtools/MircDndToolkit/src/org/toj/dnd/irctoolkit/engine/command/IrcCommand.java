@@ -9,8 +9,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IrcCommand {
     String command();
-
     CommandSegment[] args();
+    String summary() default "";
+    String desc() default "";
 
     enum CommandSegment {
         NULLABLE_STRING(true, "string"),

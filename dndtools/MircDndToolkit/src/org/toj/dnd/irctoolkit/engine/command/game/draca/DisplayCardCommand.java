@@ -7,7 +7,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.draca.DracaGame;
 import org.toj.dnd.irctoolkit.game.draca.Zone;
 
-@IrcCommand(command = "show", args = { CommandSegment.STRING })
+@IrcCommand(command = "show", args = { CommandSegment.STRING }, summary = ".show 牌名 - 展示指定手牌(将指定的手牌移动到展示区)。")
 public class DisplayCardCommand extends UndoableDracaGameCommand {
 
     private String card;

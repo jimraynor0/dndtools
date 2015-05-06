@@ -7,7 +7,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.draca.DracaGame;
 import org.toj.dnd.irctoolkit.game.draca.Zone;
 
-@IrcCommand(command = "play", args = { CommandSegment.STRING })
+@IrcCommand(command = "play", args = { CommandSegment.STRING }, summary = ".play 牌名 - 打出一张手牌。")
 public class PlayCardCommand extends UndoableDracaGameCommand {
 
     private String card;

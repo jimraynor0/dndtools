@@ -11,7 +11,9 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
 
-@IrcCommand(command = "loaddeck", args = { CommandSegment.LIST })
+@IrcCommand(command = "loaddeck", args = { CommandSegment.LIST },
+        summary = ".loaddeck 牌表文件 - DM专用。读取牌表文件。使用.help loaddeck查看完整说明。",
+        desc = "牌表文件必须放置在游戏目录内才能被读取。文件的每一行代表一种牌，由三个属性组成：\n" + "数量 牌名 牌面文字\n" + "注意三个属性中间用tab符号分隔，不是空格。")
 public class LoadDeckCommand extends UndoableDracaGameCommand {
 
     private String fileName;

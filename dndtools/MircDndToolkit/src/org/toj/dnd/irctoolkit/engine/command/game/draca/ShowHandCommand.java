@@ -7,7 +7,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 
-@IrcCommand(command = "hand", args = {})
+@IrcCommand(command = "hand", args = {}, summary = ".hand - 查看自己的手牌。手牌的内容会在小窗中显示。")
 public class ShowHandCommand extends DracaGameCommand {
 
     public ShowHandCommand(Object[] args) {

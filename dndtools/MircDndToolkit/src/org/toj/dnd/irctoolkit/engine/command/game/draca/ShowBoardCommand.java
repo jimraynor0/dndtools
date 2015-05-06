@@ -9,7 +9,7 @@ import org.toj.dnd.irctoolkit.game.draca.PC;
 import org.toj.dnd.irctoolkit.game.draca.Zone;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 
-@IrcCommand(command = "showboard", args = {})
+@IrcCommand(command = "showboard", args = {}, summary = ".showboard - 显示当前桌面的状况。显示的内容包括牌库剩余牌数，弃牌堆的内容，各个PC的手牌数和展示区的内容。")
 public class ShowBoardCommand extends DracaGameCommand {
 
     public ShowBoardCommand(Object[] args) {
