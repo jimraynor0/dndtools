@@ -7,7 +7,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
 @IrcCommand(command = "goto", args = { CommandSegment.NULLABLE_INT,
-    CommandSegment.STRING })
+    CommandSegment.STRING }, summary = ".goto <回合数> PC/NPC名 - 把当前战斗前进/后退至指定回合的指定玩家轮开始处。")
 public class GotoCommand extends Dnd3rGameCommand {
 
     private String charName;

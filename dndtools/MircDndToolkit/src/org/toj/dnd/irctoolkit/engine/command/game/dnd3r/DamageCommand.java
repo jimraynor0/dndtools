@@ -5,7 +5,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
 @IrcCommand(command = "-", args = { CommandSegment.INT,
-    CommandSegment.NULLABLE_LIST })
+    CommandSegment.NULLABLE_LIST }, summary = "-伤害 <PC/NPC列表> - 对一个或多个参战人员造成[伤害]点伤害。不提供PC/NPC参数则对当前昵称造成伤害。")
 public class DamageCommand extends Dnd3rGameCommand {
 
     private int value;

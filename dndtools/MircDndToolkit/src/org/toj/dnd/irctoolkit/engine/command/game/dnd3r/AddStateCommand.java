@@ -4,8 +4,10 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "+", args = { CommandSegment.STRING,
-    CommandSegment.NULLABLE_LIST })
+@IrcCommand(
+        command = "+",
+        args = { CommandSegment.STRING, CommandSegment.NULLABLE_LIST },
+        summary = ".+状态名<|持续轮数> <PC/NPC列表> - 将[状态]加给PC或NPC。可以在状态名后面使用竖线(|)加数字来指定持续轮数。多个PC/NPC名字之间用空格分隔，如果不提供PC/NPC的名字则状态将加给当前昵称。")
 public class AddStateCommand extends Dnd3rGameCommand {
 
     private String stateStr;

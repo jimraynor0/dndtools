@@ -11,8 +11,10 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.dnd3r.Item;
 import org.toj.dnd.irctoolkit.game.dnd3r.PC;
 
-@IrcCommand(command = "gift", args = { CommandSegment.STRING,
-    CommandSegment.STRING, CommandSegment.LIST })
+@IrcCommand(
+        command = "gift",
+        args = { CommandSegment.STRING, CommandSegment.STRING, CommandSegment.LIST },
+        summary = ".gift 送出方 接受方/loot 物品*数量<|物品*数量> - 将一个或多个物品从送出方的物品列表移动至接收方的物品列表。若接受方为loot，则将物品交还至团队loot。物品列表参数的用法参见.loot命令。")
 public class GiftItemCommand extends Dnd3rGameCommand {
 
     private String owner;
@@ -28,9 +30,7 @@ public class GiftItemCommand extends Dnd3rGameCommand {
         for (String itemStr : lootString.split("\\|")) {
             Item item = null;
             if (itemStr.contains("*")) {
-                item =
-                    new Item(itemStr.split("\\*")[0], Integer.parseInt(itemStr
-                        .split("\\*")[1]));
+                item = new Item(itemStr.split("\\*")[0], Integer.parseInt(itemStr.split("\\*")[1]));
             } else {
                 item = new Item(itemStr, 1);
             }
@@ -65,9 +65,7 @@ public class GiftItemCommand extends Dnd3rGameCommand {
                 takeLootString += item;
             }
 
-            LogCommand logCommand =
-                new LogCommand(new Object[] { "交还团队物品|" + owner + "把"
-                    + takeLootString + "交给了团队" });
+            LogCommand logCommand = new LogCommand(new Object[] { "交还团队物品|" + owner + "把" + takeLootString + "交给了团队" });
             logCommand.setCaller(caller);
             ToolkitEngine.getEngine().queueCommand(logCommand);
         } else {
@@ -90,9 +88,8 @@ public class GiftItemCommand extends Dnd3rGameCommand {
                     takeLootString += item;
                 }
 
-                LogCommand logCommand =
-                    new LogCommand(new Object[] { "物品转交|" + owner + "把"
-                        + takeLootString + "交给了" + target });
+                LogCommand logCommand = new LogCommand(new Object[] { "物品转交|" + owner + "把" + takeLootString + "交给了"
+                        + target });
                 logCommand.setCaller(caller);
                 ToolkitEngine.getEngine().queueCommand(logCommand);
             }

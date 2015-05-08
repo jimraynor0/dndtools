@@ -9,7 +9,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.dnd3r.PC;
 import org.toj.dnd.irctoolkit.game.dnd3r.Spell;
 
-@IrcCommand(command = "cast", args = { CommandSegment.LIST })
+@IrcCommand(command = "cast", args = { CommandSegment.LIST }, summary = ".cast 法术 - 施展法术，这会将该法术从你的法术列表中移除。")
 public class CastSpellCommand extends Dnd3rGameCommand {
 
     private PC pc;

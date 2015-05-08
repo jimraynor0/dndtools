@@ -5,7 +5,7 @@ import java.util.List;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "end", args = {})
+@IrcCommand(command = "end", args = {}, summary = ".end - 结束当前轮")
 public class EndCommand extends Dnd3rGameCommand {
 
     protected boolean updateTopic = true;
