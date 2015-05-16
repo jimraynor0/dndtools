@@ -19,11 +19,12 @@ public class ShowBoardCommand extends DracaGameCommand {
     public List<OutgoingMsg> execute() throws ToolkitCommandException, ToolkitWarningException {
         for (PC pc : getGame().getPcs().values()) {
             StringBuilder sb = new StringBuilder(pc.getName());
-            sb.append("手牌").append(getGame().getPcHand(pc.getName()).size())
-                    .append("张");
+            sb.append("手牌").append(getGame().getPcHand(pc.getName()).size()).append("张");
+            if (!getGame().getPcs().get(pc.getName()).getZone(Zone.LOCKED).isEmpty()) {
+                sb.append("，扣下的牌").append(getGame().getPcs().get(pc.getName()).getZone(Zone.LOCKED).size()).append("张");
+            }
             if (!getGame().getPcDisplay(pc.getName()).isEmpty()) {
-                sb.append("，展示区: ").append(
-                        getGame().getPcDisplay(pc.getName()).toText());
+                sb.append("，展示区: ").append(getGame().getPcDisplay(pc.getName()).toText());
             }
             sendMsg(sb.toString());
         }

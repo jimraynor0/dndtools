@@ -11,6 +11,7 @@ public abstract class Game {
 
     private String dm;
     private String name;
+    private String chan;
     private Map<String, String> aliases = new HashMap<String, String>();
 
     public String getName() {
@@ -59,6 +60,14 @@ public abstract class Game {
 
     public boolean isDm(String caller) {
         return dm == null || dm.isEmpty() || dm.equals(caller);
+    }
+
+    public String getChan() {
+        return chan;
+    }
+
+    public void setChan(String chan) {
+        this.chan = chan;
     }
 
     public abstract String getRuleSet();

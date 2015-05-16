@@ -63,6 +63,7 @@ public class CreateOrLoadCommand extends GameCommand {
             log.debug("Game loaded: " + name);
         }
         IrcCommandFactory.loadGameCommands(game);
+        game.setChan(chan);
         return this.msgs;
     }
 
