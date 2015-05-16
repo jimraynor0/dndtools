@@ -7,7 +7,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.draca.DracaGame;
 import org.toj.dnd.irctoolkit.game.draca.Zone;
 
-@IrcCommand(command = "unlock", args = { CommandSegment.STRING }, summary = ".lock 牌名 - 将扣在桌面上的一张牌收回手中。")
+@IrcCommand(command = "unlock", args = { CommandSegment.STRING }, summary = ".unlock 牌名 - 将扣在桌面上的一张牌收回手中。建议在小窗中使用。")
 public class UnlockCardCommand extends UndoableDracaGameCommand {
 
     private String card;

@@ -36,7 +36,7 @@ public class HelpCommand extends GameCommand {
 
             // if command name is not provided, print summary of all commands.
             if (command == null) {
-                sendMsg(anno.summary());
+                whisper(caller, anno.summary());
             } else if (command.equalsIgnoreCase(anno.command())) {
                 // if command name is provided, print the corresponding
                 // command's description.

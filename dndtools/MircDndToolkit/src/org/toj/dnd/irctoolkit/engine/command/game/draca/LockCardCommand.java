@@ -7,7 +7,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.draca.DracaGame;
 import org.toj.dnd.irctoolkit.game.draca.Zone;
 
-@IrcCommand(command = "lock", args = { CommandSegment.STRING }, summary = ".lock 牌名 - 将指定手牌扣在桌面上(将指定的手牌移动到锁定区)，以示暂时无法使用。")
+@IrcCommand(command = "lock", args = { CommandSegment.STRING }, summary = ".lock 牌名 - 将指定手牌扣在桌面上(将指定的手牌移动到锁定区)，以示暂时无法使用。建议在小窗中使用。")
 public class LockCardCommand extends UndoableDracaGameCommand {
 
     private String card;
