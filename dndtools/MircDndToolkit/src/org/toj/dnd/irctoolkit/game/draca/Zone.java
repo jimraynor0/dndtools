@@ -17,6 +17,7 @@ public class Zone implements Iterable<String> {
     public static final String HAND = "hand";
     public static final String LOCKED = "locked";
     public static final String DISPLAY = "display";
+    public static final String FACE_DOWN = "facedown";
 
     // public zones
     public static final String DECK = "deck";
