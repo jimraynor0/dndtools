@@ -7,9 +7,10 @@ import org.toj.dnd.irctoolkit.engine.ToolkitWarningException;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@IrcCommand(command = "resolve", args = {}, summary = ".resolve - DM专用。亮开所有玩家暗出的牌并移入弃牌堆。参见.fd")
+@IrcCommand(command = "flip", args = {}, summary = ".flip - DM专用。亮开所有玩家暗出的牌并移入弃牌堆。参见.lay")
 public class ResolveCommand extends UndoableDracaGameCommand {
 
   public ResolveCommand(Object[] args) {}
@@ -21,7 +22,7 @@ public class ResolveCommand extends UndoableDracaGameCommand {
       return;
     }
     for (PC pc : getGame().getPcs().values()) {
-      List<String> cards = pc.getZone(Zone.FACE_DOWN).getCards();
+      List<String> cards = new ArrayList<>(pc.getZone(Zone.FACE_DOWN).getCards());
       if (cards.isEmpty()) {
         continue;
       }

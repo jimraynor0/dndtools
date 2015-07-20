@@ -7,7 +7,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.draca.DracaGame;
 import org.toj.dnd.irctoolkit.game.draca.Zone;
 
-@IrcCommand(command = "fd", args = { CommandSegment.STRING }, summary = ".fd 牌名 - 牌面朝下打出一张手牌，使用.resolve掀开所有暗出的牌。建议在小窗中使用。")
+@IrcCommand(command = "lay", args = { CommandSegment.STRING }, summary = ".lay 牌名 - 牌面朝下打出一张手牌，DM可以使用.flip掀开所有暗出的牌。建议在小窗中使用。")
 public class PlayFaceDownCommand extends UndoableDracaGameCommand {
 
     private String card;
