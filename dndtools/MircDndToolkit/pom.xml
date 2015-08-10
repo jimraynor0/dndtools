@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>MircDndToolkit</groupId>
 	<artifactId>MircDndToolkit</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.2.1</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -85,7 +85,7 @@
 								<resource>
 									<directory>${basedir}/config</directory>
 									<exclude>GlobalConfigs.properties</exclude>
-                                    <filtering>false</filtering>
+									<filtering>false</filtering>
 								</resource>
 							</resources>
 						</configuration>
@@ -101,30 +101,30 @@
 							<resources>
 								<resource>
 									<directory>${basedir}/jre</directory>
-                                    <filtering>false</filtering>
+									<filtering>false</filtering>
 								</resource>
 							</resources>
 						</configuration>
 					</execution>
-                    <execution>
-                        <id>copy-bat</id>
+					<execution>
+						<id>copy-bat</id>
 						<phase>package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>target</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}</directory>
-                                    <filtering>false</filtering>
-                                    <includes>
-                                        <include>/*.bat</include>
-                                    </includes>                                
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}</directory>
+									<filtering>true</filtering>
+									<includes>
+										<include>/*.bat</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>
@@ -144,51 +144,43 @@
 					</execution>
 				</executions>
 			</plugin>
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
-                <executions>
-                    <execution>
-                        <id>cleanup-target</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                        <configuration>
-                            <excludeDefaultDirectories>true</excludeDefaultDirectories>
-                            <filesets>
-                                <fileset>
-                                    <directory>target/dependency</directory>
-                                </fileset>
-                                <fileset>
-                                    <directory>target/generated-sources</directory>
-                                </fileset>
-                                <fileset>
-                                    <directory>target/maven-archiver</directory>
-                                </fileset>
-                                <fileset>
-                                    <directory>target/maven-status</directory>
-                                </fileset>
-                                <fileset>
-                                    <directory>target/surefire</directory>
-                                </fileset>
-                                <fileset>
-                                    <directory>target/test-classes</directory>
-                                </fileset>
-                            </filesets>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.2</version>
-                  <configuration>
-                      <finalName>jimstoolbox</finalName>                   
-                 </configuration>
-            </plugin>
-        </plugins>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<id>cleanup-target</id>
+						<phase>package</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+						<configuration>
+							<excludeDefaultDirectories>true</excludeDefaultDirectories>
+							<filesets>
+								<fileset>
+									<directory>target/dependency</directory>
+								</fileset>
+								<fileset>
+									<directory>target/generated-sources</directory>
+								</fileset>
+								<fileset>
+									<directory>target/maven-archiver</directory>
+								</fileset>
+								<fileset>
+									<directory>target/maven-status</directory>
+								</fileset>
+								<fileset>
+									<directory>target/surefire</directory>
+								</fileset>
+								<fileset>
+									<directory>target/test-classes</directory>
+								</fileset>
+							</filesets>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 		<pluginManagement>
 			<plugins>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
@@ -219,25 +211,25 @@
 										<ignore></ignore>
 									</action>
 								</pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
+								<pluginExecution>
+									<pluginExecutionFilter>
 										<groupId>
 											org.apache.maven.plugins
 										</groupId>
-                                        <artifactId>
-                                            maven-clean-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [2.0,)
-                                        </versionRange>
-                                        <goals>
-                                            <goal>clean</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
+										<artifactId>
+											maven-clean-plugin
+										</artifactId>
+										<versionRange>
+											[2.0,)
+										</versionRange>
+										<goals>
+											<goal>clean</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
