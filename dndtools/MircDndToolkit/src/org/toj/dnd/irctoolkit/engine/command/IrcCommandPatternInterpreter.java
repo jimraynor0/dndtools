@@ -102,22 +102,22 @@ public class IrcCommandPatternInterpreter {
 
         if (intArgsMax > 0) {
             List<Integer> intArgs = findIntArgs(argsList);
+            result.addAll(intArgs);
             if (intArgs.size() < intArgsMax) {
                 for (int i = 0; i < intArgsMax - intArgs.size(); i++) {
                     result.add(null);
                 }
             }
-            result.addAll(intArgs);
         }
 
         if (doubleArgsMax > 0) {
             List<Double> doubleArgs = findDoubleArgs(argsList);
+            result.addAll(doubleArgs);
             if (doubleArgs.size() < doubleArgsMax) {
                 for (int i = 0; i < doubleArgsMax - doubleArgs.size(); i++) {
                     result.add(null);
                 }
             }
-            result.addAll(doubleArgs);
         }
 
         if (!hasList && argsList.size() < strArgsMax) {
