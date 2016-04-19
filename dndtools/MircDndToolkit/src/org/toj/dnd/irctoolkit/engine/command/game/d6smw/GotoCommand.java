@@ -24,12 +24,14 @@ public class GotoCommand extends D6smwGameCommand {
     @Override
     public void doProcess() throws ToolkitCommandException {
         if (this.round == Integer.MIN_VALUE) {
-            getGame().go(getGame().getMech(charName), getGame().getRound());
+            getGame().getBattle().go(getGame().getBattle().getUnit(charName),
+                    getGame().getBattle().getRound());
         } else {
-            getGame().go(getGame().getMech(charName), round);
+            getGame().getBattle().go(getGame().getBattle().getUnit(charName),
+                    round);
         }
         sendTopic(getGame().generateTopic());
         refreshTopic();
-        sendMsg("轮到" + getGame().getCurrent().getName() + "行动了");
+        sendMsg("轮到" + getGame().getBattle().getCurrent().getName() + "行动了");
     }
 }

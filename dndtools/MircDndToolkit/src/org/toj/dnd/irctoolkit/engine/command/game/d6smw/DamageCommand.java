@@ -6,7 +6,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
 @IrcCommand(command = "-", args = { CommandSegment.INT,
-        CommandSegment.NULLABLE_STRING, CommandSegment.STRING })
+        CommandSegment.NULLABLE_STRING, CommandSegment.NULLABLE_STRING })
 public class DamageCommand extends D6smwGameCommand {
 
     private int value;
@@ -22,9 +22,9 @@ public class DamageCommand extends D6smwGameCommand {
     @Override
     public void doProcess() throws ToolkitCommandException {
         if (StringUtils.isEmpty(mech)) {
-            getGame().damage(caller, section, value);
+            getGame().getBattle().getUnit(caller).damage(value, section);
         } else {
-            getGame().damage(mech, section, value);
+            getGame().getBattle().getUnit(mech).damage(value, section);
         }
         sendTopic(getGame().generateTopic());
         if (topicRefreshNeeded) {

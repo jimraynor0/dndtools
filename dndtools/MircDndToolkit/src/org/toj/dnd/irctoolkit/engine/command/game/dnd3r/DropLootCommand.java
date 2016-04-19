@@ -10,7 +10,8 @@ import org.toj.dnd.irctoolkit.engine.command.game.common.LogCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.dnd3r.Item;
 
-@IrcCommand(command = "droploot", args = { CommandSegment.LIST })
+@IrcCommand(command = "droploot", args = { CommandSegment.LIST },
+        summary = ".droploot 物品*数量<|物品*数量> - 将[数量]个[物品]从团队loot列表中移除。参数的使用方法参见.loot命令。")
 public class DropLootCommand extends Dnd3rGameCommand {
 
     private List<Item> items = new ArrayList<Item>();
@@ -20,8 +21,7 @@ public class DropLootCommand extends Dnd3rGameCommand {
         for (String itemStr : lootString.split("\\|")) {
             Item item = null;
             if (itemStr.contains("*")) {
-                item = new Item(itemStr.split("\\*")[0],
-                        Integer.parseInt(itemStr.split("\\*")[1]));
+                item = new Item(itemStr.split("\\*")[0], Integer.parseInt(itemStr.split("\\*")[1]));
             } else {
                 item = new Item(itemStr, 1);
             }
@@ -36,8 +36,7 @@ public class DropLootCommand extends Dnd3rGameCommand {
         for (Item i : items) {
             getGame().removeItem(i);
         }
-        LogCommand logCommand = new LogCommand(new Object[] { "团队丢弃物品|"
-                + getLootString() });
+        LogCommand logCommand = new LogCommand(new Object[] { "团队丢弃物品|" + getLootString() });
         logCommand.setCaller(caller);
         ToolkitEngine.getEngine().queueCommand(logCommand);
     }

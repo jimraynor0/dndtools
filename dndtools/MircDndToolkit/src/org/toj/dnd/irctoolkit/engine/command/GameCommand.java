@@ -3,6 +3,7 @@ package org.toj.dnd.irctoolkit.engine.command;
 import java.net.InetAddress;
 import java.util.List;
 
+import org.toj.dnd.irctoolkit.engine.ToolkitWarningException;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
@@ -26,7 +27,7 @@ public abstract class GameCommand extends Command {
     protected boolean topicRefreshNeeded;
 
     @Override
-    public abstract List<OutgoingMsg> execute() throws ToolkitCommandException;
+    public abstract List<OutgoingMsg> execute() throws ToolkitCommandException, ToolkitWarningException;
 
     public boolean topicRefreshNeeded() {
         return topicRefreshNeeded;
@@ -61,8 +62,18 @@ public abstract class GameCommand extends Command {
         return getGame().isDm(caller);
     }
 
+    protected void whisper(String target, String content) {
+        msgs.add(new OutgoingMsg(target, caller, content,
+                OutgoingMsg.WRITE_TO_MSG, incomingAddr, incomingPort));
+    }
+
     protected void sendMsg(String content) {
         msgs.add(new OutgoingMsg(chan, caller, content,
+                OutgoingMsg.WRITE_TO_MSG, incomingAddr, incomingPort));
+    }
+
+    protected void sendMsgToDefaultChan(String content) {
+        msgs.add(new OutgoingMsg(getGame().getChan(), caller, content,
                 OutgoingMsg.WRITE_TO_MSG, incomingAddr, incomingPort));
     }
 
@@ -98,5 +109,13 @@ public abstract class GameCommand extends Command {
 
     public void setCaller(String caller) {
         this.caller = caller;
+    }
+
+    public String getChan() {
+        return chan;
+    }
+
+    public String getCaller() {
+        return caller;
     }
 }

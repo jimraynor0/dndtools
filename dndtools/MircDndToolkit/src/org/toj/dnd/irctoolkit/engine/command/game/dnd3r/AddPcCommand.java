@@ -4,7 +4,8 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "addpc", args = { CommandSegment.LIST })
+@IrcCommand(command = "addpc", args = { CommandSegment.LIST },
+        summary = ".addpc <PC名列表> - 在游戏中创建新PC。若不提供PC名字列表则以当前昵称作为PC名。PC名列表可以包含多个PC名，中间用空格分隔。")
 public class AddPcCommand extends Dnd3rGameCommand {
 
     private String[] chars;

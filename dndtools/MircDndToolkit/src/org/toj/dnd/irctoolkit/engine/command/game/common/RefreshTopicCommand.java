@@ -4,7 +4,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "refresh", args = {})
+@IrcCommand(command = "refresh", args = {}, summary = ".refresh - 刷新频道标题。")
 public class RefreshTopicCommand extends UndoableTopicCommand {
     protected boolean updateTopic = true;
 

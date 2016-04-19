@@ -1,11 +1,15 @@
 package org.toj.dnd.irctoolkit.game.dnd3r;
 
-import org.dom4j.Element;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Spell extends LimitedResource {
 
-    public Spell(Element e) {
-        super(e);
+    public Spell() {
+        super();
     }
 
     public Spell(String name, int charges) {

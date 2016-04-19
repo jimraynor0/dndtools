@@ -1,123 +1,39 @@
 package org.toj.dnd.irctoolkit.game.dnd3r.battle;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.toj.dnd.irctoolkit.engine.ToolkitEngine;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
 import org.toj.dnd.irctoolkit.game.dnd3r.PC;
 import org.toj.dnd.irctoolkit.game.dnd3r.battle.event.InitiativePassesEvent;
-import org.toj.dnd.irctoolkit.game.dnd3r.encounter.Encounter;
-import org.toj.dnd.irctoolkit.game.dnd3r.encounter.NPC;
-import org.toj.dnd.irctoolkit.io.file.GameStore;
 import org.toj.dnd.irctoolkit.util.AbbreviationUtil;
-import org.toj.dnd.irctoolkit.util.XmlUtil;
 
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Battle implements Cloneable {
 
     private LinkedList<Combatant> combatants;
     private Combatant current;
     private int round = -1;
-    private Encounter encounter;
-    private Map<String, NPC> npcs;
     private List<String> eventResultBuffer = new LinkedList<String>();
 
     public Battle() {
         this.combatants = new LinkedList<Combatant>();
-        this.npcs = new HashMap<String, NPC>();
     }
 
-    @SuppressWarnings("unchecked")
-    public Battle(Element e, Map<String, PC> pcs) {
-        this();
-        this.round = Integer.valueOf(e.elementTextTrim("round"));
-        if (e.element("encounterSettings") != null) {
-            try {
-                this.encounter = GameStore.loadEncounter(e
-                        .elementTextTrim("encounterSettings"));
-            } catch (IOException e1) {
-                ToolkitEngine.getEngine().fireErrorMsgWindow(
-                        "读取遭遇信息失败。请确认遭遇"
-                                + e.elementTextTrim("encounterSettings")
-                                + "是否存在。");
+    public void afterUnmarshal(Unmarshaller u, Object parent) {
+        for (Combatant c : this.combatants) {
+            if (c.equals(current)) {
+                current = c;
             }
         }
-
-        if (e.element("combatants") != null) {
-            Iterator<Element> i = e.element("combatants").elementIterator();
-            while (i.hasNext()) {
-                Element combatant = i.next();
-                if (combatant.element("isPC") != null
-                        && combatant.elementTextTrim("isPC").equals("true")) {
-                    combatants.add(pcs.get(combatant.elementTextTrim("name")));
-                } else if (combatant.element("isNPC") != null
-                        && combatant.elementTextTrim("isNPC").equals("true")) {
-                    NPC npc = new NPC(combatant, encounter);
-                    this.npcs.put(npc.getName(), npc);
-                    combatants.add(npc);
-                } else {
-                    combatants.add(new Combatant(combatant));
-                }
-            }
-
-            if (e.element("current") != null) {
-                this.current = combatants.get(Integer.parseInt(e
-                        .elementTextTrim("current")));
-            }
-        }
-    }
-
-    public Battle(Encounter encounter) {
-        this();
-        this.encounter = encounter;
-        for (String name : encounter.npcs.keySet()) {
-            this.npcs.put(name, new NPC(name, encounter.npcs.get(name)));
-        }
-    }
-
-    public Element toXmlElement() {
-        Element e = DocumentHelper.createElement("battle");
-        e.add(XmlUtil.textElement("round", String.valueOf(round)));
-        if (current != null) {
-            e.add(XmlUtil.textElement("current",
-                    String.valueOf(combatants.indexOf(current))));
-        }
-        if (this.combatants != null && !this.combatants.isEmpty()) {
-            Element combatants = e.addElement("combatants");
-            for (Combatant ch : this.combatants) {
-                if (ch instanceof PC) {
-                    Element ec = combatants.addElement("combatant");
-                    ec.add(XmlUtil.textElement("isPC", "true"));
-                    ec.add(XmlUtil.textElement("name", ch.getName()));
-                } else {
-                    combatants.add(ch.toXmlElement());
-                }
-            }
-        }
-        if (this.encounter != null) {
-            e.add(XmlUtil.textElement("elementSettings", encounter.name));
-        }
-        if (this.combatants != null && !this.combatants.isEmpty()) {
-            Element combatants = e.addElement("combatants");
-            for (Combatant ch : this.combatants) {
-                if (ch instanceof PC) {
-                    Element ec = combatants.addElement("combatant");
-                    ec.add(XmlUtil.textElement("isPC", "true"));
-                    ec.add(XmlUtil.textElement("name", ch.getName()));
-                } else {
-                    combatants.add(ch.toXmlElement());
-                }
-            }
-        }
-        return e;
     }
 
     public void addChar(String charName) {
@@ -495,9 +411,5 @@ public class Battle implements Cloneable {
 
     public int getRound() {
         return round;
-    }
-
-    public Map<String, NPC> getNpcs() {
-        return npcs;
     }
 }

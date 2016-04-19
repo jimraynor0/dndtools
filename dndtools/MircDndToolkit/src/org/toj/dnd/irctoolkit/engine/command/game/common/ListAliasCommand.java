@@ -6,7 +6,7 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.UndoableTopicCommand;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "listalias", args = {})
+@IrcCommand(command = "listalias", args = {}, summary = ".listalias - 列出当前的昵称 -> PC对应关系。")
 public class ListAliasCommand extends UndoableTopicCommand {
 
     public ListAliasCommand(Object[] args) {

@@ -1,20 +1,19 @@
 package org.toj.dnd.irctoolkit.game.dnd3r;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.game.dnd3r.battle.Battle;
 import org.toj.dnd.irctoolkit.game.dnd3r.battle.State;
-import org.toj.dnd.irctoolkit.game.dnd3r.encounter.Encounter;
-import org.toj.dnd.irctoolkit.game.dnd3r.encounter.NPC;
 import org.toj.dnd.irctoolkit.util.AbbreviationUtil;
-import org.toj.dnd.irctoolkit.util.XmlUtil;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Dnd3rGame extends Game {
 
     private Map<String, PC> pcs;
@@ -30,76 +29,6 @@ public class Dnd3rGame extends Game {
     public Dnd3rGame(String name) {
         this();
         setName(name);
-    }
-
-    @SuppressWarnings("unchecked")
-    public Dnd3rGame(Element e) {
-        this();
-        setName(e.elementTextTrim("name"));
-        if (e.element("dm") != null) {
-            setDm(e.elementTextTrim("dm"));
-        }
-
-        if (e.element("pcs") != null) {
-            Iterator<Element> i = e.element("pcs").elementIterator();
-            while (i.hasNext()) {
-                Element pcElement = i.next();
-                PC pc = new PC(pcElement);
-                this.pcs.put(pc.getName(), pc);
-            }
-        }
-
-        if (e.element("aliases") != null) {
-            Iterator<Element> i = e.element("aliases").elementIterator();
-            while (i.hasNext()) {
-                Element alias = i.next();
-                getAliases().put(alias.attributeValue("abbr"),
-                        alias.attributeValue("text"));
-            }
-        }
-
-        if (e.element("items") != null) {
-            Iterator<Element> i = e.element("items").elementIterator();
-            while (i.hasNext()) {
-                Item c = new Item(i.next());
-                this.items.put(c.getName(), c);
-            }
-        }
-
-        this.battle = e.element("battle") == null ? null : new Battle(
-                e.element("battle"), this.pcs);
-    }
-
-    public Element toXmlElement() {
-        Element e = DocumentHelper.createElement("game");
-        e.add(XmlUtil.textElement("name", getName()));
-        e.add(XmlUtil.textElement("ruleSet", getRuleSet()));
-        if (!StringUtils.isEmpty(getDm())) {
-            e.add(XmlUtil.textElement("dm", getDm()));
-        }
-
-        e.addElement("pcs");
-        for (String key : pcs.keySet()) {
-            e.element("pcs").add(pcs.get(key).toXmlElement());
-        }
-        if (getAliases() != null && !getAliases().isEmpty()) {
-            e.addElement("aliases");
-            for (String key : getAliases().keySet()) {
-                Element alias = e.element("aliases").addElement("alias");
-                alias.addAttribute("abbr", key);
-                alias.addAttribute("text", getAliases().get(key));
-            }
-        }
-        if (items != null && !items.isEmpty()) {
-            Element dps = e.addElement("items");
-            for (Item item : items.values()) {
-                dps.add(item.toXmlElement());
-            }
-        }
-        if (this.battle != null) {
-            e.add(battle.toXmlElement());
-        }
-        return e;
     }
 
     public void addPc(String name) {
@@ -155,12 +84,6 @@ public class Dnd3rGame extends Game {
     public void startBattle() {
         if (!inBattle()) {
             this.battle = new Battle();
-        }
-    }
-
-    public void startEncounter(Encounter encounter) {
-        if (!inBattle()) {
-            this.battle = new Battle(encounter);
         }
     }
 
@@ -263,10 +186,6 @@ public class Dnd3rGame extends Game {
 
     public Map<String, PC> getPcs() {
         return pcs;
-    }
-
-    public Map<String, NPC> getNpcs() {
-        return inBattle() ? new HashMap<String, NPC>() : getBattle().getNpcs();
     }
 
     public void applyExtendedRest() {

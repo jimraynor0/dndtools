@@ -4,8 +4,8 @@ import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 
-@IrcCommand(command = "+", args = { CommandSegment.INT,
-    CommandSegment.NULLABLE_LIST })
+@IrcCommand(command = "+", args = { CommandSegment.INT, CommandSegment.NULLABLE_LIST },
+        summary = "+治疗量 <PC/NPC列表> - 为PC/NPC恢复指定数量的HP。多个受治疗的人员用空格分隔。不指明受治疗的人员则默认治疗当前昵称。")
 public class HealCommand extends Dnd3rGameCommand {
 
     private int value;

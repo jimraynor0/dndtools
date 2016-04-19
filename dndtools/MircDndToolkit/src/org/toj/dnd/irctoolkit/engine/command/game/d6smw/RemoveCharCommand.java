@@ -18,7 +18,7 @@ public class RemoveCharCommand extends D6smwGameCommand {
     public void doProcess() throws ToolkitCommandException {
         for (String charName : chars) {
             if (getGame().getMech(charName) != null) {
-                getGame().removeMechFromBattle(getGame().getMech(charName));
+                getGame().getBattle().remove(charName);
             }
         }
         sendTopic(getGame().generateTopic());

@@ -1,26 +1,14 @@
 package org.toj.dnd.irctoolkit.game.d6smw;
 
-import org.dom4j.Element;
-import org.toj.dnd.irctoolkit.util.XmlUtil;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Weapon extends Equipment {
     private String ammoType;
     private Ammo ammo;
-
-    public Weapon(Element e) {
-        super(e);
-        if (e.element("ammoType") != null) {
-            ammoType = e.elementTextTrim("ammoType");
-        }
-    }
-
-    public Element toXmlElement() {
-        Element e = super.toXmlElement();
-        if (ammoType != null) {
-            e.add(XmlUtil.textElement("ammoType", ammoType));
-        }
-        return e;
-    }
 
     public String activate(TimePoint firingOn) {
         return fire(firingOn);

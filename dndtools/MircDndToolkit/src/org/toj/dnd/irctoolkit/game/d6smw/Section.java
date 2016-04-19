@@ -1,81 +1,29 @@
 package org.toj.dnd.irctoolkit.game.d6smw;
 
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.toj.dnd.irctoolkit.util.XmlUtil;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
+import org.toj.dnd.irctoolkit.token.Color;
+import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
+
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Section {
+    public static final List<String> SECTIONS = Arrays.asList("胸腹", "左臂", "右臂",
+            "腿");
+
     private String name;
     private int armor;
     private int hp;
     private int currentMaxHp;
     private int maxHp;
     private Map<String, Equipment> equipments = new HashMap<String, Equipment>();
-
-    public Section(Element e) {
-        name = e.elementTextTrim("name");
-        if (e.element("armor") != null) {
-            armor = Integer.parseInt(e.elementTextTrim("armor"));
-        } else {
-            armor = 0;
-        }
-        maxHp = Integer.parseInt(e.elementTextTrim("maxHp"));
-        if (e.element("currentMaxHp") != null) {
-            currentMaxHp = Integer.parseInt(e.elementTextTrim("currentMaxHp"));
-        } else {
-            currentMaxHp = maxHp;
-        }
-        if (e.element("hp") != null) {
-            hp = Integer.parseInt(e.elementTextTrim("hp"));
-        } else {
-            hp = currentMaxHp;
-        }
-
-        if (e.element("equipments") != null) {
-            Iterator<Element> i = e.element("equipments").elementIterator();
-            while (i.hasNext()) {
-                Element eqElement = i.next();
-                Equipment eq = new Equipment(eqElement);
-                equipments.put(eq.getName(), eq);
-            }
-        }
-
-        if (e.element("weapons") != null) {
-            Iterator<Element> i = e.element("weapons").elementIterator();
-            while (i.hasNext()) {
-                Element wElement = i.next();
-                Weapon w = new Weapon(wElement);
-                equipments.put(w.getName(), w);
-            }
-        }
-    }
-
-    public Element toXmlElement() {
-        Element e = DocumentHelper.createElement("section");
-        e.add(XmlUtil.textElement("name", name));
-        e.add(XmlUtil.textElement("armor", String.valueOf(armor)));
-        e.add(XmlUtil.textElement("hp", String.valueOf(hp)));
-        e.add(XmlUtil.textElement("currentMaxHp", String.valueOf(currentMaxHp)));
-        e.add(XmlUtil.textElement("maxHp", String.valueOf(maxHp)));
-
-        if (!equipments.isEmpty()) {
-            Element eqElement = e.addElement("equipments");
-            Element wElement = e.addElement("weapons");
-            for (Equipment eq : equipments.values()) {
-                if (eq instanceof Weapon) {
-                    wElement.add(eq.toXmlElement());
-                } else {
-                    eqElement.add(eq.toXmlElement());
-                }
-            }
-        }
-
-        return e;
-    }
 
     public void damage(int dmg) {
         dmg -= armor;
@@ -112,15 +60,21 @@ public class Section {
         StringBuilder sb = new StringBuilder(name);
         sb.append("(").append(hp).append("/").append(currentMaxHp).append("/")
                 .append(maxHp).append(")");
-        sb.append(" - ");
-        boolean first = true;
-        for (Equipment eq : equipments.values()) {
-            if (first) {
-                first = false;
-            } else {
-                sb.append(", ");
+        if (hp == 0) {
+            sb = new StringBuilder(IrcColoringUtil.paint(sb.toString(),
+                    Color.RED.getCode()));
+        }
+        if (equipments != null && !equipments.isEmpty()) {
+            sb.append(" - ");
+            boolean first = true;
+            for (Equipment eq : equipments.values()) {
+                if (first) {
+                    first = false;
+                } else {
+                    sb.append(", ");
+                }
+                sb.append(eq.toStatString(current));
             }
-            sb.append(eq.toFullStatString(current));
         }
         return sb.toString();
     }

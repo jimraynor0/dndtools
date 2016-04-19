@@ -3,6 +3,10 @@ package org.toj.dnd.irctoolkit.game.dnd3r.battle;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
 import org.toj.dnd.irctoolkit.game.dnd3r.battle.behavior.DotBehavior;
 import org.toj.dnd.irctoolkit.game.dnd3r.battle.behavior.EndsInAFewTurnsBehavior;
 import org.toj.dnd.irctoolkit.game.dnd3r.battle.behavior.FastHealingBehavior;
@@ -12,6 +16,8 @@ import org.toj.dnd.irctoolkit.game.dnd3r.battle.event.BattleEvent;
 import org.toj.dnd.irctoolkit.util.StringNumberUtil;
 
 // TODO multiple instance of same state on same char
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
 public class State implements Cloneable {
 
     private static final String TYPE_DOT = "dot";
@@ -61,16 +67,6 @@ public class State implements Cloneable {
 
     private State(String name, String endCondition) {
         this.name = name;
-        // 4th be with you
-        // if (isDot(name)) {
-        // this.endCondition = endCondition == null ? END_COND_SAVE
-        // : endCondition;
-        // String dmg = name.substring(TYPE_DOT.length());
-        // getBehaviorList().add(new DotBehavior(Integer.parseInt(dmg), this));
-        // } else {
-        // this.endCondition = endCondition == null ? END_COND_EONT
-        // : endCondition;
-        // }
         this.endCondition = endCondition;
         if (endCondition != null) {
             buildEndConditionBehavior();

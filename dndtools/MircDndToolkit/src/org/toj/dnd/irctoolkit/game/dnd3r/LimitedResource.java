@@ -1,13 +1,21 @@
 package org.toj.dnd.irctoolkit.game.dnd3r;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.toj.dnd.irctoolkit.util.XmlUtil;
 
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class LimitedResource {
     private String name;
     private String desc;
     private int charges;
+
+    public LimitedResource() {}
 
     public LimitedResource(String name, int charges) {
         this.name = name;
@@ -17,15 +25,6 @@ public abstract class LimitedResource {
     public LimitedResource(String name, String desc, int charges) {
         this(name, charges);
         this.desc = desc;
-    }
-
-    public LimitedResource(Element e) {
-        super();
-        this.name = e.elementTextTrim("name");
-        if (e.element("desc") != null) {
-            this.desc = e.elementTextTrim("desc");
-        }
-        this.charges = Integer.parseInt(e.elementTextTrim("charges"));
     }
 
     public String getName() {

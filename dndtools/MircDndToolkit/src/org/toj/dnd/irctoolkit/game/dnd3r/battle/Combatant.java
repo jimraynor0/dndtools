@@ -1,16 +1,18 @@
 package org.toj.dnd.irctoolkit.game.dnd3r.battle;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
 import org.toj.dnd.irctoolkit.game.dnd3r.battle.event.BattleEvent;
 import org.toj.dnd.irctoolkit.token.Color;
 import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
-import org.toj.dnd.irctoolkit.util.XmlUtil;
 
+@XmlType
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Combatant implements Cloneable {
 
     private String name;
@@ -21,7 +23,7 @@ public class Combatant implements Cloneable {
 
     protected LinkedList<State> states;
 
-    private Combatant() {
+    public Combatant() {
         this.states = new LinkedList<State>();
     }
 
@@ -33,45 +35,6 @@ public class Combatant implements Cloneable {
     public Combatant(String charName, double init) {
         this(charName);
         this.init = init;
-    }
-
-    @SuppressWarnings("unchecked")
-    public Combatant(Element e) {
-        this();
-        this.name = e.elementTextTrim("name");
-        this.wound = Integer.parseInt(e.elementTextTrim("wound"));
-        if (e.element("nonlethal") != null) {
-            this.nonlethal = Integer.parseInt(e.elementTextTrim("nonlethal"));
-        }
-        if (e.element("thp") != null) {
-            this.thp = Integer.parseInt(e.elementTextTrim("thp"));
-        }
-        this.init = Double.parseDouble(e.elementTextTrim("init"));
-
-        if (e.element("states") != null) {
-            Iterator<Element> i = e.element("states").elementIterator();
-            while (i.hasNext()) {
-                this.states.add(State.parseState(i.next().getText()));
-            }
-        }
-    }
-
-    public Element toXmlElement() {
-        Element e = DocumentHelper.createElement("combatant");
-        e.add(XmlUtil.textElement("name", name));
-        e.add(XmlUtil.textElement("wound", String.valueOf(wound)));
-        e.add(XmlUtil.textElement("nonlethal", String.valueOf(nonlethal)));
-        e.add(XmlUtil.textElement("thp", String.valueOf(thp)));
-        e.add(XmlUtil.textElement("init", String.valueOf(init)));
-
-        if (!this.states.isEmpty()) {
-            Element states = e.addElement("states");
-            for (State state : this.states) {
-                states.add(XmlUtil.textElement("state", state.toStatString()));
-            }
-        }
-
-        return e;
     }
 
     public void damage(int dmg) {

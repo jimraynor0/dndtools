@@ -3,12 +3,15 @@ package org.toj.dnd.irctoolkit.game;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.dom4j.Element;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Game {
 
     private String dm;
     private String name;
+    private String chan;
     private Map<String, String> aliases = new HashMap<String, String>();
 
     public String getName() {
@@ -59,7 +62,13 @@ public abstract class Game {
         return dm == null || dm.isEmpty() || dm.equals(caller);
     }
 
-    public abstract Element toXmlElement();
+    public String getChan() {
+        return chan;
+    }
+
+    public void setChan(String chan) {
+        this.chan = chan;
+    }
 
     public abstract String getRuleSet();
 

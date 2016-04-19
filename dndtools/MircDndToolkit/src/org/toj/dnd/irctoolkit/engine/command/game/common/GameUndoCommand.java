@@ -9,7 +9,7 @@ import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
 import org.toj.dnd.irctoolkit.game.Game;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 
-@IrcCommand(command = "undo", args = {})
+@IrcCommand(command = "undo", args = {}, summary = ".undo - 取消上一个操作。")
 public class GameUndoCommand extends GameCommand {
 
     public GameUndoCommand(Object[] args) {

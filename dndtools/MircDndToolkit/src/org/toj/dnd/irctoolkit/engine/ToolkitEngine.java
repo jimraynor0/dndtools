@@ -2,6 +2,7 @@ package org.toj.dnd.irctoolkit.engine;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -15,6 +16,7 @@ import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
 import org.toj.dnd.irctoolkit.configs.GlobalConfigs;
 import org.toj.dnd.irctoolkit.engine.command.Command;
+import org.toj.dnd.irctoolkit.engine.command.GameCommand;
 import org.toj.dnd.irctoolkit.engine.command.ui.LoadMapFromFileCommand;
 import org.toj.dnd.irctoolkit.engine.command.ui.NewMapCommand;
 import org.toj.dnd.irctoolkit.engine.observers.FilterListObserver;
@@ -64,7 +66,18 @@ public class ToolkitEngine extends Thread {
                 if (cmd.undoable()) {
                     context.getHistory().pushCmd(cmd);
                 }
-                List<OutgoingMsg> msgs = cmd.execute();
+                List<OutgoingMsg> msgs = null;
+                try {
+                    msgs = cmd.execute();
+                } catch (ToolkitWarningException e) {
+                    if (cmd instanceof GameCommand) {
+                        GameCommand ircCmd = ((GameCommand) cmd);
+                        OutgoingMsg msg = new OutgoingMsg(ircCmd.getChan(),
+                                ircCmd.getCaller(), e.getMessage(),
+                                OutgoingMsg.WRITE_TO_MSG, null, -1);
+                        msgs = Arrays.asList(msg);
+                    }
+                }
                 processOutgoingMsg(cmd, msgs);
             } catch (Exception e) {
                 log.error("error during execution: ", e);

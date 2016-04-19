@@ -11,14 +11,14 @@ public class HistoryManager {
 
     private Stack<Command> ircCmdHistory = new Stack<Command>();
     private Stack<Command> uiCmdHistory = new Stack<Command>();
-    private Stack<Element> gameHistory = new Stack<Element>();
+    private Stack<Object> gameHistory = new Stack<Object>();
     private Stack<Element> mapHistory = new Stack<Element>();
 
-    public void saveGameSnapshot(Element snapshot) {
+    public void saveGameSnapshot(Object snapshot) {
         gameHistory.push(snapshot);
     }
 
-    public Element retrievePreviousGame() {
+    public Object retrievePreviousGame() {
         return gameHistory.pop();
     }
 

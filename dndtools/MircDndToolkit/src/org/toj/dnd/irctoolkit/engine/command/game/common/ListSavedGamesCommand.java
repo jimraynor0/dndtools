@@ -2,16 +2,13 @@ package org.toj.dnd.irctoolkit.engine.command.game.common;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.toj.dnd.irctoolkit.engine.command.GameCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.io.file.GameStore;
 import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 
-@IrcCommand(command = "listgames", args = {})
+@IrcCommand(command = "listgames", args = {}, summary = ".listgames - 列出所有游戏存档。")
 public class ListSavedGamesCommand extends GameCommand {
-
-    private Logger log = Logger.getLogger(this.getClass());
 
     public ListSavedGamesCommand(Object[] args) {
     }
