@@ -2,6 +2,7 @@ package org.toj.dnd.irctoolkit.dice;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ShadowrunRoll {
     private int diceNumber;
@@ -28,10 +29,14 @@ public class ShadowrunRoll {
                 succ++;
             }
         }
+    }
 
-        if (limit > 0 && succ > limit) {
-            succ = limit;
-        }
+    public boolean isGlitch() {
+      return diceRollResults.stream().filter(n -> n == 1).collect(Collectors.counting()) > ((double) diceNumber) / 2;
+    }
+
+    public boolean isCriticalGlitch() {
+      return isGlitch() && succ == 0;
     }
 
     public int getDiceNumber() {
@@ -40,6 +45,10 @@ public class ShadowrunRoll {
 
     public int getSucc() {
         return succ;
+    }
+
+    public int getLimit() {
+      return limit;
     }
 
     public List<Integer> getDiceRollResults() {
