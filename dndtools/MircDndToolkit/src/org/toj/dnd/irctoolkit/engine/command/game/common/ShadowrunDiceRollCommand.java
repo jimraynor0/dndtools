@@ -62,8 +62,10 @@ public class ShadowrunDiceRollCommand extends GameCommand {
                 if (succCount > roll.getLimit()) {
                     color = Color.BLACK;
                 } else {
-                    color = Color.TEAL;
+                    color = Color.PURPLE;
                 }
+            } else if (die == 1) {
+                color = Color.RED;
             }
             result.append(IrcColoringUtil.paint(String.valueOf(die), color.getCode()));
         }
