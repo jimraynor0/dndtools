@@ -7,3 +7,5 @@
 /target
 /config/GlobalConfigs.properties
 *.bak
+/.classpath
+/.settings/
