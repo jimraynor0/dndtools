@@ -1,5 +1,20 @@
 package org.toj.dnd.irctoolkit.io.file;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
+import org.toj.dnd.irctoolkit.configs.GlobalConfigs;
+import org.toj.dnd.irctoolkit.game.Game;
+import org.toj.dnd.irctoolkit.game.d6smw.D6smwGame;
+import org.toj.dnd.irctoolkit.game.dnd3r.Dnd3rGame;
+import org.toj.dnd.irctoolkit.game.draca.DracaGame;
+import org.toj.dnd.irctoolkit.game.sr5e.Sr5eGame;
+import org.toj.dnd.irctoolkit.map.MapGrid;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,20 +34,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.dom4j.io.OutputFormat;
-import org.dom4j.io.SAXReader;
-import org.dom4j.io.XMLWriter;
-import org.toj.dnd.irctoolkit.configs.GlobalConfigs;
-import org.toj.dnd.irctoolkit.game.Game;
-import org.toj.dnd.irctoolkit.game.d6smw.D6smwGame;
-import org.toj.dnd.irctoolkit.game.dnd3r.Dnd3rGame;
-import org.toj.dnd.irctoolkit.game.draca.DracaGame;
-import org.toj.dnd.irctoolkit.map.MapGrid;
 
 public class GameStore {
     private static final String DEFAULT_ENCODING = "UTF-8";
@@ -101,8 +102,8 @@ public class GameStore {
             return null;
         }
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Game.class,
-                    DracaGame.class, D6smwGame.class, Dnd3rGame.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Game.class, DracaGame.class, D6smwGame.class,
+                    Dnd3rGame.class, Sr5eGame.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
             return (Game) unmarshaller.unmarshal(gameFile);
@@ -113,8 +114,8 @@ public class GameStore {
 
     public static Game loadSnapshot(Object snapshot) {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Game.class,
-                    DracaGame.class, D6smwGame.class, Dnd3rGame.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Game.class, DracaGame.class, D6smwGame.class,
+                    Dnd3rGame.class, Sr5eGame.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
             StringReader sr = new StringReader((String) snapshot);
@@ -131,6 +132,9 @@ public class GameStore {
         }
         if ("draca".equalsIgnoreCase(ruleSet)) {
             return new DracaGame(name);
+        }
+        if ("sr5e".equalsIgnoreCase(ruleSet)) {
+            return new Sr5eGame(name);
         }
         return new Dnd3rGame(name);
     }

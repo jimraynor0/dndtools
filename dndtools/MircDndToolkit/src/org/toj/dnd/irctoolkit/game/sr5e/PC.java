@@ -1,13 +1,27 @@
 package org.toj.dnd.irctoolkit.game.sr5e;
 
 public class PC extends Combatant {
-    private String name;
+    private boolean inBattle = false;
 
-    public String getName() {
-        return name;
+    public void startBattle() {
+        inBattle = true;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void endBattle() {
+        inBattle = false;
+    }
+
+    public boolean isInBattle() {
+        return inBattle;
+    }
+
+    public String getStatusForTopic() {
+        if (isInBattle()) {
+            return super.getStatusForTopic();
+        }
+
+        StringBuilder status = new StringBuilder(getName()).append(getPhysical().toStatusString())
+                .append(getStun().toStatusString());
+        return status.toString();
     }
 }

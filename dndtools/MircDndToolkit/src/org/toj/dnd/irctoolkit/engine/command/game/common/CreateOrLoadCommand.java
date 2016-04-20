@@ -17,7 +17,7 @@ import org.toj.dnd.irctoolkit.io.udp.OutgoingMsg;
 @IrcCommand(command = "startgame", args = { CommandSegment.NULLABLE_STRING, CommandSegment.STRING },
         summary = ".startgame 游戏名 <规则> - 使用.help startgame查看全部说明。", desc = "这条命令包括了新建和读取游戏两个功能。\n"
                 + "toolbox会首先尝试读取名为[游戏名]的存档。若该存档不存在，则新建一个游戏存档。\n"
-                + "新建存档时可以用第二个参数指定该游戏使用的规则，目前支持的规则包括dnd3r，d6smw，draca。如果新建存档时没有指定使用的规则则默认使用dnd3r。\n"
+                + "新建存档时可以用第二个参数指定该游戏使用的规则，目前支持的规则包括dnd3r，d6smw，sr5e和draca。如果新建存档时没有指定使用的规则则默认使用dnd3r。\n"
                 + "读取存档时不需指定规则名，即使指定也会被忽略。")
 public class CreateOrLoadCommand extends GameCommand {
 
