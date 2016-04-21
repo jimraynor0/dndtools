@@ -1,4 +1,4 @@
-package org.toj.dnd.irctoolkit.engine.command.sr5e;
+package org.toj.dnd.irctoolkit.engine.command.game.sr5e;
 
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 

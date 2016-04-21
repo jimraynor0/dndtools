@@ -1,6 +1,7 @@
 package org.toj.dnd.irctoolkit.game.sr5e;
 
 import org.toj.dnd.irctoolkit.game.Game;
+import org.toj.dnd.irctoolkit.util.AbbreviationUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +61,14 @@ public class Sr5eGame extends Game {
         return battle == null;
     }
 
+    public boolean isPc(String ch) {
+        return pcs.containsKey(ch);
+    }
+
+    public PC findCharByNameOrAbbre(String name) {
+        return pcs.keySet().stream().filter(n -> n.startsWith(name)).findFirst().map(pcs::get).orElse(null);
+    }
+
     @Override
     public String getRuleSet() {
         return "sr5e";
@@ -73,6 +82,6 @@ public class Sr5eGame extends Game {
 
     @Override
     public String getGameCommandPackage() {
-        return "org.toj.dnd.irctoolkit.engine.command.sr5e";
+        return "org.toj.dnd.irctoolkit.engine.command.game.sr5e";
     }
 }
