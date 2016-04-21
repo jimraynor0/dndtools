@@ -1,5 +1,8 @@
 package org.toj.dnd.irctoolkit.game.sr5e;
 
+import org.toj.dnd.irctoolkit.token.Color;
+import org.toj.dnd.irctoolkit.util.IrcColoringUtil;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
@@ -24,7 +27,8 @@ public class Combatant {
         return init;
     }
 
-    public void setInit(int init) {
+    // exposed only to battle/game
+    void setInit(int init) {
         this.init = init;
     }
 
@@ -36,9 +40,38 @@ public class Combatant {
         return physical;
     }
 
-    // (10)name-3p-5s
-    public String getStatusForTopic() {
-        StringBuilder status = new StringBuilder("(").append(init).append("").append(name)
+    public void reduceInit(int amount) {
+        init -= amount;
+        if (init < 0) {
+            init = 0;
+        }
+    }
+
+    public void damage(int value, String type) {
+        if ("p".equalsIgnoreCase(type)) {
+            physical.updateWound(0 - value);
+        } else {
+            int overflow = stun.updateWound(0 - value);
+            if (overflow > 0) {
+                physical.updateWound(0 - overflow / 2);
+            }
+        }
+    }
+
+    public void heal(int value, String type) {
+        if ("p".equalsIgnoreCase(type)) {
+            physical.updateWound(value);
+        } else {
+            stun.updateWound(value);
+        }
+    }
+
+    /**
+     * @return sth like (10)name-3p-5s
+     */
+    public String toTopicString(boolean isCurrent) {
+        StringBuilder status = new StringBuilder("(").append(init).append(")")
+                .append(isCurrent ? IrcColoringUtil.paint(name, Color.RED.getCode()) : name)
                 .append(physical.toStatusString()).append(stun.toStatusString());
         return status.toString();
     }

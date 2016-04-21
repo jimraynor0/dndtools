@@ -10,7 +10,7 @@ public class ConditionMonitor {
     private String typeSign;
     private int max;
     private int wound;
-    private int woundModiferStep;
+    private int woundModiferStep = 3;
     private int woundModiferThreshold;
 
     public ConditionMonitor(String typeSign) {
@@ -22,6 +22,22 @@ public class ConditionMonitor {
         this.wound = 0;
         this.woundModiferStep = 3;
         this.woundModiferThreshold = 0;
+    }
+
+    /**
+     * @return overflow amount
+     */
+    public int updateWound(int amount) {
+        wound += amount;
+        if (wound < 0) {
+            wound = 0;
+        }
+        if (max > 0 && wound > max) {
+            int overflow = wound - max;
+            wound = max;
+            return overflow;
+        }
+        return 0;
     }
 
     public int getMax() {

@@ -3,7 +3,8 @@ package org.toj.dnd.irctoolkit.engine.command.game.sr5e;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand;
 import org.toj.dnd.irctoolkit.engine.command.IrcCommand.CommandSegment;
 import org.toj.dnd.irctoolkit.exceptions.ToolkitCommandException;
-import org.toj.dnd.irctoolkit.game.sr5e.PC;
+import org.toj.dnd.irctoolkit.game.Game;
+import org.toj.dnd.irctoolkit.game.sr5e.Combatant;
 
 @IrcCommand(command = "set", args = { CommandSegment.INT,
     CommandSegment.NULLABLE_STRING, CommandSegment.STRING })
@@ -24,25 +25,37 @@ public class SetCommand extends Sr5eGameCommand {
         if (name == null) {
             name = caller;
         }
-        PC pc = getGame().findCharByNameOrAbbre(name);
-        if (pc != null) {
-            if ("init".equalsIgnoreCase(attr)) {
-                pc.setInit(value);
+        if ("init".equalsIgnoreCase(attr) && getGame().isInBattle()) {
+            getGame().getBattle().setCombatantInit(name, value);
+            return;
+        }
+        Combatant c = getGame().findCharByNameOrAbbre(name);
+        if (c != null) {
+            if ("cmp".equalsIgnoreCase(attr)) {
+                c.getPhysical().init(value);
             }
-            if ("physical".equalsIgnoreCase(attr)) {
-                pc.getPhysical().init(value);
-            }
-            if ("stun".equalsIgnoreCase(attr)) {
-                pc.getStun().init(value);
+            if ("cms".equalsIgnoreCase(attr)) {
+                c.getStun().init(value);
             }
             if ("woundp".equalsIgnoreCase(attr)) {
-                pc.getPhysical().setWound(value);
+                c.getPhysical().setWound(value);
             }
             if ("wounds".equalsIgnoreCase(attr)) {
-                pc.getStun().setWound(value);
+                c.getStun().setWound(value);
+            }
+            if ("wmstepp".equalsIgnoreCase(attr)) {
+                c.getPhysical().setWoundModiferStep(value);
+            }
+            if ("wmsteps".equalsIgnoreCase(attr)) {
+                c.getStun().setWoundModiferStep(value);
+            }
+            if ("wmthresholdp".equalsIgnoreCase(attr)) {
+                c.getPhysical().setWoundModiferThreshold(value);
+            }
+            if ("wmthresholds".equalsIgnoreCase(attr)) {
+                c.getStun().setWoundModiferThreshold(value);
             }
         }
-        sendTopic(getGame().generateTopic());
         if (topicRefreshNeeded) {
             refreshTopic();
         }

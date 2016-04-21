@@ -15,9 +15,10 @@ public class PC extends Combatant {
         return inBattle;
     }
 
-    public String getStatusForTopic() {
+    @Override
+    public String toTopicString(boolean isCurrent) {
         if (isInBattle()) {
-            return super.getStatusForTopic();
+            return super.toTopicString(false);
         }
 
         StringBuilder status = new StringBuilder(getName()).append(getPhysical().toStatusString())

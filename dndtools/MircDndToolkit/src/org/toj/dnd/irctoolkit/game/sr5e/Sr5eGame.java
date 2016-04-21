@@ -1,10 +1,10 @@
 package org.toj.dnd.irctoolkit.game.sr5e;
 
 import org.toj.dnd.irctoolkit.game.Game;
-import org.toj.dnd.irctoolkit.util.AbbreviationUtil;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -31,6 +31,9 @@ public class Sr5eGame extends Game {
 
     public void removePc(String name) {
         pcs.remove(name);
+        if (isInBattle()) {
+            battle.remove(name);
+        }
     }
 
     public void renamePc(String oldName, String newName) {
@@ -65,8 +68,14 @@ public class Sr5eGame extends Game {
         return pcs.containsKey(ch);
     }
 
-    public PC findCharByNameOrAbbre(String name) {
-        return pcs.keySet().stream().filter(n -> n.startsWith(name)).findFirst().map(pcs::get).orElse(null);
+    public Combatant findCharByNameOrAbbre(String name) {
+        Optional<PC> pc = pcs.keySet().stream().filter(n -> n.startsWith(name)).findFirst().map(pcs::get);
+        if (pc.isPresent()) {
+            return pc.get();
+        } else if (isInBattle()) {
+            return battle.findCharByNameOrAbbre(name);
+        }
+        return null;
     }
 
     @Override
@@ -76,7 +85,10 @@ public class Sr5eGame extends Game {
 
     @Override
     public String generateTopic() {
-        return pcs.keySet().stream().sorted().map(key -> pcs.get(key)).map(PC::getStatusForTopic)
+        if (isInBattle()) {
+            return battle.generateTopic();
+        }
+        return pcs.keySet().stream().sorted().map(key -> pcs.get(key)).map(pc -> pc.toTopicString(false))
                 .collect(Collectors.joining(", "));
     }
 
